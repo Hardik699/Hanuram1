@@ -169,7 +169,7 @@ export default function CostingAnalysis() {
                   value={inputs.productName}
                   onChange={handleInputChange}
                   placeholder="Enter product name"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Cost per box"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
               <div>
@@ -209,7 +209,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Quantity in kg"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -242,7 +242,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Cost per unit"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
               <div>
@@ -256,7 +256,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Quantity per kg"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -289,7 +289,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Cost per unit"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
               <div>
@@ -303,7 +303,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Quantity per kg"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -336,7 +336,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Direct input"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -369,7 +369,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Direct input"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -402,7 +402,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Cost per carton"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
               <div>
@@ -416,7 +416,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Quantity per kg"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -449,7 +449,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Cost per sticker"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
               <div>
@@ -463,7 +463,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Quantity per kg"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -496,7 +496,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Cost per kg"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
               <div>
@@ -510,7 +510,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Quantity per kg"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -543,7 +543,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Excess weight"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
               <div>
@@ -557,7 +557,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="RMC cost"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
@@ -588,7 +588,7 @@ export default function CostingAnalysis() {
                   onChange={handleInputChange}
                   placeholder="Wastage %"
                   step="0.01"
-                  className="border-slate-300 dark:border-slate-600"
+                  className="border-slate-200"
                 />
               </div>
             </div>
