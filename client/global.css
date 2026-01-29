@@ -694,22 +694,39 @@
 
   /* Professional Card Styles */
   .prof-card {
-    @apply bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 border border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-elevation-4 hover:-translate-y-1;
+    @apply bg-white rounded-2xl p-6 border border-slate-100 transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
 
   /* Professional Primary Button */
   .prof-btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white shadow-elevation-2 transition-all duration-200 hover:shadow-elevation-4 hover:scale-105 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  .prof-btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
   }
 
   /* Professional Secondary Button */
   .prof-btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 shadow-elevation-1 transition-all duration-200 hover:shadow-elevation-3 hover:scale-105 hover:-translate-y-0.5 border border-slate-200 dark:border-slate-600 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 border border-slate-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .prof-btn-secondary:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   }
 
   /* Professional Danger Button */
   .prof-btn-danger {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-red-600 dark:bg-red-700 text-white shadow-elevation-2 transition-all duration-200 hover:shadow-elevation-4 hover:scale-105 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-red-600 text-white shadow-lg transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  }
+
+  .prof-btn-danger:hover {
+    @apply bg-red-700;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
   }
 
   /* Professional Small Button */
