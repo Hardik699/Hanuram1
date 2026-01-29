@@ -219,49 +219,49 @@ export default function OpCostManagement() {
 
   if (loading) {
     return (
-      <Layout>
+      <Layout title="Operational Cost (OP Cost)">
         <LoadingSpinner message="Loading OP costs..." fullScreen />
       </Layout>
     );
   }
 
   return (
-    <Layout>
+    <Layout
+      title="Operational Cost (OP Cost)"
+      headerActions={
+        <Button onClick={() => {
+          setEditingId(null);
+          setFormData({
+            month: new Date().toLocaleString('default', { month: 'long' }),
+            year: new Date().getFullYear(),
+            costs: {
+              rent: 0,
+              fixedSalary: 0,
+              electricity: 0,
+              marketing: 0,
+              logistics: 0,
+              insurance: 0,
+              vehicleInstallments: 0,
+              travelCost: 0,
+              miscellaneous: 0,
+              otherCosts: 0,
+              equipmentMaintenance: 0,
+              internetCharges: 0,
+              telephoneBills: 0,
+            },
+            production: {
+              mithaiProduction: 0,
+              namkeenProduction: 0,
+            },
+          });
+          setShowForm(!showForm);
+        }} className="flex-shrink-0">
+          <Plus size={16} className="mr-2" />
+          {showForm ? "Cancel" : "Add OP Cost"}
+        </Button>
+      }
+    >
       <div className="space-y-4 sm:space-y-6">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-          <h1 className="text-2xl sm:text-3xl font-bold">Operational Cost (OP Cost)</h1>
-          <Button onClick={() => {
-            setEditingId(null);
-            setFormData({
-              month: new Date().toLocaleString('default', { month: 'long' }),
-              year: new Date().getFullYear(),
-              costs: {
-                rent: 0,
-                fixedSalary: 0,
-                electricity: 0,
-                marketing: 0,
-                logistics: 0,
-                insurance: 0,
-                vehicleInstallments: 0,
-                travelCost: 0,
-                miscellaneous: 0,
-                otherCosts: 0,
-                equipmentMaintenance: 0,
-                internetCharges: 0,
-                telephoneBills: 0,
-              },
-              production: {
-                mithaiProduction: 0,
-                namkeenProduction: 0,
-              },
-            });
-            setShowForm(!showForm);
-          }}>
-            <Plus size={16} className="mr-2" />
-            {showForm ? "Cancel" : "Add OP Cost"}
-          </Button>
-        </div>
 
         {/* Form */}
         {showForm && (
