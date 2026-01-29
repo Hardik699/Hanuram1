@@ -436,23 +436,23 @@
 
   /* Material Primary Button */
   .btn-primary {
-    @apply bg-accent text-white;
-    box-shadow: var(--elevation-3);
+    @apply bg-blue-600 text-white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
   }
 
   .btn-primary:hover {
-    @apply bg-accent;
-    box-shadow: var(--elevation-6);
+    @apply bg-blue-700;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     transform: translateY(-2px);
   }
 
   .btn-primary:active {
-    box-shadow: var(--elevation-8);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5);
   }
 
   .btn-primary:disabled {
-    @apply bg-muted text-muted-foreground cursor-not-allowed;
-    box-shadow: var(--elevation-1);
+    @apply bg-slate-300 text-slate-500 cursor-not-allowed;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     transform: none;
   }
 
