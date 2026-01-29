@@ -261,7 +261,7 @@ export default function CostingAnalysis() {
               </div>
             </div>
             {results && (
-              <div className="bg-green-50 p-3 rounded border border-green-200 dark:border-green-800">
+              <div className="bg-green-50 p-3 rounded border border-green-200">
                 <p className="font-medium text-green-900 dark:text-green-200">
                   ✓ Hygiene Cost / Kg = {inputs.hygieneCostPerUnit} × {inputs.hygieneQtyPerKg} = <span className="font-bold">₹{results.hygieneCostPerKg.toFixed(2)}/Kg</span>
                 </p>
