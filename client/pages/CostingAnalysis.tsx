@@ -262,7 +262,7 @@ export default function CostingAnalysis() {
             </div>
             {results && (
               <div className="bg-green-50 p-3 rounded border border-green-200">
-                <p className="font-medium text-green-900 dark:text-green-200">
+                <p className="font-medium text-green-900">
                   ✓ Hygiene Cost / Kg = {inputs.hygieneCostPerUnit} × {inputs.hygieneQtyPerKg} = <span className="font-bold">₹{results.hygieneCostPerKg.toFixed(2)}/Kg</span>
                 </p>
               </div>
@@ -700,10 +700,10 @@ export default function CostingAnalysis() {
                       </td>
                     </tr>
                     <tr className="bg-green-100 dark:bg-green-900 border-t-2 border-green-300 dark:border-green-700">
-                      <td className="px-4 py-4 font-bold text-lg text-green-900 dark:text-green-200">
+                      <td className="px-4 py-4 font-bold text-lg text-green-900">
                         👉 TOTAL PACKAGING & HANDLING COST / KG
                       </td>
-                      <td className="px-4 py-4 text-right font-bold text-lg text-green-900 dark:text-green-200">
+                      <td className="px-4 py-4 text-right font-bold text-lg text-green-900">
                         ₹{results.totalPackagingHandlingCost.toFixed(2)}
                       </td>
                     </tr>
@@ -713,7 +713,7 @@ export default function CostingAnalysis() {
 
               {/* Summary Box */}
               <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950 dark:to-blue-950 rounded-lg p-6 border-2 border-green-300 dark:border-green-700">
-                <h3 className="text-lg font-bold text-green-900 dark:text-green-200 mb-3">
+                <h3 className="text-lg font-bold text-green-900 mb-3">
                   📊 Final Summary
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
