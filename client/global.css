@@ -406,16 +406,16 @@
     color: hsl(var(--muted-foreground));
   }
 
-  /* Card - Professional Design */
+  /* Card - Professional White Theme Design */
   .card {
-    @apply bg-card rounded-2xl p-6 border border-border;
-    box-shadow: var(--elevation-2);
+    @apply bg-white rounded-2xl p-6 border border-slate-100;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
     transition: all var(--animation-standard);
   }
 
   .card:hover {
-    box-shadow: var(--elevation-4);
-    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
   }
 
   /* Material Design Button */
