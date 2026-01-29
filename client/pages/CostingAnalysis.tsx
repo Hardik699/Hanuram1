@@ -152,17 +152,7 @@ export default function CostingAnalysis() {
 
   return (
     <Layout title="Costing Analysis">
-      <>
-        <PageHeader
-          title="Costing Analysis"
-          description="Calculate packaging & handling cost per Kg for products"
-          breadcrumbs={[{ label: "Costing Analysis" }]}
-          icon={
-            <Calculator className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          }
-        />
-
-        <div className="space-y-6">
+      <div className="space-y-6">
           {/* Product Details Section */}
           <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
             <h2 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">
@@ -747,8 +737,7 @@ export default function CostingAnalysis() {
               </div>
             </div>
           )}
-        </div>
-      </>
+      </div>
     </Layout>
   );
 }
