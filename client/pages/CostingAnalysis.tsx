@@ -154,8 +154,8 @@ export default function CostingAnalysis() {
     <Layout title="Costing Analysis">
       <div className="space-y-6">
           {/* Product Details Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
-            <h2 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+            <h2 className="text-lg font-semibold mb-4 text-slate-900">
               📦 Product Details
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
