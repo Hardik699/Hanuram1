@@ -341,7 +341,7 @@ export default function CostingAnalysis() {
               </div>
             </div>
             {results && (
-              <div className="bg-orange-50 dark:bg-orange-950 p-3 rounded border border-orange-200 dark:border-orange-800">
+              <div className="bg-orange-50 p-3 rounded border border-orange-200 dark:border-orange-800">
                 <p className="font-medium text-orange-900 dark:text-orange-200">
                   ✓ MAP Cost / Kg = <span className="font-bold">₹{results.mapCostPerKg.toFixed(2)}/Kg</span>
                 </p>
