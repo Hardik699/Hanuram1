@@ -736,32 +736,32 @@
 
   /* Professional Table Header */
   .prof-table-head {
-    @apply bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 text-white border-b-2 border-blue-700 dark:border-blue-800;
+    @apply bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white border-b-2 border-blue-700 shadow-sm;
   }
 
   .prof-table-head-cell {
-    @apply px-6 py-4 text-left text-xs font-bold uppercase tracking-wider whitespace-nowrap text-white;
+    @apply px-6 py-4 text-left text-xs font-bold uppercase tracking-widest whitespace-nowrap text-white;
   }
 
   /* Professional Table Row */
   .prof-table-row {
-    @apply transition-all duration-200 group border-l-4 border-l-transparent hover:border-l-blue-500;
+    @apply transition-all duration-200 group border-l-4 border-l-transparent hover:border-l-blue-500 border-b border-slate-100;
   }
 
   .prof-table-row-even {
-    @apply bg-slate-50/50 dark:bg-slate-800/30;
+    @apply bg-slate-50/40;
   }
 
   .prof-table-row-hover {
-    @apply hover:bg-blue-50 dark:hover:bg-blue-900/10;
+    @apply hover:bg-blue-50;
   }
 
   .prof-table-cell {
-    @apply px-6 py-3 text-sm font-medium text-slate-900 dark:text-white;
+    @apply px-6 py-3 text-sm font-medium text-slate-900;
   }
 
   .prof-table-cell-bold {
-    @apply px-6 py-3 text-sm font-bold text-slate-900 dark:text-white;
+    @apply px-6 py-3 text-sm font-bold text-slate-900;
   }
 
   /* Professional Table Badge Cells */
