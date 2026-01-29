@@ -1,0 +1,522 @@
+import { MongoClient, Db } from "mongodb";
+
+let client: MongoClient | null = null;
+let db: Db | null = null;
+let connectionStatus = "disconnected";
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
+export async function connectDB(): Promise<boolean> {
+  if (db) {
+    return true;
+  }
+
+  try {
+    if (!MONGODB_URI) {
+      console.error("❌ MONGODB_URI environment variable is not set");
+      return false;
+    }
+    connectionStatus = "connecting";
+    client = new MongoClient(MONGODB_URI);
+    await client.connect();
+    db = client.db("faction_app");
+
+    // Verify connection by pinging the database
+    await db.admin().ping();
+    connectionStatus = "connected";
+    console.log("✅ Connected to MongoDB");
+
+    // Initialize collections
+    await initializeCollections();
+
+    return true;
+  } catch (error) {
+    connectionStatus = "disconnected";
+    console.error("❌ MongoDB connection failed:", error);
+    return false;
+  }
+}
+
+async function initializeCollections() {
+  if (!db) return;
+
+  try {
+    const collections = await db.listCollections().toArray();
+    const collectionNames = collections.map((c) => c.name);
+
+    // Create roles collection if it doesn't exist
+    if (!collectionNames.includes("roles")) {
+      await db.createCollection("roles");
+      const rolesData = [
+        { role_id: 1, role_name: "Super Admin" },
+        { role_id: 2, role_name: "Admin" },
+        { role_id: 3, role_name: "Manager" },
+        { role_id: 4, role_name: "Vendor" },
+        { role_id: 5, role_name: "Viewer" },
+      ] as any[];
+      await db.collection("roles").insertMany(rolesData);
+      console.log("✅ Roles collection initialized");
+    }
+
+    // Create permissions collection if it doesn't exist
+    if (!collectionNames.includes("permissions")) {
+      await db.createCollection("permissions");
+      const permissionsData = [
+        {
+          permission_id: 1,
+          permission_key: "dashboard_view",
+          description: "View Dashboard",
+        },
+        {
+          permission_id: 2,
+          permission_key: "rm_view",
+          description: "View Raw Materials",
+        },
+        {
+          permission_id: 3,
+          permission_key: "rm_add",
+          description: "Add Raw Materials",
+        },
+        {
+          permission_id: 4,
+          permission_key: "rm_edit",
+          description: "Edit Raw Materials",
+        },
+        {
+          permission_id: 5,
+          permission_key: "recipe_view",
+          description: "View Recipes",
+        },
+        {
+          permission_id: 6,
+          permission_key: "recipe_add",
+          description: "Add Recipes",
+        },
+        {
+          permission_id: 7,
+          permission_key: "recipe_edit",
+          description: "Edit Recipes",
+        },
+        {
+          permission_id: 8,
+          permission_key: "category_view",
+          description: "View Categories",
+        },
+        {
+          permission_id: 9,
+          permission_key: "category_add",
+          description: "Add Categories",
+        },
+        {
+          permission_id: 10,
+          permission_key: "subcategory_view",
+          description: "View SubCategories",
+        },
+        {
+          permission_id: 11,
+          permission_key: "subcategory_add",
+          description: "Add SubCategories",
+        },
+        {
+          permission_id: 12,
+          permission_key: "unit_view",
+          description: "View Units",
+        },
+        {
+          permission_id: 13,
+          permission_key: "unit_add",
+          description: "Add Units",
+        },
+        {
+          permission_id: 14,
+          permission_key: "vendor_view",
+          description: "View Vendors",
+        },
+        {
+          permission_id: 15,
+          permission_key: "vendor_add",
+          description: "Add Vendors",
+        },
+        {
+          permission_id: 16,
+          permission_key: "vendor_edit",
+          description: "Edit Vendors",
+        },
+        {
+          permission_id: 17,
+          permission_key: "quotation_view",
+          description: "View Quotations",
+        },
+        {
+          permission_id: 18,
+          permission_key: "quotation_add",
+          description: "Add Quotations",
+        },
+        {
+          permission_id: 19,
+          permission_key: "user_manage",
+          description: "Manage Users",
+        },
+        {
+          permission_id: 20,
+          permission_key: "labour_view",
+          description: "View Labour",
+        },
+        {
+          permission_id: 21,
+          permission_key: "labour_add",
+          description: "Add Labour",
+        },
+        {
+          permission_id: 22,
+          permission_key: "labour_edit",
+          description: "Edit Labour",
+        },
+      ] as any[];
+      await db.collection("permissions").insertMany(permissionsData);
+      console.log("✅ Permissions collection initialized");
+    } else {
+      // Ensure labour permissions are in the permissions collection
+      const permissionsCollection = db.collection("permissions");
+      const labourPerms = [
+        { permission_id: 20, permission_key: "labour_view", description: "View Labour" },
+        { permission_id: 21, permission_key: "labour_add", description: "Add Labour" },
+        { permission_id: 22, permission_key: "labour_edit", description: "Edit Labour" },
+      ];
+      for (const perm of labourPerms) {
+        await permissionsCollection.updateOne(
+          { permission_id: perm.permission_id },
+          { $setOnInsert: perm },
+          { upsert: true }
+        );
+      }
+      console.log("✅ Labour permissions ensured in permissions collection");
+    }
+
+    // Create role_permissions collection if it doesn't exist
+    if (!collectionNames.includes("role_permissions")) {
+      await db.createCollection("role_permissions");
+      const rolePermissionsData = [
+        // Super Admin - All permissions
+        { role_id: 1, permission_id: 1 },
+        { role_id: 1, permission_id: 2 },
+        { role_id: 1, permission_id: 3 },
+        { role_id: 1, permission_id: 4 },
+        { role_id: 1, permission_id: 5 },
+        { role_id: 1, permission_id: 6 },
+        { role_id: 1, permission_id: 7 },
+        { role_id: 1, permission_id: 8 },
+        { role_id: 1, permission_id: 9 },
+        { role_id: 1, permission_id: 10 },
+        { role_id: 1, permission_id: 11 },
+        { role_id: 1, permission_id: 12 },
+        { role_id: 1, permission_id: 13 },
+        { role_id: 1, permission_id: 14 },
+        { role_id: 1, permission_id: 15 },
+        { role_id: 1, permission_id: 16 },
+        { role_id: 1, permission_id: 17 },
+        { role_id: 1, permission_id: 18 },
+        { role_id: 1, permission_id: 19 },
+        { role_id: 1, permission_id: 20 },
+        { role_id: 1, permission_id: 21 },
+        { role_id: 1, permission_id: 22 },
+        // Admin
+        { role_id: 2, permission_id: 1 },
+        { role_id: 2, permission_id: 2 },
+        { role_id: 2, permission_id: 3 },
+        { role_id: 2, permission_id: 4 },
+        { role_id: 2, permission_id: 5 },
+        { role_id: 2, permission_id: 6 },
+        { role_id: 2, permission_id: 7 },
+        { role_id: 2, permission_id: 8 },
+        { role_id: 2, permission_id: 9 },
+        { role_id: 2, permission_id: 12 },
+        { role_id: 2, permission_id: 13 },
+        { role_id: 2, permission_id: 14 },
+        { role_id: 2, permission_id: 15 },
+        { role_id: 2, permission_id: 16 },
+        { role_id: 2, permission_id: 17 },
+        { role_id: 2, permission_id: 18 },
+        { role_id: 2, permission_id: 19 },
+        { role_id: 2, permission_id: 20 },
+        { role_id: 2, permission_id: 21 },
+        { role_id: 2, permission_id: 22 },
+        // Manager
+        { role_id: 3, permission_id: 1 },
+        { role_id: 3, permission_id: 2 },
+        { role_id: 3, permission_id: 5 },
+        { role_id: 3, permission_id: 17 },
+        // Vendor
+        { role_id: 4, permission_id: 14 },
+        { role_id: 4, permission_id: 17 },
+        // Viewer
+        { role_id: 5, permission_id: 1 },
+        { role_id: 5, permission_id: 2 },
+        { role_id: 5, permission_id: 5 },
+      ];
+      await db.collection("role_permissions").insertMany(rolePermissionsData);
+      console.log("✅ Role Permissions collection initialized");
+    } else {
+      // Ensure labour permissions are added to existing roles
+      const rolePermissionsCollection = db.collection("role_permissions");
+
+      // Add labour permissions (20, 21, 22) for Super Admin (role_id: 1)
+      for (const permId of [20, 21, 22]) {
+        await rolePermissionsCollection.updateOne(
+          { role_id: 1, permission_id: permId },
+          { $setOnInsert: { role_id: 1, permission_id: permId } },
+          { upsert: true }
+        );
+      }
+
+      // Add labour permissions for Admin (role_id: 2)
+      for (const permId of [20, 21, 22]) {
+        await rolePermissionsCollection.updateOne(
+          { role_id: 2, permission_id: permId },
+          { $setOnInsert: { role_id: 2, permission_id: permId } },
+          { upsert: true }
+        );
+      }
+
+      // Ensure user_manage permission (19) for Admin (role_id: 2)
+      await rolePermissionsCollection.updateOne(
+        { role_id: 2, permission_id: 19 },
+        { $setOnInsert: { role_id: 2, permission_id: 19 } },
+        { upsert: true }
+      );
+
+      console.log("✅ Labour permissions ensured for roles");
+    }
+
+    // Create users collection if it doesn't exist
+    if (!collectionNames.includes("users")) {
+      await db.createCollection("users");
+    }
+
+    // Ensure default admin user exists with correct structure
+    const defaultUser = await db.collection("users").findOne({
+      username: "admin",
+    });
+
+    if (!defaultUser) {
+      // Create a default admin user with role_id 1 (Super Admin)
+      await db.collection("users").insertOne({
+        username: "admin",
+        password: "admin123", // In production, this should be hashed
+        email: "admin@faction.local",
+        role_id: 1,
+        status: "active",
+        createdAt: new Date(),
+      });
+      console.log(
+        "✅ Default admin user created with credentials: admin / admin123",
+      );
+    } else {
+      // Update existing user to ensure correct password and role_id
+      await db.collection("users").updateOne(
+        { username: "admin" },
+        {
+          $set: {
+            password: "admin123",
+            role_id: 1,
+            status: "active",
+            email: "admin@faction.local",
+          },
+        },
+      );
+      console.log("✅ Default admin user updated with credentials: admin / admin123");
+    }
+
+    // Create categories collection
+    if (!collectionNames.includes("categories")) {
+      await db.createCollection("categories");
+      // Create unique index on category name
+      await db
+        .collection("categories")
+        .createIndex({ name: 1 }, { unique: true });
+      console.log("✅ Categories collection initialized");
+    }
+
+    // Create subcategories collection
+    if (!collectionNames.includes("subcategories")) {
+      await db.createCollection("subcategories");
+      // Create unique index on subcategory name within a category
+      await db
+        .collection("subcategories")
+        .createIndex({ name: 1 }, { unique: true });
+      console.log("✅ SubCategories collection initialized");
+    }
+
+    // Create units collection
+    if (!collectionNames.includes("units")) {
+      await db.createCollection("units");
+      // Create unique index on unit name
+      await db.collection("units").createIndex({ name: 1 }, { unique: true });
+      console.log("✅ Units collection initialized");
+    }
+
+    // Create vendors collection
+    if (!collectionNames.includes("vendors")) {
+      await db.createCollection("vendors");
+      // Create unique index on vendor name
+      await db.collection("vendors").createIndex({ name: 1 }, { unique: true });
+      console.log("✅ Vendors collection initialized");
+    }
+
+    // Create raw materials collection
+    if (!collectionNames.includes("raw_materials")) {
+      await db.createCollection("raw_materials");
+      // Create unique index on RM code
+      await db
+        .collection("raw_materials")
+        .createIndex({ code: 1 }, { unique: true });
+      console.log("✅ Raw Materials collection initialized");
+    }
+
+    // Create RM vendor prices collection (for price history and vendor-specific pricing)
+    if (!collectionNames.includes("rm_vendor_prices")) {
+      await db.createCollection("rm_vendor_prices");
+      console.log("✅ RM Vendor Prices collection initialized");
+    }
+
+    // Create RM price logs collection (for price change tracking)
+    if (!collectionNames.includes("rm_price_logs")) {
+      await db.createCollection("rm_price_logs");
+      console.log("✅ RM Price Logs collection initialized");
+    }
+
+    // Create RM audit logs collection (for tracking all edits and deletes)
+    if (!collectionNames.includes("raw_material_logs")) {
+      await db.createCollection("raw_material_logs");
+      console.log("✅ Raw Material Logs collection initialized");
+    }
+
+    // Create recipes collection
+    if (!collectionNames.includes("recipes")) {
+      await db.createCollection("recipes");
+      // Create unique index on recipe code
+      await db.collection("recipes").createIndex({ code: 1 }, { unique: true });
+      console.log("✅ Recipes collection initialized");
+    }
+
+    // Create recipe items collection (RMs in each recipe)
+    if (!collectionNames.includes("recipe_items")) {
+      await db.createCollection("recipe_items");
+      console.log("✅ Recipe Items collection initialized");
+    }
+
+    // Create recipe history collection (snapshots of recipes over time)
+    if (!collectionNames.includes("recipe_history")) {
+      await db.createCollection("recipe_history");
+      console.log("✅ Recipe History collection initialized");
+    }
+
+    // Create recipe logs collection (logs for changes in recipes)
+    if (!collectionNames.includes("recipe_logs")) {
+      await db.createCollection("recipe_logs");
+      console.log("✅ Recipe Logs collection initialized");
+    }
+
+    // Create quotations collection
+    if (!collectionNames.includes("quotations")) {
+      await db.createCollection("quotations");
+      // Create index on recipe ID for faster queries
+      await db.collection("quotations").createIndex({ recipeId: 1 });
+      console.log("✅ Quotations collection initialized");
+    }
+
+    // Create quotation items collection (RMs in each quotation)
+    if (!collectionNames.includes("quotation_items")) {
+      await db.createCollection("quotation_items");
+      // Create index on quotation ID
+      await db.collection("quotation_items").createIndex({ quotationId: 1 });
+      console.log("✅ Quotation Items collection initialized");
+    }
+
+    // Create quotation logs collection (for tracking vendor changes and edits)
+    if (!collectionNames.includes("quotation_logs")) {
+      await db.createCollection("quotation_logs");
+      // Create index on quotation ID
+      await db.collection("quotation_logs").createIndex({ quotationId: 1 });
+      console.log("✅ Quotation Logs collection initialized");
+    }
+
+    // Create app_data collection if it doesn't exist
+    if (!collectionNames.includes("app_data")) {
+      await db.createCollection("app_data");
+      console.log("✅ App data collection initialized");
+    }
+
+    // Create user_modules collection for module-based access control
+    if (!collectionNames.includes("user_modules")) {
+      await db.createCollection("user_modules");
+      // Initialize with admin user having all modules
+      const adminUserModules = [
+        { user_id: "admin", module_key: "DASHBOARD" },
+        { user_id: "admin", module_key: "CATEGORY_UNIT" },
+        { user_id: "admin", module_key: "RAW_MATERIAL" },
+        { user_id: "admin", module_key: "LABOUR" },
+        { user_id: "admin", module_key: "RAW_MATERIAL_COSTING" },
+        { user_id: "admin", module_key: "USER_MANAGEMENT" },
+        { user_id: "admin", module_key: "REPORTS" },
+        { user_id: "admin", module_key: "SETTINGS" },
+      ] as any[];
+      await db.collection("user_modules").insertMany(adminUserModules);
+      console.log("✅ User modules collection initialized");
+    } else {
+      // Ensure LABOUR module exists for admin user
+      const userModulesCollection = db.collection("user_modules");
+      await userModulesCollection.updateOne(
+        { user_id: "admin", module_key: "LABOUR" },
+        { $setOnInsert: { user_id: "admin", module_key: "LABOUR" } },
+        { upsert: true }
+      );
+    }
+
+    // Create labour collection for factory labour management
+    if (!collectionNames.includes("labour")) {
+      await db.createCollection("labour");
+      // Create unique index on labour code
+      await db
+        .collection("labour")
+        .createIndex({ code: 1 }, { unique: true });
+      console.log("✅ Labour collection initialized");
+    }
+
+    // Create recipe labour collection (linking labour to recipes)
+    if (!collectionNames.includes("recipe_labour")) {
+      await db.createCollection("recipe_labour");
+      // Create index on recipe ID for faster queries
+      await db.collection("recipe_labour").createIndex({ recipeId: 1 });
+      console.log("✅ Recipe Labour collection initialized");
+    }
+
+    // Create recipe packaging costs collection
+    if (!collectionNames.includes("recipe_packaging_costs")) {
+      await db.createCollection("recipe_packaging_costs");
+      // Create unique index on recipe ID
+      await db.collection("recipe_packaging_costs").createIndex({ recipeId: 1 }, { unique: true });
+      console.log("✅ Recipe Packaging Costs collection initialized");
+    }
+  } catch (error) {
+    console.error("Error initializing collections:", error);
+  }
+}
+
+export function getDB(): Db | null {
+  return db;
+}
+
+export function getConnectionStatus(): string {
+  return connectionStatus;
+}
+
+export async function disconnectDB(): Promise<void> {
+  if (client) {
+    await client.close();
+    client = null;
+    db = null;
+    connectionStatus = "disconnected";
+    console.log("Disconnected from MongoDB");
+  }
+}
