@@ -14,13 +14,13 @@ export function Layout({
   headerActions,
 }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-slate-50">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Header (optional) */}
       {!hideHeader && (
-        <header className="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-elevation-2">
+        <header className="fixed top-0 left-0 right-0 z-20 bg-white border-b border-slate-100 shadow-sm">
           <div className="relative">
             <div className="h-14 sm:h-16 md:h-20 ml-0 md:ml-64 px-3 sm:px-4 md:px-6 flex items-center justify-between gap-2 sm:gap-4">
               {title && (
