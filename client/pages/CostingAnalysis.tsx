@@ -224,7 +224,7 @@ export default function CostingAnalysis() {
 
           {/* 2. Hygiene Cost Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 2
               </span>
@@ -271,7 +271,7 @@ export default function CostingAnalysis() {
 
           {/* 3. Scavenger Cost Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 3
               </span>
@@ -318,7 +318,7 @@ export default function CostingAnalysis() {
 
           {/* 4. MAP Cost Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 4
               </span>
@@ -351,7 +351,7 @@ export default function CostingAnalysis() {
 
           {/* 5. Smaller Size Packaging Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 5
               </span>
@@ -384,7 +384,7 @@ export default function CostingAnalysis() {
 
           {/* 6. Mono Carton Cost Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 6
               </span>
@@ -431,7 +431,7 @@ export default function CostingAnalysis() {
 
           {/* 7. Sticker Cost Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 7
               </span>
@@ -478,7 +478,7 @@ export default function CostingAnalysis() {
 
           {/* 8. Butter Paper Cost Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 8
               </span>
@@ -525,7 +525,7 @@ export default function CostingAnalysis() {
 
           {/* 9. Excess Stock Cost Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="bg-cyan-100 dark:bg-cyan-900 text-cyan-700 dark:text-cyan-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 9
               </span>
@@ -572,7 +572,7 @@ export default function CostingAnalysis() {
 
           {/* Wastage Section */}
           <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <span className="text-2xl">⚠️</span>
               Material Wastage
             </h3>
@@ -610,10 +610,10 @@ export default function CostingAnalysis() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-slate-100 dark:bg-slate-700 border-b border-slate-300 dark:border-slate-600">
-                      <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">
+                      <th className="px-4 py-3 text-left font-semibold text-slate-900">
                         Cost Component
                       </th>
-                      <th className="px-4 py-3 text-right font-semibold text-slate-900 dark:text-white">
+                      <th className="px-4 py-3 text-right font-semibold text-slate-900">
                         Cost per Kg (₹)
                       </th>
                     </tr>
@@ -623,7 +623,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Shipper Box Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.shipperBoxCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -631,7 +631,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Hygiene Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.hygieneCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -639,7 +639,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Scavenger Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.scavengerCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -647,7 +647,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         MAP Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.mapCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -655,7 +655,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Smaller Size Packaging Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.smallerSizePackagingCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -663,7 +663,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Mono Carton Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.monoCartonCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -671,7 +671,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Sticker Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.stickerCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -679,7 +679,7 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Butter Paper Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.butterPaperCostPerKg.toFixed(2)}
                       </td>
                     </tr>
@@ -687,12 +687,12 @@ export default function CostingAnalysis() {
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                         Excess Stock Cost
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 text-right font-medium text-slate-900">
                         ₹{results.excessStockCostPerKg.toFixed(2)}
                       </td>
                     </tr>
                     <tr className="border-b border-slate-200 dark:border-slate-700 bg-amber-50 dark:bg-amber-950">
-                      <td className="px-4 py-3 font-medium text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 font-medium text-slate-900">
                         Material Wastage Cost
                       </td>
                       <td className="px-4 py-3 text-right font-medium text-amber-900 dark:text-amber-200">
@@ -721,7 +721,7 @@ export default function CostingAnalysis() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
                       Product Name
                     </p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-white">
+                    <p className="text-xl font-bold text-slate-900">
                       {inputs.productName || "Not specified"}
                     </p>
                   </div>
