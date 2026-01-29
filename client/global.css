@@ -13,45 +13,45 @@
    * Smooth Animations & Transitions
    */
   :root {
-    /* Professional Primary Colors - Modern Blue */
-    --primary: 219 98% 54%;       /* Modern Blue #0066FF */
-    --primary-dark: 219 98% 44%;  /* Darker Blue */
-    --primary-light: 219 100% 64%; /* Light Blue */
-    
+    /* Professional Primary Colors - Vibrant Blue */
+    --primary: 217 98% 52%;        /* Vibrant Blue #0060FF */
+    --primary-dark: 217 98% 42%;   /* Darker Blue */
+    --primary-light: 217 100% 62%; /* Light Blue */
+
     /* Secondary Colors - Professional Teal */
-    --secondary: 180 100% 50%;    /* Professional Teal - #00CCCC */
-    --secondary-dark: 180 100% 40%;
-    --secondary-light: 180 100% 60%;
-    
-    /* Neutral Colors - Clean White Theme */
-    --background: 0 0% 99%;       /* Almost White #F7F7F7 */
-    --foreground: 220 13% 20%;    /* Deep Blue-Grey #2A3F5F */
-    --surface: 0 0% 100%;         /* Pure White */
-    --surface-variant: 220 14% 96%; /* Very Light Blue-Grey #F0F2F5 */
-    
+    --secondary: 175 100% 48%;    /* Professional Cyan #00BFBF */
+    --secondary-dark: 175 100% 38%;
+    --secondary-light: 175 100% 58%;
+
+    /* Neutral Colors - Pure White Theme */
+    --background: 0 0% 100%;       /* Pure White */
+    --foreground: 210 20% 18%;     /* Deep Slate #1A2A38 */
+    --surface: 0 0% 100%;          /* Pure White */
+    --surface-variant: 210 20% 96%; /* Almost White #F2F6FA */
+
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 20%;
-    
+    --card-foreground: 210 20% 18%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 20%;
-    
-    --muted: 220 13% 91%;         /* Light Neutral */
-    --muted-foreground: 220 13% 50%; /* Medium Neutral */
-    
-    --accent: 219 98% 54%;        /* Primary Blue */
+    --popover-foreground: 210 20% 18%;
+
+    --muted: 210 20% 90%;          /* Light Neutral */
+    --muted-foreground: 210 20% 48%; /* Medium Neutral */
+
+    --accent: 217 98% 52%;         /* Primary Blue */
     --accent-foreground: 0 0% 100%;
-    
-    --success: 162 72% 48%;       /* Elegant Green */
-    --error: 0 84% 60%;           /* Clear Red */
-    --warning: 38 92% 50%;        /* Professional Amber */
-    --info: 219 98% 54%;          /* Blue */
-    
-    --destructive: 0 84.2% 60.2%;
+
+    --success: 160 84% 39%;        /* Rich Green */
+    --error: 0 100% 50%;           /* Vibrant Red */
+    --warning: 38 92% 50%;         /* Professional Amber */
+    --info: 217 98% 52%;           /* Blue */
+
+    --destructive: 0 100% 50%;
     --destructive-foreground: 0 0% 100%;
-    
-    --border: 220 13% 91%;
+
+    --border: 210 20% 88%;
     --input: 0 0% 100%;
-    --ring: 219 98% 54%;
+    --ring: 217 98% 52%;
     
     --radius: 0.5rem;
     
