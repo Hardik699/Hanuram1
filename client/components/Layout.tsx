@@ -29,7 +29,9 @@ export function Layout({
                 </h3>
               )}
               {headerActions && (
-                <div className="flex items-center gap-1 sm:gap-2 md:gap-3 animate-fade-in-up flex-shrink-0">{headerActions}</div>
+                <div className="flex items-center gap-1 sm:gap-2 md:gap-3 animate-fade-in-up flex-shrink-0">
+                  {headerActions}
+                </div>
               )}
             </div>
           </div>

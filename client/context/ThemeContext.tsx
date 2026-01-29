@@ -20,7 +20,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Initialize theme from localStorage - default to light theme
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    const savedColorScheme = localStorage.getItem("colorScheme") as ColorScheme | null;
+    const savedColorScheme = localStorage.getItem(
+      "colorScheme",
+    ) as ColorScheme | null;
 
     // Always use light theme
     setTheme("light");
@@ -51,7 +53,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     const html = document.documentElement;
     // Remove all color scheme classes
-    html.classList.remove("scheme-blue", "scheme-purple", "scheme-green", "scheme-amber");
+    html.classList.remove(
+      "scheme-blue",
+      "scheme-purple",
+      "scheme-green",
+      "scheme-amber",
+    );
     // Add current color scheme class
     html.classList.add(`scheme-${colorScheme}`);
     localStorage.setItem("colorScheme", colorScheme);
@@ -70,7 +77,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, colorScheme, toggleTheme, setColorScheme }}>
+    <ThemeContext.Provider
+      value={{ theme, colorScheme, toggleTheme, setColorScheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );

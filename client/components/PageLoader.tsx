@@ -19,7 +19,10 @@ export function PageLoader() {
       {/* Animated loader background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-1/2 w-96 h-96 bg-blue-400/15 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-400/15 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+        <div
+          className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-400/15 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-pulse"
+          style={{ animationDelay: "0.2s" }}
+        ></div>
       </div>
 
       {/* Loader content */}
@@ -37,10 +40,17 @@ export function PageLoader() {
 
         {/* Loading text */}
         <p className="mt-6 text-sm font-semibold text-slate-600 uppercase tracking-widest">
-          Loading<span className="inline-flex gap-1 ml-1">
-            <span className="animate-bounce" style={{ animationDelay: "0s" }}>.</span>
-            <span className="animate-bounce" style={{ animationDelay: "0.1s" }}>.</span>
-            <span className="animate-bounce" style={{ animationDelay: "0.2s" }}>.</span>
+          Loading
+          <span className="inline-flex gap-1 ml-1">
+            <span className="animate-bounce" style={{ animationDelay: "0s" }}>
+              .
+            </span>
+            <span className="animate-bounce" style={{ animationDelay: "0.1s" }}>
+              .
+            </span>
+            <span className="animate-bounce" style={{ animationDelay: "0.2s" }}>
+              .
+            </span>
           </span>
         </p>
       </div>
