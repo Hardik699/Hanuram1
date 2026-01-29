@@ -227,10 +227,10 @@ export default function OpCostManagement() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Operational Cost (OP Cost)</h1>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <h1 className="text-2xl sm:text-3xl font-bold">Operational Cost (OP Cost)</h1>
           <Button onClick={() => {
             setEditingId(null);
             setFormData({
