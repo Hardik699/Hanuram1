@@ -176,9 +176,9 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 1. Shipper Box Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
-            <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+            <h3 className="text-base font-semibold mb-4 text-slate-900 flex items-center gap-2">
+              <span className="bg-blue-100 text-blue-700 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 1
               </span>
               Shipper Box Cost
