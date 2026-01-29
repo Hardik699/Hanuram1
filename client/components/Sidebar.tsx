@@ -181,9 +181,9 @@ export function Sidebar() {
         />
       )}
 
-      {/* Sidebar - Professional Design */}
+      {/* Sidebar - Professional White Design */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 overflow-y-auto z-40 transition-transform duration-300 md:translate-x-0 shadow-elevation-4 dark:shadow-elevation-8 ${
+        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-100 overflow-y-auto z-40 transition-transform duration-300 md:translate-x-0 shadow-sm ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
