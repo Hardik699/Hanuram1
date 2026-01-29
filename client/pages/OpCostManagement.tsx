@@ -295,9 +295,9 @@ export default function OpCostManagement() {
             </div>
 
             {/* Monthly Costs Section */}
-            <div className="border-t pt-6">
-              <h3 className="text-lg font-semibold mb-4">Monthly Operating Costs</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="border-t pt-4 sm:pt-6">
+              <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Monthly Operating Costs</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="text-sm font-medium mb-2 block">Rent (₹)</label>
                   <input
