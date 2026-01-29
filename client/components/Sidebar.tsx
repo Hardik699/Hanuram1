@@ -188,7 +188,7 @@ export function Sidebar() {
         }`}
       >
         {/* Logo/Brand */}
-        <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-700 flex items-center gap-3 mb-4 bg-gradient-to-r from-blue-50 to-blue-100/50 dark:from-slate-800 dark:to-slate-700/50">
+        <div className="px-6 py-5 border-b border-slate-100 flex items-center gap-3 mb-4 bg-gradient-to-br from-blue-50 to-slate-50">
           <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-elevation-2 transform hover:scale-110 transition-transform">
             <span className="text-white font-bold text-sm">HF</span>
           </div>
