@@ -265,8 +265,8 @@ export default function OpCostManagement() {
 
         {/* Form */}
         {showForm && (
-          <div className="bg-card rounded-lg p-6 border space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-card rounded-lg p-4 sm:p-6 border space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="text-sm font-medium mb-2 block">Month</label>
                 <select
