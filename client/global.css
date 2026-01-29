@@ -814,4 +814,265 @@
   .prof-empty-state {
     @apply flex flex-col items-center justify-center py-12 px-4 bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700;
   }
+
+  /* ===== RESPONSIVE UTILITIES ===== */
+
+  /* Mobile First Responsive Spacing */
+  .responsive-container {
+    @apply px-3 sm:px-4 md:px-6 lg:px-8 mx-auto;
+  }
+
+  .responsive-gap {
+    @apply gap-2 sm:gap-3 md:gap-4 lg:gap-6;
+  }
+
+  /* Responsive Grid System */
+  .responsive-grid-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6;
+  }
+
+  .responsive-grid-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6;
+  }
+
+  .responsive-grid-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6;
+  }
+
+  /* Responsive Typography */
+  .responsive-h1 {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  .responsive-h2 {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
+  }
+
+  .responsive-h3 {
+    @apply text-lg sm:text-xl md:text-2xl font-bold leading-snug;
+  }
+
+  .responsive-body {
+    @apply text-sm sm:text-base md:text-base text-slate-700 dark:text-slate-300;
+  }
+
+  /* Responsive Padding */
+  .responsive-section {
+    @apply py-6 sm:py-8 md:py-12 px-3 sm:px-4 md:px-6 lg:px-8;
+  }
+
+  .responsive-card {
+    @apply p-3 sm:p-4 md:p-6 rounded-lg sm:rounded-xl md:rounded-2xl;
+  }
+
+  /* Responsive Button Sizes */
+  .responsive-btn {
+    @apply px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 text-xs sm:text-sm md:text-base font-semibold rounded-lg sm:rounded-xl;
+  }
+
+  .responsive-btn-lg {
+    @apply px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-bold rounded-xl sm:rounded-2xl;
+  }
+
+  /* Responsive Form Elements */
+  .responsive-form {
+    @apply space-y-3 sm:space-y-4 md:space-y-6;
+  }
+
+  .responsive-form-group {
+    @apply flex flex-col gap-1.5 sm:gap-2;
+  }
+
+  .responsive-form-label {
+    @apply text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider;
+  }
+
+  .responsive-form-input {
+    @apply w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm rounded-lg sm:rounded-xl border-2 border-slate-200 dark:border-slate-600 focus:ring-2 focus:outline-none transition-all;
+  }
+
+  /* Responsive Table Styles */
+  .responsive-table {
+    @apply w-full text-xs sm:text-sm overflow-x-auto;
+  }
+
+  .responsive-table-head {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0 z-10;
+  }
+
+  .responsive-table-head-cell {
+    @apply px-2 sm:px-3 md:px-4 py-2 sm:py-3 text-left font-bold whitespace-nowrap;
+  }
+
+  .responsive-table-row {
+    @apply border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors;
+  }
+
+  .responsive-table-cell {
+    @apply px-2 sm:px-3 md:px-4 py-2 sm:py-3 whitespace-nowrap text-ellipsis overflow-hidden;
+  }
+
+  /* Responsive Flex */
+  .responsive-flex {
+    @apply flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4;
+  }
+
+  .responsive-flex-center {
+    @apply flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 md:gap-4;
+  }
+
+  /* Responsive Modal/Dialog */
+  .responsive-modal {
+    @apply fixed inset-0 p-3 sm:p-4 md:p-6 flex items-center justify-center;
+  }
+
+  .responsive-modal-content {
+    @apply w-full sm:max-w-md md:max-w-lg lg:max-w-2xl rounded-lg sm:rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 shadow-elevation-8 dark:shadow-elevation-12;
+  }
+
+  /* Mobile Navigation Responsive */
+  .responsive-nav {
+    @apply hidden md:flex items-center gap-2 sm:gap-3 md:gap-4;
+  }
+
+  .responsive-nav-mobile {
+    @apply flex md:hidden items-center gap-1 sm:gap-2;
+  }
+
+  /* Responsive Menu/Dropdown */
+  .responsive-menu {
+    @apply absolute top-full left-0 sm:left-auto sm:right-0 mt-2 w-48 sm:w-56 md:w-64 rounded-lg sm:rounded-xl shadow-elevation-8 dark:shadow-elevation-12;
+  }
+
+  /* Responsive Badge/Tag */
+  .responsive-badge {
+    @apply inline-block px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-bold rounded-full whitespace-nowrap;
+  }
+
+  /* Responsive List */
+  .responsive-list {
+    @apply space-y-1 sm:space-y-2 md:space-y-3;
+  }
+
+  .responsive-list-item {
+    @apply p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl border border-slate-200 dark:border-slate-700;
+  }
+
+  /* Responsive Icon Sizes */
+  .responsive-icon {
+    @apply w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6;
+  }
+
+  .responsive-icon-lg {
+    @apply w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8;
+  }
+
+  /* Responsive Columns Layout */
+  @screen md {
+    .col-span-responsive-2 {
+      @apply col-span-2;
+    }
+  }
+
+  /* Hide/Show Responsive */
+  .hide-mobile {
+    @apply hidden sm:block;
+  }
+
+  .hide-tablet {
+    @apply hidden md:block;
+  }
+
+  .hide-desktop {
+    @apply md:hidden;
+  }
+
+  .show-mobile {
+    @apply sm:hidden;
+  }
+
+  .show-tablet {
+    @apply md:hidden;
+  }
+
+  /* Responsive Overflow & Truncation */
+  .responsive-truncate {
+    @apply truncate sm:line-clamp-2 md:line-clamp-none;
+  }
+
+  .responsive-overflow {
+    @apply overflow-x-auto overflow-y-hidden sm:overflow-x-visible;
+  }
+
+  /* Responsive Sidebar Offset */
+  @screen md {
+    .with-sidebar {
+      @apply ml-64;
+    }
+  }
+
+  /* Responsive Grid Auto-fit */
+  .responsive-auto-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6;
+  }
+
+  /* Mobile-First Responsive Margins */
+  .responsive-mx {
+    @apply mx-2 sm:mx-3 md:mx-4 lg:mx-6;
+  }
+
+  .responsive-my {
+    @apply my-2 sm:my-3 md:my-4 lg:my-6;
+  }
+
+  /* Touch-friendly targets for mobile */
+  @media (hover: none) and (pointer: coarse) {
+    .touch-target {
+      @apply min-h-12 min-w-12;
+    }
+  }
+
+  /* High DPI Devices */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .crisp-text {
+      @apply antialiased;
+    }
+  }
+
+  /* Responsive Animations */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Desktop-first Responsive Adjustments */
+  @screen xl {
+    .xl-grid {
+      @apply grid-cols-5;
+    }
+
+    .xl-spacing {
+      @apply px-12 py-8;
+    }
+  }
+
+  /* Responsive Media Queries Helper Classes */
+  .sm\:max-w-sm {
+    @apply max-w-sm;
+  }
+
+  @screen sm {
+    .sm\:max-w-sm {
+      @apply max-w-md;
+    }
+  }
+
+  @screen md {
+    .md\:max-w-md {
+      @apply max-w-lg;
+    }
+  }
 }
