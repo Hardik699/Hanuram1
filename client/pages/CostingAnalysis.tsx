@@ -214,7 +214,7 @@ export default function CostingAnalysis() {
               </div>
             </div>
             {results && (
-              <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <div className="bg-blue-50 p-3 rounded border border-blue-200 dark:border-blue-800">
                 <p className="font-medium text-blue-900 dark:text-blue-200">
                   ✓ Shipper Box Cost / Kg = {inputs.shipperBoxCost} ÷ {inputs.shipperBoxQty} = <span className="font-bold">₹{results.shipperBoxCostPerKg.toFixed(2)}/Kg</span>
                 </p>
