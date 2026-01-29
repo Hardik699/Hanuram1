@@ -223,7 +223,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 2. Hygiene Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 2
@@ -270,7 +270,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 3. Scavenger Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 3
@@ -317,7 +317,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 4. MAP Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 4
@@ -350,7 +350,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 5. Smaller Size Packaging Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 5
@@ -383,7 +383,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 6. Mono Carton Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 6
@@ -430,7 +430,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 7. Sticker Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 7
@@ -477,7 +477,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 8. Butter Paper Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 8
@@ -524,7 +524,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* 9. Excess Stock Cost Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="bg-cyan-100 dark:bg-cyan-900 text-cyan-700 dark:text-cyan-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 9
@@ -571,7 +571,7 @@ export default function CostingAnalysis() {
           </div>
 
           {/* Wastage Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
             <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-2xl">⚠️</span>
               Material Wastage
@@ -604,7 +604,7 @@ export default function CostingAnalysis() {
 
           {/* Results Section */}
           {results && (
-            <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+            <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
               {/* Results Table */}
               <div className="overflow-x-auto mb-6">
                 <table className="w-full text-sm">
