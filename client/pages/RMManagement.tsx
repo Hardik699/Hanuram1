@@ -154,16 +154,15 @@ export default function RMManagement() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("/api/categories");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/categories");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setCategories(data.data);
       }
     } catch (error) {
       console.error("Error fetching categories:", error);
+      setMessage(error instanceof Error ? error.message : "Failed to fetch categories");
+      setMessageType("error");
     }
   };
 
