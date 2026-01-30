@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Edit2, Trash2, Check, AlertCircle, Plus, ChevronLeft, ChevronRight, X, Settings, Search } from "lucide-react";
 import { Layout } from "@/components/Layout";
-import { PageHeader } from "@/components/PageHeader";
 
 interface Unit {
   _id: string;
@@ -151,13 +150,12 @@ export default function CreateUnit() {
 
       const data = await response.json();
 
-      if (response.ok && data.success) {
+      if (data.success) {
         setMessageType("success");
         setMessage("Unit deleted successfully");
-        setTimeout(() => {
-          fetchUnits();
-          setMessage("");
-        }, 1500);
+        fetchUnits();
+
+        setTimeout(() => setMessage(""), 3000);
       } else {
         setMessageType("error");
         setMessage(data.message || "Failed to delete unit");
@@ -170,31 +168,27 @@ export default function CreateUnit() {
   };
 
   const handleCancel = () => {
+    setShowAddForm(false);
     setFormData({ name: "", shortCode: "" });
     setEditingId(null);
     setErrors({});
-    setShowAddForm(false);
+    setMessage("");
   };
-
-  const getFilteredUnits = () => {
-    return units.filter((unit) => {
-      if (searchTerm && !unit.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-        return false;
-      }
-      return true;
-    });
-  };
-
-  const filteredUnits = getFilteredUnits();
-  const totalPages = Math.ceil(filteredUnits.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedUnits = filteredUnits.slice(startIndex, endIndex);
 
   const handleItemsPerPageChange = (value: string) => {
     setItemsPerPage(parseInt(value));
     setCurrentPage(1);
   };
+
+  const filteredUnits = units.filter((unit) =>
+    unit.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    unit.shortCode.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredUnits.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedUnits = filteredUnits.slice(startIndex, endIndex);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -246,45 +240,42 @@ export default function CreateUnit() {
   };
 
   return (
-    <Layout title="Units">
-      <PageHeader
-        title="Unit Management"
-        description="Manage measurement units for products"
-        breadcrumbs={[{ label: "Unit Management" }]}
-        icon={<Settings className="w-6 h-6 text-purple-600 dark:text-purple-400" />}
-        actions={
-          !showAddForm ? (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleClearAllClick}
-                disabled={units.length === 0}
-                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Trash2 className="w-4 h-4" />
-                Clear All
-              </button>
-              <button
-                onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap text-sm"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Add Unit</span>
-              </button>
-            </div>
-          ) : null
-        }
-      />
+    <Layout
+      title="Unit Management"
+      headerActions={
+        !showAddForm ? (
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              onClick={handleClearAllClick}
+              disabled={units.length === 0}
+              className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-3 sm:py-2.5 sm:px-4 rounded-lg transition-colors text-xs sm:text-sm"
+            >
+              <Trash2 className="w-4 h-4" />
+              <span className="hidden sm:inline">Clear All</span>
+              <span className="sm:hidden">Clear</span>
+            </button>
+            <button
+              onClick={() => setShowAddForm(true)}
+              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2 px-3 sm:py-2.5 sm:px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap text-xs sm:text-sm"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add Unit</span>
+            </button>
+          </div>
+        ) : null
+      }
+    >
       {showAddForm ? (
         <div className="space-y-6">
           <button
             onClick={handleCancel}
-            className="flex items-center gap-2 text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 font-medium"
+            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm sm:text-base"
           >
             ← Back to List
           </button>
 
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">
               {editingId ? "Edit Unit" : "Add New Unit"}
             </h2>
 
@@ -292,20 +283,20 @@ export default function CreateUnit() {
               <div
                 className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
                   messageType === "success"
-                    ? "bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800"
-                    : "bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800"
+                    ? "bg-green-50 border border-green-200"
+                    : "bg-red-50 border border-red-200"
                 }`}
               >
                 {messageType === "success" ? (
-                  <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
                 ) : (
-                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
                 )}
                 <span
                   className={
                     messageType === "success"
-                      ? "text-green-700 dark:text-green-300"
-                      : "text-red-700 dark:text-red-300"
+                      ? "text-green-700"
+                      : "text-red-700"
                   }
                 >
                   {message}
@@ -315,7 +306,7 @@ export default function CreateUnit() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
                   Unit Name (e.g., kg, gm, liter) *
                 </label>
                 <input
@@ -325,21 +316,21 @@ export default function CreateUnit() {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   placeholder="Enter unit name"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white border-2 transition-all ${
                     errors.name
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                      ? "border-red-500"
+                      : "border-slate-200"
+                  } text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.name && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-1">
                     {errors.name}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
                   Unit Short Code *
                 </label>
                 <input
@@ -352,14 +343,14 @@ export default function CreateUnit() {
                     })
                   }
                   placeholder="e.g., KG, GM, LTR"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white border-2 transition-all ${
                     errors.shortCode
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                      ? "border-red-500"
+                      : "border-slate-200"
+                  } text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.shortCode && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-1">
                     {errors.shortCode}
                   </p>
                 )}
@@ -369,7 +360,7 @@ export default function CreateUnit() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -386,7 +377,7 @@ export default function CreateUnit() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                  className="px-6 bg-slate-100 text-slate-700 font-semibold py-2.5 rounded-lg hover:bg-slate-200 transition-colors"
                 >
                   Cancel
                 </button>
@@ -395,25 +386,25 @@ export default function CreateUnit() {
           </div>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-4 sm:space-y-6">
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border animate-in fade-in slide-in-from-top-2 duration-300 ${
                 messageType === "success"
-                  ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/50"
-                  : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50"
+                  ? "bg-green-50 border-green-200"
+                  : "bg-red-50 border-red-200"
               }`}
             >
               {messageType === "success" ? (
-                <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
               ) : (
-                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
               )}
               <span
                 className={
                   messageType === "success"
-                    ? "text-green-800 dark:text-green-300 font-medium text-sm"
-                    : "text-red-800 dark:text-red-300 font-medium text-sm"
+                    ? "text-green-800 font-medium text-sm"
+                    : "text-red-800 font-medium text-sm"
                 }
               >
                 {message}
@@ -422,30 +413,30 @@ export default function CreateUnit() {
           )}
 
           {/* Statistics Card */}
-          <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 dark:from-purple-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">Total Units</p>
-                <h3 className="text-4xl font-bold mt-2">{filteredUnits.length}</h3>
+                <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Total Units</p>
+                <h3 className="text-4xl font-bold mt-2 text-slate-900">{filteredUnits.length}</h3>
               </div>
-              <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
-                <Settings className="w-6 h-6 text-purple-200" />
+              <div className="bg-blue-100 p-3 rounded-lg">
+                <Settings className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
 
           {/* Filter Section */}
-          <div className="bg-gradient-to-r from-purple-50 via-white to-pink-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 rounded-2xl shadow-lg p-6 mb-4 border border-purple-100/50 dark:border-purple-900/30">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Search className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+          <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 border border-slate-100">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <Search className="w-5 h-5 text-blue-600" />
               Filter Results
             </h3>
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-purple-700 dark:text-purple-400">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                 Search Unit Name
               </label>
               <div className="relative">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-purple-500 dark:text-purple-400" />
+                <Search className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -454,55 +445,58 @@ export default function CreateUnit() {
                     setCurrentPage(1);
                   }}
                   placeholder="Search units..."
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-sm font-medium"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm font-medium"
                 />
               </div>
             </div>
           </div>
 
           {/* Units List Header */}
-          <div className="bg-gradient-to-r from-slate-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
+          <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 border border-slate-100">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 flex items-center gap-2">
+                  <Settings className="w-5 h-5 text-blue-600" />
                   Units List
                 </h2>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Showing <span className="font-bold text-slate-900 dark:text-white">{filteredUnits.length}</span> unit{filteredUnits.length !== 1 ? "s" : ""}
+                <p className="text-xs sm:text-sm text-slate-600">
+                  Showing <span className="font-bold text-slate-900">{filteredUnits.length}</span> unit{filteredUnits.length !== 1 ? "s" : ""}
                 </p>
               </div>
             </div>
           </div>
 
           {/* Units Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gradient-to-r from-purple-600 via-purple-600 to-pink-600 dark:from-purple-900 dark:via-purple-900 dark:to-pink-900 border-b-2 border-purple-700 dark:border-purple-800 sticky top-0">
+              <table className="w-full text-sm">
+                <thead className="bg-gradient-to-r from-blue-600 to-blue-700 border-b-2 border-blue-700 sticky top-0">
                   <tr>
-                    <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="px-3 sm:px-4 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
                       Name
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="px-3 sm:px-4 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
                       Short Code
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="px-3 sm:px-4 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
                       Created By
+                    </th>
+                    <th className="px-3 sm:px-4 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
+                      Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                <tbody className="divide-y divide-slate-200">
                   {tableLoading ? (
                     <tr>
-                      <td colSpan={3} className="px-6 py-8 text-center">
-                        <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">Loading units...</p>
+                      <td colSpan={4} className="px-4 sm:px-6 py-8 text-center">
+                        <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                        <p className="text-slate-600 mt-2 text-sm">Loading units...</p>
                       </td>
                     </tr>
                   ) : paginatedUnits.length === 0 ? (
                     <tr>
-                      <td colSpan={3} className="px-6 py-8 text-center text-slate-600 dark:text-slate-400">
+                      <td colSpan={4} className="px-4 sm:px-6 py-8 text-center text-slate-600 text-sm">
                         No units found
                       </td>
                     </tr>
@@ -510,22 +504,40 @@ export default function CreateUnit() {
                     paginatedUnits.map((unit, idx) => (
                       <tr
                         key={unit._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-purple-500 h-16 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 ${
                           idx % 2 === 0
-                            ? "hover:bg-purple-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-slate-50"
+                            : "bg-slate-50 hover:bg-slate-100"
                         }`}
                       >
-                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white">
+                        <td className="px-3 sm:px-4 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-slate-900">
                           {unit.name}
                         </td>
-                        <td className="px-4 py-3 text-sm">
-                          <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-semibold">
+                        <td className="px-3 sm:px-4 py-3 sm:py-4 text-xs sm:text-sm">
+                          <span className="px-2 sm:px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
                             {unit.shortCode}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400">
+                        <td className="px-3 sm:px-4 py-3 sm:py-4 text-xs sm:text-sm text-slate-600">
                           {unit.createdBy}
+                        </td>
+                        <td className="px-3 sm:px-4 py-3 sm:py-4 text-right">
+                          <div className="flex justify-end gap-1 sm:gap-2">
+                            <button
+                              onClick={() => handleEdit(unit)}
+                              className="p-2 hover:bg-blue-100 rounded-lg transition-colors text-blue-600 text-xs sm:text-sm"
+                              title="Edit"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(unit._id)}
+                              className="p-2 hover:bg-red-100 rounded-lg transition-colors text-red-600 text-xs sm:text-sm"
+                              title="Delete"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))
@@ -535,15 +547,15 @@ export default function CreateUnit() {
             </div>
 
             {/* Pagination Controls */}
-            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-purple-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+            <div className="px-3 sm:px-6 py-4 border-t-2 border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+                <span className="font-bold text-slate-700">
                   Items per page:
                 </span>
                 <select
                   value={itemsPerPage}
                   onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all font-semibold hover:border-purple-300"
+                  className="px-3 py-2 rounded-lg bg-white border-2 border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-semibold hover:border-slate-300 text-xs sm:text-sm"
                 >
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -551,33 +563,33 @@ export default function CreateUnit() {
                 </select>
               </div>
 
-              <div className="flex items-center gap-6">
-                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                  <span className="font-bold text-purple-600 dark:text-purple-400">
+              <div className="flex items-center gap-2 sm:gap-6 text-xs sm:text-sm">
+                <span className="font-semibold text-slate-600">
+                  <span className="font-bold text-blue-600">
                     {startIndex + 1}-
                     {Math.min(endIndex, filteredUnits.length)}
                   </span>{" "}
                   of{" "}
-                  <span className="font-bold text-slate-900 dark:text-slate-200">
+                  <span className="font-bold text-slate-900">
                     {filteredUnits.length}
                   </span>
                 </span>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-purple-300 dark:border-purple-900/50 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-purple-500 dark:hover:border-purple-800"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border-2 border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500"
                     title="Previous Page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page <span className="font-bold text-purple-600 dark:text-purple-400">{currentPage}</span> of <span className="font-bold text-slate-900 dark:text-slate-200">{totalPages || 1}</span>
+                  <span className="text-xs sm:text-sm font-semibold text-slate-600 min-w-[70px] sm:min-w-[100px] text-center">
+                    Page <span className="font-bold text-blue-600">{currentPage}</span> of <span className="font-bold text-slate-900">{totalPages || 1}</span>
                   </span>
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-purple-300 dark:border-purple-900/50 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-purple-500 dark:hover:border-purple-800"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border-2 border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500"
                     title="Next Page"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -592,57 +604,47 @@ export default function CreateUnit() {
       {/* Clear All Confirmation Modal */}
       {showClearModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-md w-full border border-slate-200/50 dark:border-slate-700/50">
-            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-slate-200">
+            <div className="p-6 border-b border-slate-200">
               <div className="flex items-center gap-3 mb-2">
-                <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <AlertCircle className="w-6 h-6 text-red-600" />
+                <h3 className="text-2xl font-bold text-slate-900">
                   Confirm Clear All
                 </h3>
               </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-                This will delete ALL units. This action cannot be undone.
+              <p className="text-sm text-slate-600 mt-2">
+                This will delete all units. Please enter the password to confirm.
               </p>
             </div>
-
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                  Enter password to confirm
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  Password
                 </label>
                 <input
                   type="password"
                   value={clearPassword}
                   onChange={(e) => setClearPassword(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      confirmClearAll();
-                    }
-                  }}
+                  onKeyDown={(e) => e.key === "Enter" && confirmClearAll()}
                   placeholder="Enter password"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                  className="w-full px-4 py-2.5 rounded-lg border-2 border-slate-200 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   autoFocus
                 />
               </div>
-
-              <div className="flex items-center gap-3 pt-4">
-                <button
-                  onClick={() => {
-                    setShowClearModal(false);
-                    setClearPassword("");
-                  }}
-                  className="flex-1 px-4 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={confirmClearAll}
-                  disabled={!clearPassword}
-                  className="flex-1 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold transition-colors"
-                >
-                  Clear All
-                </button>
-              </div>
+            </div>
+            <div className="px-6 py-4 border-t border-slate-200 flex gap-3 justify-end">
+              <button
+                onClick={() => setShowClearModal(false)}
+                className="px-4 py-2 rounded-lg bg-slate-100 text-slate-700 font-semibold hover:bg-slate-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmClearAll}
+                className="px-4 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition-colors"
+              >
+                Clear All
+              </button>
             </div>
           </div>
         </div>
