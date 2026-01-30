@@ -180,6 +180,15 @@ export async function createServer() {
     res.json({ message: ping });
   });
 
+  // Health check endpoint
+  app.get("/health", (_req, res) => {
+    res.json({
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      database: getConnectionStatus()
+    });
+  });
+
   app.get("/api/demo", handleDemo);
   // Provide a GET route for demo population for convenience during local testing
   app.get("/api/demo/populate-sample-data", handlePopulateSampleData);
