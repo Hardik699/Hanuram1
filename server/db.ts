@@ -16,12 +16,24 @@ export async function connectDB(): Promise<boolean> {
       console.error("❌ MONGODB_URI environment variable is not set");
       return false;
     }
+
+    console.log("🔌 Attempting to connect to MongoDB...");
     connectionStatus = "connecting";
-    client = new MongoClient(MONGODB_URI);
+    client = new MongoClient(MONGODB_URI, {
+      serverSelectionTimeoutMS: 10000,
+      connectTimeoutMS: 10000,
+      retryWrites: true,
+      w: "majority",
+    });
+
+    console.log("⏳ Connecting to MongoDB Atlas...");
     await client.connect();
+    console.log("✅ MongoDB connection established");
+
     db = client.db("faction_app");
 
     // Verify connection by pinging the database
+    console.log("🏓 Pinging MongoDB...");
     await db.admin().ping();
     connectionStatus = "connected";
     console.log("✅ Connected to MongoDB");
