@@ -333,5 +333,7 @@ export async function createServer() {
   app.put("/api/op-costs/:id", handleUpdateOpCost);
   app.delete("/api/op-costs/:id", handleDeleteOpCost);
 
+  console.log("✅ All API routes registered successfully");
+
   return app;
 }
