@@ -109,6 +109,7 @@ import {
 import { requirePermission } from "./middleware/authMiddleware";
 
 export async function createServer() {
+  console.log("📋 Creating Express server and initializing database...");
   const app = express();
 
   // Wrap route registration methods to log failures and identify problematic paths
