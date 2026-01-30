@@ -498,14 +498,14 @@ export default function CreateUnit() {
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                   {tableLoading ? (
                     <tr>
-                      <td colSpan={3} className="px-6 py-8 text-center">
+                      <td colSpan={4} className="px-6 py-8 text-center">
                         <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
                         <p className="text-slate-600 dark:text-slate-400 mt-2">Loading units...</p>
                       </td>
                     </tr>
                   ) : paginatedUnits.length === 0 ? (
                     <tr>
-                      <td colSpan={3} className="px-6 py-8 text-center text-slate-600 dark:text-slate-400">
+                      <td colSpan={4} className="px-6 py-8 text-center text-slate-600 dark:text-slate-400">
                         No units found
                       </td>
                     </tr>
@@ -513,22 +513,43 @@ export default function CreateUnit() {
                     paginatedUnits.map((unit, idx) => (
                       <tr
                         key={unit._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-purple-500 h-16 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-purple-500 ${
                           idx % 2 === 0
                             ? "hover:bg-purple-50 dark:hover:bg-slate-700/50"
                             : "bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-slate-700/50"
                         }`}
                       >
-                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white">
-                          {unit.name}
+                        <td className="px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white">
+                          <div className="flex flex-col gap-1">
+                            <span>{unit.name}</span>
+                            <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">By: {unit.createdBy}</span>
+                          </div>
                         </td>
                         <td className="px-4 py-3 text-sm">
                           <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-semibold">
                             {unit.shortCode}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400">
+                        <td className="hidden md:table-cell px-4 py-3 text-xs text-slate-600 dark:text-slate-400">
                           {unit.createdBy}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <div className="flex items-center justify-center gap-2">
+                            <button
+                              onClick={() => handleEdit(unit)}
+                              className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors transform hover:scale-110"
+                              title="Edit unit"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(unit._id)}
+                              className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors transform hover:scale-110"
+                              title="Delete unit"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))
