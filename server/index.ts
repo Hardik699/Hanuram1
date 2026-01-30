@@ -368,5 +368,21 @@ export async function createServer() {
 
   console.log("✅ All API routes registered successfully");
 
+  // Error handling middleware (must be last)
+  app.use((err: any, _req: any, res: any, _next: any) => {
+    console.error("❌ Unhandled Error:", {
+      message: err.message,
+      stack: err.stack,
+      path: _req.path,
+      method: _req.method,
+    });
+
+    res.status(err.status || 500).json({
+      success: false,
+      message: err.message || "Internal server error",
+      error: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
+  });
+
   return app;
 }
