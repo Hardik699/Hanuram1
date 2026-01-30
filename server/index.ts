@@ -147,7 +147,9 @@ export async function createServer() {
     res.send = function (data: any) {
       const duration = Date.now() - startTime;
       if (path.startsWith("/api/") || path === "/health") {
-        console.log(`📤 ${method} ${path} - Status: ${res.statusCode} - ${duration}ms`);
+        console.log(
+          `📤 ${method} ${path} - Status: ${res.statusCode} - ${duration}ms`,
+        );
       }
       return originalSend.call(this, data);
     };
@@ -191,7 +193,9 @@ export async function createServer() {
   // Initialize database connection
   const dbConnected = await connectDB();
   if (!dbConnected) {
-    console.error("⚠️ Database connection failed - API routes may not work properly");
+    console.error(
+      "⚠️ Database connection failed - API routes may not work properly",
+    );
   } else {
     console.log("✅ Database connection successful");
   }
@@ -209,7 +213,7 @@ export async function createServer() {
     res.json({
       status: "ok",
       timestamp: new Date().toISOString(),
-      database: getConnectionStatus()
+      database: getConnectionStatus(),
     });
   });
 
@@ -266,14 +270,8 @@ export async function createServer() {
     "/api/raw-materials/migrate/fix-unit-shortcodes",
     handleFixMissingUnitShortCodes,
   );
-  app.post(
-    "/api/raw-materials/migrate/codes",
-    handleMigrateRMCodes,
-  );
-  app.post(
-    "/api/raw-materials/reset-counter",
-    handleResetRMCounter,
-  );
+  app.post("/api/raw-materials/migrate/codes", handleMigrateRMCodes);
+  app.post("/api/raw-materials/reset-counter", handleResetRMCounter);
 
   // General RM routes
   app.get("/api/raw-materials", handleGetRawMaterials);

@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Edit2, Trash2, Check, AlertCircle, Plus, ChevronLeft, ChevronRight, X, Settings, Search } from "lucide-react";
+import {
+  Edit2,
+  Trash2,
+  Check,
+  AlertCircle,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Settings,
+  Search,
+} from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 
@@ -74,7 +85,7 @@ export default function CreateUnit() {
     const isDuplicate = units.some(
       (unit) =>
         unit.name.toLowerCase() === formData.name.toLowerCase() &&
-        unit._id !== editingId
+        unit._id !== editingId,
     );
     if (isDuplicate) {
       newErrors.name = "Unit with this name already exists";
@@ -178,7 +189,10 @@ export default function CreateUnit() {
 
   const getFilteredUnits = () => {
     return units.filter((unit) => {
-      if (searchTerm && !unit.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (
+        searchTerm &&
+        !unit.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
         return false;
       }
       return true;
@@ -251,7 +265,9 @@ export default function CreateUnit() {
         title="Unit Management"
         description="Manage measurement units for products"
         breadcrumbs={[{ label: "Unit Management" }]}
-        icon={<Settings className="w-6 h-6 text-purple-600 dark:text-purple-400" />}
+        icon={
+          <Settings className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+        }
         actions={
           !showAddForm ? (
             <div className="flex items-center gap-2">
@@ -425,8 +441,12 @@ export default function CreateUnit() {
           <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 dark:from-purple-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">Total Units</p>
-                <h3 className="text-4xl font-bold mt-2">{filteredUnits.length}</h3>
+                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">
+                  Total Units
+                </p>
+                <h3 className="text-4xl font-bold mt-2">
+                  {filteredUnits.length}
+                </h3>
               </div>
               <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
                 <Settings className="w-6 h-6 text-purple-200" />
@@ -469,7 +489,11 @@ export default function CreateUnit() {
                   Units List
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Showing <span className="font-bold text-slate-900 dark:text-white">{filteredUnits.length}</span> unit{filteredUnits.length !== 1 ? "s" : ""}
+                  Showing{" "}
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {filteredUnits.length}
+                  </span>{" "}
+                  unit{filteredUnits.length !== 1 ? "s" : ""}
                 </p>
               </div>
             </div>
@@ -500,12 +524,17 @@ export default function CreateUnit() {
                     <tr>
                       <td colSpan={4} className="px-6 py-8 text-center">
                         <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">Loading units...</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+                          Loading units...
+                        </p>
                       </td>
                     </tr>
                   ) : paginatedUnits.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="px-6 py-8 text-center text-slate-600 dark:text-slate-400">
+                      <td
+                        colSpan={4}
+                        className="px-6 py-8 text-center text-slate-600 dark:text-slate-400"
+                      >
                         No units found
                       </td>
                     </tr>
@@ -522,7 +551,9 @@ export default function CreateUnit() {
                         <td className="px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white">
                           <div className="flex flex-col gap-1">
                             <span>{unit.name}</span>
-                            <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">By: {unit.createdBy}</span>
+                            <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">
+                              By: {unit.createdBy}
+                            </span>
                           </div>
                         </td>
                         <td className="px-4 py-3 text-sm">
@@ -578,8 +609,7 @@ export default function CreateUnit() {
               <div className="flex items-center gap-6">
                 <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                   <span className="font-bold text-purple-600 dark:text-purple-400">
-                    {startIndex + 1}-
-                    {Math.min(endIndex, filteredUnits.length)}
+                    {startIndex + 1}-{Math.min(endIndex, filteredUnits.length)}
                   </span>{" "}
                   of{" "}
                   <span className="font-bold text-slate-900 dark:text-slate-200">
@@ -596,7 +626,14 @@ export default function CreateUnit() {
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page <span className="font-bold text-purple-600 dark:text-purple-400">{currentPage}</span> of <span className="font-bold text-slate-900 dark:text-slate-200">{totalPages || 1}</span>
+                    Page{" "}
+                    <span className="font-bold text-purple-600 dark:text-purple-400">
+                      {currentPage}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {totalPages || 1}
+                    </span>
                   </span>
                   <button
                     onClick={handleNextPage}

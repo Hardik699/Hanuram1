@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
  */
 export async function apiFetch(
   url: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<Response> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
@@ -27,7 +27,9 @@ export async function apiFetch(
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      console.warn(`⚠️ API Response Error: ${response.status} ${response.statusText} for ${url}`);
+      console.warn(
+        `⚠️ API Response Error: ${response.status} ${response.statusText} for ${url}`,
+      );
     } else {
       console.log(`✅ API Response: ${response.status} for ${url}`);
     }
@@ -51,7 +53,7 @@ export async function apiFetch(
       }
 
       throw new Error(
-        `Failed to connect to ${url}. Please check your internet connection and ensure the server is running.`
+        `Failed to connect to ${url}. Please check your internet connection and ensure the server is running.`,
       );
     } else if (error instanceof Error) {
       console.error(`❌ API Error for ${url}:`, error.message);
