@@ -487,8 +487,11 @@ export default function CreateUnit() {
                     <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Short Code
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Created By
+                    </th>
+                    <th className="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                      Actions
                     </th>
                   </tr>
                 </thead>
