@@ -78,7 +78,7 @@ import {
   handleChangeQuotationVendor,
   handleGetQuotationLogs,
 } from "./routes/quotations";
-import { connectDB } from "./db";
+import { connectDB, getConnectionStatus } from "./db";
 import {
   handleGetUsers,
   handleGetUserById,
