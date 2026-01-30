@@ -168,61 +168,57 @@ export default function RMManagement() {
 
   const fetchSubCategories = async () => {
     try {
-      const response = await fetch("/api/subcategories");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/subcategories");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setSubCategories(data.data);
       }
     } catch (error) {
       console.error("Error fetching subcategories:", error);
+      setMessage(error instanceof Error ? error.message : "Failed to fetch subcategories");
+      setMessageType("error");
     }
   };
 
   const fetchUnits = async () => {
     try {
-      const response = await fetch("/api/units");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/units");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setUnits(data.data);
       }
     } catch (error) {
       console.error("Error fetching units:", error);
+      setMessage(error instanceof Error ? error.message : "Failed to fetch units");
+      setMessageType("error");
     }
   };
 
   const fetchVendors = async () => {
     try {
-      const response = await fetch("/api/vendors");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/vendors");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setVendors(data.data);
       }
     } catch (error) {
       console.error("Error fetching vendors:", error);
+      setMessage(error instanceof Error ? error.message : "Failed to fetch vendors");
+      setMessageType("error");
     }
   };
 
   const fetchRawMaterials = async () => {
     try {
-      const response = await fetch("/api/raw-materials");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/raw-materials");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setRawMaterials(data.data);
       }
     } catch (error) {
       console.error("Error fetching raw materials:", error);
+      setMessage(error instanceof Error ? error.message : "Failed to fetch raw materials");
+      setMessageType("error");
     }
   };
 
