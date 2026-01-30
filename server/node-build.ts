@@ -6,8 +6,11 @@ import * as express from "express";
 import { disconnectDB } from "./db";
 
 async function startServer() {
-  const app = await createServer();
-  const port = process.env.PORT || 3000;
+  try {
+    console.log("🚀 Starting Faction App server...");
+    const app = await createServer();
+    console.log("✅ Express server created successfully");
+    const port = process.env.PORT || 3000;
 
   // In production, serve the built SPA files
   const __filename = fileURLToPath(import.meta.url);
@@ -54,24 +57,28 @@ async function startServer() {
     res.sendFile(indexHtmlPath);
   });
 
-  app.listen(port, () => {
-    console.log(`🚀 Faction App server running on port ${port}`);
-    console.log(`📱 Frontend: http://localhost:${port}`);
-    console.log(`🔧 API: http://localhost:${port}/api`);
-  });
+    app.listen(port, () => {
+      console.log(`🚀 Faction App server running on port ${port}`);
+      console.log(`📱 Frontend: http://localhost:${port}`);
+      console.log(`🔧 API: http://localhost:${port}/api`);
+    });
 
-  // Graceful shutdown
-  process.on("SIGTERM", async () => {
-    console.log("🛑 Received SIGTERM, shutting down gracefully");
-    await disconnectDB();
-    process.exit(0);
-  });
+    // Graceful shutdown
+    process.on("SIGTERM", async () => {
+      console.log("🛑 Received SIGTERM, shutting down gracefully");
+      await disconnectDB();
+      process.exit(0);
+    });
 
-  process.on("SIGINT", async () => {
-    console.log("🛑 Received SIGINT, shutting down gracefully");
-    await disconnectDB();
-    process.exit(0);
-  });
+    process.on("SIGINT", async () => {
+      console.log("🛑 Received SIGINT, shutting down gracefully");
+      await disconnectDB();
+      process.exit(0);
+    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+    process.exit(1);
+  }
 }
 
 startServer().catch((error) => {
