@@ -131,13 +131,37 @@ export async function createServer() {
 
   ["get", "post", "put", "delete", "use"].forEach((m) => _wrap(m as any));
 
+  // Request logging middleware
+  app.use((req, res, next) => {
+    const startTime = Date.now();
+    const path = req.path;
+    const method = req.method;
+
+    // Log API requests (not assets)
+    if (path.startsWith("/api/") || path === "/health") {
+      console.log(`📥 ${method} ${path}`);
+    }
+
+    // Track response
+    const originalSend = res.send;
+    res.send = function (data: any) {
+      const duration = Date.now() - startTime;
+      if (path.startsWith("/api/") || path === "/health") {
+        console.log(`📤 ${method} ${path} - Status: ${res.statusCode} - ${duration}ms`);
+      }
+      return originalSend.call(this, data);
+    };
+
+    next();
+  });
+
   // Middleware
   app.use(
     cors({
       origin: "*",
       credentials: false,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type"],
+      allowedHeaders: ["Content-Type", "Authorization"],
     }),
   );
   app.use(express.json());
