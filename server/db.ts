@@ -44,7 +44,11 @@ export async function connectDB(): Promise<boolean> {
     return true;
   } catch (error) {
     connectionStatus = "disconnected";
-    console.error("❌ MongoDB connection failed:", error);
+    console.error("❌ MongoDB connection failed");
+    console.error("Error details:", error instanceof Error ? error.message : String(error));
+    if (error instanceof Error && error.stack) {
+      console.error("Stack trace:", error.stack);
+    }
     return false;
   }
 }
