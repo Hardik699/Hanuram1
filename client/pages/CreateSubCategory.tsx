@@ -278,13 +278,13 @@ export default function CreateSubCategory() {
         <div className="space-y-6">
           <button
             onClick={handleCancel}
-            className="flex items-center gap-2 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium"
+            className="flex items-center gap-2 text-teal-600 hover:text-teal-700 font-medium"
           >
             ← Back to List
           </button>
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200/50 p-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">
               {editingId ? "Edit Sub Category" : "Add New Sub Category"}
             </h2>
 
@@ -292,20 +292,20 @@ export default function CreateSubCategory() {
               <div
                 className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
                   messageType === "success"
-                    ? "bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800"
-                    : "bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800"
+                    ? "bg-green-50 border border-green-200
+                    : "bg-red-50 border border-red-200
                 }`}
               >
                 {messageType === "success" ? (
-                  <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
                 ) : (
-                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
                 )}
                 <span
                   className={
                     messageType === "success"
-                      ? "text-green-700 dark:text-green-300"
-                      : "text-red-700 dark:text-red-300"
+                      ? "text-green-700
+                      : "text-red-700
                   }
                 >
                   {message}
@@ -315,7 +315,7 @@ export default function CreateSubCategory() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Select Category *
                 </label>
                 <select
@@ -323,11 +323,11 @@ export default function CreateSubCategory() {
                   onChange={(e) =>
                     setFormData({ ...formData, categoryId: e.target.value })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white border transition-all ${
                     errors.categoryId
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500
+                      : "border-slate-300
+                  } text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500`}
                 >
                   <option value="">Choose a category</option>
                   {categories.map((cat) => (
@@ -337,14 +337,14 @@ export default function CreateSubCategory() {
                   ))}
                 </select>
                 {errors.categoryId && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-1">
                     {errors.categoryId}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Sub Category Name *
                 </label>
                 <input
@@ -354,21 +354,21 @@ export default function CreateSubCategory() {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   placeholder="Enter sub category name"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white border transition-all ${
                     errors.name
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500
+                      : "border-slate-300
+                  } text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500`}
                 />
                 {errors.name && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-1">
                     {errors.name}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Status *
                 </label>
                 <select
@@ -379,7 +379,7 @@ export default function CreateSubCategory() {
                       status: e.target.value as "active" | "inactive",
                     })
                   }
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -407,7 +407,7 @@ export default function CreateSubCategory() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                  className="px-6 bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-lg hover:bg-slate-300 transition-colors"
                 >
                   Cancel
                 </button>
@@ -421,20 +421,20 @@ export default function CreateSubCategory() {
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border ${
                 messageType === "success"
-                  ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/50"
-                  : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50"
+                  ? "bg-green-50 border-green-200
+                  : "bg-red-50 border-red-200
               }`}
             >
               {messageType === "success" ? (
-                <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
               ) : (
-                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
               )}
               <span
                 className={
                   messageType === "success"
-                    ? "text-green-800 dark:text-green-300 font-medium text-sm"
-                    : "text-red-800 dark:text-red-300 font-medium text-sm"
+                    ? "text-green-800 font-medium text-sm"
+                    : "text-red-800 font-medium text-sm"
                 }
               >
                 {message}
@@ -443,7 +443,7 @@ export default function CreateSubCategory() {
           )}
 
           <div className="flex items-center justify-between gap-4 mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-slate-900
               All Sub Categories <span className="text-teal-600">({filteredSubcategories.length})</span>
             </h2>
             <div className="flex items-center gap-2">
@@ -465,15 +465,15 @@ export default function CreateSubCategory() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
-            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200/50 overflow-hidden">
+            <div className="p-6 border-b border-slate-200
+              <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-teal-500"></div>
                 Filter Results
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
                     Search Name
                   </label>
                   <input
@@ -484,11 +484,11 @@ export default function CreateSubCategory() {
                       setCurrentPage(1);
                     }}
                     placeholder="Search sub categories..."
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
                     Category
                   </label>
                   <select
@@ -497,7 +497,7 @@ export default function CreateSubCategory() {
                       setFilterCategoryId(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                   >
                     <option value="">All Categories</option>
                     {categories.map((cat) => (
@@ -508,7 +508,7 @@ export default function CreateSubCategory() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
                     Status
                   </label>
                   <select
@@ -517,7 +517,7 @@ export default function CreateSubCategory() {
                       setFilterStatus(e.target.value as "" | "active" | "inactive");
                       setCurrentPage(1);
                     }}
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                   >
                     <option value="">All Status</option>
                     <option value="active">Active</option>
@@ -530,47 +530,47 @@ export default function CreateSubCategory() {
             {tableLoading ? (
               <div className="p-8 text-center">
                 <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-600 dark:text-slate-400 mt-2">Loading sub categories...</p>
+                <p className="text-slate-600 mt-2">Loading sub categories...</p>
               </div>
             ) : paginatedSubcategories.length === 0 ? (
-              <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+              <div className="p-8 text-center text-slate-600
                 No sub categories found
               </div>
             ) : (
               <>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[800px]">
-                    <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
+                    <thead className="bg-slate-100 border-b border-slate-200
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                           Name
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                           Category
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                           Status
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                           Created By
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    <tbody className="divide-y divide-slate-200
                       {paginatedSubcategories.map((subcategory) => (
                         <tr
                           key={subcategory._id}
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+                          className="hover:bg-slate-50 transition-colors cursor-pointer"
                         >
                           <td
                             onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline"
+                            className="px-6 py-4 text-sm font-medium text-teal-600 hover:underline"
                           >
                             {subcategory.name}
                           </td>
                           <td
                             onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
+                            className="px-6 py-4 text-sm text-slate-600
                           >
                             {subcategory.categoryName}
                           </td>
@@ -581,8 +581,8 @@ export default function CreateSubCategory() {
                             <span
                               className={`px-3 py-1 rounded-full text-xs font-semibold ${
                                 subcategory.status === "active"
-                                  ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                                  : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
+                                  ? "bg-green-100 text-green-700
+                                  : "bg-red-100 text-red-700
                               }`}
                             >
                               {subcategory.status ? subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1) : "-"}
@@ -590,7 +590,7 @@ export default function CreateSubCategory() {
                           </td>
                           <td
                             onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
+                            className="px-6 py-4 text-sm text-slate-600
                           >
                             {subcategory.createdBy}
                           </td>
@@ -600,13 +600,13 @@ export default function CreateSubCategory() {
                   </table>
                 </div>
 
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
+                <div className="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">Items per page:</span>
+                    <span className="text-sm text-slate-600 per page:</span>
                     <select
                       value={itemsPerPage}
                       onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                      className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                      className="px-3 py-1.5 rounded-md bg-white border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                     >
                       <option value="10">10</option>
                       <option value="20">20</option>
@@ -615,24 +615,24 @@ export default function CreateSubCategory() {
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
+                    <span className="text-sm text-slate-600
                       {startIndex + 1} - {Math.min(endIndex, filteredSubcategories.length)} of {filteredSubcategories.length}
                     </span>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={handlePreviousPage}
                         disabled={currentPage === 1}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </button>
-                      <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
+                      <span className="text-sm text-slate-600 min-w-[60px] text-center">
                         Page {currentPage} of {totalPages || 1}
                       </span>
                       <button
                         onClick={handleNextPage}
                         disabled={currentPage === totalPages || totalPages === 0}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </button>
@@ -648,22 +648,22 @@ export default function CreateSubCategory() {
       {/* Clear All Confirmation Modal */}
       {showClearModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-md w-full border border-slate-200/50 dark:border-slate-700/50">
-            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-slate-200/50
+            <div className="p-6 border-b border-slate-200
               <div className="flex items-center gap-3 mb-2">
-                <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <AlertCircle className="w-6 h-6 text-red-600 />
+                <h3 className="text-2xl font-bold text-slate-900
                   Confirm Clear All
                 </h3>
               </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+              <p className="text-sm text-slate-600 mt-2">
                 This will delete ALL sub categories. This action cannot be undone.
               </p>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Enter password to confirm
                 </label>
                 <input
@@ -676,7 +676,7 @@ export default function CreateSubCategory() {
                     }
                   }}
                   placeholder="Enter password"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
                   autoFocus
                 />
               </div>
@@ -687,7 +687,7 @@ export default function CreateSubCategory() {
                     setShowClearModal(false);
                     setClearPassword("");
                   }}
-                  className="flex-1 px-4 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                  className="flex-1 px-4 py-2.5 rounded-lg bg-slate-100 text-slate-900 font-semibold hover:bg-slate-200 transition-colors"
                 >
                   Cancel
                 </button>

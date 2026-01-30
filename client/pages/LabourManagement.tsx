@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, Search, Users, TrendingUp, DollarSign } from "lucide-react";
 import { Layout } from "@/components/Layout";
-import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -194,78 +193,70 @@ export default function LabourManagement() {
   const avgSalaryPerDay = labour.length > 0 ? totalDailyCost / labour.length : 0;
 
   return (
-    <Layout>
-      <PageHeader
-        title="Labour Management"
-        description="Manage factory labour and track salary costs"
-        breadcrumbs={[
-          { label: "Category/Unit", path: "#" },
-          { label: "Labour", path: "/labour" },
-        ]}
-        icon={<Users className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />}
-        actions={
-          <Button
-            onClick={() => handleOpenDialog()}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Labour
-          </Button>
-        }
-      />
-
+    <Layout
+      title="Labour Management"
+      headerActions={
+        <Button
+          onClick={() => handleOpenDialog()}
+          className="flex-shrink-0"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Add Labour
+        </Button>
+      }
+    >
       <div className="space-y-6">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Total Labour Card */}
-          <div className="bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-700 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl p-6 shadow-lg border border-indigo-400/30 dark:border-indigo-800/30 text-white">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-indigo-100 text-sm font-semibold uppercase tracking-wide">Total Labour</p>
-                <h3 className="text-4xl font-bold mt-2">{totalLabour}</h3>
+                <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Total Labour</p>
+                <h3 className="text-3xl sm:text-4xl font-bold mt-2 text-slate-900">{totalLabour}</h3>
               </div>
-              <div className="bg-indigo-400/30 dark:bg-indigo-800/50 p-3 rounded-lg">
-                <Users className="w-6 h-6 text-indigo-200" />
+              <div className="bg-blue-100 p-3 rounded-lg">
+                <Users className="w-6 h-6 text-blue-600" />
               </div>
             </div>
-            <p className="text-indigo-200 text-xs font-medium">Factory workers</p>
+            <p className="text-slate-600 text-xs font-medium">Factory workers</p>
           </div>
 
           {/* Total Daily Cost Card */}
-          <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 dark:from-purple-900 dark:to-purple-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">Total Daily Cost</p>
-                <h3 className="text-3xl font-bold mt-2">₹{totalDailyCost.toFixed(0)}</h3>
+                <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Total Daily Cost</p>
+                <h3 className="text-2xl sm:text-3xl font-bold mt-2 text-slate-900">₹{totalDailyCost.toFixed(0)}</h3>
               </div>
-              <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
-                <DollarSign className="w-6 h-6 text-purple-200" />
+              <div className="bg-green-100 p-3 rounded-lg">
+                <DollarSign className="w-6 h-6 text-green-600" />
               </div>
             </div>
-            <p className="text-purple-200 text-xs font-medium">Daily salary total</p>
+            <p className="text-slate-600 text-xs font-medium">Daily salary total</p>
           </div>
 
           {/* Average Salary Card */}
-          <div className="bg-gradient-to-br from-pink-500 via-pink-600 to-pink-700 dark:from-pink-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-pink-400/30 dark:border-pink-800/30 text-white">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 sm:col-span-2 lg:col-span-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-pink-100 text-sm font-semibold uppercase tracking-wide">Avg Salary/Day</p>
-                <h3 className="text-3xl font-bold mt-2">₹{avgSalaryPerDay.toFixed(2)}</h3>
+                <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Avg Salary/Day</p>
+                <h3 className="text-2xl sm:text-3xl font-bold mt-2 text-slate-900">₹{avgSalaryPerDay.toFixed(2)}</h3>
               </div>
-              <div className="bg-pink-400/30 dark:bg-pink-800/50 p-3 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-pink-200" />
+              <div className="bg-orange-100 p-3 rounded-lg">
+                <TrendingUp className="w-6 h-6 text-orange-600" />
               </div>
             </div>
-            <p className="text-pink-200 text-xs font-medium">Per worker average</p>
+            <p className="text-slate-600 text-xs font-medium">Per worker average</p>
           </div>
         </div>
 
         {/* Labour Header and Search */}
-        <div className="bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 border border-slate-200 dark:border-slate-700">
+        <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 border border-slate-100">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div className="flex-1 max-w-md">
+            <div className="flex-1 w-full sm:max-w-md">
               <div className="relative">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-indigo-500 dark:text-indigo-400" />
+                <Search className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
                 <Input
                   placeholder="Search by name, code, or department..."
                   value={searchTerm}
@@ -273,7 +264,7 @@ export default function LabourManagement() {
                     setSearchTerm(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="pl-12 border-2 border-indigo-200 dark:border-indigo-900/50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent rounded-lg"
+                  className="pl-12 border-2 border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg"
                 />
               </div>
             </div>
@@ -281,14 +272,14 @@ export default function LabourManagement() {
         </div>
 
         {/* Labour Table */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
           {loading ? (
-            <div className="p-8 text-center text-slate-500">
-              <div className="inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+            <div className="p-8 text-center text-slate-600">
+              <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
               <p className="mt-2">Loading labour...</p>
             </div>
           ) : paginatedLabour.length === 0 ? (
-            <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+            <div className="p-8 text-center text-slate-600">
               {filteredLabour.length === 0
                 ? "No labour found. Add your first labour to get started."
                 : "No results found."}
@@ -296,64 +287,64 @@ export default function LabourManagement() {
           ) : (
             <>
               <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gradient-to-r from-indigo-600 via-indigo-600 to-purple-600 dark:from-indigo-900 dark:via-indigo-900 dark:to-purple-900 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
+                <table className="w-full text-sm">
+                  <thead className="bg-gradient-to-r from-blue-600 to-blue-700 border-b-2 border-blue-700 sticky top-0">
                     <tr>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
                         Labour ID
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
                         Name
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
                         Department
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
                         Salary / Day
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs font-bold text-white uppercase tracking-widest">
                         Actions
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                  <tbody className="divide-y divide-slate-200">
                     {paginatedLabour.map((item, idx) => (
                       <tr
                         key={item.id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 ${
                           idx % 2 === 0
-                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-slate-50"
+                            : "bg-slate-50 hover:bg-slate-100"
                         }`}
                       >
-                        <td className="px-6 py-4 text-sm font-bold text-white cursor-pointer transition-colors">
-                          <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-bold text-white cursor-pointer transition-colors">
+                          <span className="inline-flex items-center justify-center px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-xs sm:text-sm">
                             {item.code}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
                           {item.name}
                         </td>
-                        <td className="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-300">
-                          <span className="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-semibold">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium text-slate-700">
+                          <span className="inline-block px-2 sm:px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs font-semibold">
                             {item.department}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-bold text-blue-600">
                           ₹{item.salaryPerDay.toFixed(2)}
                         </td>
-                        <td className="px-6 py-4 text-right">
-                          <div className="flex justify-end gap-2">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-right">
+                          <div className="flex justify-end gap-1 sm:gap-2">
                             <button
                               onClick={() => handleOpenDialog(item)}
-                              className="p-2 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 rounded-lg transition-colors text-indigo-600 dark:text-indigo-400"
+                              className="p-2 hover:bg-blue-100 rounded-lg transition-colors text-blue-600 text-xs sm:text-sm"
                               title="Edit"
                             >
                               <Edit2 className="w-4 h-4" />
                             </button>
                             <button
                               onClick={() => handleDelete(item.id)}
-                              className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors text-red-600 dark:text-red-400"
+                              className="p-2 hover:bg-red-100 rounded-lg transition-colors text-red-600"
                               title="Delete"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -368,28 +359,28 @@ export default function LabourManagement() {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800/50 dark:to-slate-800/30">
-                  <div className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    Showing <span className="font-bold text-indigo-600 dark:text-indigo-400">{startIdx + 1}</span> to <span className="font-bold text-indigo-600 dark:text-indigo-400">{Math.min(startIdx + itemsPerPage, filteredLabour.length)}</span> of{" "}
-                    <span className="font-bold text-slate-900 dark:text-white">{filteredLabour.length}</span> labour
+                <div className="px-4 sm:px-6 py-4 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50">
+                  <div className="text-xs sm:text-sm font-semibold text-slate-600">
+                    Showing <span className="font-bold text-blue-600">{startIdx + 1}</span> to <span className="font-bold text-blue-600">{Math.min(startIdx + itemsPerPage, filteredLabour.length)}</span> of{" "}
+                    <span className="font-bold text-slate-900">{filteredLabour.length}</span> labour
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap justify-center sm:justify-end">
                     <Button
                       onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
-                      className="border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="border-2 border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm"
                     >
                       Previous
                     </Button>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 sm:gap-2">
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
-                          className={`w-8 h-8 rounded-lg transition-colors font-semibold ${
+                          className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg transition-colors font-semibold text-xs sm:text-sm ${
                             currentPage === page
-                              ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                              : "hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
+                              ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
+                              : "hover:bg-slate-200 text-slate-700"
                           }`}
                         >
                           {page}
@@ -401,7 +392,7 @@ export default function LabourManagement() {
                         setCurrentPage(Math.min(totalPages, currentPage + 1))
                       }
                       disabled={currentPage === totalPages}
-                      className="border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="border-2 border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm"
                     >
                       Next
                     </Button>
@@ -415,7 +406,7 @@ export default function LabourManagement() {
 
       {/* Add/Edit Dialog */}
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md w-[95vw]">
           <DialogHeader>
             <DialogTitle>
               {editingId ? "Edit Labour" : "Add Labour"}
@@ -450,34 +441,30 @@ export default function LabourManagement() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="salary">Salary / Day (₹) *</Label>
+              <Label htmlFor="salaryPerDay">Salary Per Day (₹) *</Label>
               <Input
-                id="salary"
+                id="salaryPerDay"
                 type="number"
-                step="0.01"
                 placeholder="e.g., 500"
                 value={formData.salaryPerDay}
                 onChange={(e) =>
                   setFormData({ ...formData, salaryPerDay: e.target.value })
                 }
                 required
+                step="0.01"
               />
             </div>
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex justify-end gap-3 pt-4">
               <Button
                 type="button"
-                variant="outline"
                 onClick={handleCloseDialog}
-                className="flex-1"
+                className="border-2 border-slate-300 text-slate-700 hover:bg-slate-100"
               >
                 Cancel
               </Button>
-              <Button
-                type="submit"
-                className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
-              >
-                {editingId ? "Update" : "Add"} Labour
+              <Button type="submit">
+                {editingId ? "Update Labour" : "Add Labour"}
               </Button>
             </div>
           </form>

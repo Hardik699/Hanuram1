@@ -474,28 +474,28 @@ export default function QuotationDetail() {
         {/* Items Table */}
         <div className="bg-card rounded-lg p-6 border">
           <h2 className="text-xl font-semibold mb-4">Quotation Items</h2>
-          <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+          <div className="overflow-x-auto rounded-lg border border-slate-200
             <table className="w-full">
-              <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
+              <thead className="bg-slate-100 border-b border-slate-200
                 <tr>
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">Raw Material</th>
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">Qty</th>
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">Unit</th>
-                  <th className="text-right py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">Unit Price</th>
-                  <th className="text-right py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">Total</th>
+                  <th className="text-left py-3 px-4 font-semibold text-slate-900 text-sm">Raw Material</th>
+                  <th className="text-left py-3 px-4 font-semibold text-slate-900 text-sm">Qty</th>
+                  <th className="text-left py-3 px-4 font-semibold text-slate-900 text-sm">Unit</th>
+                  <th className="text-right py-3 px-4 font-semibold text-slate-900 text-sm">Unit Price</th>
+                  <th className="text-right py-3 px-4 font-semibold text-slate-900 text-sm">Total</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+              <tbody className="divide-y divide-slate-200
                 {quotation.items?.map((item, idx) => (
-                  <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                  <tr key={idx} className="hover:bg-slate-50 transition-colors">
                     <td className="py-4 px-4">
-                      <p className="font-medium text-slate-900 dark:text-white">{item.rawMaterialName}</p>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{item.rawMaterialCode}</p>
+                      <p className="font-medium text-slate-900
+                      <p className="text-xs text-slate-600 mt-1">{item.rawMaterialCode}</p>
                     </td>
-                    <td className="py-4 px-4 text-slate-700 dark:text-slate-300 font-medium">{item.quantity}</td>
-                    <td className="py-4 px-4 text-slate-700 dark:text-slate-300">{item.unitName || "-"}</td>
-                    <td className="py-4 px-4 text-right text-slate-900 dark:text-white font-medium">₹{item.price.toFixed(2)}</td>
-                    <td className="py-4 px-4 text-right font-semibold text-teal-600 dark:text-teal-400">
+                    <td className="py-4 px-4 text-slate-700 font-medium">{item.quantity}</td>
+                    <td className="py-4 px-4 text-slate-700 || "-"}</td>
+                    <td className="py-4 px-4 text-right text-slate-900 font-medium">₹{item.price.toFixed(2)}</td>
+                    <td className="py-4 px-4 text-right font-semibold text-teal-600
                       ₹{item.totalPrice.toFixed(2)}
                     </td>
                   </tr>
@@ -505,10 +505,10 @@ export default function QuotationDetail() {
           </div>
 
           {/* Summary */}
-          <div className="flex justify-end mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+          <div className="flex justify-end mt-6 pt-6 border-t border-slate-200
             <div className="text-right">
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Total Cost</p>
-              <p className="text-xl font-bold text-green-600 dark:text-green-400">₹{totalCost.toFixed(2)}</p>
+              <p className="text-sm text-slate-600 mb-1">Total Cost</p>
+              <p className="text-xl font-bold text-green-600
             </div>
           </div>
         </div>

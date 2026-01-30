@@ -331,7 +331,7 @@ export default function UserManagement() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between gap-4 mb-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-2xl font-bold text-slate-900
             All Users <span className="text-teal-600">({users.length})</span>
           </h2>
           <button
@@ -353,20 +353,20 @@ export default function UserManagement() {
           <div
             className={`flex items-center gap-3 p-4 rounded-lg border ${
               messageType === "success"
-                ? "bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800"
-                : "bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800"
+                ? "bg-green-50 border-green-200
+                : "bg-red-50 border-red-200
             }`}
           >
             {messageType === "success" ? (
-              <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
             )}
             <span
               className={`text-sm font-medium ${
                 messageType === "success"
-                  ? "text-green-700 dark:text-green-300"
-                  : "text-red-700 dark:text-red-300"
+                  ? "text-green-700
+                  : "text-red-700
               }`}
             >
               {message}
@@ -376,14 +376,14 @@ export default function UserManagement() {
 
         {/* Create Form */}
         {showForm && (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <h3 className="text-lg font-semibold text-slate-900 mb-6">
               Create New User
             </h3>
             <form onSubmit={handleCreateUser} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Username
                   </label>
                   <div className="relative">
@@ -395,13 +395,13 @@ export default function UserManagement() {
                       onChange={(e) =>
                         setFormData({ ...formData, username: e.target.value })
                       }
-                      className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Email
                   </label>
                   <div className="relative">
@@ -413,13 +413,13 @@ export default function UserManagement() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Password
                   </label>
                   <div className="relative">
@@ -431,13 +431,13 @@ export default function UserManagement() {
                       onChange={(e) =>
                         setFormData({ ...formData, password: e.target.value })
                       }
-                      className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Role
                   </label>
                   <select
@@ -445,7 +445,7 @@ export default function UserManagement() {
                     onChange={(e) => {
                       setFormData({ ...formData, role_id: e.target.value });
                     }}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                   >
                     {roles.map((role, idx) => (
                       <option
@@ -460,8 +460,8 @@ export default function UserManagement() {
               </div>
 
               {/* Modules Selection */}
-              <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-200 dark:border-slate-600">
-                <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">
+              <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200
+                <h4 className="text-sm font-semibold text-slate-700 mb-4">
                   Select Modules to Grant Access
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -472,8 +472,8 @@ export default function UserManagement() {
                         key={module.key}
                         className={`flex items-start gap-3 p-3 rounded cursor-pointer transition-all border ${
                           isChecked
-                            ? "bg-teal-50 dark:bg-teal-900/30 border-teal-300 dark:border-teal-700"
-                            : "border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700/50"
+                            ? "bg-teal-50 border-teal-300
+                            : "border-slate-200 hover:bg-slate-100
                         }`}
                       >
                         <input
@@ -486,13 +486,13 @@ export default function UserManagement() {
                           <p
                             className={`text-sm font-medium ${
                               isChecked
-                                ? "text-teal-700 dark:text-teal-300"
-                                : "text-slate-700 dark:text-slate-300"
+                                ? "text-teal-700
+                                : "text-slate-700
                             }`}
                           >
                             {module.label}
                           </p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400">
+                          <p className="text-xs text-slate-500
                             {module.key}
                           </p>
                         </div>
@@ -516,7 +516,7 @@ export default function UserManagement() {
                     setSelectedModules([]);
                     setMessage("");
                   }}
-                  className="flex-1 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-900 font-semibold py-2.5 px-4 rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
@@ -529,33 +529,33 @@ export default function UserManagement() {
         {loading ? (
           <LoadingSpinner message="Loading users..." />
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
-                <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
+                <thead className="bg-slate-100 border-b border-slate-200
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                       Username
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                       Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                       Role
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700
                       Created
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                <tbody className="divide-y divide-slate-200
                   {paginatedUsers.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="px-6 py-8 text-center">
-                        <p className="text-slate-600 dark:text-slate-400">
+                        <p className="text-slate-600
                           No users found
                         </p>
                       </td>
@@ -564,30 +564,30 @@ export default function UserManagement() {
                     paginatedUsers.map((user) => (
                       <tr
                         key={user._id}
-                        className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+                        className="hover:bg-slate-50 transition-colors cursor-pointer"
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
-                        <td className="px-6 py-4 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
+                        <td className="px-6 py-4 text-sm font-medium text-teal-600 hover:underline">
                           {user.username}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-slate-600
                           {user.email}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-slate-600
                           {getRoleName(user.role_id)}
                         </td>
                         <td className="px-6 py-4 text-sm">
                           <span
                             className={`px-3 py-1 rounded-full text-xs font-semibold ${
                               user.status === "active"
-                                ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                                : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
+                                ? "bg-green-100 text-green-700
+                                : "bg-red-100 text-red-700
                             }`}
                           >
                             {user.status === "active" ? "Active" : "Blocked"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-slate-600
                           {new Date(user.createdAt).toLocaleDateString()}
                         </td>
                       </tr>
@@ -599,9 +599,9 @@ export default function UserManagement() {
 
             {/* Pagination */}
             {users.length > 0 && (
-              <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
+              <div className="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">
+                  <span className="text-sm text-slate-600
                     Items per page:
                   </span>
                   <select
@@ -610,7 +610,7 @@ export default function UserManagement() {
                       setItemsPerPage(parseInt(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="px-3 py-1.5 rounded-md bg-white border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                   >
                     <option key="items-10" value="10">
                       10
@@ -625,7 +625,7 @@ export default function UserManagement() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">
+                  <span className="text-sm text-slate-600
                     {(currentPage - 1) * itemsPerPage + 1} -{" "}
                     {Math.min(currentPage * itemsPerPage, users.length)} of{" "}
                     {users.length}
@@ -636,11 +636,11 @@ export default function UserManagement() {
                         setCurrentPage((prev) => Math.max(prev - 1, 1))
                       }
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       ←
                     </button>
-                    <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
+                    <span className="text-sm text-slate-600 min-w-[60px] text-center">
                       Page {currentPage} of {totalPages}
                     </span>
                     <button
@@ -648,7 +648,7 @@ export default function UserManagement() {
                         setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                       }
                       disabled={currentPage === totalPages}
-                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       →
                     </button>

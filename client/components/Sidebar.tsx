@@ -181,22 +181,25 @@ export function Sidebar() {
         />
       )}
 
-      {/* Sidebar - Professional Design */}
+      {/* Sidebar - Professional White Design */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 overflow-y-auto z-40 transition-transform duration-300 md:translate-x-0 shadow-elevation-4 dark:shadow-elevation-8 ${
+        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-100 overflow-y-auto z-40 transition-transform duration-300 md:translate-x-0 shadow-sm ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Logo/Brand */}
-        <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-700 flex items-center gap-3 mb-4 bg-gradient-to-r from-blue-50 to-blue-100/50 dark:from-slate-800 dark:to-slate-700/50">
+        <div className="px-6 py-5 border-b border-slate-100 flex items-center gap-3 mb-4 bg-gradient-to-br from-blue-50 to-slate-50">
           <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-elevation-2 transform hover:scale-110 transition-transform">
             <span className="text-white font-bold text-sm">HF</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-slate-900 dark:text-white font-bold text-base">Hanuram</span>
-            <span className="text-blue-600 dark:text-blue-400 text-xs font-semibold">Foods</span>
+            <span className="text-slate-900 font-bold text-base">Hanuram</span>
+            <span className="text-blue-600 text-xs font-semibold">Foods</span>
           </div>
-          <button onClick={() => setIsOpen(false)} className="ml-auto md:hidden">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="ml-auto md:hidden"
+          >
             <ChevronDown className="w-5 h-5 text-slate-400 dark:text-slate-500 rotate-90 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" />
           </button>
         </div>
@@ -209,15 +212,17 @@ export function Sidebar() {
                 {item.submenu ? (
                   <div>
                     <button
-                    onClick={() => toggleMenu(item.label)}
-                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group ${
-                      isActive(item.submenu[0]?.path || "")
-                        ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800"
-                        : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/40"
-                    }`}
-                  >
+                      onClick={() => toggleMenu(item.label)}
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group ${
+                        isActive(item.submenu[0]?.path || "")
+                          ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800"
+                          : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/40"
+                      }`}
+                    >
                       <div className="flex items-center gap-3">
-                        {item.icon && <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />}
+                        {item.icon && (
+                          <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                        )}
                         <span>{item.label}</span>
                       </div>
                       <ChevronDown
@@ -243,7 +248,9 @@ export function Sidebar() {
                         : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/40"
                     }`}
                   >
-                    {item.icon && <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />}
+                    {item.icon && (
+                      <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                    )}
                     <span>{item.label}</span>
                   </Link>
                 )}

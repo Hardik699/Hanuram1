@@ -7,6 +7,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { PageLoader } from "@/components/PageLoader";
 import Login from "./pages/Login";
 import CreateCategory from "./pages/CreateCategory";
 import CategoryDetail from "./pages/CategoryDetail";
@@ -34,197 +36,200 @@ import ProtectedRoute from "./components/ProtectedRoute";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route
-              path="/create-category"
-              element={
-                <ProtectedRoute requiredPermission="category_add">
-                  <CreateCategory />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/category/:id"
-              element={
-                <ProtectedRoute requiredPermission="category_view">
-                  <CategoryDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/create-subcategory"
-              element={
-                <ProtectedRoute requiredPermission="subcategory_add">
-                  <CreateSubCategory />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/subcategory/:id"
-              element={
-                <ProtectedRoute requiredPermission="subcategory_view">
-                  <SubCategoryDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/create-unit"
-              element={
-                <ProtectedRoute requiredPermission="unit_add">
-                  <CreateUnit />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/unit/:id"
-              element={
-                <ProtectedRoute requiredPermission="unit_view">
-                  <UnitDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/create-vendor"
-              element={
-                <ProtectedRoute requiredPermission="vendor_add">
-                  <CreateVendor />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/vendor/:id"
-              element={
-                <ProtectedRoute requiredPermission="vendor_view">
-                  <VendorDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/raw-materials"
-              element={
-                <ProtectedRoute requiredPermission="rm_view">
-                  <RMManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/raw-materials/new"
-              element={
-                <ProtectedRoute requiredPermission="rm_add">
-                  <CreateRawMaterial />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/raw-materials/:id"
-              element={
-                <ProtectedRoute requiredPermission="rm_view">
-                  <RMDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/raw-materials/:id/edit"
-              element={
-                <ProtectedRoute requiredPermission="rm_edit">
-                  <CreateRawMaterial />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/rmc"
-              element={
-                <ProtectedRoute requiredPermission="recipe_view">
-                  <RMCManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/recipe/new"
-              element={
-                <ProtectedRoute requiredPermission="recipe_add">
-                  <CreateRecipe />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/recipe/:id/edit"
-              element={
-                <ProtectedRoute requiredPermission="recipe_edit">
-                  <CreateRecipe />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/recipe/:recipeId"
-              element={
-                <ProtectedRoute requiredPermission="recipe_view">
-                  <RecipeDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/quotation/:quotationId"
-              element={
-                <ProtectedRoute requiredPermission="quotation_view">
-                  <QuotationDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/users"
-              element={
-                <ProtectedRoute requiredPermission="user_manage">
-                  <UserManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/users/:id"
-              element={
-                <ProtectedRoute requiredPermission="user_manage">
-                  <UserDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/labour"
-              element={
-                <ProtectedRoute>
-                  <LabourManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/costing-calculator"
-              element={
-                <ProtectedRoute requiredPermission="recipe_view">
-                  <CostingAnalysis />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/op-cost"
-              element={
-                <ProtectedRoute>
-                  <OpCostManagement />
-                </ProtectedRoute>
-              }
-            />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </AuthProvider>
+  <ThemeProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <PageLoader />
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route
+                path="/create-category"
+                element={
+                  <ProtectedRoute requiredPermission="category_add">
+                    <CreateCategory />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/category/:id"
+                element={
+                  <ProtectedRoute requiredPermission="category_view">
+                    <CategoryDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/create-subcategory"
+                element={
+                  <ProtectedRoute requiredPermission="subcategory_add">
+                    <CreateSubCategory />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/subcategory/:id"
+                element={
+                  <ProtectedRoute requiredPermission="subcategory_view">
+                    <SubCategoryDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/create-unit"
+                element={
+                  <ProtectedRoute requiredPermission="unit_add">
+                    <CreateUnit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/unit/:id"
+                element={
+                  <ProtectedRoute requiredPermission="unit_view">
+                    <UnitDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/create-vendor"
+                element={
+                  <ProtectedRoute requiredPermission="vendor_add">
+                    <CreateVendor />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/vendor/:id"
+                element={
+                  <ProtectedRoute requiredPermission="vendor_view">
+                    <VendorDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/raw-materials"
+                element={
+                  <ProtectedRoute requiredPermission="rm_view">
+                    <RMManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/raw-materials/new"
+                element={
+                  <ProtectedRoute requiredPermission="rm_add">
+                    <CreateRawMaterial />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/raw-materials/:id"
+                element={
+                  <ProtectedRoute requiredPermission="rm_view">
+                    <RMDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/raw-materials/:id/edit"
+                element={
+                  <ProtectedRoute requiredPermission="rm_edit">
+                    <CreateRawMaterial />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/rmc"
+                element={
+                  <ProtectedRoute requiredPermission="recipe_view">
+                    <RMCManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/recipe/new"
+                element={
+                  <ProtectedRoute requiredPermission="recipe_add">
+                    <CreateRecipe />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/recipe/:id/edit"
+                element={
+                  <ProtectedRoute requiredPermission="recipe_edit">
+                    <CreateRecipe />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/recipe/:recipeId"
+                element={
+                  <ProtectedRoute requiredPermission="recipe_view">
+                    <RecipeDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/quotation/:quotationId"
+                element={
+                  <ProtectedRoute requiredPermission="quotation_view">
+                    <QuotationDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/users"
+                element={
+                  <ProtectedRoute requiredPermission="user_manage">
+                    <UserManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/users/:id"
+                element={
+                  <ProtectedRoute requiredPermission="user_manage">
+                    <UserDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/labour"
+                element={
+                  <ProtectedRoute>
+                    <LabourManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/costing-calculator"
+                element={
+                  <ProtectedRoute requiredPermission="recipe_view">
+                    <CostingAnalysis />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/op-cost"
+                element={
+                  <ProtectedRoute>
+                    <OpCostManagement />
+                  </ProtectedRoute>
+                }
+              />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </AuthProvider>
+  </ThemeProvider>
 );
 
 createRoot(document.getElementById("root")!).render(<App />);
