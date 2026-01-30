@@ -214,7 +214,7 @@ export default function UserDetail() {
     return (
       <Layout>
         <div className="p-6 text-center">
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-slate-900
             User not found
           </h1>
         </div>
@@ -235,9 +235,9 @@ export default function UserDetail() {
         </button>
 
         {/* User Details Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 mb-6">
+        <div className="bg-white rounded-xl border border-slate-200 p-6 mb-6">
           <div className="flex justify-between items-start mb-6">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-slate-900
               {user.username}
             </h1>
             {!isEditing && (
@@ -253,7 +253,7 @@ export default function UserDetail() {
           {isEditing ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Username
                 </label>
                 <input
@@ -262,12 +262,12 @@ export default function UserDetail() {
                   onChange={(e) =>
                     setFormData({ ...formData, username: e.target.value })
                   }
-                  className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Email
                 </label>
                 <input
@@ -276,12 +276,12 @@ export default function UserDetail() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Role
                 </label>
                 <select
@@ -292,7 +292,7 @@ export default function UserDetail() {
                       role_id: parseInt(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
                   <option value={1}>Super Admin</option>
                   <option value={2}>Admin</option>
@@ -320,32 +320,32 @@ export default function UserDetail() {
           ) : (
             <div className="space-y-4">
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-slate-600
                   Email
                 </p>
-                <p className="text-lg font-medium text-slate-900 dark:text-white">
+                <p className="text-lg font-medium text-slate-900
                   {user.email}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-slate-600
                   Role
                 </p>
-                <p className="text-lg font-medium text-slate-900 dark:text-white">
+                <p className="text-lg font-medium text-slate-900
                   {roleMap[user.role_id] || "Unknown"}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-slate-600
                   Status
                 </p>
                 <span
                   className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                     user.status === "active"
-                      ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                      : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
+                      ? "bg-green-100 text-green-700
+                      : "bg-red-100 text-red-700
                   }`}
                 >
                   {user.status === "active" ? "Active" : "Blocked"}
@@ -353,10 +353,10 @@ export default function UserDetail() {
               </div>
 
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-slate-600
                   Created
                 </p>
-                <p className="text-lg font-medium text-slate-900 dark:text-white">
+                <p className="text-lg font-medium text-slate-900
                   {new Date(user.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -403,9 +403,9 @@ export default function UserDetail() {
         )}
 
         {/* Permissions Management Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+        <div className="bg-white rounded-xl border border-slate-200 p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <h2 className="text-2xl font-bold text-slate-900
               Permissions
             </h2>
             {!isManagingPermissions && (
@@ -427,25 +427,25 @@ export default function UserDetail() {
                     onClick={() => togglePermission(permission.permission_key)}
                     className={`p-4 rounded-lg border-2 transition text-left ${
                       selectedPermissions.has(permission.permission_key)
-                        ? "border-teal-500 bg-teal-50 dark:bg-teal-900/20"
-                        : "border-slate-200 dark:border-slate-600 hover:border-teal-300"
+                        ? "border-teal-500 bg-teal-50
+                        : "border-slate-200 hover:border-teal-300"
                     }`}
                   >
                     <div className="flex items-start gap-3">
                       <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition ${
                         selectedPermissions.has(permission.permission_key)
                           ? "bg-teal-500 border-teal-500"
-                          : "border-slate-300 dark:border-slate-500"
+                          : "border-slate-300
                       }`}>
                         {selectedPermissions.has(permission.permission_key) && (
                           <Check className="w-3 h-3 text-white" />
                         )}
                       </div>
                       <div className="flex-1">
-                        <p className="font-medium text-slate-900 dark:text-white">
+                        <p className="font-medium text-slate-900
                           {permission.permission_key}
                         </p>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        <p className="text-sm text-slate-600 mt-1">
                           {permission.description}
                         </p>
                       </div>
@@ -454,7 +454,7 @@ export default function UserDetail() {
                 ))}
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-600">
+              <div className="flex gap-3 pt-4 border-t border-slate-200
                 <Button
                   onClick={handleSavePermissions}
                   className="bg-teal-600 hover:bg-teal-700"
@@ -475,7 +475,7 @@ export default function UserDetail() {
           ) : (
             <div>
               {userPermissions.length === 0 ? (
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-slate-600
                   No permissions assigned
                 </p>
               ) : (
@@ -485,12 +485,12 @@ export default function UserDetail() {
                     return (
                       <div
                         key={permKey}
-                        className="p-3 bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 rounded-lg"
+                        className="p-3 bg-teal-50 border border-teal-200 rounded-lg"
                       >
-                        <p className="font-medium text-slate-900 dark:text-white">
+                        <p className="font-medium text-slate-900
                           {permKey}
                         </p>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        <p className="text-sm text-slate-600 mt-1">
                           {perm?.description}
                         </p>
                       </div>

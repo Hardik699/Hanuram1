@@ -246,36 +246,36 @@ export default function CreateRawMaterial() {
         <div className="flex items-center gap-4 mb-6">
           <button
             onClick={() => navigate("/raw-materials")}
-            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
             title="Back"
           >
-            <ArrowLeft className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+            <ArrowLeft className="w-5 h-5 text-slate-600 />
           </button>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+          <h1 className="text-3xl font-bold text-slate-900
             {id ? "Edit Raw Material" : "Add New Raw Material"}
           </h1>
         </div>
 
         {/* Form Section */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200/50 p-8">
           {message && (
             <div
               className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
                 messageType === "success"
-                  ? "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"
-                  : "bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
+                  ? "bg-green-50 border border-green-200
+                  : "bg-red-50 border border-red-200
               }`}
             >
               {messageType === "success" ? (
-                <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
               ) : (
-                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
               )}
               <span
                 className={
                   messageType === "success"
-                    ? "text-green-700 dark:text-green-300"
-                    : "text-red-700 dark:text-red-300"
+                    ? "text-green-700
+                    : "text-red-700
                 }
               >
                 {message}
@@ -286,7 +286,7 @@ export default function CreateRawMaterial() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Raw Material Name */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Raw Material Name *
               </label>
               <input
@@ -296,14 +296,14 @@ export default function CreateRawMaterial() {
                   setFormData({ ...formData, name: e.target.value })
                 }
                 placeholder="Enter raw material name"
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                className={`w-full px-4 py-2.5 rounded-lg bg-white border transition-all ${
                   errors.name
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    ? "border-red-500
+                    : "border-slate-300
+                } text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500`}
               />
               {errors.name && (
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p className="text-red-600 text-sm mt-1">
                   {errors.name}
                 </p>
               )}
@@ -311,7 +311,7 @@ export default function CreateRawMaterial() {
 
             {/* Category */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Category *
               </label>
               <select
@@ -323,11 +323,11 @@ export default function CreateRawMaterial() {
                     subCategoryId: "",
                   })
                 }
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                className={`w-full px-4 py-2.5 rounded-lg bg-white border transition-all ${
                   errors.categoryId
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    ? "border-red-500
+                    : "border-slate-300
+                } text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500`}
               >
                 <option value="">Select Category</option>
                 {categories.map((cat) => (
@@ -337,7 +337,7 @@ export default function CreateRawMaterial() {
                 ))}
               </select>
               {errors.categoryId && (
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p className="text-red-600 text-sm mt-1">
                   {errors.categoryId}
                 </p>
               )}
@@ -345,7 +345,7 @@ export default function CreateRawMaterial() {
 
             {/* Sub Category */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Sub Category *
               </label>
               <select
@@ -357,11 +357,11 @@ export default function CreateRawMaterial() {
                   })
                 }
                 disabled={!formData.categoryId}
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                className={`w-full px-4 py-2.5 rounded-lg bg-white border transition-all ${
                   errors.subCategoryId
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    ? "border-red-500
+                    : "border-slate-300
+                } text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 <option value="">Select Sub Category</option>
                 {getFilteredSubCategories().map((subcat) => (
@@ -371,7 +371,7 @@ export default function CreateRawMaterial() {
                 ))}
               </select>
               {errors.subCategoryId && (
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p className="text-red-600 text-sm mt-1">
                   {errors.subCategoryId}
                 </p>
               )}
@@ -379,7 +379,7 @@ export default function CreateRawMaterial() {
 
             {/* Unit */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Unit (Optional)
               </label>
               <select
@@ -387,7 +387,7 @@ export default function CreateRawMaterial() {
                 onChange={(e) =>
                   setFormData({ ...formData, unitId: e.target.value })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
               >
                 <option value="">Select Unit</option>
                 {units.map((unit) => (
@@ -400,7 +400,7 @@ export default function CreateRawMaterial() {
 
             {/* HSN Code */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 HSN Code (Optional)
               </label>
               <input
@@ -410,7 +410,7 @@ export default function CreateRawMaterial() {
                   setFormData({ ...formData, hsnCode: e.target.value })
                 }
                 placeholder="Enter HSN code"
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
 
@@ -438,7 +438,7 @@ export default function CreateRawMaterial() {
               <button
                 type="button"
                 onClick={() => navigate("/raw-materials")}
-                className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                className="px-6 bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-lg hover:bg-slate-300 transition-colors"
               >
                 Cancel
               </button>

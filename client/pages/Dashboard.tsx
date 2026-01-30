@@ -29,7 +29,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
         <LoadingSpinner message="Loading dashboard..." />
       </div>
     );
@@ -37,7 +37,7 @@ export default function Dashboard() {
 
   return (
     <Layout title={`Welcome back, ${user?.username}!`}>
-      <p className="text-slate-600 dark:text-slate-400 mb-8 text-base font-medium">
+      <p className="text-slate-600 mb-8 text-base font-medium">
         Here's an overview of your Hanuram Foods management system.
       </p>
 
@@ -76,41 +76,41 @@ export default function Dashboard() {
       {/* Content sections */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up">
         {/* Main section */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-8 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-elevation-2 p-8 border border-slate-200 hover:shadow-elevation-4 transition-all">
+          <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
             <span className="w-1 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full"></span>
             Getting Started
           </h3>
-          <div className="space-y-4 text-slate-600 dark:text-slate-400">
+          <div className="space-y-4 text-slate-600
             <p className="leading-relaxed">
               Welcome to Hanuram Foods management system! This is your admin portal where
               you can manage all aspects of your raw materials, vendors, and operations.
             </p>
-            <ul className="space-y-3 pl-5 list-disc marker:text-blue-500 dark:marker:text-blue-400">
+            <ul className="space-y-3 pl-5 list-disc marker:text-blue-500
               <li>Database is connected and all features are available</li>
               <li>All data is synced in real-time across users</li>
               <li>Access raw materials, pricing, and costing tools</li>
             </ul>
-            <p className="pt-4 text-sm italic text-blue-600 dark:text-blue-400">
+            <p className="pt-4 text-sm italic text-blue-600
               💡 Tip: Use the sidebar to navigate between different modules.
             </p>
           </div>
         </div>
 
         {/* Sidebar section */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-8 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
-            <Settings className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        <div className="bg-white rounded-2xl shadow-elevation-2 p-8 border border-slate-200 hover:shadow-elevation-4 transition-all">
+          <h3 className="text-lg font-bold text-slate-900 mb-5 flex items-center gap-2">
+            <Settings className="w-5 h-5 text-blue-600 />
             Quick Actions
           </h3>
           <div className="space-y-3">
-            <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 text-blue-700 dark:text-blue-300 rounded-xl hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-900/30 dark:hover:to-blue-900/20 transition-all font-semibold text-sm text-left border border-blue-200 dark:border-blue-800/50 transform hover:scale-105 hover:shadow-elevation-2">
+            <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 rounded-xl hover:from-blue-100 hover:to-blue-200 transition-all font-semibold text-sm text-left border border-blue-200 transform hover:scale-105 hover:shadow-elevation-2">
               ⚙️ Settings
             </button>
-            <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-300 rounded-xl hover:from-slate-200 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-700/70 transition-all font-semibold text-sm text-left border border-slate-200 dark:border-slate-700 transform hover:scale-105 hover:shadow-elevation-2">
+            <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 text-slate-700 rounded-xl hover:from-slate-200 hover:to-slate-100 transition-all font-semibold text-sm text-left border border-slate-200 transform hover:scale-105 hover:shadow-elevation-2">
               📚 Documentation
             </button>
-            <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-300 rounded-xl hover:from-slate-200 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-700/70 transition-all font-semibold text-sm text-left border border-slate-200 dark:border-slate-700 transform hover:scale-105 hover:shadow-elevation-2">
+            <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 text-slate-700 rounded-xl hover:from-slate-200 hover:to-slate-100 transition-all font-semibold text-sm text-left border border-slate-200 transform hover:scale-105 hover:shadow-elevation-2">
               🤝 Support
             </button>
           </div>
@@ -131,27 +131,27 @@ interface StatCardProps {
 function StatCard({ icon: Icon, title, value, change, color }: StatCardProps) {
   const colorClasses = {
     blue: {
-      bg: "bg-blue-50 dark:bg-blue-900/20",
-      text: "text-blue-600 dark:text-blue-400",
-      border: "border-blue-200 dark:border-blue-800/50",
+      bg: "bg-blue-50
+      text: "text-blue-600
+      border: "border-blue-200
       gradient: "from-blue-600 to-blue-700"
     },
     purple: {
-      bg: "bg-purple-50 dark:bg-purple-900/20",
-      text: "text-purple-600 dark:text-purple-400",
-      border: "border-purple-200 dark:border-purple-800/50",
+      bg: "bg-purple-50
+      text: "text-purple-600
+      border: "border-purple-200
       gradient: "from-purple-600 to-purple-700"
     },
     green: {
-      bg: "bg-emerald-50 dark:bg-emerald-900/20",
-      text: "text-emerald-600 dark:text-emerald-400",
-      border: "border-emerald-200 dark:border-emerald-800/50",
+      bg: "bg-emerald-50
+      text: "text-emerald-600
+      border: "border-emerald-200
       gradient: "from-emerald-600 to-emerald-700"
     },
     orange: {
-      bg: "bg-amber-50 dark:bg-amber-900/20",
-      text: "text-amber-600 dark:text-amber-400",
-      border: "border-amber-200 dark:border-amber-800/50",
+      bg: "bg-amber-50
+      text: "text-amber-600
+      border: "border-amber-200
       gradient: "from-amber-600 to-amber-700"
     },
   };
@@ -159,11 +159,11 @@ function StatCard({ icon: Icon, title, value, change, color }: StatCardProps) {
   const colorConfig = colorClasses[color];
 
   return (
-    <div className={`bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 border ${colorConfig.border} hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1 group`}>
+    <div className={`bg-white rounded-2xl shadow-elevation-2 p-6 border ${colorConfig.border} hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1 group`}>
       <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${colorConfig.bg} ${colorConfig.text} group-hover:scale-110 transition-transform`}>
         <Icon className="w-6 h-6" />
       </div>
-      <h3 className="text-xs font-bold text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-widest">
+      <h3 className="text-xs font-bold text-slate-600 mb-2 uppercase tracking-widest">
         {title}
       </h3>
       <div className="flex items-baseline justify-between mb-3">
@@ -171,7 +171,7 @@ function StatCard({ icon: Icon, title, value, change, color }: StatCardProps) {
           {value}
         </p>
       </div>
-      <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+      <p className="text-xs font-medium text-slate-500
         {change}
       </p>
     </div>
