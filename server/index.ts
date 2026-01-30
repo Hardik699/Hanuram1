@@ -78,7 +78,7 @@ import {
   handleChangeQuotationVendor,
   handleGetQuotationLogs,
 } from "./routes/quotations";
-import { connectDB } from "./db";
+import { connectDB, getConnectionStatus } from "./db";
 import {
   handleGetUsers,
   handleGetUserById,
@@ -109,6 +109,7 @@ import {
 import { requirePermission } from "./middleware/authMiddleware";
 
 export async function createServer() {
+  console.log("📋 Creating Express server and initializing database...");
   const app = express();
 
   // Wrap route registration methods to log failures and identify problematic paths
@@ -130,13 +131,39 @@ export async function createServer() {
 
   ["get", "post", "put", "delete", "use"].forEach((m) => _wrap(m as any));
 
+  // Request logging middleware
+  app.use((req, res, next) => {
+    const startTime = Date.now();
+    const path = req.path;
+    const method = req.method;
+
+    // Log API requests (not assets)
+    if (path.startsWith("/api/") || path === "/health") {
+      console.log(`📥 ${method} ${path}`);
+    }
+
+    // Track response
+    const originalSend = res.send;
+    res.send = function (data: any) {
+      const duration = Date.now() - startTime;
+      if (path.startsWith("/api/") || path === "/health") {
+        console.log(
+          `📤 ${method} ${path} - Status: ${res.statusCode} - ${duration}ms`,
+        );
+      }
+      return originalSend.call(this, data);
+    };
+
+    next();
+  });
+
   // Middleware
   app.use(
     cors({
       origin: "*",
       credentials: false,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type"],
+      allowedHeaders: ["Content-Type", "Authorization"],
     }),
   );
   app.use(express.json());
@@ -164,12 +191,30 @@ export async function createServer() {
   });
 
   // Initialize database connection
-  await connectDB();
+  const dbConnected = await connectDB();
+  if (!dbConnected) {
+    console.error(
+      "⚠️ Database connection failed - API routes may not work properly",
+    );
+  } else {
+    console.log("✅ Database connection successful");
+  }
 
   // API routes
+  console.log("🔧 Registering API routes...");
+
   app.get("/api/ping", (_req, res) => {
     const ping = process.env.PING_MESSAGE ?? "ping";
     res.json({ message: ping });
+  });
+
+  // Health check endpoint
+  app.get("/health", (_req, res) => {
+    res.json({
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      database: getConnectionStatus(),
+    });
   });
 
   app.get("/api/demo", handleDemo);
@@ -225,14 +270,8 @@ export async function createServer() {
     "/api/raw-materials/migrate/fix-unit-shortcodes",
     handleFixMissingUnitShortCodes,
   );
-  app.post(
-    "/api/raw-materials/migrate/codes",
-    handleMigrateRMCodes,
-  );
-  app.post(
-    "/api/raw-materials/reset-counter",
-    handleResetRMCounter,
-  );
+  app.post("/api/raw-materials/migrate/codes", handleMigrateRMCodes);
+  app.post("/api/raw-materials/reset-counter", handleResetRMCounter);
 
   // General RM routes
   app.get("/api/raw-materials", handleGetRawMaterials);
@@ -324,6 +363,24 @@ export async function createServer() {
   app.put("/api/op-costs/bulk-update", handleBulkUpdateOpCosts);
   app.put("/api/op-costs/:id", handleUpdateOpCost);
   app.delete("/api/op-costs/:id", handleDeleteOpCost);
+
+  console.log("✅ All API routes registered successfully");
+
+  // Error handling middleware (must be last)
+  app.use((err: any, _req: any, res: any, _next: any) => {
+    console.error("❌ Unhandled Error:", {
+      message: err.message,
+      stack: err.stack,
+      path: _req.path,
+      method: _req.method,
+    });
+
+    res.status(err.status || 500).json({
+      success: false,
+      message: err.message || "Internal server error",
+      error: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
+  });
 
   return app;
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "@/lib/utils";
 import {
   Check,
   AlertCircle,
@@ -89,7 +90,6 @@ interface PriceLog {
   changedBy: string;
 }
 
-
 export default function RMManagement() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -153,76 +153,85 @@ export default function RMManagement() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("/api/categories");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/categories");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setCategories(data.data);
       }
     } catch (error) {
       console.error("Error fetching categories:", error);
+      setMessage(
+        error instanceof Error ? error.message : "Failed to fetch categories",
+      );
+      setMessageType("error");
     }
   };
 
   const fetchSubCategories = async () => {
     try {
-      const response = await fetch("/api/subcategories");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/subcategories");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setSubCategories(data.data);
       }
     } catch (error) {
       console.error("Error fetching subcategories:", error);
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to fetch subcategories",
+      );
+      setMessageType("error");
     }
   };
 
   const fetchUnits = async () => {
     try {
-      const response = await fetch("/api/units");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/units");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setUnits(data.data);
       }
     } catch (error) {
       console.error("Error fetching units:", error);
+      setMessage(
+        error instanceof Error ? error.message : "Failed to fetch units",
+      );
+      setMessageType("error");
     }
   };
 
   const fetchVendors = async () => {
     try {
-      const response = await fetch("/api/vendors");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/vendors");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setVendors(data.data);
       }
     } catch (error) {
       console.error("Error fetching vendors:", error);
+      setMessage(
+        error instanceof Error ? error.message : "Failed to fetch vendors",
+      );
+      setMessageType("error");
     }
   };
 
   const fetchRawMaterials = async () => {
     try {
-      const response = await fetch("/api/raw-materials");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/raw-materials");
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setRawMaterials(data.data);
       }
     } catch (error) {
       console.error("Error fetching raw materials:", error);
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to fetch raw materials",
+      );
+      setMessageType("error");
     }
   };
 
@@ -255,7 +264,9 @@ export default function RMManagement() {
         rm.categoryName.toLowerCase().includes(searchLower) ||
         rm.subCategoryName.toLowerCase().includes(searchLower);
 
-      return matchesCategory && matchesSubCategory && matchesVendor && matchesSearch;
+      return (
+        matchesCategory && matchesSubCategory && matchesVendor && matchesSearch
+      );
     });
   };
 
@@ -478,7 +489,9 @@ export default function RMManagement() {
       console.error("Error uploading raw materials:", error);
       setMessageType("error");
       setMessage(
-        error instanceof Error ? error.message : "Error uploading raw materials",
+        error instanceof Error
+          ? error.message
+          : "Error uploading raw materials",
       );
       setUploadProgress(0);
     } finally {
@@ -842,7 +855,8 @@ export default function RMManagement() {
               } catch (err) {
                 console.error("Reset error:", err);
                 setMessageType("error");
-                const errorMsg = err instanceof Error ? err.message : "Unknown error occurred";
+                const errorMsg =
+                  err instanceof Error ? err.message : "Unknown error occurred";
                 setMessage("Failed to reset RM counter: " + errorMsg);
               }
             }}
@@ -855,7 +869,9 @@ export default function RMManagement() {
           <DropdownMenuItem
             onClick={async () => {
               try {
-                setMessage("Migrating all raw materials... This may take a moment...");
+                setMessage(
+                  "Migrating all raw materials... This may take a moment...",
+                );
                 setMessageType("success");
 
                 const res = await fetch("/api/raw-materials/migrate/codes", {
@@ -891,7 +907,8 @@ export default function RMManagement() {
               } catch (err) {
                 console.error("Migration error:", err);
                 setMessageType("error");
-                const errorMsg = err instanceof Error ? err.message : "Unknown error occurred";
+                const errorMsg =
+                  err instanceof Error ? err.message : "Unknown error occurred";
                 setMessage("Failed to migrate RM codes: " + errorMsg);
               }
             }}
@@ -903,7 +920,11 @@ export default function RMManagement() {
 
           <DropdownMenuItem
             onClick={async () => {
-              if (!confirm("Are you sure you want to delete ALL prices? This cannot be undone.")) {
+              if (
+                !confirm(
+                  "Are you sure you want to delete ALL prices? This cannot be undone.",
+                )
+              ) {
                 return;
               }
 
@@ -911,9 +932,12 @@ export default function RMManagement() {
                 setMessage("Clearing all prices...");
                 setMessageType("success");
 
-                const response = await fetch("/api/raw-materials/prices/clear/all", {
-                  method: "DELETE",
-                });
+                const response = await fetch(
+                  "/api/raw-materials/prices/clear/all",
+                  {
+                    method: "DELETE",
+                  },
+                );
 
                 if (!response.ok) {
                   throw new Error(`HTTP error! status: ${response.status}`);
@@ -936,7 +960,9 @@ export default function RMManagement() {
                 console.error("Error clearing prices:", error);
                 setMessageType("error");
                 setMessage(
-                  error instanceof Error ? error.message : "Error clearing prices",
+                  error instanceof Error
+                    ? error.message
+                    : "Error clearing prices",
                 );
               }
             }}
@@ -967,7 +993,9 @@ export default function RMManagement() {
 
   // Calculate statistics
   const totalRawMaterials = rawMaterials.length;
-  const materialsWithPrices = rawMaterials.filter(rm => rm.lastAddedPrice).length;
+  const materialsWithPrices = rawMaterials.filter(
+    (rm) => rm.lastAddedPrice,
+  ).length;
   const materialsWithoutPrices = totalRawMaterials - materialsWithPrices;
 
   return (
@@ -989,8 +1017,12 @@ export default function RMManagement() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Total Materials</p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">{totalRawMaterials}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Total Materials
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                  {totalRawMaterials}
+                </h3>
               </div>
               <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
                 <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
@@ -1005,15 +1037,24 @@ export default function RMManagement() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">With Prices</p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">{materialsWithPrices}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  With Prices
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                  {materialsWithPrices}
+                </h3>
               </div>
               <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-xl">
                 <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
             </div>
             <div className="h-1 w-full bg-green-200 dark:bg-green-900/30 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all" style={{ width: `${materialsWithPrices > 0 ? (materialsWithPrices / totalRawMaterials) * 100 : 0}%` }}></div>
+              <div
+                className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all"
+                style={{
+                  width: `${materialsWithPrices > 0 ? (materialsWithPrices / totalRawMaterials) * 100 : 0}%`,
+                }}
+              ></div>
             </div>
           </div>
 
@@ -1021,15 +1062,24 @@ export default function RMManagement() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Pending Prices</p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">{materialsWithoutPrices}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Pending Prices
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                  {materialsWithoutPrices}
+                </h3>
               </div>
               <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-xl">
                 <AlertCircle className="w-6 h-6 text-amber-600 dark:text-amber-400" />
               </div>
             </div>
             <div className="h-1 w-full bg-amber-200 dark:bg-amber-900/30 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full transition-all" style={{ width: `${materialsWithoutPrices > 0 ? (materialsWithoutPrices / totalRawMaterials) * 100 : 0}%` }}></div>
+              <div
+                className="h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full transition-all"
+                style={{
+                  width: `${materialsWithoutPrices > 0 ? (materialsWithoutPrices / totalRawMaterials) * 100 : 0}%`,
+                }}
+              ></div>
             </div>
           </div>
 
@@ -1037,8 +1087,12 @@ export default function RMManagement() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Categories</p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{categories.length}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Categories
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  {categories.length}
+                </h3>
               </div>
               <div className="bg-purple-100 dark:bg-purple-900/30 p-4 rounded-xl">
                 <LayoutGrid className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -1197,12 +1251,18 @@ export default function RMManagement() {
                   Raw Materials List
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Showing <span className="font-bold text-slate-900 dark:text-white">{filteredRawMaterials.length}</span> material{filteredRawMaterials.length !== 1 ? "s" : ""}
+                  Showing{" "}
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {filteredRawMaterials.length}
+                  </span>{" "}
+                  material{filteredRawMaterials.length !== 1 ? "s" : ""}
                 </p>
               </div>
               <div className="hidden sm:flex items-center gap-2 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
                 <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                <span className="text-sm font-bold text-blue-700 dark:text-blue-300">{materialsWithPrices} with prices</span>
+                <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
+                  {materialsWithPrices} with prices
+                </span>
               </div>
             </div>
           </div>
@@ -1280,13 +1340,16 @@ export default function RMManagement() {
                             {rm.unitName}
                           </span>
                         ) : (
-                          <span className="text-slate-500 dark:text-slate-500 text-xs font-semibold">-</span>
+                          <span className="text-slate-500 dark:text-slate-500 text-xs font-semibold">
+                            -
+                          </span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-xs font-bold whitespace-nowrap">
                         {rm.lastAddedPrice ? (
                           <span className="inline-block px-2.5 py-1.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg border border-green-200/50 dark:border-green-800/50">
-                            ₹{rm.lastAddedPrice.toFixed(2)}/{formatUnit(rm.unitName)}
+                            ₹{rm.lastAddedPrice.toFixed(2)}/
+                            {formatUnit(rm.unitName)}
                           </span>
                         ) : (
                           <span className="inline-block px-2.5 py-1.5 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 rounded-lg font-bold border border-orange-200/50 dark:border-orange-800/50">
@@ -1296,9 +1359,15 @@ export default function RMManagement() {
                       </td>
                       <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400 whitespace-nowrap">
                         {rm.lastPriceDate ? (
-                          <span className="text-slate-600 dark:text-slate-400 font-medium">{new Date(rm.lastPriceDate).toLocaleDateString("en-IN")}</span>
+                          <span className="text-slate-600 dark:text-slate-400 font-medium">
+                            {new Date(rm.lastPriceDate).toLocaleDateString(
+                              "en-IN",
+                            )}
+                          </span>
                         ) : (
-                          <span className="text-slate-400 dark:text-slate-500">-</span>
+                          <span className="text-slate-400 dark:text-slate-500">
+                            -
+                          </span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-center whitespace-nowrap">
@@ -1355,7 +1424,14 @@ export default function RMManagement() {
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page <span className="font-bold text-blue-600 dark:text-blue-400">{currentPage}</span> of <span className="font-bold text-slate-900 dark:text-slate-200">{totalPages || 1}</span>
+                    Page{" "}
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
+                      {currentPage}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {totalPages || 1}
+                    </span>
                   </span>
                   <button
                     onClick={handleNextPage}
@@ -1491,7 +1567,8 @@ export default function RMManagement() {
                     Skipped Rows ({uploadErrors.length})
                   </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    These rows were not imported. Please check the errors below and fix your data.
+                    These rows were not imported. Please check the errors below
+                    and fix your data.
                   </p>
                 </div>
                 <button
@@ -1552,7 +1629,8 @@ export default function RMManagement() {
                   </h3>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-                  This will delete ALL raw materials. This action cannot be undone.
+                  This will delete ALL raw materials. This action cannot be
+                  undone.
                 </p>
               </div>
 

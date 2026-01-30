@@ -16,12 +16,24 @@ export async function connectDB(): Promise<boolean> {
       console.error("❌ MONGODB_URI environment variable is not set");
       return false;
     }
+
+    console.log("🔌 Attempting to connect to MongoDB...");
     connectionStatus = "connecting";
-    client = new MongoClient(MONGODB_URI);
+    client = new MongoClient(MONGODB_URI, {
+      serverSelectionTimeoutMS: 10000,
+      connectTimeoutMS: 10000,
+      retryWrites: true,
+      w: "majority",
+    });
+
+    console.log("⏳ Connecting to MongoDB Atlas...");
     await client.connect();
+    console.log("✅ MongoDB connection established");
+
     db = client.db("faction_app");
 
     // Verify connection by pinging the database
+    console.log("🏓 Pinging MongoDB...");
     await db.admin().ping();
     connectionStatus = "connected";
     console.log("✅ Connected to MongoDB");
@@ -32,7 +44,14 @@ export async function connectDB(): Promise<boolean> {
     return true;
   } catch (error) {
     connectionStatus = "disconnected";
-    console.error("❌ MongoDB connection failed:", error);
+    console.error("❌ MongoDB connection failed");
+    console.error(
+      "Error details:",
+      error instanceof Error ? error.message : String(error),
+    );
+    if (error instanceof Error && error.stack) {
+      console.error("Stack trace:", error.stack);
+    }
     return false;
   }
 }
@@ -179,15 +198,27 @@ async function initializeCollections() {
       // Ensure labour permissions are in the permissions collection
       const permissionsCollection = db.collection("permissions");
       const labourPerms = [
-        { permission_id: 20, permission_key: "labour_view", description: "View Labour" },
-        { permission_id: 21, permission_key: "labour_add", description: "Add Labour" },
-        { permission_id: 22, permission_key: "labour_edit", description: "Edit Labour" },
+        {
+          permission_id: 20,
+          permission_key: "labour_view",
+          description: "View Labour",
+        },
+        {
+          permission_id: 21,
+          permission_key: "labour_add",
+          description: "Add Labour",
+        },
+        {
+          permission_id: 22,
+          permission_key: "labour_edit",
+          description: "Edit Labour",
+        },
       ];
       for (const perm of labourPerms) {
         await permissionsCollection.updateOne(
           { permission_id: perm.permission_id },
           { $setOnInsert: perm },
-          { upsert: true }
+          { upsert: true },
         );
       }
       console.log("✅ Labour permissions ensured in permissions collection");
@@ -265,7 +296,7 @@ async function initializeCollections() {
         await rolePermissionsCollection.updateOne(
           { role_id: 1, permission_id: permId },
           { $setOnInsert: { role_id: 1, permission_id: permId } },
-          { upsert: true }
+          { upsert: true },
         );
       }
 
@@ -274,7 +305,7 @@ async function initializeCollections() {
         await rolePermissionsCollection.updateOne(
           { role_id: 2, permission_id: permId },
           { $setOnInsert: { role_id: 2, permission_id: permId } },
-          { upsert: true }
+          { upsert: true },
         );
       }
 
@@ -282,7 +313,7 @@ async function initializeCollections() {
       await rolePermissionsCollection.updateOne(
         { role_id: 2, permission_id: 19 },
         { $setOnInsert: { role_id: 2, permission_id: 19 } },
-        { upsert: true }
+        { upsert: true },
       );
 
       console.log("✅ Labour permissions ensured for roles");
@@ -324,7 +355,9 @@ async function initializeCollections() {
           },
         },
       );
-      console.log("✅ Default admin user updated with credentials: admin / admin123");
+      console.log(
+        "✅ Default admin user updated with credentials: admin / admin123",
+      );
     }
 
     // Create categories collection
@@ -469,7 +502,7 @@ async function initializeCollections() {
       await userModulesCollection.updateOne(
         { user_id: "admin", module_key: "LABOUR" },
         { $setOnInsert: { user_id: "admin", module_key: "LABOUR" } },
-        { upsert: true }
+        { upsert: true },
       );
     }
 
@@ -477,9 +510,7 @@ async function initializeCollections() {
     if (!collectionNames.includes("labour")) {
       await db.createCollection("labour");
       // Create unique index on labour code
-      await db
-        .collection("labour")
-        .createIndex({ code: 1 }, { unique: true });
+      await db.collection("labour").createIndex({ code: 1 }, { unique: true });
       console.log("✅ Labour collection initialized");
     }
 
@@ -495,7 +526,9 @@ async function initializeCollections() {
     if (!collectionNames.includes("recipe_packaging_costs")) {
       await db.createCollection("recipe_packaging_costs");
       // Create unique index on recipe ID
-      await db.collection("recipe_packaging_costs").createIndex({ recipeId: 1 }, { unique: true });
+      await db
+        .collection("recipe_packaging_costs")
+        .createIndex({ recipeId: 1 }, { unique: true });
       console.log("✅ Recipe Packaging Costs collection initialized");
     }
   } catch (error) {
