@@ -165,7 +165,12 @@ export async function createServer() {
   });
 
   // Initialize database connection
-  await connectDB();
+  const dbConnected = await connectDB();
+  if (!dbConnected) {
+    console.error("⚠️ Database connection failed - API routes may not work properly");
+  } else {
+    console.log("✅ Database connection successful");
+  }
 
   // API routes
   app.get("/api/ping", (_req, res) => {
