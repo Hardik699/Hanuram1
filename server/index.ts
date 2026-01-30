@@ -173,6 +173,8 @@ export async function createServer() {
   }
 
   // API routes
+  console.log("🔧 Registering API routes...");
+
   app.get("/api/ping", (_req, res) => {
     const ping = process.env.PING_MESSAGE ?? "ping";
     res.json({ message: ping });
