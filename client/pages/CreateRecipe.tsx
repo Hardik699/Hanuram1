@@ -1053,28 +1053,49 @@ export default function CreateRecipe() {
               )}
 
               {/* Totals */}
-              {recipeItems.length > 0 && (
+              {id || recipeItems.length > 0 ? (
                 <div className="mt-6 space-y-3 pt-6 border-t border-slate-200 dark:border-slate-700">
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-600 dark:text-slate-400 font-medium">
-                      Total Raw Material Cost:
-                    </span>
-                    <span className="text-lg font-bold text-teal-600 dark:text-teal-400">
-                      ₹{totals.totalCost.toFixed(2)}
-                    </span>
-                  </div>
-                  {formData.yield && Number(formData.yield) > 0 && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-600 dark:text-slate-400 font-medium">
-                        Price Per Unit (Yield: {formData.yield}):
-                      </span>
-                      <span className="text-lg font-bold text-green-600 dark:text-green-400">
-                        ₹{totals.pricePerUnit.toFixed(2)}
-                      </span>
+                  {recipeItems.length === 0 && id ? (
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center animate-pulse">
+                        <span className="text-slate-600 dark:text-slate-400 font-medium">
+                          Total Raw Material Cost:
+                        </span>
+                        <div className="h-6 w-20 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                      </div>
+                      {formData.yield && Number(formData.yield) > 0 && (
+                        <div className="flex justify-between items-center animate-pulse">
+                          <span className="text-slate-600 dark:text-slate-400 font-medium">
+                            Price Per Unit (Yield: {formData.yield}):
+                          </span>
+                          <div className="h-6 w-20 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                        </div>
+                      )}
                     </div>
+                  ) : (
+                    <>
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-600 dark:text-slate-400 font-medium">
+                          Total Raw Material Cost:
+                        </span>
+                        <span className="text-lg font-bold text-teal-600 dark:text-teal-400">
+                          ₹{totals.totalCost.toFixed(2)}
+                        </span>
+                      </div>
+                      {formData.yield && Number(formData.yield) > 0 && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-slate-600 dark:text-slate-400 font-medium">
+                            Price Per Unit (Yield: {formData.yield}):
+                          </span>
+                          <span className="text-lg font-bold text-green-600 dark:text-green-400">
+                            ₹{totals.pricePerUnit.toFixed(2)}
+                          </span>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* Form Buttons */}
