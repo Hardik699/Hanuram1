@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { LabourCostSection } from "@/components/LabourCostSection";
+import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
 
 interface Unit {
   _id: string;
