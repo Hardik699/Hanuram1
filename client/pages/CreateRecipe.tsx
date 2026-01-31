@@ -92,6 +92,9 @@ export default function CreateRecipe() {
     price: "",
   });
 
+  const [productionLabourCostPerKg, setProductionLabourCostPerKg] = useState(0);
+  const [packingLabourCostPerKg, setPackingLabourCostPerKg] = useState(0);
+
   const [formData, setFormData] = useState({
     name: "",
     batchSize: "",
