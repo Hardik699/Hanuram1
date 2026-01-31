@@ -810,16 +810,26 @@ export default function RMCManagement() {
       yield: recipe.yield?.toString() || "",
       moisturePercentage: recipe.moisturePercentage?.toString() || "",
     });
-    setRecipeItems([]);
     setRecipeErrors({});
+
+    // Show loading state
+    setRecipeItems([]);
     setShowAddRecipeForm(true);
 
     try {
       const response = await fetch(`/api/recipes/${recipe._id}/items`);
       const data = await response.json();
-      if (data.success) setRecipeItems(data.data);
+      if (data.success && Array.isArray(data.data)) {
+        setRecipeItems(data.data);
+      } else {
+        console.warn("No recipe items found or invalid response format");
+        setRecipeItems([]);
+      }
     } catch (error) {
       console.error("Error fetching recipe items:", error);
+      setMessageType("error");
+      setMessage("Failed to load recipe items. Please try again.");
+      setRecipeItems([]);
     }
   };
 
