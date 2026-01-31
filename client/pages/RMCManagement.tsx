@@ -1697,31 +1697,48 @@ export default function RMCManagement() {
                 </div>
 
                 {/* Recipe Summary */}
-                {recipeItems.length > 0 && (
+                {editingRecipeId || recipeItems.length > 0 ? (
                   <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/30 dark:to-cyan-950/30 border-2 border-teal-200 dark:border-teal-800 rounded-xl p-5">
                     <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-4">
-                      Recipe Summary
+                      Recipe Summary {recipeItems.length === 0 && editingRecipeId && "(Loading...)"}
                     </p>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white dark:bg-slate-800/50 rounded-lg p-4 border border-teal-100 dark:border-teal-900">
-                        <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
-                          Total Raw Material Cost
-                        </p>
-                        <p className="text-3xl font-bold text-teal-600 dark:text-teal-400">
-                          ₹{totals.totalCost.toFixed(2)}
-                        </p>
+                    {recipeItems.length === 0 && editingRecipeId ? (
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-white dark:bg-slate-800/50 rounded-lg p-4 border border-teal-100 dark:border-teal-900 animate-pulse">
+                          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                            Total Raw Material Cost
+                          </p>
+                          <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded w-24"></div>
+                        </div>
+                        <div className="bg-white dark:bg-slate-800/50 rounded-lg p-4 border border-green-100 dark:border-green-900 animate-pulse">
+                          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                            Price per Unit
+                          </p>
+                          <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded w-24"></div>
+                        </div>
                       </div>
-                      <div className="bg-white dark:bg-slate-800/50 rounded-lg p-4 border border-green-100 dark:border-green-900">
-                        <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
-                          Price per Unit
-                        </p>
-                        <p className="text-3xl font-bold text-green-600 dark:text-green-400">
-                          ₹{totals.pricePerUnit.toFixed(2)}
-                        </p>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-white dark:bg-slate-800/50 rounded-lg p-4 border border-teal-100 dark:border-teal-900">
+                          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                            Total Raw Material Cost
+                          </p>
+                          <p className="text-3xl font-bold text-teal-600 dark:text-teal-400">
+                            ₹{totals.totalCost.toFixed(2)}
+                          </p>
+                        </div>
+                        <div className="bg-white dark:bg-slate-800/50 rounded-lg p-4 border border-green-100 dark:border-green-900">
+                          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                            Price per Unit
+                          </p>
+                          <p className="text-3xl font-bold text-green-600 dark:text-green-400">
+                            ₹{totals.pricePerUnit.toFixed(2)}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
-                )}
+                ) : null}
 
                 {/* Form Buttons */}
                 <div className="form-actions pt-6 flex gap-3">
