@@ -1155,7 +1155,14 @@ export default function CreateRecipe() {
             <CostingCalculatorForm
               title="📦 Packaging & Handling Costing Calculator"
               recipeId={id}
-              rmCostPerKg={parseFloat(formData.batchSize) > 0 ? recipeItems.reduce((sum, item) => sum + item.totalPrice, 0) / parseFloat(formData.batchSize) : 0}
+              rmCostPerKg={
+                parseFloat(formData.batchSize) > 0
+                  ? recipeItems.reduce(
+                      (sum, item) => sum + item.totalPrice,
+                      0,
+                    ) / parseFloat(formData.batchSize)
+                  : 0
+              }
               productionLabourCostPerKg={productionLabourCostPerKg}
               packingLabourCostPerKg={packingLabourCostPerKg}
               batchSize={parseFloat(formData.batchSize) || 0}

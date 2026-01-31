@@ -864,8 +864,15 @@ export default function RMCManagement() {
 
   // Calculate statistics
   const totalRecipes = recipes.length;
-  const totalRawMaterialCost = recipes.reduce((sum, r) => sum + (r.totalRawMaterialCost || 0), 0);
-  const avgPricePerUnit = recipes.length > 0 ? recipes.reduce((sum, r) => sum + (r.pricePerUnit || 0), 0) / recipes.length : 0;
+  const totalRawMaterialCost = recipes.reduce(
+    (sum, r) => sum + (r.totalRawMaterialCost || 0),
+    0,
+  );
+  const avgPricePerUnit =
+    recipes.length > 0
+      ? recipes.reduce((sum, r) => sum + (r.pricePerUnit || 0), 0) /
+        recipes.length
+      : 0;
 
   return (
     <Layout title="Raw Material Costing">
@@ -873,7 +880,9 @@ export default function RMCManagement() {
         title="Raw Material Costing"
         description="Manage recipes and calculate material costs"
         breadcrumbs={[{ label: "Raw Material Costing" }]}
-        icon={<BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />}
+        icon={
+          <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+        }
         actions={
           <button
             onClick={() => navigate("/recipe/new")}
@@ -892,7 +901,9 @@ export default function RMCManagement() {
         <div className="bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-700 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl p-6 shadow-lg border border-indigo-400/30 dark:border-indigo-800/30 text-white">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-indigo-100 text-sm font-semibold uppercase tracking-wide">Total Recipes</p>
+              <p className="text-indigo-100 text-sm font-semibold uppercase tracking-wide">
+                Total Recipes
+              </p>
               <h3 className="text-4xl font-bold mt-2">{totalRecipes}</h3>
             </div>
             <div className="bg-indigo-400/30 dark:bg-indigo-800/50 p-3 rounded-lg">
@@ -906,22 +917,32 @@ export default function RMCManagement() {
         <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 dark:from-purple-900 dark:to-purple-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">Total RM Cost</p>
-              <h3 className="text-3xl font-bold mt-2">₹{totalRawMaterialCost.toFixed(0)}</h3>
+              <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">
+                Total RM Cost
+              </p>
+              <h3 className="text-3xl font-bold mt-2">
+                ₹{totalRawMaterialCost.toFixed(0)}
+              </h3>
             </div>
             <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
               <TrendingUp className="w-6 h-6 text-purple-200" />
             </div>
           </div>
-          <p className="text-purple-200 text-xs font-medium">All recipes combined</p>
+          <p className="text-purple-200 text-xs font-medium">
+            All recipes combined
+          </p>
         </div>
 
         {/* Average Price Per Unit Card */}
         <div className="bg-gradient-to-br from-pink-500 via-pink-600 to-pink-700 dark:from-pink-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-pink-400/30 dark:border-pink-800/30 text-white">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-pink-100 text-sm font-semibold uppercase tracking-wide">Avg Price/Unit</p>
-              <h3 className="text-3xl font-bold mt-2">₹{avgPricePerUnit.toFixed(2)}</h3>
+              <p className="text-pink-100 text-sm font-semibold uppercase tracking-wide">
+                Avg Price/Unit
+              </p>
+              <h3 className="text-3xl font-bold mt-2">
+                ₹{avgPricePerUnit.toFixed(2)}
+              </h3>
             </div>
             <div className="bg-pink-400/30 dark:bg-pink-800/50 p-3 rounded-lg">
               <TrendingDown className="w-6 h-6 text-pink-200" />
@@ -966,7 +987,11 @@ export default function RMCManagement() {
                 All Recipes
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                Showing <span className="font-bold text-slate-900 dark:text-white">{recipes.length}</span> recipe{recipes.length !== 1 ? "s" : ""}
+                Showing{" "}
+                <span className="font-bold text-slate-900 dark:text-white">
+                  {recipes.length}
+                </span>{" "}
+                recipe{recipes.length !== 1 ? "s" : ""}
               </p>
             </div>
           </div>
@@ -1024,10 +1049,14 @@ export default function RMCManagement() {
                         {recipe.name}
                       </td>
                       <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white">
-                        <span className="text-purple-600 dark:text-purple-400">₹{recipe.totalRawMaterialCost.toFixed(2)}</span>
+                        <span className="text-purple-600 dark:text-purple-400">
+                          ₹{recipe.totalRawMaterialCost.toFixed(2)}
+                        </span>
                       </td>
                       <td className="px-6 py-4 text-sm font-bold">
-                        <span className="text-indigo-600 dark:text-indigo-400">₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}</span>
+                        <span className="text-indigo-600 dark:text-indigo-400">
+                          ₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}
+                        </span>
                       </td>
                     </tr>
                   ))}
@@ -1071,7 +1100,14 @@ export default function RMCManagement() {
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                      Page <span className="font-bold text-indigo-600 dark:text-indigo-400">{currentPage}</span> of <span className="font-bold text-slate-900 dark:text-slate-200">{totalPages || 1}</span>
+                      Page{" "}
+                      <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                        {currentPage}
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-bold text-slate-900 dark:text-slate-200">
+                        {totalPages || 1}
+                      </span>
                     </span>
                     <button
                       onClick={handleNextPage}
@@ -1700,7 +1736,10 @@ export default function RMCManagement() {
                 {editingRecipeId || recipeItems.length > 0 ? (
                   <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/30 dark:to-cyan-950/30 border-2 border-teal-200 dark:border-teal-800 rounded-xl p-5">
                     <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-4">
-                      Recipe Summary {recipeItems.length === 0 && editingRecipeId && "(Loading...)"}
+                      Recipe Summary{" "}
+                      {recipeItems.length === 0 &&
+                        editingRecipeId &&
+                        "(Loading...)"}
                     </p>
                     {recipeItems.length === 0 && editingRecipeId ? (
                       <div className="grid grid-cols-2 gap-4">
