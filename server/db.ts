@@ -191,6 +191,16 @@ async function initializeCollections() {
           permission_key: "labour_edit",
           description: "Edit Labour",
         },
+        {
+          permission_id: 23,
+          permission_key: "labour_view_costs",
+          description: "View Labour Cost Details",
+        },
+        {
+          permission_id: 24,
+          permission_key: "rmc_view_prices",
+          description: "View RMC Prices",
+        },
       ] as any[];
       await db.collection("permissions").insertMany(permissionsData);
       console.log("✅ Permissions collection initialized");
