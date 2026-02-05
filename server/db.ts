@@ -410,6 +410,53 @@ async function initializeCollections() {
       );
     }
 
+    // Ensure Hardik user exists with Cost Viewer role
+    const hardikUser = await db.collection("users").findOne({
+      username: "Hardik",
+    });
+
+    if (!hardikUser) {
+      // Create Hardik user with role_id 6 (Cost Viewer)
+      const result = await db.collection("users").insertOne({
+        username: "Hardik",
+        password: "123", // In production, this should be hashed
+        email: "hardik@faction.local",
+        role_id: 6,
+        status: "active",
+        createdAt: new Date(),
+      });
+      console.log(
+        "✅ Hardik user created with credentials: Hardik / 123 (Cost Viewer role)",
+      );
+
+      // Add modules for Hardik user
+      const hardikUserId = result.insertedId.toString();
+      const hardikModules = [
+        { user_id: hardikUserId, module_key: "DASHBOARD" },
+        { user_id: hardikUserId, module_key: "CATEGORY_UNIT" },
+        { user_id: hardikUserId, module_key: "RAW_MATERIAL" },
+        { user_id: hardikUserId, module_key: "RAW_MATERIAL_COSTING" },
+      ];
+      await db.collection("user_modules").insertMany(hardikModules);
+      console.log("✅ Modules assigned to Hardik user");
+    } else {
+      // Update existing Hardik user to ensure correct password and role_id
+      await db.collection("users").updateOne(
+        { username: "Hardik" },
+        {
+          $set: {
+            password: "123",
+            role_id: 6,
+            status: "active",
+            email: "hardik@faction.local",
+          },
+        },
+      );
+      console.log(
+        "✅ Hardik user updated with credentials: Hardik / 123 (Cost Viewer role)",
+      );
+    }
+
     // Create categories collection
     if (!collectionNames.includes("categories")) {
       await db.createCollection("categories");
