@@ -995,20 +995,24 @@ export default function RecipeDetail() {
                   <p className="text-sm text-muted-foreground">Unit</p>
                   <p className="font-semibold">{recipe.unitName}</p>
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Total RM Cost</p>
-                  <p className="font-semibold text-green-600">
-                    ₹{totalRMCost.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">
-                    Price per Unit
-                  </p>
-                  <p className="font-semibold text-green-600">
-                    ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
-                  </p>
-                </div>
+                {hasPermission("rmc_view_prices") && (
+                  <>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Total RM Cost</p>
+                      <p className="font-semibold text-green-600">
+                        ₹{totalRMCost.toFixed(2)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">
+                        Price per Unit
+                      </p>
+                      <p className="font-semibold text-green-600">
+                        ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
