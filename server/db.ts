@@ -329,11 +329,11 @@ async function initializeCollections() {
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
     } else {
-      // Ensure labour permissions are added to existing roles
+      // Ensure labour and cost viewing permissions are added to existing roles
       const rolePermissionsCollection = db.collection("role_permissions");
 
-      // Add labour permissions (20, 21, 22) for Super Admin (role_id: 1)
-      for (const permId of [20, 21, 22]) {
+      // Add all labour and cost permissions (20, 21, 22, 23, 24) for Super Admin (role_id: 1)
+      for (const permId of [20, 21, 22, 23, 24]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 1, permission_id: permId },
           { $setOnInsert: { role_id: 1, permission_id: permId } },
@@ -341,8 +341,8 @@ async function initializeCollections() {
         );
       }
 
-      // Add labour permissions for Admin (role_id: 2)
-      for (const permId of [20, 21, 22]) {
+      // Add all labour and cost permissions for Admin (role_id: 2)
+      for (const permId of [20, 21, 22, 23, 24]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 2, permission_id: permId },
           { $setOnInsert: { role_id: 2, permission_id: permId } },
@@ -357,7 +357,16 @@ async function initializeCollections() {
         { upsert: true },
       );
 
-      console.log("✅ Labour permissions ensured for roles");
+      // Add permissions for Cost Viewer role (6) - view only without cost details
+      for (const permId of [1, 2, 5, 8, 10, 12, 14, 20]) {
+        await rolePermissionsCollection.updateOne(
+          { role_id: 6, permission_id: permId },
+          { $setOnInsert: { role_id: 6, permission_id: permId } },
+          { upsert: true },
+        );
+      }
+
+      console.log("✅ Labour and cost viewing permissions ensured for roles");
     }
 
     // Create users collection if it doesn't exist
