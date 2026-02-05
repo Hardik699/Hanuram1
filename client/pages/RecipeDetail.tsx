@@ -116,6 +116,7 @@ interface QuotationCalculatedItem {
 export default function RecipeDetail() {
   const { recipeId } = useParams();
   const navigate = useNavigate();
+  const { hasPermission } = useAuth();
 
   // Data
   const [recipe, setRecipe] = useState<Recipe | null>(null);
