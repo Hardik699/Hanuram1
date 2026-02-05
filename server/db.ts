@@ -72,6 +72,7 @@ async function initializeCollections() {
         { role_id: 3, role_name: "Manager" },
         { role_id: 4, role_name: "Vendor" },
         { role_id: 5, role_name: "Viewer" },
+        { role_id: 6, role_name: "Cost Viewer" },
       ] as any[];
       await db.collection("roles").insertMany(rolesData);
       console.log("✅ Roles collection initialized");
