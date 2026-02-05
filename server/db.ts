@@ -206,9 +206,9 @@ async function initializeCollections() {
       await db.collection("permissions").insertMany(permissionsData);
       console.log("✅ Permissions collection initialized");
     } else {
-      // Ensure labour permissions are in the permissions collection
+      // Ensure labour and cost viewing permissions are in the permissions collection
       const permissionsCollection = db.collection("permissions");
-      const labourPerms = [
+      const newPerms = [
         {
           permission_id: 20,
           permission_key: "labour_view",
@@ -224,15 +224,36 @@ async function initializeCollections() {
           permission_key: "labour_edit",
           description: "Edit Labour",
         },
+        {
+          permission_id: 23,
+          permission_key: "labour_view_costs",
+          description: "View Labour Cost Details",
+        },
+        {
+          permission_id: 24,
+          permission_key: "rmc_view_prices",
+          description: "View RMC Prices",
+        },
       ];
-      for (const perm of labourPerms) {
+      for (const perm of newPerms) {
         await permissionsCollection.updateOne(
           { permission_id: perm.permission_id },
           { $setOnInsert: perm },
           { upsert: true },
         );
       }
-      console.log("✅ Labour permissions ensured in permissions collection");
+      console.log("✅ Labour and cost viewing permissions ensured in permissions collection");
+    }
+
+    // Ensure Cost Viewer role exists
+    if (collectionNames.includes("roles")) {
+      const rolesCollection = db.collection("roles");
+      await rolesCollection.updateOne(
+        { role_id: 6 },
+        { $setOnInsert: { role_id: 6, role_name: "Cost Viewer" } },
+        { upsert: true },
+      );
+      console.log("✅ Cost Viewer role ensured");
     }
 
     // Create role_permissions collection if it doesn't exist
