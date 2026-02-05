@@ -295,6 +295,15 @@ async function initializeCollections() {
         { role_id: 5, permission_id: 1 },
         { role_id: 5, permission_id: 2 },
         { role_id: 5, permission_id: 5 },
+        // Cost Viewer - Can see data but not cost details
+        { role_id: 6, permission_id: 1 },
+        { role_id: 6, permission_id: 2 },
+        { role_id: 6, permission_id: 5 },
+        { role_id: 6, permission_id: 8 },
+        { role_id: 6, permission_id: 10 },
+        { role_id: 6, permission_id: 12 },
+        { role_id: 6, permission_id: 14 },
+        { role_id: 6, permission_id: 20 },
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
