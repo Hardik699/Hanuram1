@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { LabourCostSection } from "@/components/LabourCostSection";
 import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
+import { PermissionGate } from "@/components/PermissionGate";
+import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 interface Unit {
