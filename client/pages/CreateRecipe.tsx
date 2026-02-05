@@ -12,6 +12,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { LabourCostSection } from "@/components/LabourCostSection";
 import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
+import { PermissionGate } from "@/components/PermissionGate";
 
 interface Unit {
   _id: string;
