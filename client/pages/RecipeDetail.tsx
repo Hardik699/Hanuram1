@@ -1088,35 +1088,37 @@ export default function RecipeDetail() {
               </div>
             </div>
 
-            {/* Labour Costing Sections */}
-            <div className="space-y-6">
-              {/* Production Labour Cost */}
-              <LabourCostSection
-                recipeId={recipeId!}
-                recipeQuantity={recipe.batchSize || 0}
-                type="production"
-                title="Production Labour Cost"
-              />
+            {/* Labour Costing Sections - Only visible if user has labour_view_costs permission */}
+            <PermissionGate permission="labour_view_costs">
+              <div className="space-y-6">
+                {/* Production Labour Cost */}
+                <LabourCostSection
+                  recipeId={recipeId!}
+                  recipeQuantity={recipe.batchSize || 0}
+                  type="production"
+                  title="Production Labour Cost"
+                />
 
-              {/* Packing Labour Cost */}
-              <LabourCostSection
-                recipeId={recipeId!}
-                recipeQuantity={recipe.batchSize || 0}
-                type="packing"
-                title="Packing Labour Cost"
-              />
+                {/* Packing Labour Cost */}
+                <LabourCostSection
+                  recipeId={recipeId!}
+                  recipeQuantity={recipe.batchSize || 0}
+                  type="packing"
+                  title="Packing Labour Cost"
+                />
 
-              {/* Costing Calculator Form */}
-              <CostingCalculatorForm
-                title="📦 Packaging & Handling Costing Calculator"
-                recipeId={recipeId}
-                rmCostPerKg={recipe.batchSize > 0 ? recipe.totalRawMaterialCost / recipe.batchSize : 0}
-                productionLabourCostPerKg={productionLabourCostPerKg}
-                packingLabourCostPerKg={packingLabourCostPerKg}
-                batchSize={recipe.batchSize}
-                yield={recipe.yield || 100}
-              />
-            </div>
+                {/* Costing Calculator Form */}
+                <CostingCalculatorForm
+                  title="📦 Packaging & Handling Costing Calculator"
+                  recipeId={recipeId}
+                  rmCostPerKg={recipe.batchSize > 0 ? recipe.totalRawMaterialCost / recipe.batchSize : 0}
+                  productionLabourCostPerKg={productionLabourCostPerKg}
+                  packingLabourCostPerKg={packingLabourCostPerKg}
+                  batchSize={recipe.batchSize}
+                  yield={recipe.yield || 100}
+                />
+              </div>
+            </PermissionGate>
           </div>
         )}
 
