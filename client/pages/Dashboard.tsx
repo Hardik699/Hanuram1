@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BarChart3, Users, FileText, Settings, Clock } from "lucide-react";
+import { BarChart3, Users, FileText, Settings, Clock, LayoutDashboard } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { PageHeader } from "@/components/PageHeader";
 
 interface DashboardUser {
   username: string;
