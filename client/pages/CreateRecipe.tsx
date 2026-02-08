@@ -641,7 +641,7 @@ export default function CreateRecipe() {
             <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                  Recipe Items
+                  📦 Recipe Items
                 </h3>
                 <button
                   type="button"
