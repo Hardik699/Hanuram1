@@ -1271,30 +1271,30 @@ export default function RMManagement() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
+                <thead className="prof-table-head">
                   <tr>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Code
                     </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider">
+                    <th className="prof-table-head-cell">
                       Name
                     </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Category
                     </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Sub Category
                     </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Unit
                     </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Last Price
                     </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Last Purchase
                     </th>
-                    <th className="px-4 py-3.5 text-center text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell text-center">
                       Action
                     </th>
                   </tr>
