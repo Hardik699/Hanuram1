@@ -682,132 +682,143 @@ export default function CreateVendor() {
               </div>
             </div>
 
-            {tableLoading ? (
-              <div className="p-8 text-center">
-                <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-600 dark:text-slate-400 mt-2">
-                  Loading vendors...
-                </p>
-              </div>
-            ) : paginatedVendors.length === 0 ? (
-              <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                No vendors found
-              </div>
-            ) : (
-              <>
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[900px]">
-                    <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Vendor Name
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Contact Person
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Mobile
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Location
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Created By
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                      {paginatedVendors.map((vendor) => (
-                        <tr
-                          key={vendor._id}
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+            <div className="overflow-x-auto">
+              {tableLoading ? (
+                <div className="p-8 text-center">
+                  <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                  <p className="text-slate-600 dark:text-slate-400 mt-2">
+                    Loading vendors...
+                  </p>
+                </div>
+              ) : paginatedVendors.length === 0 ? (
+                <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+                  No vendors found
+                </div>
+              ) : (
+                <table className="w-full">
+                  <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Vendor Name
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Contact Person
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Mobile
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Location
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Created By
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {paginatedVendors.map((vendor, idx) => (
+                      <tr
+                        key={vendor._id}
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 ${
+                          idx % 2 === 0
+                            ? "hover:bg-blue-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50"
+                        }`}
+                      >
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm font-semibold text-blue-600 dark:text-blue-400 cursor-pointer group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors"
                         >
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
-                          >
-                            {vendor.name}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {vendor.personName}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            <div className="flex items-center gap-2">
-                              <Phone className="w-4 h-4" />
-                              {vendor.mobileNumber}
-                            </div>
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 max-w-xs truncate"
-                          >
-                            {vendor.location}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {vendor.createdBy}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                          {vendor.name}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {vendor.personName}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-4 h-4" />
+                            {vendor.mobileNumber}
+                          </div>
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer max-w-xs truncate"
+                        >
+                          {vendor.location}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {vendor.createdBy}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
 
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
-                      Items per page:
-                    </span>
-                    <select
-                      value={itemsPerPage}
-                      onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                      className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                    >
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                    </select>
-                  </div>
+            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                  Items per page:
+                </span>
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
+                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-semibold hover:border-blue-300"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
-                      {startIndex + 1} -{" "}
-                      {Math.min(endIndex, filteredVendors.length)} of{" "}
-                      {filteredVendors.length}
+              <div className="flex items-center gap-6">
+                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
+                    {startIndex + 1}-{Math.min(endIndex, filteredVendors.length)}
+                  </span>{" "}
+                  of{" "}
+                  <span className="font-bold text-slate-900 dark:text-slate-200">
+                    {filteredVendors.length}
+                  </span>
+                </span>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                    Page{" "}
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
+                      {currentPage}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {totalPages || 1}
                     </span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={handlePreviousPage}
-                        disabled={currentPage === 1}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
-                        Page {currentPage} of {totalPages || 1}
-                      </span>
-                      <button
-                        onClick={handleNextPage}
-                        disabled={
-                          currentPage === totalPages || totalPages === 0
-                        }
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                  </span>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages || totalPages === 0}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </div>
         </div>
       )}
