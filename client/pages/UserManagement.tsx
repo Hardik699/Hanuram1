@@ -586,71 +586,72 @@ export default function UserManagement() {
 
             {/* Pagination */}
             {users.length > 0 && (
-              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
-                    Items per page:
-                  </span>
-                  <select
-                    value={itemsPerPage}
-                    onChange={(e) => {
-                      setItemsPerPage(parseInt(e.target.value));
-                      setCurrentPage(1);
-                    }}
-                    className="prof-form-select px-4 py-2 w-24 text-sm"
-                  >
-                    <option key="items-10" value="10">
-                      10
-                    </option>
-                    <option key="items-20" value="20">
-                      20
-                    </option>
-                    <option key="items-30" value="30">
-                      30
-                    </option>
-                  </select>
-                </div>
-
-                <div className="flex items-center gap-6">
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
-                      {(currentPage - 1) * itemsPerPage + 1}-
-                      {Math.min(currentPage * itemsPerPage, users.length)}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
-                      {users.length}
+              <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+                <div className="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
+                  {/* Items per page - hidden on very small screens */}
+                  <div className="hidden sm:flex items-center gap-2">
+                    <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                      Per page:
                     </span>
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() =>
-                        setCurrentPage((prev) => Math.max(prev - 1, 1))
-                      }
-                      disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                    <select
+                      value={itemsPerPage}
+                      onChange={(e) => {
+                        setItemsPerPage(parseInt(e.target.value));
+                        setCurrentPage(1);
+                      }}
+                      className="prof-form-select px-3 py-1.5 w-20 text-xs sm:text-sm"
                     >
-                      ←
-                    </button>
-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
-                      Page{" "}
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+
+                  {/* Pagination info and controls */}
+                  <div className="flex items-center gap-2 sm:gap-4">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
                       <span className="font-bold text-blue-600 dark:text-blue-400">
-                        {currentPage}
-                      </span>{" "}
-                      of{" "}
-                      <span className="font-bold text-slate-900 dark:text-slate-200">
-                        {totalPages}
+                        {(currentPage - 1) * itemsPerPage + 1}-
+                        {Math.min(currentPage * itemsPerPage, users.length)}
+                      </span>
+                      <span className="hidden sm:inline"> of </span>
+                      <span className="hidden sm:inline font-bold text-slate-900 dark:text-slate-200">
+                        {users.length}
                       </span>
                     </span>
-                    <button
-                      onClick={() =>
-                        setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                      }
-                      disabled={currentPage === totalPages}
-                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                    >
-                      →
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() =>
+                          setCurrentPage((prev) => Math.max(prev - 1, 1))
+                        }
+                        disabled={currentPage === 1}
+                        className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm"
+                        title="Previous page"
+                      >
+                        ←
+                      </button>
+                      <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[60px] sm:min-w-[100px] text-center">
+                        <span className="text-blue-600 dark:text-blue-400">
+                          {currentPage}
+                        </span>
+                        <span className="hidden sm:inline">/</span>
+                        <span className="hidden sm:inline text-slate-900 dark:text-slate-200">
+                          {totalPages}
+                        </span>
+                      </span>
+                      <button
+                        onClick={() =>
+                          setCurrentPage((prev) =>
+                            Math.min(prev + 1, totalPages)
+                          )
+                        }
+                        disabled={currentPage === totalPages}
+                        className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm"
+                        title="Next page"
+                      >
+                        →
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
