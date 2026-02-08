@@ -504,7 +504,7 @@ export default function CreateCategory() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-blue-600 via-blue-600 to-cyan-600 dark:from-blue-900 dark:via-blue-900 dark:to-cyan-900 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
+                <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
                   <tr>
                     <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Initial
