@@ -266,7 +266,7 @@ export default function CreateUnit() {
         description="Manage measurement units for products"
         breadcrumbs={[{ label: "Unit Management" }]}
         icon={
-          <Settings className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+          <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
         }
         actions={
           !showAddForm ? (
@@ -274,14 +274,14 @@ export default function CreateUnit() {
               <button
                 onClick={handleClearAllClick}
                 disabled={units.length === 0}
-                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-300 dark:disabled:bg-slate-600 disabled:cursor-not-allowed text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-2 hover:shadow-elevation-4 transform hover:scale-105 hover:-translate-y-0.5"
               >
                 <Trash2 className="w-4 h-4" />
                 Clear All
               </button>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap text-sm"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Unit</span>
