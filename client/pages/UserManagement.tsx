@@ -535,24 +535,24 @@ export default function UserManagement() {
         {loading ? (
           <LoadingSpinner message="Loading users..." />
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[800px]">
-                <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
+              <table className="w-full">
+                <thead className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 dark:from-teal-900 dark:via-teal-900 dark:to-teal-950 border-b-2 border-teal-700 dark:border-teal-800 sticky top-0">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Username
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Role
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Created
                     </th>
                   </tr>
@@ -567,33 +567,37 @@ export default function UserManagement() {
                       </td>
                     </tr>
                   ) : (
-                    paginatedUsers.map((user) => (
+                    paginatedUsers.map((user, idx) => (
                       <tr
                         key={user._id}
-                        className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-teal-500 cursor-pointer ${
+                          idx % 2 === 0
+                            ? "hover:bg-teal-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-teal-50 dark:hover:bg-slate-700/50"
+                        }`}
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
-                        <td className="px-6 py-4 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
+                        <td className="px-6 py-4 text-sm font-semibold text-teal-600 dark:text-teal-400 cursor-pointer group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">
                           {user.username}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
                           {user.email}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
                           {getRoleName(user.role_id)}
                         </td>
-                        <td className="px-6 py-4 text-sm">
+                        <td className="px-6 py-4 text-sm cursor-pointer">
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            className={`px-3 py-1.5 rounded-full text-xs font-semibold inline-block ${
                               user.status === "active"
-                                ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                                : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
+                                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                                : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
                             }`}
                           >
                             {user.status === "active" ? "Active" : "Blocked"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 cursor-pointer whitespace-nowrap">
                           {new Date(user.createdAt).toLocaleDateString()}
                         </td>
                       </tr>
@@ -605,9 +609,9 @@ export default function UserManagement() {
 
             {/* Pagination */}
             {users.length > 0 && (
-              <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">
+              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                     Items per page:
                   </span>
                   <select
@@ -616,7 +620,7 @@ export default function UserManagement() {
                       setItemsPerPage(parseInt(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-semibold hover:border-teal-300"
                   >
                     <option key="items-10" value="10">
                       10
@@ -630,31 +634,43 @@ export default function UserManagement() {
                   </select>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">
-                    {(currentPage - 1) * itemsPerPage + 1} -{" "}
-                    {Math.min(currentPage * itemsPerPage, users.length)} of{" "}
-                    {users.length}
+                <div className="flex items-center gap-6">
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    <span className="font-bold text-teal-600 dark:text-teal-400">
+                      {(currentPage - 1) * itemsPerPage + 1}-
+                      {Math.min(currentPage * itemsPerPage, users.length)}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {users.length}
+                    </span>
                   </span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <button
                       onClick={() =>
                         setCurrentPage((prev) => Math.max(prev - 1, 1))
                       }
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
                     >
                       ←
                     </button>
-                    <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
-                      Page {currentPage} of {totalPages}
+                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                      Page{" "}
+                      <span className="font-bold text-teal-600 dark:text-teal-400">
+                        {currentPage}
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-bold text-slate-900 dark:text-slate-200">
+                        {totalPages}
+                      </span>
                     </span>
                     <button
                       onClick={() =>
                         setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                       }
                       disabled={currentPage === totalPages}
-                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
                     >
                       →
                     </button>
