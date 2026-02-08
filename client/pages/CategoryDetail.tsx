@@ -201,13 +201,35 @@ export default function CategoryDetail() {
   return (
     <Layout title="Category Details">
       <div className="space-y-6">
-        <button
-          onClick={() => navigate("/create-category")}
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Categories
-        </button>
+        <PageHeader
+          title={category?.name || "Category Details"}
+          description={category?.description || "No description available"}
+          breadcrumbs={[
+            { label: "Categories", href: "/create-category" },
+            { label: category?.name || "Details" },
+          ]}
+          icon={<Folder className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+          actions={
+            !showEditForm ? (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowEditForm(true)}
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </button>
+              </div>
+            ) : null
+          }
+        />
 
         {message && (
           <div
