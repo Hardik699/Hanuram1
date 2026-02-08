@@ -663,7 +663,7 @@ export default function CreateVendor() {
 
             {tableLoading ? (
               <div className="p-8 text-center">
-                <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                 <p className="text-slate-600 dark:text-slate-400 mt-2">
                   Loading vendors...
                 </p>
