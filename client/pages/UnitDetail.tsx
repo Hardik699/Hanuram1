@@ -31,7 +31,9 @@ export default function UnitDetail() {
     shortCode: "",
   });
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState<"success" | "error">("success");
+  const [messageType, setMessageType] = useState<"success" | "error">(
+    "success",
+  );
   const [saveLoading, setSaveLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -123,8 +125,7 @@ export default function UnitDetail() {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this unit?") || !id)
-      return;
+    if (!confirm("Are you sure you want to delete this unit?") || !id) return;
 
     try {
       const response = await fetch(`/api/units/${id}`, {
@@ -180,9 +181,7 @@ export default function UnitDetail() {
       <Layout title="Unit Not Found">
         <div className="text-center p-8">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <p className="text-slate-600 dark:text-slate-400">
-            Unit not found
-          </p>
+          <p className="text-slate-600 dark:text-slate-400">Unit not found</p>
           <button
             onClick={() => navigate("/create-unit")}
             className="mt-4 text-teal-600 hover:text-teal-700 dark:text-teal-400 font-medium"
@@ -204,7 +203,9 @@ export default function UnitDetail() {
             { label: "Units", href: "/create-unit" },
             { label: unit?.name || "Details" },
           ]}
-          icon={<Settings className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+          icon={
+            <Settings className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+          }
           actions={
             !showEditForm ? (
               <div className="flex gap-3">

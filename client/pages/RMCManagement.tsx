@@ -907,7 +907,9 @@ export default function RMCManagement() {
               <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
                 {totalRecipes}
               </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Active recipes</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                Active recipes
+              </p>
             </div>
             <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-xl">
               <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
@@ -926,7 +928,9 @@ export default function RMCManagement() {
               <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
                 ₹{totalRawMaterialCost.toFixed(0)}
               </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">All recipes combined</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                All recipes combined
+              </p>
             </div>
             <div className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 p-4 rounded-xl">
               <TrendingUp className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -945,7 +949,9 @@ export default function RMCManagement() {
               <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
                 ₹{avgPricePerUnit.toFixed(2)}
               </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Per unit average</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                Per unit average
+              </p>
             </div>
             <div className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 p-4 rounded-xl">
               <TrendingDown className="w-6 h-6 text-pink-600 dark:text-pink-400" />

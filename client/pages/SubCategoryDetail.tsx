@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { ArrowLeft, Edit2, Trash2, Check, AlertCircle, FolderOpen } from "lucide-react";
+import {
+  ArrowLeft,
+  Edit2,
+  Trash2,
+  Check,
+  AlertCircle,
+  FolderOpen,
+} from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
 
 interface SubCategory {
@@ -219,7 +226,9 @@ export default function SubCategoryDetail() {
             { label: "SubCategories", href: "/create-subcategory" },
             { label: subCategory?.name || "Details" },
           ]}
-          icon={<FolderOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+          icon={
+            <FolderOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+          }
           actions={
             !showEditForm ? (
               <div className="flex gap-3">

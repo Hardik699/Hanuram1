@@ -333,7 +333,7 @@ export default function UserManagement() {
       <div className="space-y-6">
         <PageHeader
           title="User Management"
-          description={`Manage ${users.length} user${users.length !== 1 ? 's' : ''} and permissions`}
+          description={`Manage ${users.length} user${users.length !== 1 ? "s" : ""} and permissions`}
           breadcrumbs={[{ label: "User Management" }]}
           icon={<Users className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
           actions={

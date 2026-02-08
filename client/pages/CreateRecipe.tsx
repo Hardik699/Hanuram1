@@ -482,12 +482,18 @@ export default function CreateRecipe() {
         {/* Header */}
         <PageHeader
           title={id ? "Edit Recipe" : "Create Recipe"}
-          description={id ? "Update recipe details, materials, and costing information" : "Create a new recipe with materials and costing details"}
+          description={
+            id
+              ? "Update recipe details, materials, and costing information"
+              : "Create a new recipe with materials and costing details"
+          }
           breadcrumbs={[
             { label: "Raw Material Costing", href: "/rmc" },
-            { label: id ? "Edit Recipe" : "Create Recipe" }
+            { label: id ? "Edit Recipe" : "Create Recipe" },
           ]}
-          icon={<ChefHat className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />}
+          icon={
+            <ChefHat className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+          }
         />
 
         {/* Message Alert */}
@@ -1148,7 +1154,8 @@ export default function CreateRecipe() {
               </div>
               <div className="px-8 py-4 border-b border-slate-200 dark:border-slate-700">
                 <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Manage labour costs for production and packing, plus packaging and handling expenses
+                  Manage labour costs for production and packing, plus packaging
+                  and handling expenses
                 </p>
               </div>
             </div>
