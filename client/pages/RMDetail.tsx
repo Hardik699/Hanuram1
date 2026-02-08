@@ -644,16 +644,16 @@ export default function RMDetail() {
           </div>
 
           {/* Purchase History Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
-            <div className="border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+          <div className="table-responsive shadow-elevation-4 animate-page-load">
+            <div className="bg-white dark:bg-slate-800 border-b-2 border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent">
                 Purchase History - {rawMaterial.name}
               </h2>
               <button
                 onClick={() =>
                   setSortOrder(sortOrder === "desc" ? "asc" : "desc")
                 }
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors"
+                className="prof-btn-secondary py-2"
               >
                 {sortOrder === "desc" ? (
                   <>
@@ -670,24 +670,24 @@ export default function RMDetail() {
             </div>
 
             {vendorPurchaseHistory.length === 0 ? (
-              <div className="text-center py-12 text-slate-500 dark:text-slate-400 p-6">
-                <p>No purchase history for this vendor</p>
+              <div className="text-center py-12 text-slate-500 dark:text-slate-400 p-6 bg-white dark:bg-slate-800">
+                <p className="font-bold">No purchase history for this vendor</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[700px]">
-                  <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                  <thead className="prof-table-head">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                      <th className="prof-table-head-cell">
                         Purchase Date
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                      <th className="prof-table-head-cell">
                         Quantity
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                      <th className="prof-table-head-cell">
                         Price
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                      <th className="prof-table-head-cell">
                         Total Amount
                       </th>
                     </tr>
@@ -696,24 +696,29 @@ export default function RMDetail() {
                     {(sortOrder === "desc"
                       ? vendorPurchaseHistory
                       : [...vendorPurchaseHistory].reverse()
-                    ).map((purchase) => {
+                    ).map((purchase, idx) => {
                       const totalAmount = purchase.quantity * purchase.price;
                       return (
                         <tr
                           key={purchase._id}
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
+                          className={cn(
+                            "prof-table-row prof-table-row-hover",
+                            idx % 2 === 0 && "prof-table-row-even"
+                          )}
                         >
-                          <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                          <td className="prof-table-cell">
                             {formatDate(purchase.addedDate)}
                           </td>
-                          <td className="px-6 py-4 text-sm text-slate-900 dark:text-white">
+                          <td className="prof-table-cell-bold text-slate-900 dark:text-white">
                             {purchase.quantity} {formatUnit(purchase.unitName)}
                           </td>
-                          <td className="px-6 py-4 text-sm font-semibold text-teal-600 dark:text-teal-400">
-                            ₹{purchase.price.toFixed(2)}/
-                            {formatUnit(purchase.unitName)}
+                          <td className="prof-table-cell">
+                            <span className="prof-badge-green">
+                              ₹{purchase.price.toFixed(2)}/
+                              {formatUnit(purchase.unitName)}
+                            </span>
                           </td>
-                          <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white">
+                          <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
                             ₹{totalAmount.toFixed(2)}
                           </td>
                         </tr>
