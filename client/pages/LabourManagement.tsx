@@ -279,21 +279,40 @@ export default function LabourManagement() {
         </div>
 
         {/* Labour Header and Search */}
-        <div className="bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 border border-slate-200 dark:border-slate-700">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div className="flex-1 max-w-md">
-              <div className="relative">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-indigo-500 dark:text-indigo-400" />
-                <Input
-                  placeholder="Search by name, code, or department..."
-                  value={searchTerm}
-                  onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="pl-12 border-2 border-indigo-200 dark:border-indigo-900/50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent rounded-lg"
-                />
-              </div>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+                <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                Labour List
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                Showing{" "}
+                <span className="font-bold text-slate-900 dark:text-white">
+                  {filteredLabour.length}
+                </span>{" "}
+                labour{filteredLabour.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+            <div className="hidden sm:flex items-center gap-2 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
+              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
+                {filteredLabour.length} total
+              </span>
+            </div>
+          </div>
+          <div className="mt-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
+              <Input
+                placeholder="Search by name, code, or department..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="pl-12 border-2 border-blue-200 dark:border-blue-900/50 focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg"
+              />
             </div>
           </div>
         </div>
