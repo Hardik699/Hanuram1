@@ -562,7 +562,7 @@ export default function CreateRecipe() {
                     errors.batchSize
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 />
                 {errors.batchSize && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -585,7 +585,7 @@ export default function CreateRecipe() {
                     errors.unitId
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 >
                   <option value="">Select Unit</option>
                   {units.map((unit) => (
@@ -613,7 +613,7 @@ export default function CreateRecipe() {
                     setFormData({ ...formData, yield: e.target.value })
                   }
                   placeholder="Enter yield"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -632,7 +632,7 @@ export default function CreateRecipe() {
                     })
                   }
                   placeholder="Enter moisture percentage"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
             </div>
@@ -668,7 +668,7 @@ export default function CreateRecipe() {
                           setFilterCategoryForRM(e.target.value);
                           setFilterSubCategoryForRM("");
                         }}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                       >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -689,7 +689,7 @@ export default function CreateRecipe() {
                           setFilterSubCategoryForRM(e.target.value)
                         }
                         disabled={!filterCategoryForRM}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm disabled:opacity-50"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm disabled:opacity-50"
                       >
                         <option value="">All Sub Categories</option>
                         {getFilteredSubCategories().map((sc) => (
@@ -709,7 +709,7 @@ export default function CreateRecipe() {
                         value={filterSearchRM}
                         onChange={(e) => setFilterSearchRM(e.target.value)}
                         placeholder="Search by name..."
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                       />
                     </div>
                   </div>
@@ -750,7 +750,7 @@ export default function CreateRecipe() {
                         itemErrors.rawMaterial
                           ? "border-red-500 dark:border-red-400"
                           : "border-slate-200 dark:border-slate-600"
-                      } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm`}
+                      } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                     >
                       <option value="">-- Choose Raw Material --</option>
                       {getFilteredRawMaterials().map((rm) => (
@@ -783,7 +783,7 @@ export default function CreateRecipe() {
                           itemErrors.quantity
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                       />
                       {itemErrors.quantity && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -813,7 +813,7 @@ export default function CreateRecipe() {
                           itemErrors.price
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                       />
                       {itemErrors.price && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -851,7 +851,7 @@ export default function CreateRecipe() {
                         onChange={(e) =>
                           setItemForm({ ...itemForm, unitId: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                       >
                         <option value="">Default</option>
                         {units.map((unit) => (
