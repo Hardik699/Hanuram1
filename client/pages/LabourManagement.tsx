@@ -202,11 +202,11 @@ export default function LabourManagement() {
           { label: "Category/Unit", path: "#" },
           { label: "Labour", path: "/labour" },
         ]}
-        icon={<Users className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />}
+        icon={<Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
         actions={
           <Button
             onClick={() => handleOpenDialog()}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+            className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Labour
