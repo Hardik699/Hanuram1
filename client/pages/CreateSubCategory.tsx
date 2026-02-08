@@ -548,120 +548,137 @@ export default function CreateSubCategory() {
               </div>
             </div>
 
-            {tableLoading ? (
-              <div className="p-8 text-center">
-                <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-600 dark:text-slate-400 mt-2">Loading sub categories...</p>
-              </div>
-            ) : paginatedSubcategories.length === 0 ? (
-              <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                No sub categories found
-              </div>
-            ) : (
-              <>
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[800px]">
-                    <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Name
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Category
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Status
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Created By
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                      {paginatedSubcategories.map((subcategory) => (
-                        <tr
-                          key={subcategory._id}
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+            <div className="overflow-x-auto">
+              {tableLoading ? (
+                <div className="p-8 text-center">
+                  <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                  <p className="text-slate-600 dark:text-slate-400 mt-2">Loading sub categories...</p>
+                </div>
+              ) : paginatedSubcategories.length === 0 ? (
+                <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+                  No sub categories found
+                </div>
+              ) : (
+                <table className="w-full">
+                  <thead className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 dark:from-teal-900 dark:via-teal-900 dark:to-teal-950 border-b-2 border-teal-700 dark:border-teal-800 sticky top-0">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Name
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Category
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Status
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Created By
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {paginatedSubcategories.map((subcategory, idx) => (
+                      <tr
+                        key={subcategory._id}
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-teal-500 ${
+                          idx % 2 === 0
+                            ? "hover:bg-teal-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-teal-50 dark:hover:bg-slate-700/50"
+                        }`}
+                      >
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm font-semibold text-teal-600 dark:text-teal-400 cursor-pointer group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors"
                         >
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline"
+                          {subcategory.name}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {subcategory.categoryName}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm cursor-pointer"
+                        >
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                              subcategory.status === "active"
+                                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                                : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
+                            }`}
                           >
-                            {subcategory.name}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {subcategory.categoryName}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm"
-                          >
-                            <span
-                              className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                                subcategory.status === "active"
-                                  ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                                  : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
-                              }`}
-                            >
-                              {subcategory.status ? subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1) : "-"}
-                            </span>
-                          </td>
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {subcategory.createdBy}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                            {subcategory.status ? subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1) : "-"}
+                          </span>
+                        </td>
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {subcategory.createdBy}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
 
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">Items per page:</span>
-                    <select
-                      value={itemsPerPage}
-                      onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                      className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                    >
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                    </select>
-                  </div>
+            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                  Items per page:
+                </span>
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
+                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-semibold hover:border-teal-300"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
-                      {startIndex + 1} - {Math.min(endIndex, filteredSubcategories.length)} of {filteredSubcategories.length}
+              <div className="flex items-center gap-6">
+                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                  <span className="font-bold text-teal-600 dark:text-teal-400">
+                    {startIndex + 1}-{Math.min(endIndex, filteredSubcategories.length)}
+                  </span>{" "}
+                  of{" "}
+                  <span className="font-bold text-slate-900 dark:text-slate-200">
+                    {filteredSubcategories.length}
+                  </span>
+                </span>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                    Page{" "}
+                    <span className="font-bold text-teal-600 dark:text-teal-400">
+                      {currentPage}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {totalPages || 1}
                     </span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={handlePreviousPage}
-                        disabled={currentPage === 1}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
-                        Page {currentPage} of {totalPages || 1}
-                      </span>
-                      <button
-                        onClick={handleNextPage}
-                        disabled={currentPage === totalPages || totalPages === 0}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                  </span>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages || totalPages === 0}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </div>
         </div>
       )}
