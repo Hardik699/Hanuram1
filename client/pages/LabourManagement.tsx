@@ -216,19 +216,25 @@ export default function LabourManagement() {
 
       <div className="space-y-6">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 animate-fade-in-up">
           {/* Total Labour Card */}
-          <div className="bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-700 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl p-6 shadow-lg border border-indigo-400/30 dark:border-indigo-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-indigo-100 text-sm font-semibold uppercase tracking-wide">Total Labour</p>
-                <h3 className="text-4xl font-bold mt-2">{totalLabour}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Total Labour
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                  {totalLabour}
+                </h3>
               </div>
-              <div className="bg-indigo-400/30 dark:bg-indigo-800/50 p-3 rounded-lg">
-                <Users className="w-6 h-6 text-indigo-200" />
+              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
+                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <p className="text-indigo-200 text-xs font-medium">Factory workers</p>
+            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
+            </div>
           </div>
 
           {/* Total Daily Cost Card */}
