@@ -3,23 +3,17 @@ import {
   Plus,
   Edit2,
   Trash2,
-  Search,
   Users,
   TrendingUp,
   DollarSign,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
-import { PageHeader } from "@/components/PageHeader";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
+import { ProfessionalForm, FormGroup, FormActions } from "@/components/ProfessionalForm";
+import { DataTable } from "@/components/DataTable";
+import Modal from "@/components/ui/Modal";
+import { cn } from "@/lib/utils";
 
 interface Labour {
   id: string;
