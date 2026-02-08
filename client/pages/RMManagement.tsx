@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "@/lib/utils";
+import { apiFetch, cn } from "@/lib/utils";
 import {
   Check,
   AlertCircle,
