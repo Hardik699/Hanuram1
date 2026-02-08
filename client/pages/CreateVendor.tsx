@@ -1,22 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Edit2,
   Trash2,
-  Check,
-  AlertCircle,
   Plus,
-  ChevronLeft,
-  ChevronRight,
   Mail,
   Phone,
   MapPin,
   Upload,
-  Search,
   Building2,
+  ArrowLeft,
+  FileText,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
-import { PageHeader } from "@/components/PageHeader";
+import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
+import { ProfessionalForm, FormGroup, FormActions } from "@/components/ProfessionalForm";
+import { DataTable } from "@/components/DataTable";
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface Vendor {
   _id: string;
