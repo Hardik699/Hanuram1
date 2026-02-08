@@ -3,7 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { ArrowLeft, Trash2, Lock, Unlock, Check } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
+import { ArrowLeft, Trash2, Lock, Unlock, Check, User, Mail } from "lucide-react";
 import { toast } from "sonner";
 
 interface User {
