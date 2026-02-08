@@ -135,14 +135,13 @@ export function DataTable<T extends { _id?: string; id?: string }>({
   return (
     <div className={cn("w-full space-y-4", className)}>
       {title && (
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-          <div className="w-1 h-1 rounded-full bg-teal-500"></div>
+        <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent flex items-center gap-2">
           {title}
         </h2>
       )}
 
       {searchable && (
-        <div className="relative">
+        <div className="relative animate-material-fade-in">
           <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-slate-500" />
           <Input
             placeholder={searchPlaceholder}
@@ -151,18 +150,18 @@ export function DataTable<T extends { _id?: string; id?: string }>({
               setSearchTerm(e.target.value);
               setCurrentPage(0);
             }}
-            className="pl-10"
+            className="pl-10 prof-form-input"
           />
         </div>
       )}
 
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+            <thead className="prof-table-head">
               <tr>
                 {selectable && (
-                  <th className="px-6 py-3 text-left">
+                  <th className="px-6 py-4 text-left">
                     <input
                       type="checkbox"
                       checked={
@@ -170,7 +169,7 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                         selected.size === paginatedData.length
                       }
                       onChange={handleSelectAll}
-                      className="rounded"
+                      className="rounded border-2 border-white/50 bg-transparent cursor-pointer"
                     />
                   </th>
                 )}
@@ -178,8 +177,8 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                   <th
                     key={String(col.key)}
                     className={cn(
-                      "px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider",
-                      col.sortable && "cursor-pointer",
+                      "prof-table-head-cell",
+                      col.sortable && "cursor-pointer hover:bg-white/10 transition-colors",
                       col.className,
                     )}
                     onClick={() => col.sortable && handleSort(col.key)}
@@ -187,7 +186,7 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                     <div className="flex items-center gap-2">
                       {col.label}
                       {col.sortable && sortKey === col.key && (
-                        <span className="text-xs">
+                        <span className="text-xs font-bold">
                           {sortOrder === "asc" ? "↑" : "↓"}
                         </span>
                       )}
@@ -201,16 +200,20 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                 <tr>
                   <td
                     colSpan={columns.length + (selectable ? 1 : 0)}
-                    className="px-6 py-8 text-center text-slate-600 dark:text-slate-400"
+                    className="px-6 py-12 text-center text-slate-500 dark:text-slate-400 font-medium"
                   >
                     No data found
                   </td>
                 </tr>
               ) : (
-                paginatedData.map((row) => (
+                paginatedData.map((row, idx) => (
                   <tr
                     key={String(row._id || row.id || "")}
-                    className={rowClassName?.(row)}
+                    className={cn(
+                      "prof-table-row prof-table-row-hover",
+                      idx % 2 === 0 && "prof-table-row-even",
+                      rowClassName?.(row)
+                    )}
                   >
                     {selectable && (
                       <td className="px-6 py-4">
@@ -218,7 +221,7 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                           type="checkbox"
                           checked={selected.has(row._id || row.id || "")}
                           onChange={() => handleSelectRow(row)}
-                          className="rounded"
+                          className="rounded border-2 border-slate-300 dark:border-slate-600 cursor-pointer accent-blue-600"
                           onClick={(e) => e.stopPropagation()}
                         />
                       </td>
@@ -227,7 +230,7 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                       <td
                         key={String(col.key)}
                         className={cn(
-                          "px-6 py-4 text-sm text-slate-600 dark:text-slate-400",
+                          "prof-table-cell",
                           col.className,
                         )}
                         onClick={() => !selectable && onRowClick?.(row)}
@@ -245,9 +248,9 @@ export function DataTable<T extends { _id?: string; id?: string }>({
         </div>
 
         {paginated && totalPages > 1 && (
-          <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-slate-600 dark:text-slate-400">
+          <div className="px-6 py-4 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                 Items per page:
               </span>
               <select
@@ -256,7 +259,7 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                   // Note: pageSize is passed as prop, so this is for display only
                   setCurrentPage(0);
                 }}
-                className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-all"
+                className="prof-form-select px-3 py-1.5 w-20 text-sm"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -264,31 +267,36 @@ export function DataTable<T extends { _id?: string; id?: string }>({
               </select>
             </div>
 
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-slate-600 dark:text-slate-400">
-                {currentPage * pageSize + 1} -{" "}
-                {Math.min((currentPage + 1) * pageSize, sortedData.length)} of{" "}
-                {sortedData.length}
+            <div className="flex items-center gap-6">
+              <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                <span className="font-bold text-blue-600 dark:text-blue-400">
+                  {currentPage * pageSize + 1} -{" "}
+                  {Math.min((currentPage + 1) * pageSize, sortedData.length)}
+                </span>{" "}
+                of{" "}
+                <span className="font-bold text-slate-900 dark:text-slate-200">
+                  {sortedData.length}
+                </span>
               </span>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
                   disabled={currentPage === 0}
-                  className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   title="Previous Page"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-5 h-5" />
                 </button>
-                <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[80px] text-center">
                   Page {currentPage + 1} of {totalPages || 1}
                 </span>
                 <button
                   onClick={() => setCurrentPage(Math.min(totalPages - 1, currentPage + 1))}
                   disabled={currentPage >= totalPages - 1}
-                  className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   title="Next Page"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
             </div>
