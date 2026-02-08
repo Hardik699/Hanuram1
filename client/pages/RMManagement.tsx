@@ -1269,17 +1269,25 @@ export default function RMManagement() {
 
           {/* Raw Materials Table */}
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
-            <div className="overflow-x-auto">
+            <div className="prof-table-responsive">
               <table className="w-full">
                 <thead className="prof-table-head">
                   <tr>
                     <th className="prof-table-head-cell">Code</th>
                     <th className="prof-table-head-cell">Name</th>
-                    <th className="prof-table-head-cell">Category</th>
-                    <th className="prof-table-head-cell">Sub Category</th>
+                    <th className="prof-table-head-cell hidden sm:table-cell">
+                      Category
+                    </th>
+                    <th className="prof-table-head-cell hidden lg:table-cell">
+                      Sub Category
+                    </th>
                     <th className="prof-table-head-cell">Unit</th>
-                    <th className="prof-table-head-cell">Last Price</th>
-                    <th className="prof-table-head-cell">Last Purchase</th>
+                    <th className="prof-table-head-cell hidden md:table-cell">
+                      Last Price
+                    </th>
+                    <th className="prof-table-head-cell hidden lg:table-cell">
+                      Last Purchase
+                    </th>
                     <th className="prof-table-head-cell text-center">Action</th>
                   </tr>
                 </thead>
@@ -1305,17 +1313,17 @@ export default function RMManagement() {
                       >
                         {rm.name}
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden sm:table-cell">
                         <span className="prof-badge-blue">
                           {rm.categoryName}
                         </span>
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden lg:table-cell">
                         <span className="prof-badge-green">
                           {rm.subCategoryName}
                         </span>
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell">
                         {rm.unitName ? (
                           <span className="prof-badge-orange">
                             {rm.unitName}
@@ -1324,7 +1332,7 @@ export default function RMManagement() {
                           <span className="text-slate-400">-</span>
                         )}
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden md:table-cell">
                         {rm.lastAddedPrice ? (
                           <span className="prof-badge-green">
                             ₹{rm.lastAddedPrice.toFixed(2)}/
@@ -1334,9 +1342,9 @@ export default function RMManagement() {
                           <span className="prof-badge-orange">Pending</span>
                         )}
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden lg:table-cell">
                         {rm.lastPriceDate ? (
-                          <span className="font-medium text-slate-600 dark:text-slate-400">
+                          <span className="font-medium text-slate-600 dark:text-slate-400 text-xs">
                             {new Date(rm.lastPriceDate).toLocaleDateString(
                               "en-IN",
                             )}
@@ -1362,60 +1370,63 @@ export default function RMManagement() {
             </div>
 
             {/* Pagination Controls */}
-            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
-                  Items per page:
-                </span>
-                <select
-                  value={itemsPerPage}
-                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all font-semibold hover:border-slate-300 dark:hover:border-slate-500"
-                >
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                </select>
-              </div>
-
-              <div className="flex items-center gap-6">
-                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                  <span className="font-bold text-blue-600 dark:text-blue-400">
-                    {startIndex + 1}-
-                    {Math.min(endIndex, filteredRawMaterials.length)}
-                  </span>{" "}
-                  of{" "}
-                  <span className="font-bold text-slate-900 dark:text-slate-200">
-                    {filteredRawMaterials.length}
+            <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+              <div className="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
+                {/* Items per page - hidden on very small screens */}
+                <div className="hidden sm:flex items-center gap-2">
+                  <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                    Per page:
                   </span>
-                </span>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={handlePreviousPage}
-                    disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all"
-                    title="Previous Page"
+                  <select
+                    value={itemsPerPage}
+                    onChange={(e) => handleItemsPerPageChange(e.target.value)}
+                    className="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all font-semibold hover:border-slate-300 dark:hover:border-slate-500 w-20"
                   >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page{" "}
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                  </select>
+                </div>
+
+                {/* Pagination info and controls */}
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
                     <span className="font-bold text-blue-600 dark:text-blue-400">
-                      {currentPage}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
-                      {totalPages || 1}
+                      {startIndex + 1}-
+                      {Math.min(endIndex, filteredRawMaterials.length)}
+                    </span>
+                    <span className="hidden sm:inline"> of </span>
+                    <span className="hidden sm:inline font-bold text-slate-900 dark:text-slate-200">
+                      {filteredRawMaterials.length}
                     </span>
                   </span>
-                  <button
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all"
-                    title="Next Page"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handlePreviousPage}
+                      disabled={currentPage === 1}
+                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all"
+                      title="Previous Page"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[50px] sm:min-w-[100px] text-center">
+                      <span className="text-blue-600 dark:text-blue-400">
+                        {currentPage}
+                      </span>
+                      <span className="hidden sm:inline">/</span>
+                      <span className="hidden sm:inline text-slate-900 dark:text-slate-200">
+                        {totalPages || 1}
+                      </span>
+                    </span>
+                    <button
+                      onClick={handleNextPage}
+                      disabled={currentPage === totalPages || totalPages === 0}
+                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all"
+                      title="Next Page"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

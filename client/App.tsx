@@ -27,6 +27,7 @@ import NotFound from "./pages/NotFound";
 import UserManagement from "./pages/UserManagement";
 import UserDetail from "./pages/UserDetail";
 import LabourManagement from "./pages/LabourManagement";
+import CreateLabour from "./pages/CreateLabour";
 import CostingAnalysis from "./pages/CostingAnalysis";
 import OpCostManagement from "./pages/OpCostManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -199,6 +200,22 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <LabourManagement />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/labour/new"
+              element={
+                <ProtectedRoute>
+                  <CreateLabour />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/labour/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <CreateLabour />
                 </ProtectedRoute>
               }
             />
