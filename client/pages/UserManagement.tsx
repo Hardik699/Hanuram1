@@ -382,8 +382,8 @@ export default function UserManagement() {
 
         {/* Create Form */}
         {showForm && (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
               Create New User
             </h3>
             <form onSubmit={handleCreateUser} className="space-y-4">
