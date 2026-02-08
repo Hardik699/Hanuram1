@@ -655,7 +655,7 @@ export default function CreateRecipe() {
 
               {/* Add Item Form */}
               {showAddItemForm && (
-                <div className="bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-200 dark:border-slate-600 p-4 mb-6 space-y-4">
+                <div className="bg-gradient-to-br from-indigo-50 dark:from-slate-700/50 to-purple-50 dark:to-slate-800/50 rounded-xl border border-indigo-200 dark:border-indigo-800/30 p-6 mb-6 space-y-4 shadow-sm">
                   {/* Filters Row - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
