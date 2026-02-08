@@ -609,7 +609,7 @@ export default function UserManagement() {
 
             {/* Pagination */}
             {users.length > 0 && (
-              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                     Items per page:
