@@ -620,7 +620,7 @@ export default function UserManagement() {
                       setItemsPerPage(parseInt(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-semibold hover:border-teal-300"
+                    className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-indigo-200 dark:border-indigo-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-semibold hover:border-indigo-300"
                   >
                     <option key="items-10" value="10">
                       10
