@@ -636,7 +636,7 @@ export default function UserManagement() {
 
                 <div className="flex items-center gap-6">
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="font-bold text-teal-600 dark:text-teal-400">
+                    <span className="font-bold text-indigo-600 dark:text-indigo-400">
                       {(currentPage - 1) * itemsPerPage + 1}-
                       {Math.min(currentPage * itemsPerPage, users.length)}
                     </span>{" "}
@@ -651,13 +651,13 @@ export default function UserManagement() {
                         setCurrentPage((prev) => Math.max(prev - 1, 1))
                       }
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
+                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
                     >
                       ←
                     </button>
                     <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
                       Page{" "}
-                      <span className="font-bold text-teal-600 dark:text-teal-400">
+                      <span className="font-bold text-indigo-600 dark:text-indigo-400">
                         {currentPage}
                       </span>{" "}
                       of{" "}
@@ -670,7 +670,7 @@ export default function UserManagement() {
                         setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                       }
                       disabled={currentPage === totalPages}
-                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
+                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
                     >
                       →
                     </button>
