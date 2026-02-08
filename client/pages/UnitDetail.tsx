@@ -197,13 +197,35 @@ export default function UnitDetail() {
   return (
     <Layout title="Unit Details">
       <div className="space-y-6">
-        <button
-          onClick={() => navigate("/create-unit")}
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Units
-        </button>
+        <PageHeader
+          title={unit?.name || "Unit Details"}
+          description={`Short Code: ${unit?.shortCode || "Loading..."}`}
+          breadcrumbs={[
+            { label: "Units", href: "/create-unit" },
+            { label: unit?.name || "Details" },
+          ]}
+          icon={<Settings className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+          actions={
+            !showEditForm ? (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowEditForm(true)}
+                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </button>
+              </div>
+            ) : null
+          }
+        />
 
         {message && (
           <div
