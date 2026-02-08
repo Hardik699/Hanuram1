@@ -1020,20 +1020,20 @@ export default function RMCManagement() {
               No recipes found. Create one above!
             </div>
           ) : (
-            <div className="table-responsive card fade-in-up">
+            <div className="table-responsive shadow-elevation-4 animate-page-load">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-indigo-600 via-indigo-600 to-purple-600 dark:from-indigo-900 dark:via-indigo-900 dark:to-purple-900 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
+                <thead className="prof-table-head">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                    <th className="prof-table-head-cell">
                       Recipe Code
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                    <th className="prof-table-head-cell">
                       Recipe Name
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                    <th className="prof-table-head-cell">
                       Total RM Cost
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                    <th className="prof-table-head-cell">
                       Price per Unit
                     </th>
                   </tr>
@@ -1042,28 +1042,27 @@ export default function RMCManagement() {
                   {paginatedRecipes.map((recipe, idx) => (
                     <tr
                       key={recipe._id}
-                      className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 cursor-pointer ${
-                        idx % 2 === 0
-                          ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                          : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                      }`}
+                      className={cn(
+                        "prof-table-row prof-table-row-hover",
+                        idx % 2 === 0 && "prof-table-row-even"
+                      )}
                       onClick={() => navigate(`/recipe/${recipe._id}`)}
                     >
-                      <td className="px-6 py-4 text-sm font-bold text-white cursor-pointer transition-colors">
-                        <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800">
+                      <td className="prof-table-cell">
+                        <span className="prof-badge-blue">
                           {recipe.code}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                      <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
                         {recipe.name}
                       </td>
-                      <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-white">
+                      <td className="prof-table-cell font-bold text-slate-900 dark:text-white">
                         <span className="text-purple-600 dark:text-purple-400">
                           ₹{recipe.totalRawMaterialCost.toFixed(2)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm font-bold">
-                        <span className="text-indigo-600 dark:text-indigo-400">
+                      <td className="prof-table-cell font-bold">
+                        <span className="text-blue-600 dark:text-blue-400">
                           ₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}
                         </span>
                       </td>
@@ -1073,7 +1072,7 @@ export default function RMCManagement() {
               </table>
 
               {/* Pagination Controls */}
-              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                     Items per page:
@@ -1081,7 +1080,7 @@ export default function RMCManagement() {
                   <select
                     value={itemsPerPage}
                     onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                    className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-indigo-200 dark:border-indigo-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-semibold hover:border-indigo-300"
+                    className="prof-form-select px-4 py-2 w-24 text-sm"
                   >
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -1091,7 +1090,7 @@ export default function RMCManagement() {
 
                 <div className="flex items-center gap-6">
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
                       {startIndex + 1}-{Math.min(endIndex, recipes.length)}
                     </span>{" "}
                     of{" "}
@@ -1103,14 +1102,14 @@ export default function RMCManagement() {
                     <button
                       onClick={handlePreviousPage}
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
+                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                       title="Previous Page"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-5 h-5" />
                     </button>
-                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
                       Page{" "}
-                      <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                      <span className="font-bold text-blue-600 dark:text-blue-400">
                         {currentPage}
                       </span>{" "}
                       of{" "}
@@ -1121,10 +1120,10 @@ export default function RMCManagement() {
                     <button
                       onClick={handleNextPage}
                       disabled={currentPage === totalPages || totalPages === 0}
-                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
+                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                       title="Next Page"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
