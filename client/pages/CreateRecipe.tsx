@@ -1142,8 +1142,8 @@ export default function CreateRecipe() {
           </form>
         </div>
 
-        {/* Labour Costing Sections - Only show if recipe is created and user has permission */}
-        {id && hasPermission("labour_view_costs") && (
+        {/* Labour Costing Sections - Only show if recipe is created */}
+        {id && (
           <>
             {/* Labour Section Header Card */}
             <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
