@@ -941,7 +941,7 @@ export default function CreateRecipe() {
                           <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
                             {item.rawMaterialName} ({item.rawMaterialCode})
                           </td>
-                          <td className="px-4 py-3 text-sm text-slate-900 dark:text-white">
+                          <td className="px-6 py-4 text-sm text-slate-900 dark:text-white">
                             {editingItemIndex === index ? (
                               <input
                                 type="number"
@@ -962,7 +962,7 @@ export default function CreateRecipe() {
                               item.quantity
                             )}
                           </td>
-                          <td className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
+                          <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
                             {editingItemIndex === index ? (
                               <select
                                 value={editItemForm.unitId}
