@@ -204,6 +204,22 @@ const App = () => (
               }
             />
             <Route
+              path="/labour/new"
+              element={
+                <ProtectedRoute>
+                  <CreateLabour />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/labour/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <CreateLabour />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/costing-calculator"
               element={
                 <ProtectedRoute>
