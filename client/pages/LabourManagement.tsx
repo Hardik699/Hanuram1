@@ -357,27 +357,29 @@ export default function LabourManagement() {
                     {paginatedLabour.map((item, idx) => (
                       <tr
                         key={item.id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 h-16 ${
                           idx % 2 === 0
-                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-blue-50 dark:hover:bg-blue-900/10"
+                            : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
                         }`}
                       >
-                        <td className="px-6 py-4 text-sm font-bold text-white cursor-pointer transition-colors">
-                          <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800">
+                        <td className="px-3 py-3 text-xs font-bold text-white cursor-pointer transition-all whitespace-nowrap">
+                          <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white text-xs font-bold group-hover:from-blue-700 group-hover:to-blue-800 dark:group-hover:from-blue-800 dark:group-hover:to-blue-900 transition-all shadow-elevation-2 group-hover:shadow-elevation-4 transform group-hover:scale-105">
                             {item.code}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all truncate max-w-xs">
                           {item.name}
                         </td>
-                        <td className="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-300">
-                          <span className="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-semibold">
+                        <td className="px-4 py-3 text-xs font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                          <span className="inline-block px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {item.department}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm font-bold text-indigo-600 dark:text-indigo-400">
-                          ₹{item.salaryPerDay.toFixed(2)}
+                        <td className="px-4 py-3 text-xs font-bold whitespace-nowrap">
+                          <span className="inline-block px-2.5 py-1.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg border border-green-200/50 dark:border-green-800/50">
+                            ₹{item.salaryPerDay.toFixed(2)}
+                          </span>
                         </td>
                         <td className="px-6 py-4 text-right">
                           <div className="flex justify-end gap-2">
