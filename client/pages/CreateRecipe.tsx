@@ -904,26 +904,26 @@ export default function CreateRecipe() {
                   <p>No items added yet. Click "Add Item" to start.</p>
                 </div>
               ) : (
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                   <table className="w-full min-w-[900px]">
-                    <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                    <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Raw Material
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Qty
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Unit
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Price
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Total
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
