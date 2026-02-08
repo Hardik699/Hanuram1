@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  ChevronLeft,
-  Plus,
-  AlertCircle,
-  Check,
-  Users,
-} from "lucide-react";
+import { ChevronLeft, Plus, AlertCircle, Check, Users } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 import { toast } from "sonner";
@@ -22,13 +16,13 @@ interface Labour {
 export default function CreateLabour() {
   const navigate = useNavigate();
   const { id } = useParams();
-  
+
   const [formData, setFormData] = useState<Labour>({
     name: "",
     department: "",
     salaryPerDay: 0,
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(id ? true : false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -46,7 +40,7 @@ export default function CreateLabour() {
     try {
       const response = await fetch(`/api/labour/${id}`);
       const data = await response.json();
-      
+
       if (data.success && data.data) {
         setFormData({
           name: data.data.name,
@@ -113,11 +107,16 @@ export default function CreateLabour() {
 
       if (response.ok && data.success) {
         setMessageType("success");
-        setMessage(data.message || (id ? "Labour updated successfully" : "Labour added successfully"));
-        
+        setMessage(
+          data.message ||
+            (id ? "Labour updated successfully" : "Labour added successfully"),
+        );
+
         setTimeout(() => {
           navigate("/labour");
-          toast.success(id ? "Labour updated successfully" : "Labour added successfully");
+          toast.success(
+            id ? "Labour updated successfully" : "Labour added successfully",
+          );
         }, 1500);
       } else {
         setMessageType("error");
@@ -142,7 +141,9 @@ export default function CreateLabour() {
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-blue-200 dark:border-blue-800 border-t-blue-500 dark:border-t-blue-400 rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-slate-600 dark:text-slate-400 font-medium">Loading...</p>
+            <p className="text-slate-600 dark:text-slate-400 font-medium">
+              Loading...
+            </p>
           </div>
         </div>
       </Layout>
@@ -153,7 +154,9 @@ export default function CreateLabour() {
     <Layout title={id ? "Edit Labour" : "Add Labour"}>
       <PageHeader
         title={id ? "Edit Labour" : "Add Labour"}
-        description={id ? "Update labour information" : "Create a new labour record"}
+        description={
+          id ? "Update labour information" : "Create a new labour record"
+        }
         breadcrumbs={[
           { label: "Labour", href: "/labour" },
           { label: id ? "Edit" : "Add Labour" },
@@ -254,7 +257,10 @@ export default function CreateLabour() {
                 type="number"
                 value={formData.salaryPerDay}
                 onChange={(e) =>
-                  setFormData({ ...formData, salaryPerDay: parseFloat(e.target.value) || 0 })
+                  setFormData({
+                    ...formData,
+                    salaryPerDay: parseFloat(e.target.value) || 0,
+                  })
                 }
                 placeholder="Enter daily salary"
                 step="0.01"

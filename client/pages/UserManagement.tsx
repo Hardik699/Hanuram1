@@ -522,10 +522,14 @@ export default function UserManagement() {
                 <thead className="prof-table-head">
                   <tr>
                     <th className="prof-table-head-cell">Username</th>
-                    <th className="prof-table-head-cell hidden sm:table-cell">Email</th>
+                    <th className="prof-table-head-cell hidden sm:table-cell">
+                      Email
+                    </th>
                     <th className="prof-table-head-cell">Role</th>
                     <th className="prof-table-head-cell text-center">Status</th>
-                    <th className="prof-table-head-cell hidden md:table-cell">Created</th>
+                    <th className="prof-table-head-cell hidden md:table-cell">
+                      Created
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -560,8 +564,12 @@ export default function UserManagement() {
                           {user.email}
                         </td>
                         <td className="prof-table-cell font-bold text-slate-700 dark:text-slate-300">
-                          <span className="hidden md:inline">{getRoleName(user.role_id)}</span>
-                          <span className="md:hidden text-xs">{getRoleName(user.role_id)?.split(' ')[0]}</span>
+                          <span className="hidden md:inline">
+                            {getRoleName(user.role_id)}
+                          </span>
+                          <span className="md:hidden text-xs">
+                            {getRoleName(user.role_id)?.split(" ")[0]}
+                          </span>
                         </td>
                         <td className="prof-table-cell text-center">
                           <span
@@ -642,7 +650,7 @@ export default function UserManagement() {
                       <button
                         onClick={() =>
                           setCurrentPage((prev) =>
-                            Math.min(prev + 1, totalPages)
+                            Math.min(prev + 1, totalPages),
                           )
                         }
                         disabled={currentPage === totalPages}

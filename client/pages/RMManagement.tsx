@@ -1275,11 +1275,19 @@ export default function RMManagement() {
                   <tr>
                     <th className="prof-table-head-cell">Code</th>
                     <th className="prof-table-head-cell">Name</th>
-                    <th className="prof-table-head-cell hidden sm:table-cell">Category</th>
-                    <th className="prof-table-head-cell hidden lg:table-cell">Sub Category</th>
+                    <th className="prof-table-head-cell hidden sm:table-cell">
+                      Category
+                    </th>
+                    <th className="prof-table-head-cell hidden lg:table-cell">
+                      Sub Category
+                    </th>
                     <th className="prof-table-head-cell">Unit</th>
-                    <th className="prof-table-head-cell hidden md:table-cell">Last Price</th>
-                    <th className="prof-table-head-cell hidden lg:table-cell">Last Purchase</th>
+                    <th className="prof-table-head-cell hidden md:table-cell">
+                      Last Price
+                    </th>
+                    <th className="prof-table-head-cell hidden lg:table-cell">
+                      Last Purchase
+                    </th>
                     <th className="prof-table-head-cell text-center">Action</th>
                   </tr>
                 </thead>

@@ -781,7 +781,7 @@
   }
 
   .prof-table-responsive::after {
-    content: '';
+    content: "";
     @apply absolute bottom-0 right-0 h-full w-8 pointer-events-none bg-gradient-to-l from-black/5 to-transparent opacity-0 transition-opacity duration-300;
   }
 
