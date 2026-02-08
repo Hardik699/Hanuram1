@@ -907,72 +907,67 @@ export default function RecipeDetail() {
 
   return (
     <Layout>
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">{recipe.name}</h1>
-          <div className="flex items-center gap-2">
+      <ProfessionalPage
+        title={recipe.name}
+        description={`View and manage recipe details, history, and quotations for ${recipe.code}.`}
+        headerAction={
+          <div className="flex items-center gap-3">
             <button
               onClick={() => navigate(`/recipe/${recipeId}/edit`)}
-              className="p-2 hover:bg-secondary rounded-lg transition"
+              className="prof-btn-secondary"
               title="Edit Recipe"
             >
-              <Edit2 size={20} />
+              <Edit2 size={16} />
+              <span>Edit</span>
             </button>
             <button
               onClick={() => setShowDeleteModal(true)}
-              className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition"
+              className="prof-btn-danger"
+              title="Delete Recipe"
             >
-              <Trash2 size={20} />
+              <Trash2 size={16} />
+              <span>Delete</span>
             </button>
             <button
               onClick={handlePrintRecipePDF}
-              className="p-2 hover:bg-secondary rounded-lg transition"
+              className="prof-btn-secondary"
               title="Print PDF"
             >
-              <FileText size={20} />
+              <FileText size={16} />
+              <span>PDF</span>
             </button>
             <button
               onClick={() => setShowLogsModal(true)}
-              className="p-2 hover:bg-secondary rounded-lg transition"
+              className="prof-btn-secondary"
+              title="View Logs"
             >
-              <MoreVertical size={20} />
+              <History size={16} />
+              <span>Logs</span>
             </button>
           </div>
-        </div>
-
+        }
+      >
         {/* Tabs */}
-        <div className="flex gap-4 border-b overflow-x-auto">
-          <button
-            onClick={() => setActiveTab("information")}
-            className={`px-4 py-2 font-medium transition whitespace-nowrap ${
-              activeTab === "information"
-                ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Information
-          </button>
-          <button
-            onClick={() => setActiveTab("recipe-history")}
-            className={`px-4 py-2 font-medium transition whitespace-nowrap ${
-              activeTab === "recipe-history"
-                ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Recipe History
-          </button>
-          <button
-            onClick={() => setActiveTab("quotation-history")}
-            className={`px-4 py-2 font-medium transition whitespace-nowrap ${
-              activeTab === "quotation-history"
-                ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Quotation History
-          </button>
+        <div className="flex gap-1 bg-slate-100 dark:bg-slate-900/50 p-1 rounded-xl w-fit mb-6 border border-slate-200 dark:border-slate-800">
+          {[
+            { id: "information", label: "Information", icon: <FileText size={16} /> },
+            { id: "recipe-history", label: "Recipe History", icon: <History size={16} /> },
+            { id: "quotation-history", label: "Quotation History", icon: <FileText size={16} /> }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={cn(
+                "flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all whitespace-nowrap",
+                activeTab === tab.id
+                  ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm border border-slate-200 dark:border-slate-700"
+                  : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-800/50"
+              )}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
         </div>
 
         {/* TAB 1: Information */}
@@ -1765,7 +1760,7 @@ export default function RecipeDetail() {
             </div>
           </div>
         )}
-      </div>
+      </ProfessionalPage>
 
       {/* Logs Modal */}
       {showLogsModal && (
