@@ -265,23 +265,21 @@ export default function CreateUnit() {
         title="Unit Management"
         description="Manage measurement units for products"
         breadcrumbs={[{ label: "Unit Management" }]}
-        icon={
-          <Settings className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-        }
+        icon={<Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
         actions={
           !showAddForm ? (
             <div className="flex items-center gap-2">
               <button
                 onClick={handleClearAllClick}
                 disabled={units.length === 0}
-                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-300 dark:disabled:bg-slate-600 disabled:cursor-not-allowed text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-2 hover:shadow-elevation-4 transform hover:scale-105 hover:-translate-y-0.5"
               >
                 <Trash2 className="w-4 h-4" />
                 Clear All
               </button>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap text-sm"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Unit</span>
@@ -385,7 +383,7 @@ export default function CreateUnit() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:bg-slate-400 text-white font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -438,34 +436,37 @@ export default function CreateUnit() {
           )}
 
           {/* Statistics Card */}
-          <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 dark:from-purple-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
                   Total Units
                 </p>
-                <h3 className="text-4xl font-bold mt-2">
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
                   {filteredUnits.length}
                 </h3>
               </div>
-              <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
-                <Settings className="w-6 h-6 text-purple-200" />
+              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
+                <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
+            </div>
+            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden mt-4">
+              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
           {/* Filter Section */}
-          <div className="bg-gradient-to-r from-purple-50 via-white to-pink-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 rounded-2xl shadow-lg p-6 mb-4 border border-purple-100/50 dark:border-purple-900/30">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Search className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-              Filter Results
+              <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              Search Units
             </h3>
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-purple-700 dark:text-purple-400">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-blue-700 dark:text-blue-400">
                 Search Unit Name
               </label>
               <div className="relative">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-purple-500 dark:text-purple-400" />
+                <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -474,18 +475,18 @@ export default function CreateUnit() {
                     setCurrentPage(1);
                   }}
                   placeholder="Search units..."
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-sm font-medium"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all shadow-sm font-medium"
                 />
               </div>
             </div>
           </div>
 
           {/* Units List Header */}
-          <div className="bg-gradient-to-r from-slate-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                  <Settings className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   Units List
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -500,10 +501,10 @@ export default function CreateUnit() {
           </div>
 
           {/* Units Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-purple-600 via-purple-600 to-pink-600 dark:from-purple-900 dark:via-purple-900 dark:to-pink-900 border-b-2 border-purple-700 dark:border-purple-800 sticky top-0">
+                <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
                   <tr>
                     <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Name
@@ -523,7 +524,7 @@ export default function CreateUnit() {
                   {tableLoading ? (
                     <tr>
                       <td colSpan={4} className="px-6 py-8 text-center">
-                        <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+                        <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                         <p className="text-slate-600 dark:text-slate-400 mt-2">
                           Loading units...
                         </p>
@@ -542,13 +543,13 @@ export default function CreateUnit() {
                     paginatedUnits.map((unit, idx) => (
                       <tr
                         key={unit._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-purple-500 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 h-16 ${
                           idx % 2 === 0
-                            ? "hover:bg-purple-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-blue-50 dark:hover:bg-blue-900/10"
+                            : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
                         }`}
                       >
-                        <td className="px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white">
+                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white">
                           <div className="flex flex-col gap-1">
                             <span>{unit.name}</span>
                             <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">
@@ -556,8 +557,8 @@ export default function CreateUnit() {
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-sm">
-                          <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-semibold">
+                        <td className="px-4 py-3 text-xs font-bold">
+                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {unit.shortCode}
                           </span>
                         </td>
@@ -590,7 +591,7 @@ export default function CreateUnit() {
             </div>
 
             {/* Pagination Controls */}
-            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-purple-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                   Items per page:
@@ -598,7 +599,7 @@ export default function CreateUnit() {
                 <select
                   value={itemsPerPage}
                   onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all font-semibold hover:border-purple-300"
+                  className="px-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all font-semibold hover:border-blue-300 dark:hover:border-blue-800"
                 >
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -608,7 +609,7 @@ export default function CreateUnit() {
 
               <div className="flex items-center gap-6">
                 <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                  <span className="font-bold text-purple-600 dark:text-purple-400">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
                     {startIndex + 1}-{Math.min(endIndex, filteredUnits.length)}
                   </span>{" "}
                   of{" "}
@@ -620,14 +621,14 @@ export default function CreateUnit() {
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-purple-300 dark:border-purple-900/50 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-purple-500 dark:hover:border-purple-800"
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
                     title="Previous Page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
                     Page{" "}
-                    <span className="font-bold text-purple-600 dark:text-purple-400">
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
                       {currentPage}
                     </span>{" "}
                     of{" "}
@@ -638,7 +639,7 @@ export default function CreateUnit() {
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-purple-300 dark:border-purple-900/50 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-purple-500 dark:hover:border-purple-800"
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
                     title="Next Page"
                   >
                     <ChevronRight className="w-4 h-4" />

@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Edit2, Trash2, Check, AlertCircle, Plus, ChevronLeft, ChevronRight, X, Folder, Search } from "lucide-react";
+import {
+  Edit2,
+  Trash2,
+  Check,
+  AlertCircle,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Folder,
+  Search,
+} from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 
@@ -46,7 +57,9 @@ export default function CreateCategory() {
 
   // Search state
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState<"" | "active" | "inactive">("");
+  const [filterStatus, setFilterStatus] = useState<"" | "active" | "inactive">(
+    "",
+  );
 
   // Clear all state
   const [showClearModal, setShowClearModal] = useState(false);
@@ -86,7 +99,7 @@ export default function CreateCategory() {
     const isDuplicate = categories.some(
       (cat) =>
         cat.name.toLowerCase() === formData.name.toLowerCase() &&
-        cat._id !== editingId
+        cat._id !== editingId,
     );
     if (isDuplicate) {
       newErrors.name = "Category with this name already exists";
@@ -104,7 +117,9 @@ export default function CreateCategory() {
 
     try {
       const method = editingId ? "PUT" : "POST";
-      const url = editingId ? `/api/categories/${editingId}` : "/api/categories";
+      const url = editingId
+        ? `/api/categories/${editingId}`
+        : "/api/categories";
 
       const response = await fetch(url, {
         method,
@@ -187,7 +202,10 @@ export default function CreateCategory() {
 
   const getFilteredCategories = () => {
     return categories.filter((cat) => {
-      if (searchTerm && !cat.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (
+        searchTerm &&
+        !cat.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
         return false;
       }
       if (filterStatus && cat.status !== filterStatus) {
@@ -277,7 +295,7 @@ export default function CreateCategory() {
               </button>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap text-sm"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Category</span>
@@ -341,7 +359,7 @@ export default function CreateCategory() {
                     errors.name
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.name && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -361,7 +379,7 @@ export default function CreateCategory() {
                   }
                   placeholder="Enter category description"
                   rows={4}
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -377,7 +395,7 @@ export default function CreateCategory() {
                       status: e.target.value as "active" | "inactive",
                     })
                   }
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -388,7 +406,7 @@ export default function CreateCategory() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:bg-slate-400 text-white font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -398,7 +416,9 @@ export default function CreateCategory() {
                   ) : (
                     <>
                       <Plus className="w-4 h-4" />
-                      <span>{editingId ? "Update Category" : "Create Category"}</span>
+                      <span>
+                        {editingId ? "Update Category" : "Create Category"}
+                      </span>
                     </>
                   )}
                 </button>
@@ -441,7 +461,7 @@ export default function CreateCategory() {
           )}
 
           {/* Filter Section */}
-          <div className="bg-gradient-to-r from-blue-50 via-white to-cyan-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 rounded-2xl shadow-lg p-6 mb-4 border border-blue-100/50 dark:border-blue-900/30">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               Filter Results
@@ -472,7 +492,9 @@ export default function CreateCategory() {
                 <select
                   value={filterStatus}
                   onChange={(e) => {
-                    setFilterStatus(e.target.value as "" | "active" | "inactive");
+                    setFilterStatus(
+                      e.target.value as "" | "active" | "inactive",
+                    );
                     setCurrentPage(1);
                   }}
                   className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-medium shadow-sm hover:border-blue-300 dark:hover:border-blue-800/70"
@@ -494,7 +516,11 @@ export default function CreateCategory() {
                   Categories List
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Showing <span className="font-bold text-slate-900 dark:text-white">{filteredCategories.length}</span> categor{filteredCategories.length !== 1 ? "ies" : "y"}
+                  Showing{" "}
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {filteredCategories.length}
+                  </span>{" "}
+                  categor{filteredCategories.length !== 1 ? "ies" : "y"}
                 </p>
               </div>
             </div>
@@ -504,7 +530,7 @@ export default function CreateCategory() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-blue-600 via-blue-600 to-cyan-600 dark:from-blue-900 dark:via-blue-900 dark:to-cyan-900 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
+                <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
                   <tr>
                     <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Initial
@@ -528,12 +554,17 @@ export default function CreateCategory() {
                     <tr>
                       <td colSpan={5} className="px-6 py-8 text-center">
                         <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">Loading categories...</p>
+                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+                          Loading categories...
+                        </p>
                       </td>
                     </tr>
                   ) : paginatedCategories.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-8 text-center text-slate-600 dark:text-slate-400">
+                      <td
+                        colSpan={5}
+                        className="px-6 py-8 text-center text-slate-600 dark:text-slate-400"
+                      >
                         No categories found
                       </td>
                     </tr>
@@ -580,7 +611,10 @@ export default function CreateCategory() {
                                 : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
                             }`}
                           >
-                            {category.status ? category.status.charAt(0).toUpperCase() + category.status.slice(1) : "-"}
+                            {category.status
+                              ? category.status.charAt(0).toUpperCase() +
+                                category.status.slice(1)
+                              : "-"}
                           </span>
                         </td>
                         <td
@@ -634,7 +668,14 @@ export default function CreateCategory() {
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page <span className="font-bold text-blue-600 dark:text-blue-400">{currentPage}</span> of <span className="font-bold text-slate-900 dark:text-slate-200">{totalPages || 1}</span>
+                    Page{" "}
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
+                      {currentPage}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {totalPages || 1}
+                    </span>
                   </span>
                   <button
                     onClick={handleNextPage}

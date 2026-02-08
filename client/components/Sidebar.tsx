@@ -88,6 +88,7 @@ export function Sidebar() {
       path: "/costing-calculator",
       icon: Calculator,
       module: "RAW_MATERIAL_COSTING",
+      permission: "labour_view_costs",
     },
     {
       label: "User Management",
@@ -193,10 +194,17 @@ export function Sidebar() {
             <span className="text-white font-bold text-sm">HF</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-slate-900 dark:text-white font-bold text-base">Hanuram</span>
-            <span className="text-blue-600 dark:text-blue-400 text-xs font-semibold">Foods</span>
+            <span className="text-slate-900 dark:text-white font-bold text-base">
+              Hanuram
+            </span>
+            <span className="text-blue-600 dark:text-blue-400 text-xs font-semibold">
+              Foods
+            </span>
           </div>
-          <button onClick={() => setIsOpen(false)} className="ml-auto md:hidden">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="ml-auto md:hidden"
+          >
             <ChevronDown className="w-5 h-5 text-slate-400 dark:text-slate-500 rotate-90 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" />
           </button>
         </div>
@@ -209,15 +217,17 @@ export function Sidebar() {
                 {item.submenu ? (
                   <div>
                     <button
-                    onClick={() => toggleMenu(item.label)}
-                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group ${
-                      isActive(item.submenu[0]?.path || "")
-                        ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800"
-                        : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/40"
-                    }`}
-                  >
+                      onClick={() => toggleMenu(item.label)}
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group ${
+                        isActive(item.submenu[0]?.path || "")
+                          ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800"
+                          : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/40"
+                      }`}
+                    >
                       <div className="flex items-center gap-3">
-                        {item.icon && <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />}
+                        {item.icon && (
+                          <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                        )}
                         <span>{item.label}</span>
                       </div>
                       <ChevronDown
@@ -243,7 +253,9 @@ export function Sidebar() {
                         : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/40"
                     }`}
                   >
-                    {item.icon && <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />}
+                    {item.icon && (
+                      <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                    )}
                     <span>{item.label}</span>
                   </Link>
                 )}

@@ -72,6 +72,7 @@ async function initializeCollections() {
         { role_id: 3, role_name: "Manager" },
         { role_id: 4, role_name: "Vendor" },
         { role_id: 5, role_name: "Viewer" },
+        { role_id: 6, role_name: "Cost Viewer" },
       ] as any[];
       await db.collection("roles").insertMany(rolesData);
       console.log("✅ Roles collection initialized");
@@ -191,13 +192,23 @@ async function initializeCollections() {
           permission_key: "labour_edit",
           description: "Edit Labour",
         },
+        {
+          permission_id: 23,
+          permission_key: "labour_view_costs",
+          description: "View Labour Cost Details",
+        },
+        {
+          permission_id: 24,
+          permission_key: "rmc_view_prices",
+          description: "View RMC Prices",
+        },
       ] as any[];
       await db.collection("permissions").insertMany(permissionsData);
       console.log("✅ Permissions collection initialized");
     } else {
-      // Ensure labour permissions are in the permissions collection
+      // Ensure labour and cost viewing permissions are in the permissions collection
       const permissionsCollection = db.collection("permissions");
-      const labourPerms = [
+      const newPerms = [
         {
           permission_id: 20,
           permission_key: "labour_view",
@@ -213,15 +224,36 @@ async function initializeCollections() {
           permission_key: "labour_edit",
           description: "Edit Labour",
         },
+        {
+          permission_id: 23,
+          permission_key: "labour_view_costs",
+          description: "View Labour Cost Details",
+        },
+        {
+          permission_id: 24,
+          permission_key: "rmc_view_prices",
+          description: "View RMC Prices",
+        },
       ];
-      for (const perm of labourPerms) {
+      for (const perm of newPerms) {
         await permissionsCollection.updateOne(
           { permission_id: perm.permission_id },
           { $setOnInsert: perm },
           { upsert: true },
         );
       }
-      console.log("✅ Labour permissions ensured in permissions collection");
+      console.log("✅ Labour and cost viewing permissions ensured in permissions collection");
+    }
+
+    // Ensure Cost Viewer role exists
+    if (collectionNames.includes("roles")) {
+      const rolesCollection = db.collection("roles");
+      await rolesCollection.updateOne(
+        { role_id: 6 },
+        { $setOnInsert: { role_id: 6, role_name: "Cost Viewer" } },
+        { upsert: true },
+      );
+      console.log("✅ Cost Viewer role ensured");
     }
 
     // Create role_permissions collection if it doesn't exist
@@ -284,15 +316,24 @@ async function initializeCollections() {
         { role_id: 5, permission_id: 1 },
         { role_id: 5, permission_id: 2 },
         { role_id: 5, permission_id: 5 },
+        // Cost Viewer - Can see data but not cost details
+        { role_id: 6, permission_id: 1 },
+        { role_id: 6, permission_id: 2 },
+        { role_id: 6, permission_id: 5 },
+        { role_id: 6, permission_id: 8 },
+        { role_id: 6, permission_id: 10 },
+        { role_id: 6, permission_id: 12 },
+        { role_id: 6, permission_id: 14 },
+        { role_id: 6, permission_id: 20 },
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
     } else {
-      // Ensure labour permissions are added to existing roles
+      // Ensure labour and cost viewing permissions are added to existing roles
       const rolePermissionsCollection = db.collection("role_permissions");
 
-      // Add labour permissions (20, 21, 22) for Super Admin (role_id: 1)
-      for (const permId of [20, 21, 22]) {
+      // Add all labour and cost permissions (20, 21, 22, 23, 24) for Super Admin (role_id: 1)
+      for (const permId of [20, 21, 22, 23, 24]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 1, permission_id: permId },
           { $setOnInsert: { role_id: 1, permission_id: permId } },
@@ -300,8 +341,8 @@ async function initializeCollections() {
         );
       }
 
-      // Add labour permissions for Admin (role_id: 2)
-      for (const permId of [20, 21, 22]) {
+      // Add all labour and cost permissions for Admin (role_id: 2)
+      for (const permId of [20, 21, 22, 23, 24]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 2, permission_id: permId },
           { $setOnInsert: { role_id: 2, permission_id: permId } },
@@ -316,7 +357,16 @@ async function initializeCollections() {
         { upsert: true },
       );
 
-      console.log("✅ Labour permissions ensured for roles");
+      // Add permissions for Cost Viewer role (6) - view only without cost details
+      for (const permId of [1, 2, 5, 8, 10, 12, 14, 20]) {
+        await rolePermissionsCollection.updateOne(
+          { role_id: 6, permission_id: permId },
+          { $setOnInsert: { role_id: 6, permission_id: permId } },
+          { upsert: true },
+        );
+      }
+
+      console.log("✅ Labour and cost viewing permissions ensured for roles");
     }
 
     // Create users collection if it doesn't exist
@@ -357,6 +407,53 @@ async function initializeCollections() {
       );
       console.log(
         "✅ Default admin user updated with credentials: admin / admin123",
+      );
+    }
+
+    // Ensure Hardik user exists with Cost Viewer role
+    const hardikUser = await db.collection("users").findOne({
+      username: "Hardik",
+    });
+
+    if (!hardikUser) {
+      // Create Hardik user with role_id 6 (Cost Viewer)
+      const result = await db.collection("users").insertOne({
+        username: "Hardik",
+        password: "123", // In production, this should be hashed
+        email: "hardik@faction.local",
+        role_id: 6,
+        status: "active",
+        createdAt: new Date(),
+      });
+      console.log(
+        "✅ Hardik user created with credentials: Hardik / 123 (Cost Viewer role)",
+      );
+
+      // Add modules for Hardik user
+      const hardikUserId = result.insertedId.toString();
+      const hardikModules = [
+        { user_id: hardikUserId, module_key: "DASHBOARD" },
+        { user_id: hardikUserId, module_key: "CATEGORY_UNIT" },
+        { user_id: hardikUserId, module_key: "RAW_MATERIAL" },
+        { user_id: hardikUserId, module_key: "RAW_MATERIAL_COSTING" },
+      ];
+      await db.collection("user_modules").insertMany(hardikModules);
+      console.log("✅ Modules assigned to Hardik user");
+    } else {
+      // Update existing Hardik user to ensure correct password and role_id
+      await db.collection("users").updateOne(
+        { username: "Hardik" },
+        {
+          $set: {
+            password: "123",
+            role_id: 6,
+            status: "active",
+            email: "hardik@faction.local",
+          },
+        },
+      );
+      console.log(
+        "✅ Hardik user updated with credentials: Hardik / 123 (Cost Viewer role)",
       );
     }
 

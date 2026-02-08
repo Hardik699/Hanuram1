@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { LabourCostSection } from "@/components/LabourCostSection";
 import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
+import { PermissionGate } from "@/components/PermissionGate";
+import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 interface Unit {
@@ -114,6 +116,7 @@ interface QuotationCalculatedItem {
 export default function RecipeDetail() {
   const { recipeId } = useParams();
   const navigate = useNavigate();
+  const { hasPermission } = useAuth();
 
   // Data
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -992,20 +995,24 @@ export default function RecipeDetail() {
                   <p className="text-sm text-muted-foreground">Unit</p>
                   <p className="font-semibold">{recipe.unitName}</p>
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Total RM Cost</p>
-                  <p className="font-semibold text-green-600">
-                    ₹{totalRMCost.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">
-                    Price per Unit
-                  </p>
-                  <p className="font-semibold text-green-600">
-                    ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
-                  </p>
-                </div>
+                {hasPermission("rmc_view_prices") && (
+                  <>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Total RM Cost</p>
+                      <p className="font-semibold text-green-600">
+                        ₹{totalRMCost.toFixed(2)}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">
+                        Price per Unit
+                      </p>
+                      <p className="font-semibold text-green-600">
+                        ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
@@ -1025,12 +1032,16 @@ export default function RecipeDetail() {
                       <th className="text-left py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">
                         Unit
                       </th>
-                      <th className="text-right py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">
-                        Unit Price
-                      </th>
-                      <th className="text-right py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">
-                        Total
-                      </th>
+                      {hasPermission("rmc_view_prices") && (
+                        <>
+                          <th className="text-right py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">
+                            Unit Price
+                          </th>
+                          <th className="text-right py-3 px-4 font-semibold text-slate-900 dark:text-white text-sm">
+                            Total
+                          </th>
+                        </>
+                      )}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -1053,68 +1064,76 @@ export default function RecipeDetail() {
                         <td className="py-4 px-4 text-slate-700 dark:text-slate-300">
                           {item.unitName || "-"}
                         </td>
-                        <td className="py-4 px-4 text-right text-slate-900 dark:text-white font-medium">
-                          ₹{item.price.toFixed(2)}
-                        </td>
-                        <td className="py-4 px-4 text-right font-semibold text-teal-600 dark:text-teal-400">
-                          ₹{item.totalPrice.toFixed(2)}
-                        </td>
+                        {hasPermission("rmc_view_prices") && (
+                          <>
+                            <td className="py-4 px-4 text-right text-slate-900 dark:text-white font-medium">
+                              ₹{item.price.toFixed(2)}
+                            </td>
+                            <td className="py-4 px-4 text-right font-semibold text-teal-600 dark:text-teal-400">
+                              ₹{item.totalPrice.toFixed(2)}
+                            </td>
+                          </>
+                        )}
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
 
-              {/* Summary */}
-              <div className="flex justify-end gap-8 mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-                <div className="text-right">
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
-                    Total RM Cost
-                  </p>
-                  <p className="text-xl font-bold text-green-600 dark:text-green-400">
-                    ₹{totalRMCost.toFixed(2)}
-                  </p>
+              {/* Summary - Only show if user has rmc_view_prices permission */}
+              {hasPermission("rmc_view_prices") && (
+                <div className="flex justify-end gap-8 mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+                  <div className="text-right">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
+                      Total RM Cost
+                    </p>
+                    <p className="text-xl font-bold text-green-600 dark:text-green-400">
+                      ₹{totalRMCost.toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
+                      Per Unit Price
+                    </p>
+                    <p className="text-xl font-bold text-green-600 dark:text-green-400">
+                      ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
-                    Per Unit Price
-                  </p>
-                  <p className="text-xl font-bold text-green-600 dark:text-green-400">
-                    ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
-                  </p>
-                </div>
+              )}
+            </div>
+
+            {/* Labour Costing Sections - Only visible if user has labour_view_costs permission */}
+            <PermissionGate permission="labour_view_costs">
+              <div className="space-y-6">
+                {/* Production Labour Cost */}
+                <LabourCostSection
+                  recipeId={recipeId!}
+                  recipeQuantity={recipe.batchSize || 0}
+                  type="production"
+                  title="Production Labour Cost"
+                />
+
+                {/* Packing Labour Cost */}
+                <LabourCostSection
+                  recipeId={recipeId!}
+                  recipeQuantity={recipe.batchSize || 0}
+                  type="packing"
+                  title="Packing Labour Cost"
+                />
+
+                {/* Costing Calculator Form */}
+                <CostingCalculatorForm
+                  title="📦 Packaging & Handling Costing Calculator"
+                  recipeId={recipeId}
+                  rmCostPerKg={recipe.batchSize > 0 ? recipe.totalRawMaterialCost / recipe.batchSize : 0}
+                  productionLabourCostPerKg={productionLabourCostPerKg}
+                  packingLabourCostPerKg={packingLabourCostPerKg}
+                  batchSize={recipe.batchSize}
+                  yield={recipe.yield || 100}
+                />
               </div>
-            </div>
-
-            {/* Labour Costing Sections */}
-            <div className="space-y-6">
-              {/* Production Labour Cost */}
-              <LabourCostSection
-                recipeId={recipeId!}
-                recipeQuantity={recipe.batchSize || 0}
-                type="production"
-                title="Production Labour Cost"
-              />
-
-              {/* Packing Labour Cost */}
-              <LabourCostSection
-                recipeId={recipeId!}
-                recipeQuantity={recipe.batchSize || 0}
-                type="packing"
-                title="Packing Labour Cost"
-              />
-
-              {/* Costing Calculator Form */}
-              <CostingCalculatorForm
-                title="📦 Packaging & Handling Costing Calculator"
-                recipeId={recipeId}
-                rmCostPerKg={recipe.batchSize > 0 ? recipe.totalRawMaterialCost / recipe.batchSize : 0}
-                productionLabourCostPerKg={productionLabourCostPerKg}
-                packingLabourCostPerKg={packingLabourCostPerKg}
-                batchSize={recipe.batchSize}
-                yield={recipe.yield || 100}
-              />
-            </div>
+            </PermissionGate>
           </div>
         )}
 

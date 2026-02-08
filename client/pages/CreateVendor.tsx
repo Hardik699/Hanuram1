@@ -79,7 +79,7 @@ export default function CreateVendor() {
 
   const clearAllVendors = async () => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete ALL vendors? This action cannot be undone."
+      "Are you sure you want to delete ALL vendors? This action cannot be undone.",
     );
     if (!confirmed) return;
 
@@ -115,7 +115,7 @@ export default function CreateVendor() {
       console.error("Error clearing vendors:", error);
       setMessageType("error");
       setMessage(
-        error instanceof Error ? error.message : "Error clearing vendors"
+        error instanceof Error ? error.message : "Error clearing vendors",
       );
     } finally {
       setLoading(false);
@@ -142,7 +142,7 @@ export default function CreateVendor() {
       if (data.success) {
         setMessageType("success");
         setMessage(
-          `Successfully uploaded! Created: ${data.created}, Skipped: ${data.skipped}`
+          `Successfully uploaded! Created: ${data.created}, Skipped: ${data.skipped}`,
         );
         setTimeout(() => {
           fetchVendors();
@@ -156,7 +156,7 @@ export default function CreateVendor() {
       console.error("Error uploading vendors:", error);
       setMessageType("error");
       setMessage(
-        error instanceof Error ? error.message : "Error uploading vendors"
+        error instanceof Error ? error.message : "Error uploading vendors",
       );
     } finally {
       setUploading(false);
@@ -176,7 +176,6 @@ export default function CreateVendor() {
     if (!formData.personName.trim()) {
       newErrors.personName = "Person name is required";
     }
-
 
     if (!formData.location.trim()) {
       newErrors.location = "Location/Address is required";
@@ -346,7 +345,7 @@ export default function CreateVendor() {
         <div className="space-y-6">
           <button
             onClick={handleCancel}
-            className="flex items-center gap-2 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium"
+            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
           >
             ← Back to List
           </button>
@@ -397,7 +396,7 @@ export default function CreateVendor() {
                     errors.name
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.name && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -421,7 +420,7 @@ export default function CreateVendor() {
                     errors.personName
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.personName && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -447,7 +446,7 @@ export default function CreateVendor() {
                       errors.mobileNumber
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   />
                 </div>
                 {errors.mobileNumber && (
@@ -474,7 +473,7 @@ export default function CreateVendor() {
                       errors.email
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   />
                 </div>
                 {errors.email && (
@@ -501,7 +500,7 @@ export default function CreateVendor() {
                       errors.location
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   />
                 </div>
                 {errors.location && (
@@ -526,7 +525,7 @@ export default function CreateVendor() {
                     errors.gstNumber
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.gstNumber && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -539,7 +538,7 @@ export default function CreateVendor() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-bold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -596,12 +595,12 @@ export default function CreateVendor() {
           <div className="flex items-center justify-between gap-4 mb-6">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
               All Vendors{" "}
-              <span className="text-teal-600">({filteredVendors.length})</span>
+              <span className="text-blue-600">({filteredVendors.length})</span>
             </h2>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5"
               >
                 <Plus className="w-4 h-4" />
                 Add Vendor
@@ -639,7 +638,7 @@ export default function CreateVendor() {
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
             <div className="p-6 border-b border-slate-200 dark:border-slate-700">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                 Filter Results
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -655,7 +654,7 @@ export default function CreateVendor() {
                       setCurrentPage(1);
                     }}
                     placeholder="Search vendors..."
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   />
                 </div>
               </div>
@@ -663,7 +662,7 @@ export default function CreateVendor() {
 
             {tableLoading ? (
               <div className="p-8 text-center">
-                <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                 <p className="text-slate-600 dark:text-slate-400 mt-2">
                   Loading vendors...
                 </p>
@@ -703,7 +702,7 @@ export default function CreateVendor() {
                         >
                           <td
                             onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline"
+                            className="px-6 py-4 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
                           >
                             {vendor.name}
                           </td>

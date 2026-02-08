@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, Search, Users, TrendingUp, DollarSign } from "lucide-react";
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  Search,
+  Users,
+  TrendingUp,
+  DollarSign,
+} from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -136,7 +144,9 @@ export default function LabourManagement() {
 
       if (result.success) {
         toast.success(
-          editingId ? "Labour updated successfully" : "Labour added successfully"
+          editingId
+            ? "Labour updated successfully"
+            : "Labour added successfully",
         );
         fetchLabour();
         handleCloseDialog();
@@ -174,10 +184,11 @@ export default function LabourManagement() {
   };
 
   // Filter labour
-  const filteredLabour = labour.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.department.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredLabour = labour.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.department.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Pagination
@@ -185,13 +196,14 @@ export default function LabourManagement() {
   const startIdx = (currentPage - 1) * itemsPerPage;
   const paginatedLabour = filteredLabour.slice(
     startIdx,
-    startIdx + itemsPerPage
+    startIdx + itemsPerPage,
   );
 
   // Calculate statistics
   const totalLabour = labour.length;
   const totalDailyCost = labour.reduce((sum, l) => sum + l.salaryPerDay, 0);
-  const avgSalaryPerDay = labour.length > 0 ? totalDailyCost / labour.length : 0;
+  const avgSalaryPerDay =
+    labour.length > 0 ? totalDailyCost / labour.length : 0;
 
   return (
     <Layout>
@@ -202,11 +214,11 @@ export default function LabourManagement() {
           { label: "Category/Unit", path: "#" },
           { label: "Labour", path: "/labour" },
         ]}
-        icon={<Users className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />}
+        icon={<Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
         actions={
           <Button
             onClick={() => handleOpenDialog()}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+            className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Labour
@@ -216,75 +228,118 @@ export default function LabourManagement() {
 
       <div className="space-y-6">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 animate-fade-in-up">
           {/* Total Labour Card */}
-          <div className="bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-700 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl p-6 shadow-lg border border-indigo-400/30 dark:border-indigo-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-indigo-100 text-sm font-semibold uppercase tracking-wide">Total Labour</p>
-                <h3 className="text-4xl font-bold mt-2">{totalLabour}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Total Labour
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                  {totalLabour}
+                </h3>
               </div>
-              <div className="bg-indigo-400/30 dark:bg-indigo-800/50 p-3 rounded-lg">
-                <Users className="w-6 h-6 text-indigo-200" />
+              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
+                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <p className="text-indigo-200 text-xs font-medium">Factory workers</p>
+            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
+            </div>
           </div>
 
           {/* Total Daily Cost Card */}
-          <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 dark:from-purple-900 dark:to-purple-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">Total Daily Cost</p>
-                <h3 className="text-3xl font-bold mt-2">₹{totalDailyCost.toFixed(0)}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Total Daily Cost
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                  ₹{totalDailyCost.toFixed(0)}
+                </h3>
               </div>
-              <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
-                <DollarSign className="w-6 h-6 text-purple-200" />
+              <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-xl">
+                <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
             </div>
-            <p className="text-purple-200 text-xs font-medium">Daily salary total</p>
+            <div className="h-1 w-full bg-green-200 dark:bg-green-900/30 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all"
+                style={{ width: "100%" }}
+              ></div>
+            </div>
           </div>
 
           {/* Average Salary Card */}
-          <div className="bg-gradient-to-br from-pink-500 via-pink-600 to-pink-700 dark:from-pink-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-pink-400/30 dark:border-pink-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-pink-100 text-sm font-semibold uppercase tracking-wide">Avg Salary/Day</p>
-                <h3 className="text-3xl font-bold mt-2">₹{avgSalaryPerDay.toFixed(2)}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Avg Salary/Day
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                  ₹{avgSalaryPerDay.toFixed(2)}
+                </h3>
               </div>
-              <div className="bg-pink-400/30 dark:bg-pink-800/50 p-3 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-pink-200" />
+              <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-xl">
+                <TrendingUp className="w-6 h-6 text-amber-600 dark:text-amber-400" />
               </div>
             </div>
-            <p className="text-pink-200 text-xs font-medium">Per worker average</p>
+            <div className="h-1 w-full bg-amber-200 dark:bg-amber-900/30 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full transition-all"
+                style={{ width: "100%" }}
+              ></div>
+            </div>
           </div>
         </div>
 
         {/* Labour Header and Search */}
-        <div className="bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 border border-slate-200 dark:border-slate-700">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div className="flex-1 max-w-md">
-              <div className="relative">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-indigo-500 dark:text-indigo-400" />
-                <Input
-                  placeholder="Search by name, code, or department..."
-                  value={searchTerm}
-                  onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="pl-12 border-2 border-indigo-200 dark:border-indigo-900/50 focus:ring-2 focus:ring-indigo-500 focus:border-transparent rounded-lg"
-                />
-              </div>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+                <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                Labour List
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                Showing{" "}
+                <span className="font-bold text-slate-900 dark:text-white">
+                  {filteredLabour.length}
+                </span>{" "}
+                labour{filteredLabour.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+            <div className="hidden sm:flex items-center gap-2 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
+              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
+                {filteredLabour.length} total
+              </span>
+            </div>
+          </div>
+          <div className="mt-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
+              <Input
+                placeholder="Search by name, code, or department..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="pl-12 border-2 border-blue-200 dark:border-blue-900/50 focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg"
+              />
             </div>
           </div>
         </div>
 
         {/* Labour Table */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
           {loading ? (
             <div className="p-8 text-center text-slate-500">
-              <div className="inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+              <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
               <p className="mt-2">Loading labour...</p>
             </div>
           ) : paginatedLabour.length === 0 ? (
@@ -297,7 +352,7 @@ export default function LabourManagement() {
             <>
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gradient-to-r from-indigo-600 via-indigo-600 to-purple-600 dark:from-indigo-900 dark:via-indigo-900 dark:to-purple-900 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
+                  <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
                     <tr>
                       <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                         Labour ID
@@ -320,27 +375,29 @@ export default function LabourManagement() {
                     {paginatedLabour.map((item, idx) => (
                       <tr
                         key={item.id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 h-16 ${
                           idx % 2 === 0
-                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-blue-50 dark:hover:bg-blue-900/10"
+                            : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
                         }`}
                       >
-                        <td className="px-6 py-4 text-sm font-bold text-white cursor-pointer transition-colors">
-                          <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800">
+                        <td className="px-3 py-3 text-xs font-bold text-white cursor-pointer transition-all whitespace-nowrap">
+                          <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white text-xs font-bold group-hover:from-blue-700 group-hover:to-blue-800 dark:group-hover:from-blue-800 dark:group-hover:to-blue-900 transition-all shadow-elevation-2 group-hover:shadow-elevation-4 transform group-hover:scale-105">
                             {item.code}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all truncate max-w-xs">
                           {item.name}
                         </td>
-                        <td className="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-300">
-                          <span className="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-semibold">
+                        <td className="px-4 py-3 text-xs font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                          <span className="inline-block px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {item.department}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm font-bold text-indigo-600 dark:text-indigo-400">
-                          ₹{item.salaryPerDay.toFixed(2)}
+                        <td className="px-4 py-3 text-xs font-bold whitespace-nowrap">
+                          <span className="inline-block px-2.5 py-1.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg border border-green-200/50 dark:border-green-800/50">
+                            ₹{item.salaryPerDay.toFixed(2)}
+                          </span>
                         </td>
                         <td className="px-6 py-4 text-right">
                           <div className="flex justify-end gap-2">
@@ -368,40 +425,47 @@ export default function LabourManagement() {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800/50 dark:to-slate-800/30">
-                  <div className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    Showing <span className="font-bold text-indigo-600 dark:text-indigo-400">{startIdx + 1}</span> to <span className="font-bold text-indigo-600 dark:text-indigo-400">{Math.min(startIdx + itemsPerPage, filteredLabour.length)}</span> of{" "}
-                    <span className="font-bold text-slate-900 dark:text-white">{filteredLabour.length}</span> labour
+                <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                      Showing {startIdx + 1} to{" "}
+                      {Math.min(startIdx + itemsPerPage, filteredLabour.length)}{" "}
+                      of {filteredLabour.length} labour
+                    </span>
                   </div>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      onClick={() =>
+                        setCurrentPage(Math.max(1, currentPage - 1))
+                      }
                       disabled={currentPage === 1}
-                      className="border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Previous
                     </Button>
                     <div className="flex items-center gap-2">
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          className={`w-8 h-8 rounded-lg transition-colors font-semibold ${
-                            currentPage === page
-                              ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                              : "hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      ))}
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                        (page) => (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`w-8 h-8 rounded-lg transition-colors font-semibold ${
+                              currentPage === page
+                                ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
+                                : "hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ),
+                      )}
                     </div>
                     <Button
                       onClick={() =>
                         setCurrentPage(Math.min(totalPages, currentPage + 1))
                       }
                       disabled={currentPage === totalPages}
-                      className="border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Next
                     </Button>
@@ -475,7 +539,7 @@ export default function LabourManagement() {
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold"
               >
                 {editingId ? "Update" : "Add"} Labour
               </Button>
