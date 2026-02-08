@@ -318,10 +318,10 @@ export default function LabourManagement() {
         </div>
 
         {/* Labour Table */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
           {loading ? (
             <div className="p-8 text-center text-slate-500">
-              <div className="inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+              <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
               <p className="mt-2">Loading labour...</p>
             </div>
           ) : paginatedLabour.length === 0 ? (
@@ -334,7 +334,7 @@ export default function LabourManagement() {
             <>
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gradient-to-r from-indigo-600 via-indigo-600 to-purple-600 dark:from-indigo-900 dark:via-indigo-900 dark:to-purple-900 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
+                  <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
                     <tr>
                       <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                         Labour ID
