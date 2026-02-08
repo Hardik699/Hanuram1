@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
-import { Button } from "@/components/ui/button";
-import { Plus, Edit2, Trash2 } from "lucide-react";
+import { Plus, Edit2, Trash2, Calculator, Package, History } from "lucide-react";
 import { toast } from "sonner";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
+import { ProfessionalForm, FormGroup, FormActions } from "@/components/ProfessionalForm";
+import { DataTable } from "@/components/DataTable";
+import { cn } from "@/lib/utils";
 
 interface OpCostData {
   _id?: string;
