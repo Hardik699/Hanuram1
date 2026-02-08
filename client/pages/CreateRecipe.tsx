@@ -1111,7 +1111,7 @@ export default function CreateRecipe() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {loading ? (
                   <>
@@ -1120,7 +1120,7 @@ export default function CreateRecipe() {
                   </>
                 ) : (
                   <>
-                    <Plus className="w-4 h-4" />
+                    <Save className="w-4 h-4" />
                     <span>{id ? "Update Recipe" : "Create Recipe"}</span>
                   </>
                 )}
@@ -1128,7 +1128,7 @@ export default function CreateRecipe() {
               <button
                 type="button"
                 onClick={() => navigate("/rmc")}
-                className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-3 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
               >
                 Cancel
               </button>
