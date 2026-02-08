@@ -1062,45 +1062,45 @@ export default function CreateRecipe() {
 
               {/* Totals */}
               {id || recipeItems.length > 0 ? (
-                <div className="mt-6 space-y-3 pt-6 border-t border-slate-200 dark:border-slate-700">
+                <div className="mt-8 pt-8 border-t-2 border-indigo-200 dark:border-indigo-800">
                   {recipeItems.length === 0 && id ? (
-                    <div className="space-y-3">
+                    <div className="space-y-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg p-4">
                       <div className="flex justify-between items-center animate-pulse">
-                        <span className="text-slate-600 dark:text-slate-400 font-medium">
+                        <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                           Total Raw Material Cost:
                         </span>
-                        <div className="h-6 w-20 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                        <div className="h-6 w-24 bg-slate-300 dark:bg-slate-600 rounded"></div>
                       </div>
                       {formData.yield && Number(formData.yield) > 0 && (
                         <div className="flex justify-between items-center animate-pulse">
-                          <span className="text-slate-600 dark:text-slate-400 font-medium">
+                          <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                             Price Per Unit (Yield: {formData.yield}):
                           </span>
-                          <div className="h-6 w-20 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                          <div className="h-6 w-24 bg-slate-300 dark:bg-slate-600 rounded"></div>
                         </div>
                       )}
                     </div>
                   ) : (
-                    <>
-                      <div className="flex justify-between items-center">
-                        <span className="text-slate-600 dark:text-slate-400 font-medium">
-                          Total Raw Material Cost:
-                        </span>
-                        <span className="text-lg font-bold text-teal-600 dark:text-teal-400">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-indigo-50 dark:from-indigo-900/20 to-indigo-100/50 dark:to-indigo-900/10 rounded-lg p-4 border border-indigo-200 dark:border-indigo-800/30">
+                        <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide mb-2">
+                          Total Raw Material Cost
+                        </p>
+                        <p className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">
                           ₹{totals.totalCost.toFixed(2)}
-                        </span>
+                        </p>
                       </div>
                       {formData.yield && Number(formData.yield) > 0 && (
-                        <div className="flex justify-between items-center">
-                          <span className="text-slate-600 dark:text-slate-400 font-medium">
-                            Price Per Unit (Yield: {formData.yield}):
-                          </span>
-                          <span className="text-lg font-bold text-green-600 dark:text-green-400">
+                        <div className="bg-gradient-to-br from-green-50 dark:from-green-900/20 to-green-100/50 dark:to-green-900/10 rounded-lg p-4 border border-green-200 dark:border-green-800/30">
+                          <p className="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wide mb-2">
+                            Price Per Unit (Yield: {formData.yield})
+                          </p>
+                          <p className="text-2xl font-bold text-green-700 dark:text-green-300">
                             ₹{totals.pricePerUnit.toFixed(2)}
-                          </span>
+                          </p>
                         </div>
                       )}
-                    </>
+                    </div>
                   )}
                 </div>
               ) : null}
