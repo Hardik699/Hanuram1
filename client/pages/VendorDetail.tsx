@@ -379,9 +379,9 @@ export default function VendorDetail() {
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              Edit Vendor
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mb-6">
+              Edit Vendor Details
             </h2>
 
             <form className="space-y-6">
