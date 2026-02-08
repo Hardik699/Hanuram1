@@ -639,7 +639,7 @@ export default function CreateVendor() {
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
             <div className="p-6 border-b border-slate-200 dark:border-slate-700">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                 Filter Results
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -655,7 +655,7 @@ export default function CreateVendor() {
                       setCurrentPage(1);
                     }}
                     placeholder="Search vendors..."
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   />
                 </div>
               </div>
