@@ -545,13 +545,13 @@ export default function CreateUnit() {
                     paginatedUnits.map((unit, idx) => (
                       <tr
                         key={unit._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-purple-500 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 h-16 ${
                           idx % 2 === 0
-                            ? "hover:bg-purple-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-blue-50 dark:hover:bg-blue-900/10"
+                            : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
                         }`}
                       >
-                        <td className="px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white">
+                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white">
                           <div className="flex flex-col gap-1">
                             <span>{unit.name}</span>
                             <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">
@@ -559,8 +559,8 @@ export default function CreateUnit() {
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-sm">
-                          <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-semibold">
+                        <td className="px-4 py-3 text-xs font-bold">
+                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {unit.shortCode}
                           </span>
                         </td>
