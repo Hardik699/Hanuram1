@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
+import { cn } from "@/lib/utils";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import RawMaterialLogs from "@/components/RawMaterialLogs";
 import {
@@ -137,7 +138,7 @@ export default function RMDetail() {
   // Filter vendors based on search input
   const filteredVendors = vendorSearchInput
     ? allVendors.filter((vendor) =>
-        vendor.name.toLowerCase().includes(vendorSearchInput.toLowerCase())
+        vendor.name.toLowerCase().includes(vendorSearchInput.toLowerCase()),
       )
     : allVendors;
 
@@ -161,7 +162,9 @@ export default function RMDetail() {
       const response = await fetch("/api/raw-materials");
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch raw materials: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch raw materials: ${response.status} ${response.statusText}`,
+        );
       }
 
       const data = await response.json();
@@ -249,8 +252,10 @@ export default function RMDetail() {
         fetch(`/api/raw-materials/${rmId}/vendor-prices`),
       ]);
 
-      if (!vendorsRes.ok) throw new Error(`Vendors fetch failed: HTTP ${vendorsRes.status}`);
-      if (!pricesRes.ok) throw new Error(`Prices fetch failed: HTTP ${pricesRes.status}`);
+      if (!vendorsRes.ok)
+        throw new Error(`Vendors fetch failed: HTTP ${vendorsRes.status}`);
+      if (!pricesRes.ok)
+        throw new Error(`Prices fetch failed: HTTP ${pricesRes.status}`);
 
       const vendorsData = await vendorsRes.json();
       const pricesData = await pricesRes.json();
@@ -644,16 +649,16 @@ export default function RMDetail() {
           </div>
 
           {/* Purchase History Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
-            <div className="border-b border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+          <div className="table-responsive shadow-elevation-4 animate-page-load">
+            <div className="bg-white dark:bg-slate-800 border-b-2 border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent">
                 Purchase History - {rawMaterial.name}
               </h2>
               <button
                 onClick={() =>
                   setSortOrder(sortOrder === "desc" ? "asc" : "desc")
                 }
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors"
+                className="prof-btn-secondary py-2"
               >
                 {sortOrder === "desc" ? (
                   <>
@@ -670,50 +675,47 @@ export default function RMDetail() {
             </div>
 
             {vendorPurchaseHistory.length === 0 ? (
-              <div className="text-center py-12 text-slate-500 dark:text-slate-400 p-6">
-                <p>No purchase history for this vendor</p>
+              <div className="text-center py-12 text-slate-500 dark:text-slate-400 p-6 bg-white dark:bg-slate-800">
+                <p className="font-bold">No purchase history for this vendor</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[700px]">
-                  <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                  <thead className="prof-table-head">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                        Purchase Date
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                        Quantity
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                        Price
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                        Total Amount
-                      </th>
+                      <th className="prof-table-head-cell">Purchase Date</th>
+                      <th className="prof-table-head-cell">Quantity</th>
+                      <th className="prof-table-head-cell">Price</th>
+                      <th className="prof-table-head-cell">Total Amount</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                     {(sortOrder === "desc"
                       ? vendorPurchaseHistory
                       : [...vendorPurchaseHistory].reverse()
-                    ).map((purchase) => {
+                    ).map((purchase, idx) => {
                       const totalAmount = purchase.quantity * purchase.price;
                       return (
                         <tr
                           key={purchase._id}
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
+                          className={cn(
+                            "prof-table-row prof-table-row-hover",
+                            idx % 2 === 0 && "prof-table-row-even",
+                          )}
                         >
-                          <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                          <td className="prof-table-cell">
                             {formatDate(purchase.addedDate)}
                           </td>
-                          <td className="px-6 py-4 text-sm text-slate-900 dark:text-white">
+                          <td className="prof-table-cell-bold text-slate-900 dark:text-white">
                             {purchase.quantity} {formatUnit(purchase.unitName)}
                           </td>
-                          <td className="px-6 py-4 text-sm font-semibold text-teal-600 dark:text-teal-400">
-                            ₹{purchase.price.toFixed(2)}/
-                            {formatUnit(purchase.unitName)}
+                          <td className="prof-table-cell">
+                            <span className="prof-badge-green">
+                              ₹{purchase.price.toFixed(2)}/
+                              {formatUnit(purchase.unitName)}
+                            </span>
                           </td>
-                          <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white">
+                          <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
                             ₹{totalAmount.toFixed(2)}
                           </td>
                         </tr>
@@ -901,7 +903,8 @@ export default function RMDetail() {
               Confirm Delete
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-sm">
-              Are you sure you want to delete "{rawMaterial.name}"? This action cannot be undone.
+              Are you sure you want to delete "{rawMaterial.name}"? This action
+              cannot be undone.
             </p>
             <div>
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1155,7 +1158,9 @@ export default function RMDetail() {
                             type="text"
                             placeholder="🔍 Search vendor..."
                             value={vendorSearchInput}
-                            onChange={(e) => setVendorSearchInput(e.target.value)}
+                            onChange={(e) =>
+                              setVendorSearchInput(e.target.value)
+                            }
                             className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm placeholder-slate-400"
                           />
                           <select
@@ -1182,7 +1187,8 @@ export default function RMDetail() {
                           </select>
                           {filteredVendors.length > 0 && vendorSearchInput && (
                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                              {filteredVendors.length} vendor{filteredVendors.length !== 1 ? "s" : ""} found
+                              {filteredVendors.length} vendor
+                              {filteredVendors.length !== 1 ? "s" : ""} found
                             </p>
                           )}
                         </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "@/lib/utils";
+import { apiFetch, cn } from "@/lib/utils";
 import {
   Check,
   AlertCircle,
@@ -1271,109 +1271,84 @@ export default function RMManagement() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
+                <thead className="prof-table-head">
                   <tr>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Code
-                    </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Category
-                    </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Sub Category
-                    </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Unit
-                    </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Last Price
-                    </th>
-                    <th className="px-4 py-3.5 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Last Purchase
-                    </th>
-                    <th className="px-4 py-3.5 text-center text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Action
-                    </th>
+                    <th className="prof-table-head-cell">Code</th>
+                    <th className="prof-table-head-cell">Name</th>
+                    <th className="prof-table-head-cell">Category</th>
+                    <th className="prof-table-head-cell">Sub Category</th>
+                    <th className="prof-table-head-cell">Unit</th>
+                    <th className="prof-table-head-cell">Last Price</th>
+                    <th className="prof-table-head-cell">Last Purchase</th>
+                    <th className="prof-table-head-cell text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                   {paginatedRawMaterials.map((rm, idx) => (
                     <tr
                       key={rm._id}
-                      className={`transition-all duration-200 group border-l-4 border-l-transparent hover:border-l-blue-500 h-16 ${
-                        idx % 2 === 0
-                          ? "hover:bg-blue-50 dark:hover:bg-blue-900/10"
-                          : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
-                      }`}
+                      className={cn(
+                        "prof-table-row prof-table-row-hover",
+                        idx % 2 === 0 && "prof-table-row-even",
+                      )}
                     >
                       <td
-                        className="px-3 py-3 text-xs font-bold text-white cursor-pointer transition-all whitespace-nowrap"
+                        className="prof-table-cell cursor-pointer"
                         onClick={() => navigate(`/raw-materials/${rm._id}`)}
                       >
-                        <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white text-xs font-bold group-hover:from-blue-700 group-hover:to-blue-800 dark:group-hover:from-blue-800 dark:group-hover:to-blue-900 transition-all shadow-elevation-2 group-hover:shadow-elevation-4 transform group-hover:scale-105">
-                          {rm.code}
-                        </span>
+                        <span className="prof-badge-blue">{rm.code}</span>
                       </td>
                       <td
-                        className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all truncate max-w-xs"
+                        className="prof-table-cell cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 font-bold"
                         onClick={() => navigate(`/raw-materials/${rm._id}`)}
                         title={rm.name}
                       >
                         {rm.name}
                       </td>
-                      <td className="px-4 py-3 text-xs font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                        <span className="inline-block px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
+                      <td className="prof-table-cell whitespace-nowrap">
+                        <span className="prof-badge-blue">
                           {rm.categoryName}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-xs font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                        <span className="inline-block px-2.5 py-1.5 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-lg text-xs font-bold border border-emerald-200/50 dark:border-emerald-800/50">
+                      <td className="prof-table-cell whitespace-nowrap">
+                        <span className="prof-badge-green">
                           {rm.subCategoryName}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                      <td className="prof-table-cell whitespace-nowrap">
                         {rm.unitName ? (
-                          <span className="inline-block px-2.5 py-1.5 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-lg text-xs font-bold border border-amber-200/50 dark:border-amber-800/50">
+                          <span className="prof-badge-orange">
                             {rm.unitName}
                           </span>
                         ) : (
-                          <span className="text-slate-500 dark:text-slate-500 text-xs font-semibold">
-                            -
-                          </span>
+                          <span className="text-slate-400">-</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-xs font-bold whitespace-nowrap">
+                      <td className="prof-table-cell whitespace-nowrap">
                         {rm.lastAddedPrice ? (
-                          <span className="inline-block px-2.5 py-1.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-lg border border-green-200/50 dark:border-green-800/50">
+                          <span className="prof-badge-green">
                             ₹{rm.lastAddedPrice.toFixed(2)}/
                             {formatUnit(rm.unitName)}
                           </span>
                         ) : (
-                          <span className="inline-block px-2.5 py-1.5 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 rounded-lg font-bold border border-orange-200/50 dark:border-orange-800/50">
-                            Pending
-                          </span>
+                          <span className="prof-badge-orange">Pending</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                      <td className="prof-table-cell whitespace-nowrap">
                         {rm.lastPriceDate ? (
-                          <span className="text-slate-600 dark:text-slate-400 font-medium">
+                          <span className="font-medium text-slate-600 dark:text-slate-400">
                             {new Date(rm.lastPriceDate).toLocaleDateString(
                               "en-IN",
                             )}
                           </span>
                         ) : (
-                          <span className="text-slate-400 dark:text-slate-500">
-                            -
-                          </span>
+                          <span className="text-slate-400">-</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-center whitespace-nowrap">
+                      <td className="prof-table-cell text-center whitespace-nowrap">
                         <button
                           onClick={() => handleViewRMPriceHistory(rm)}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-lg transition-all transform hover:scale-110 text-xs font-bold shadow-elevation-2 hover:shadow-elevation-4 hover:-translate-y-0.5"
+                          className="prof-btn-sm"
                           title="View price history"
                         >
                           <History size={14} />

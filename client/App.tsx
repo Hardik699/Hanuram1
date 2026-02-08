@@ -205,7 +205,7 @@ const App = () => (
             <Route
               path="/costing-calculator"
               element={
-                <ProtectedRoute requiredPermission="labour_view_costs">
+                <ProtectedRoute>
                   <CostingAnalysis />
                 </ProtectedRoute>
               }

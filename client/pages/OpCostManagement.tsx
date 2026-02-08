@@ -1,9 +1,23 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
-import { Button } from "@/components/ui/button";
-import { Plus, Edit2, Trash2 } from "lucide-react";
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  Calculator,
+  Package,
+  History,
+} from "lucide-react";
 import { toast } from "sonner";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
+import {
+  ProfessionalForm,
+  FormGroup,
+  FormActions,
+} from "@/components/ProfessionalForm";
+import { DataTable } from "@/components/DataTable";
+import { cn } from "@/lib/utils";
 
 interface OpCostData {
   _id?: string;
@@ -36,8 +50,18 @@ interface OpCostData {
 }
 
 const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 export default function OpCostManagement() {
@@ -47,7 +71,7 @@ export default function OpCostManagement() {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
-    month: new Date().toLocaleString('default', { month: 'long' }),
+    month: new Date().toLocaleString("default", { month: "long" }),
     year: new Date().getFullYear(),
     costs: {
       rent: 0,
@@ -91,31 +115,33 @@ export default function OpCostManagement() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    
+
     if (name.startsWith("cost_")) {
       const costKey = name.replace("cost_", "");
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         costs: {
           ...prev.costs,
           [costKey]: value === "" ? 0 : parseFloat(value),
-        }
+        },
       }));
     } else if (name.startsWith("prod_")) {
       const prodKey = name.replace("prod_", "");
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         production: {
           ...prev.production,
           [prodKey]: value === "" ? 0 : parseFloat(value),
-        }
+        },
       }));
     } else if (name === "month") {
-      setFormData(prev => ({ ...prev, month: value }));
+      setFormData((prev) => ({ ...prev, month: value }));
     } else if (name === "year") {
-      setFormData(prev => ({ ...prev, year: parseInt(value) }));
+      setFormData((prev) => ({ ...prev, year: parseInt(value) }));
     }
   };
 
@@ -131,7 +157,7 @@ export default function OpCostManagement() {
           method: editingId ? "PUT" : "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       const data = await response.json();
@@ -140,7 +166,7 @@ export default function OpCostManagement() {
         setShowForm(false);
         setEditingId(null);
         setFormData({
-          month: new Date().toLocaleString('default', { month: 'long' }),
+          month: new Date().toLocaleString("default", { month: "long" }),
           year: new Date().getFullYear(),
           costs: {
             rent: 0,
@@ -164,7 +190,10 @@ export default function OpCostManagement() {
         });
         fetchOpCosts();
       } else {
-        toast.error(data.message || `Failed to ${editingId ? "update" : "create"} OP cost`);
+        toast.error(
+          data.message ||
+            `Failed to ${editingId ? "update" : "create"} OP cost`,
+        );
       }
     } catch (error) {
       console.error("Error saving:", error);
@@ -208,7 +237,10 @@ export default function OpCostManagement() {
   };
 
   const calculateTotalKgs = () => {
-    return formData.production.mithaiProduction + formData.production.namkeenProduction;
+    return (
+      formData.production.mithaiProduction +
+      formData.production.namkeenProduction
+    );
   };
 
   const calculateOpCostPerKg = () => {
@@ -217,383 +249,428 @@ export default function OpCostManagement() {
     return calculateTotalCost() / totalKgs;
   };
 
-  if (loading) {
-    return (
-      <Layout>
-        <LoadingSpinner message="Loading OP costs..." fullScreen />
-      </Layout>
-    );
-  }
-
   return (
     <Layout>
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Operational Cost (OP Cost)</h1>
-          <Button onClick={() => {
-            setEditingId(null);
-            setFormData({
-              month: new Date().toLocaleString('default', { month: 'long' }),
-              year: new Date().getFullYear(),
-              costs: {
-                rent: 0,
-                fixedSalary: 0,
-                electricity: 0,
-                marketing: 0,
-                logistics: 0,
-                insurance: 0,
-                vehicleInstallments: 0,
-                travelCost: 0,
-                miscellaneous: 0,
-                otherCosts: 0,
-                equipmentMaintenance: 0,
-                internetCharges: 0,
-                telephoneBills: 0,
-              },
-              production: {
-                mithaiProduction: 0,
-                namkeenProduction: 0,
-              },
-            });
-            setShowForm(!showForm);
-          }}>
-            <Plus size={16} className="mr-2" />
-            {showForm ? "Cancel" : "Add OP Cost"}
-          </Button>
-        </div>
+      <ProfessionalPage
+        title="Operational Cost (OP Cost)"
+        description="Manage and track monthly operational costs and production metrics."
+        headerAction={
+          <button
+            onClick={() => {
+              if (showForm) {
+                setShowForm(false);
+                setEditingId(null);
+              } else {
+                setEditingId(null);
+                setFormData({
+                  month: new Date().toLocaleString("default", {
+                    month: "long",
+                  }),
+                  year: new Date().getFullYear(),
+                  costs: {
+                    rent: 0,
+                    fixedSalary: 0,
+                    electricity: 0,
+                    marketing: 0,
+                    logistics: 0,
+                    insurance: 0,
+                    vehicleInstallments: 0,
+                    travelCost: 0,
+                    miscellaneous: 0,
+                    otherCosts: 0,
+                    equipmentMaintenance: 0,
+                    internetCharges: 0,
+                    telephoneBills: 0,
+                  },
+                  production: {
+                    mithaiProduction: 0,
+                    namkeenProduction: 0,
+                  },
+                });
+                setShowForm(true);
+              }
+            }}
+            className={showForm ? "prof-btn-secondary" : "prof-btn-primary"}
+          >
+            {showForm ? (
+              <>
+                <History size={16} />
+                <span>View All Entries</span>
+              </>
+            ) : (
+              <>
+                <Plus size={16} />
+                <span>Add OP Cost</span>
+              </>
+            )}
+          </button>
+        }
+      >
+        {showForm ? (
+          <div className="max-w-4xl mx-auto">
+            <ProfessionalForm
+              title={editingId ? "Update OP Cost Entry" : "New OP Cost Entry"}
+              onSubmit={handleSave}
+              onCancel={() => {
+                setShowForm(false);
+                setEditingId(null);
+              }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormGroup label="Month">
+                  <select
+                    name="month"
+                    value={formData.month}
+                    onChange={handleInputChange}
+                    className="prof-form-select"
+                  >
+                    {months.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </FormGroup>
+                <FormGroup label="Year">
+                  <input
+                    type="number"
+                    name="year"
+                    value={formData.year}
+                    onChange={handleInputChange}
+                    className="prof-form-input"
+                    min="2020"
+                    max={new Date().getFullYear() + 1}
+                  />
+                </FormGroup>
+              </div>
 
-        {/* Form */}
-        {showForm && (
-          <div className="bg-card rounded-lg p-6 border space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-2 block">Month</label>
-                <select
-                  name="month"
-                  value={formData.month}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded-md bg-input"
+              <div className="mt-8">
+                <h3 className="text-lg font-bold text-blue-700 dark:text-blue-400 mb-4 flex items-center gap-2">
+                  <Calculator size={20} />
+                  Monthly Operating Costs
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <FormGroup label="Rent (₹)">
+                    <input
+                      type="number"
+                      name="cost_rent"
+                      value={formData.costs.rent || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Fixed Salary (₹)">
+                    <input
+                      type="number"
+                      name="cost_fixedSalary"
+                      value={formData.costs.fixedSalary || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Electricity (₹)">
+                    <input
+                      type="number"
+                      name="cost_electricity"
+                      value={formData.costs.electricity || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Marketing (₹)">
+                    <input
+                      type="number"
+                      name="cost_marketing"
+                      value={formData.costs.marketing || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Logistics (₹)">
+                    <input
+                      type="number"
+                      name="cost_logistics"
+                      value={formData.costs.logistics || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Insurance (₹)">
+                    <input
+                      type="number"
+                      name="cost_insurance"
+                      value={formData.costs.insurance || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Vehicle EMI (₹)">
+                    <input
+                      type="number"
+                      name="cost_vehicleInstallments"
+                      value={formData.costs.vehicleInstallments || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Travel (₹)">
+                    <input
+                      type="number"
+                      name="cost_travelCost"
+                      value={formData.costs.travelCost || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Maintenance (₹)">
+                    <input
+                      type="number"
+                      name="cost_equipmentMaintenance"
+                      value={formData.costs.equipmentMaintenance || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Internet (₹)">
+                    <input
+                      type="number"
+                      name="cost_internetCharges"
+                      value={formData.costs.internetCharges || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Telephone (₹)">
+                    <input
+                      type="number"
+                      name="cost_telephoneBills"
+                      value={formData.costs.telephoneBills || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Miscellaneous (₹)">
+                    <input
+                      type="number"
+                      name="cost_miscellaneous"
+                      value={formData.costs.miscellaneous || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <h3 className="text-lg font-bold text-blue-700 dark:text-blue-400 mb-4 flex items-center gap-2">
+                  <Package size={20} />
+                  Monthly Production
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormGroup label="Mithai Production (Kg)">
+                    <input
+                      type="number"
+                      name="prod_mithaiProduction"
+                      value={formData.production.mithaiProduction || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                  <FormGroup label="Namkeen Production (Kg)">
+                    <input
+                      type="number"
+                      name="prod_namkeenProduction"
+                      value={formData.production.namkeenProduction || ""}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      className="prof-form-input"
+                    />
+                  </FormGroup>
+                </div>
+              </div>
+
+              {/* Summary Stats */}
+              <div className="mt-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border-2 border-blue-100 dark:border-blue-800/50">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">
+                      Total Cost
+                    </p>
+                    <p className="text-2xl font-black text-slate-900 dark:text-white">
+                      ₹
+                      {calculateTotalCost().toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </p>
+                  </div>
+                  <div className="text-center border-x-2 border-blue-100 dark:border-blue-800/50 px-6">
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">
+                      Total Production
+                    </p>
+                    <p className="text-2xl font-black text-slate-900 dark:text-white">
+                      {calculateTotalKgs().toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                      })}{" "}
+                      Kg
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">
+                      Cost Per Kg
+                    </p>
+                    <p className="text-2xl font-black text-blue-600 dark:text-blue-400">
+                      ₹
+                      {calculateOpCostPerKg().toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <FormActions>
+                <button type="submit" className="prof-btn-primary">
+                  {editingId ? "Update Entry" : "Save Entry"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditingId(null);
+                  }}
+                  className="prof-btn-secondary"
                 >
-                  {months.map(m => (
-                    <option key={m} value={m}>{m}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-2 block">Year</label>
-                <input
-                  type="number"
-                  name="year"
-                  value={formData.year}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded-md bg-input"
-                  min="2020"
-                  max={new Date().getFullYear() + 1}
-                />
-              </div>
-            </div>
-
-            {/* Monthly Costs Section */}
-            <div className="border-t pt-6">
-              <h3 className="text-lg font-semibold mb-4">Monthly Operating Costs</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Rent (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_rent"
-                    value={formData.costs.rent || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Fixed Salary Cost (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_fixedSalary"
-                    value={formData.costs.fixedSalary || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Electricity Cost (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_electricity"
-                    value={formData.costs.electricity || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Marketing Cost (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_marketing"
-                    value={formData.costs.marketing || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Logistics Cost (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_logistics"
-                    value={formData.costs.logistics || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Insurance Cost (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_insurance"
-                    value={formData.costs.insurance || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Vehicle Installments (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_vehicleInstallments"
-                    value={formData.costs.vehicleInstallments || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Travel Cost (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_travelCost"
-                    value={formData.costs.travelCost || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Miscellaneous Cost (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_miscellaneous"
-                    value={formData.costs.miscellaneous || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Other Costs (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_otherCosts"
-                    value={formData.costs.otherCosts || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Equipment Maintenance (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_equipmentMaintenance"
-                    value={formData.costs.equipmentMaintenance || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Internet Charges (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_internetCharges"
-                    value={formData.costs.internetCharges || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Telephone Bills (₹)</label>
-                  <input
-                    type="number"
-                    name="cost_telephoneBills"
-                    value={formData.costs.telephoneBills || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Production Section */}
-            <div className="border-t pt-6">
-              <h3 className="text-lg font-semibold mb-4">Monthly Production</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Mithai Production (Kg/Month)</label>
-                  <input
-                    type="number"
-                    name="prod_mithaiProduction"
-                    value={formData.production.mithaiProduction || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Namkeen Production (Kg/Month)</label>
-                  <input
-                    type="number"
-                    name="prod_namkeenProduction"
-                    value={formData.production.namkeenProduction || ""}
-                    onChange={handleInputChange}
-                    placeholder="0"
-                    step="0.01"
-                    className="w-full px-3 py-2 border rounded-md bg-input"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Calculations Display */}
-            <div className="border-t pt-6 bg-blue-50 dark:bg-blue-950 p-4 rounded">
-              <h3 className="text-lg font-semibold mb-4">Automatic Calculations</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <p className="text-sm text-muted-foreground">Total Monthly Cost</p>
-                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    ₹{calculateTotalCost().toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Total KGs Produced</p>
-                  <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                    {calculateTotalKgs().toFixed(2)} Kg
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">OP Cost / Kg (Auto)</p>
-                  <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                    ₹{calculateOpCostPerKg().toFixed(2)}/Kg
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex gap-3 pt-4">
-              <Button onClick={handleSave} className="flex-1">
-                {editingId ? "Update" : "Save"} OP Cost
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setShowForm(false);
-                  setEditingId(null);
-                }}
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* OP Costs List */}
-        {opCosts.length === 0 ? (
-          <div className="bg-card rounded-lg p-12 border text-center">
-            <p className="text-muted-foreground">No OP cost entries found. Create one to get started!</p>
+                  Cancel
+                </button>
+              </FormActions>
+            </ProfessionalForm>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
-            {opCosts.map(opCost => (
-              <div key={opCost._id} className="bg-card rounded-lg p-6 border hover:shadow-md transition">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-lg font-semibold">
-                      {opCost.month} {opCost.year}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      Created: {new Date(opCost.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleEdit(opCost)}
-                      className="p-2 hover:bg-secondary rounded-lg transition"
-                      title="Edit"
-                    >
-                      <Edit2 size={18} />
-                    </button>
-                    <button
-                      onClick={() => opCost._id && handleDelete(opCost._id)}
-                      className="p-2 hover:bg-destructive/10 text-destructive rounded-lg transition"
-                      title="Delete"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div>
-                    <p className="text-xs text-muted-foreground">Total Monthly Cost</p>
-                    <p className="text-lg font-bold">₹{Object.values(opCost.costs).reduce((a, b) => a + b, 0).toFixed(2)}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Total KGs Produced</p>
-                    <p className="text-lg font-bold">{(opCost.production.mithaiProduction + opCost.production.namkeenProduction).toFixed(2)} Kg</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">OP Cost / Kg (Auto)</p>
-                    <p className="text-lg font-bold text-blue-600">₹{opCost.autoOpCostPerKg.toFixed(2)}/Kg</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">OP Cost / Kg (Active)</p>
-                    <p className="text-lg font-bold text-green-600">
-                      ₹{(opCost.useManualOpCost && opCost.manualOpCostPerKg ? opCost.manualOpCostPerKg : opCost.autoOpCostPerKg || 0).toFixed(2)}/Kg
-                    </p>
-                    {opCost.useManualOpCost && <span className="text-xs text-amber-600">Manual</span>}
-                  </div>
-                </div>
+          <div className="space-y-6">
+            {opCosts.length === 0 ? (
+              <EmptyState
+                icon={<Calculator size={48} />}
+                title="No OP Cost Records"
+                description="Start by adding your first monthly operational cost entry."
+                action={
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="prof-btn-primary"
+                  >
+                    Add First Entry
+                  </button>
+                }
+              />
+            ) : (
+              <div className="prof-section">
+                <DataTable
+                  data={opCosts}
+                  columns={[
+                    {
+                      key: "month",
+                      label: "Period",
+                      render: (_, row) => (
+                        <div className="flex flex-col">
+                          <span className="font-bold text-slate-900 dark:text-white">
+                            {row.month} {row.year}
+                          </span>
+                          <span className="text-xs text-slate-500">
+                            {new Date(row.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      ),
+                    },
+                    {
+                      key: "costs",
+                      label: "Total Cost",
+                      render: (costs) => (
+                        <span className="font-bold">
+                          ₹
+                          {Object.values(costs as any)
+                            .reduce((a: any, b: any) => a + b, 0)
+                            .toLocaleString("en-IN", {
+                              minimumFractionDigits: 2,
+                            })}
+                        </span>
+                      ),
+                    },
+                    {
+                      key: "production",
+                      label: "Production",
+                      render: (prod) => (
+                        <span className="prof-badge-blue">
+                          {(
+                            (prod as any).mithaiProduction +
+                            (prod as any).namkeenProduction
+                          ).toLocaleString("en-IN", {
+                            minimumFractionDigits: 2,
+                          })}{" "}
+                          Kg
+                        </span>
+                      ),
+                    },
+                    {
+                      key: "autoOpCostPerKg",
+                      label: "Cost / Kg",
+                      render: (val, row) => (
+                        <div className="flex flex-col">
+                          <span className="font-black text-blue-600 dark:text-blue-400">
+                            ₹
+                            {val.toLocaleString("en-IN", {
+                              minimumFractionDigits: 2,
+                            })}
+                          </span>
+                          {row.useManualOpCost && (
+                            <span className="text-[10px] font-bold text-orange-600 uppercase">
+                              Manual Applied
+                            </span>
+                          )}
+                        </div>
+                      ),
+                    },
+                    {
+                      key: "_id",
+                      label: "Actions",
+                      className: "text-right",
+                      render: (_, row) => (
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            onClick={() => handleEdit(row)}
+                            className="p-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-600 rounded-lg transition-colors"
+                            title="Edit"
+                          >
+                            <Edit2 size={16} />
+                          </button>
+                          <button
+                            onClick={() => row._id && handleDelete(row._id)}
+                            className="p-2 hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 rounded-lg transition-colors"
+                            title="Delete"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      ),
+                    },
+                  ]}
+                />
               </div>
-            ))}
+            )}
           </div>
         )}
-      </div>
+      </ProfessionalPage>
     </Layout>
   );
 }
