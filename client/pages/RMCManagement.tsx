@@ -1025,18 +1025,10 @@ export default function RMCManagement() {
               <table className="w-full">
                 <thead className="prof-table-head">
                   <tr>
-                    <th className="prof-table-head-cell">
-                      Recipe Code
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Recipe Name
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Total RM Cost
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Price per Unit
-                    </th>
+                    <th className="prof-table-head-cell">Recipe Code</th>
+                    <th className="prof-table-head-cell">Recipe Name</th>
+                    <th className="prof-table-head-cell">Total RM Cost</th>
+                    <th className="prof-table-head-cell">Price per Unit</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -1045,14 +1037,12 @@ export default function RMCManagement() {
                       key={recipe._id}
                       className={cn(
                         "prof-table-row prof-table-row-hover",
-                        idx % 2 === 0 && "prof-table-row-even"
+                        idx % 2 === 0 && "prof-table-row-even",
                       )}
                       onClick={() => navigate(`/recipe/${recipe._id}`)}
                     >
                       <td className="prof-table-cell">
-                        <span className="prof-badge-blue">
-                          {recipe.code}
-                        </span>
+                        <span className="prof-badge-blue">{recipe.code}</span>
                       </td>
                       <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
                         {recipe.name}

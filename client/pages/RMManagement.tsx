@@ -1273,30 +1273,14 @@ export default function RMManagement() {
               <table className="w-full">
                 <thead className="prof-table-head">
                   <tr>
-                    <th className="prof-table-head-cell">
-                      Code
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Name
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Category
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Sub Category
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Unit
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Last Price
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Last Purchase
-                    </th>
-                    <th className="prof-table-head-cell text-center">
-                      Action
-                    </th>
+                    <th className="prof-table-head-cell">Code</th>
+                    <th className="prof-table-head-cell">Name</th>
+                    <th className="prof-table-head-cell">Category</th>
+                    <th className="prof-table-head-cell">Sub Category</th>
+                    <th className="prof-table-head-cell">Unit</th>
+                    <th className="prof-table-head-cell">Last Price</th>
+                    <th className="prof-table-head-cell">Last Purchase</th>
+                    <th className="prof-table-head-cell text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -1305,16 +1289,14 @@ export default function RMManagement() {
                       key={rm._id}
                       className={cn(
                         "prof-table-row prof-table-row-hover",
-                        idx % 2 === 0 && "prof-table-row-even"
+                        idx % 2 === 0 && "prof-table-row-even",
                       )}
                     >
                       <td
                         className="prof-table-cell cursor-pointer"
                         onClick={() => navigate(`/raw-materials/${rm._id}`)}
                       >
-                        <span className="prof-badge-blue">
-                          {rm.code}
-                        </span>
+                        <span className="prof-badge-blue">{rm.code}</span>
                       </td>
                       <td
                         className="prof-table-cell cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 font-bold"
@@ -1349,9 +1331,7 @@ export default function RMManagement() {
                             {formatUnit(rm.unitName)}
                           </span>
                         ) : (
-                          <span className="prof-badge-orange">
-                            Pending
-                          </span>
+                          <span className="prof-badge-orange">Pending</span>
                         )}
                       </td>
                       <td className="prof-table-cell whitespace-nowrap">

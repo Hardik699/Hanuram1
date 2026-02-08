@@ -178,7 +178,8 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                     key={String(col.key)}
                     className={cn(
                       "prof-table-head-cell",
-                      col.sortable && "cursor-pointer hover:bg-white/10 transition-colors",
+                      col.sortable &&
+                        "cursor-pointer hover:bg-white/10 transition-colors",
                       col.className,
                     )}
                     onClick={() => col.sortable && handleSort(col.key)}
@@ -212,7 +213,7 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                     className={cn(
                       "prof-table-row prof-table-row-hover",
                       idx % 2 === 0 && "prof-table-row-even",
-                      rowClassName?.(row)
+                      rowClassName?.(row),
                     )}
                   >
                     {selectable && (
@@ -229,10 +230,7 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                     {columns.map((col) => (
                       <td
                         key={String(col.key)}
-                        className={cn(
-                          "prof-table-cell",
-                          col.className,
-                        )}
+                        className={cn("prof-table-cell", col.className)}
                         onClick={() => !selectable && onRowClick?.(row)}
                       >
                         {col.render
@@ -291,7 +289,9 @@ export function DataTable<T extends { _id?: string; id?: string }>({
                   Page {currentPage + 1} of {totalPages || 1}
                 </span>
                 <button
-                  onClick={() => setCurrentPage(Math.min(totalPages - 1, currentPage + 1))}
+                  onClick={() =>
+                    setCurrentPage(Math.min(totalPages - 1, currentPage + 1))
+                  }
                   disabled={currentPage >= totalPages - 1}
                   className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   title="Next Page"

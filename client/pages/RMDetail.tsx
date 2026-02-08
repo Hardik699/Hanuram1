@@ -138,7 +138,7 @@ export default function RMDetail() {
   // Filter vendors based on search input
   const filteredVendors = vendorSearchInput
     ? allVendors.filter((vendor) =>
-        vendor.name.toLowerCase().includes(vendorSearchInput.toLowerCase())
+        vendor.name.toLowerCase().includes(vendorSearchInput.toLowerCase()),
       )
     : allVendors;
 
@@ -162,7 +162,9 @@ export default function RMDetail() {
       const response = await fetch("/api/raw-materials");
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch raw materials: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch raw materials: ${response.status} ${response.statusText}`,
+        );
       }
 
       const data = await response.json();
@@ -250,8 +252,10 @@ export default function RMDetail() {
         fetch(`/api/raw-materials/${rmId}/vendor-prices`),
       ]);
 
-      if (!vendorsRes.ok) throw new Error(`Vendors fetch failed: HTTP ${vendorsRes.status}`);
-      if (!pricesRes.ok) throw new Error(`Prices fetch failed: HTTP ${pricesRes.status}`);
+      if (!vendorsRes.ok)
+        throw new Error(`Vendors fetch failed: HTTP ${vendorsRes.status}`);
+      if (!pricesRes.ok)
+        throw new Error(`Prices fetch failed: HTTP ${pricesRes.status}`);
 
       const vendorsData = await vendorsRes.json();
       const pricesData = await pricesRes.json();
@@ -679,18 +683,10 @@ export default function RMDetail() {
                 <table className="w-full min-w-[700px]">
                   <thead className="prof-table-head">
                     <tr>
-                      <th className="prof-table-head-cell">
-                        Purchase Date
-                      </th>
-                      <th className="prof-table-head-cell">
-                        Quantity
-                      </th>
-                      <th className="prof-table-head-cell">
-                        Price
-                      </th>
-                      <th className="prof-table-head-cell">
-                        Total Amount
-                      </th>
+                      <th className="prof-table-head-cell">Purchase Date</th>
+                      <th className="prof-table-head-cell">Quantity</th>
+                      <th className="prof-table-head-cell">Price</th>
+                      <th className="prof-table-head-cell">Total Amount</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -704,7 +700,7 @@ export default function RMDetail() {
                           key={purchase._id}
                           className={cn(
                             "prof-table-row prof-table-row-hover",
-                            idx % 2 === 0 && "prof-table-row-even"
+                            idx % 2 === 0 && "prof-table-row-even",
                           )}
                         >
                           <td className="prof-table-cell">
@@ -907,7 +903,8 @@ export default function RMDetail() {
               Confirm Delete
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-sm">
-              Are you sure you want to delete "{rawMaterial.name}"? This action cannot be undone.
+              Are you sure you want to delete "{rawMaterial.name}"? This action
+              cannot be undone.
             </p>
             <div>
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1161,7 +1158,9 @@ export default function RMDetail() {
                             type="text"
                             placeholder="🔍 Search vendor..."
                             value={vendorSearchInput}
-                            onChange={(e) => setVendorSearchInput(e.target.value)}
+                            onChange={(e) =>
+                              setVendorSearchInput(e.target.value)
+                            }
                             className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm placeholder-slate-400"
                           />
                           <select
@@ -1188,7 +1187,8 @@ export default function RMDetail() {
                           </select>
                           {filteredVendors.length > 0 && vendorSearchInput && (
                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                              {filteredVendors.length} vendor{filteredVendors.length !== 1 ? "s" : ""} found
+                              {filteredVendors.length} vendor
+                              {filteredVendors.length !== 1 ? "s" : ""} found
                             </p>
                           )}
                         </div>

@@ -109,45 +109,35 @@ export default {
 
       /* Material Design Typography */
       fontFamily: {
-        sans: [
-          "Roboto",
-          "Helvetica Neue",
-          "Helvetica",
-          "Arial",
-          "sans-serif",
-        ],
-        mono: [
-          "Roboto Mono",
-          "Courier New",
-          "monospace",
-        ],
+        sans: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        mono: ["Roboto Mono", "Courier New", "monospace"],
       },
 
       /* Material Design Spacing */
       spacing: {
-        "0.5": "0.125rem",   /* 2px */
-        "1": "0.25rem",      /* 4px */
-        "1.5": "0.375rem",   /* 6px */
-        "2": "0.5rem",       /* 8px */
-        "2.5": "0.625rem",   /* 10px */
-        "3": "0.75rem",      /* 12px */
-        "3.5": "0.875rem",   /* 14px */
-        "4": "1rem",         /* 16px */
-        "5": "1.25rem",      /* 20px */
-        "6": "1.5rem",       /* 24px */
-        "7": "1.75rem",      /* 28px */
-        "8": "2rem",         /* 32px */
+        "0.5": "0.125rem" /* 2px */,
+        "1": "0.25rem" /* 4px */,
+        "1.5": "0.375rem" /* 6px */,
+        "2": "0.5rem" /* 8px */,
+        "2.5": "0.625rem" /* 10px */,
+        "3": "0.75rem" /* 12px */,
+        "3.5": "0.875rem" /* 14px */,
+        "4": "1rem" /* 16px */,
+        "5": "1.25rem" /* 20px */,
+        "6": "1.5rem" /* 24px */,
+        "7": "1.75rem" /* 28px */,
+        "8": "2rem" /* 32px */,
       },
 
       borderRadius: {
         none: "0px",
-        sm: "0.25rem",    /* 4px */
-        DEFAULT: "0.5rem", /* 8px - Material Design standard */
-        md: "0.5rem",      /* 8px */
-        lg: "0.75rem",     /* 12px */
-        xl: "1rem",        /* 16px */
-        "2xl": "1.5rem",   /* 24px */
-        "3xl": "2rem",     /* 32px */
+        sm: "0.25rem" /* 4px */,
+        DEFAULT: "0.5rem" /* 8px - Material Design standard */,
+        md: "0.5rem" /* 8px */,
+        lg: "0.75rem" /* 12px */,
+        xl: "1rem" /* 16px */,
+        "2xl": "1.5rem" /* 24px */,
+        "3xl": "2rem" /* 32px */,
         full: "9999px",
       },
 
@@ -246,8 +236,10 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         ripple: "ripple 0.6s ease-out",
-        "material-fade-in": "material-fade-in var(--animation-deceleration) ease-out",
-        "material-scale-up": "material-scale-up var(--animation-standard) cubic-bezier(0.4, 0, 0.2, 1)",
+        "material-fade-in":
+          "material-fade-in var(--animation-deceleration) ease-out",
+        "material-scale-up":
+          "material-scale-up var(--animation-standard) cubic-bezier(0.4, 0, 0.2, 1)",
         "fade-in-up": "fade-in-up var(--animation-standard) ease-out both",
         "slide-in-right": "slide-in-right var(--animation-standard) ease-out",
         "slide-in-left": "slide-in-left var(--animation-standard) ease-out",

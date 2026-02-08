@@ -1,10 +1,21 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
-import { Plus, Edit2, Trash2, Calculator, Package, History } from "lucide-react";
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  Calculator,
+  Package,
+  History,
+} from "lucide-react";
 import { toast } from "sonner";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
-import { ProfessionalForm, FormGroup, FormActions } from "@/components/ProfessionalForm";
+import {
+  ProfessionalForm,
+  FormGroup,
+  FormActions,
+} from "@/components/ProfessionalForm";
 import { DataTable } from "@/components/DataTable";
 import { cn } from "@/lib/utils";
 
@@ -39,8 +50,18 @@ interface OpCostData {
 }
 
 const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 export default function OpCostManagement() {
@@ -50,7 +71,7 @@ export default function OpCostManagement() {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
-    month: new Date().toLocaleString('default', { month: 'long' }),
+    month: new Date().toLocaleString("default", { month: "long" }),
     year: new Date().getFullYear(),
     costs: {
       rent: 0,
@@ -94,31 +115,33 @@ export default function OpCostManagement() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    
+
     if (name.startsWith("cost_")) {
       const costKey = name.replace("cost_", "");
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         costs: {
           ...prev.costs,
           [costKey]: value === "" ? 0 : parseFloat(value),
-        }
+        },
       }));
     } else if (name.startsWith("prod_")) {
       const prodKey = name.replace("prod_", "");
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         production: {
           ...prev.production,
           [prodKey]: value === "" ? 0 : parseFloat(value),
-        }
+        },
       }));
     } else if (name === "month") {
-      setFormData(prev => ({ ...prev, month: value }));
+      setFormData((prev) => ({ ...prev, month: value }));
     } else if (name === "year") {
-      setFormData(prev => ({ ...prev, year: parseInt(value) }));
+      setFormData((prev) => ({ ...prev, year: parseInt(value) }));
     }
   };
 
@@ -134,7 +157,7 @@ export default function OpCostManagement() {
           method: editingId ? "PUT" : "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       const data = await response.json();
@@ -143,7 +166,7 @@ export default function OpCostManagement() {
         setShowForm(false);
         setEditingId(null);
         setFormData({
-          month: new Date().toLocaleString('default', { month: 'long' }),
+          month: new Date().toLocaleString("default", { month: "long" }),
           year: new Date().getFullYear(),
           costs: {
             rent: 0,
@@ -167,7 +190,10 @@ export default function OpCostManagement() {
         });
         fetchOpCosts();
       } else {
-        toast.error(data.message || `Failed to ${editingId ? "update" : "create"} OP cost`);
+        toast.error(
+          data.message ||
+            `Failed to ${editingId ? "update" : "create"} OP cost`,
+        );
       }
     } catch (error) {
       console.error("Error saving:", error);
@@ -211,7 +237,10 @@ export default function OpCostManagement() {
   };
 
   const calculateTotalKgs = () => {
-    return formData.production.mithaiProduction + formData.production.namkeenProduction;
+    return (
+      formData.production.mithaiProduction +
+      formData.production.namkeenProduction
+    );
   };
 
   const calculateOpCostPerKg = () => {
@@ -234,7 +263,9 @@ export default function OpCostManagement() {
               } else {
                 setEditingId(null);
                 setFormData({
-                  month: new Date().toLocaleString('default', { month: 'long' }),
+                  month: new Date().toLocaleString("default", {
+                    month: "long",
+                  }),
                   year: new Date().getFullYear(),
                   costs: {
                     rent: 0,
@@ -293,8 +324,10 @@ export default function OpCostManagement() {
                     onChange={handleInputChange}
                     className="prof-form-select"
                   >
-                    {months.map(m => (
-                      <option key={m} value={m}>{m}</option>
+                    {months.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
                     ))}
                   </select>
                 </FormGroup>
@@ -473,25 +506,43 @@ export default function OpCostManagement() {
               <div className="mt-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border-2 border-blue-100 dark:border-blue-800/50">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="text-center">
-                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">Total Cost</p>
-                    <p className="text-2xl font-black text-slate-900 dark:text-white">₹{calculateTotalCost().toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">
+                      Total Cost
+                    </p>
+                    <p className="text-2xl font-black text-slate-900 dark:text-white">
+                      ₹
+                      {calculateTotalCost().toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </p>
                   </div>
                   <div className="text-center border-x-2 border-blue-100 dark:border-blue-800/50 px-6">
-                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">Total Production</p>
-                    <p className="text-2xl font-black text-slate-900 dark:text-white">{calculateTotalKgs().toLocaleString('en-IN', { minimumFractionDigits: 2 })} Kg</p>
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">
+                      Total Production
+                    </p>
+                    <p className="text-2xl font-black text-slate-900 dark:text-white">
+                      {calculateTotalKgs().toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                      })}{" "}
+                      Kg
+                    </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">Cost Per Kg</p>
-                    <p className="text-2xl font-black text-blue-600 dark:text-blue-400">₹{calculateOpCostPerKg().toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">
+                      Cost Per Kg
+                    </p>
+                    <p className="text-2xl font-black text-blue-600 dark:text-blue-400">
+                      ₹
+                      {calculateOpCostPerKg().toLocaleString("en-IN", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <FormActions>
-                <button
-                  type="submit"
-                  className="prof-btn-primary"
-                >
+                <button type="submit" className="prof-btn-primary">
                   {editingId ? "Update Entry" : "Save Entry"}
                 </button>
                 <button
@@ -515,7 +566,10 @@ export default function OpCostManagement() {
                 title="No OP Cost Records"
                 description="Start by adding your first monthly operational cost entry."
                 action={
-                  <button onClick={() => setShowForm(true)} className="prof-btn-primary">
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="prof-btn-primary"
+                  >
                     Add First Entry
                   </button>
                 }
@@ -530,28 +584,43 @@ export default function OpCostManagement() {
                       label: "Period",
                       render: (_, row) => (
                         <div className="flex flex-col">
-                          <span className="font-bold text-slate-900 dark:text-white">{row.month} {row.year}</span>
-                          <span className="text-xs text-slate-500">{new Date(row.createdAt).toLocaleDateString()}</span>
+                          <span className="font-bold text-slate-900 dark:text-white">
+                            {row.month} {row.year}
+                          </span>
+                          <span className="text-xs text-slate-500">
+                            {new Date(row.createdAt).toLocaleDateString()}
+                          </span>
                         </div>
-                      )
+                      ),
                     },
                     {
                       key: "costs",
                       label: "Total Cost",
                       render: (costs) => (
                         <span className="font-bold">
-                          ₹{Object.values(costs as any).reduce((a: any, b: any) => a + b, 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                          ₹
+                          {Object.values(costs as any)
+                            .reduce((a: any, b: any) => a + b, 0)
+                            .toLocaleString("en-IN", {
+                              minimumFractionDigits: 2,
+                            })}
                         </span>
-                      )
+                      ),
                     },
                     {
                       key: "production",
                       label: "Production",
                       render: (prod) => (
                         <span className="prof-badge-blue">
-                          {((prod as any).mithaiProduction + (prod as any).namkeenProduction).toLocaleString('en-IN', { minimumFractionDigits: 2 })} Kg
+                          {(
+                            (prod as any).mithaiProduction +
+                            (prod as any).namkeenProduction
+                          ).toLocaleString("en-IN", {
+                            minimumFractionDigits: 2,
+                          })}{" "}
+                          Kg
                         </span>
-                      )
+                      ),
                     },
                     {
                       key: "autoOpCostPerKg",
@@ -559,13 +628,18 @@ export default function OpCostManagement() {
                       render: (val, row) => (
                         <div className="flex flex-col">
                           <span className="font-black text-blue-600 dark:text-blue-400">
-                            ₹{val.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                            ₹
+                            {val.toLocaleString("en-IN", {
+                              minimumFractionDigits: 2,
+                            })}
                           </span>
                           {row.useManualOpCost && (
-                            <span className="text-[10px] font-bold text-orange-600 uppercase">Manual Applied</span>
+                            <span className="text-[10px] font-bold text-orange-600 uppercase">
+                              Manual Applied
+                            </span>
                           )}
                         </div>
-                      )
+                      ),
                     },
                     {
                       key: "_id",
@@ -588,8 +662,8 @@ export default function OpCostManagement() {
                             <Trash2 size={16} />
                           </button>
                         </div>
-                      )
-                    }
+                      ),
+                    },
                   ]}
                 />
               </div>

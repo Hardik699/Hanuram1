@@ -13,7 +13,11 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
-import { ProfessionalForm, FormGroup, FormActions } from "@/components/ProfessionalForm";
+import {
+  ProfessionalForm,
+  FormGroup,
+  FormActions,
+} from "@/components/ProfessionalForm";
 import { DataTable } from "@/components/DataTable";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -384,7 +388,9 @@ export default function CreateVendor() {
                   setShowAddForm(true);
                 }
               }}
-              className={showAddForm ? "prof-btn-secondary" : "prof-btn-primary"}
+              className={
+                showAddForm ? "prof-btn-secondary" : "prof-btn-primary"
+              }
             >
               {showAddForm ? (
                 <>
@@ -404,7 +410,9 @@ export default function CreateVendor() {
         {showAddForm ? (
           <div className="max-w-3xl mx-auto">
             <ProfessionalForm
-              title={editingId ? "Edit Vendor Details" : "New Vendor Information"}
+              title={
+                editingId ? "Edit Vendor Details" : "New Vendor Information"
+              }
               onSubmit={handleSubmit}
               onCancel={handleCancel}
             >
@@ -440,7 +448,10 @@ export default function CreateVendor() {
                       type="tel"
                       value={formData.mobileNumber}
                       onChange={(e) =>
-                        setFormData({ ...formData, mobileNumber: e.target.value })
+                        setFormData({
+                          ...formData,
+                          mobileNumber: e.target.value,
+                        })
                       }
                       placeholder="Enter mobile number"
                       className="prof-form-input pl-10"
@@ -508,7 +519,9 @@ export default function CreateVendor() {
                   ) : (
                     <>
                       <Plus className="w-4 h-4" />
-                      <span>{editingId ? "Update Vendor" : "Create Vendor"}</span>
+                      <span>
+                        {editingId ? "Update Vendor" : "Create Vendor"}
+                      </span>
                     </>
                   )}
                 </button>
@@ -534,7 +547,10 @@ export default function CreateVendor() {
                 title="No Vendors Registered"
                 description="Start by adding your first vendor or upload an Excel sheet to populate the list."
                 action={
-                  <button onClick={() => setShowAddForm(true)} className="prof-btn-primary">
+                  <button
+                    onClick={() => setShowAddForm(true)}
+                    className="prof-btn-primary"
+                  >
                     Add First Vendor
                   </button>
                 }
@@ -547,18 +563,22 @@ export default function CreateVendor() {
                   {
                     key: "name",
                     label: "Vendor Name",
-                    className: "font-bold text-blue-600 dark:text-blue-400 cursor-pointer",
+                    className:
+                      "font-bold text-blue-600 dark:text-blue-400 cursor-pointer",
                     render: (val, row) => (
-                      <div onClick={() => navigate(`/vendor/${row._id}`)} className="flex items-center gap-2">
+                      <div
+                        onClick={() => navigate(`/vendor/${row._id}`)}
+                        className="flex items-center gap-2"
+                      >
                         <Building2 size={16} />
                         {val}
                       </div>
-                    )
+                    ),
                   },
                   {
                     key: "personName",
                     label: "Contact Person",
-                    className: "font-medium"
+                    className: "font-medium",
                   },
                   {
                     key: "mobileNumber",
@@ -568,19 +588,19 @@ export default function CreateVendor() {
                         <Phone size={14} className="text-slate-400" />
                         {val || "-"}
                       </div>
-                    )
+                    ),
                   },
                   {
                     key: "location",
                     label: "Location",
-                    className: "max-w-xs truncate"
+                    className: "max-w-xs truncate",
                   },
                   {
                     key: "createdBy",
                     label: "Created By",
                     render: (val) => (
                       <span className="prof-badge-blue">{val}</span>
-                    )
+                    ),
                   },
                   {
                     key: "_id",
@@ -603,8 +623,8 @@ export default function CreateVendor() {
                           <Trash2 size={16} />
                         </button>
                       </div>
-                    )
-                  }
+                    ),
+                  },
                 ]}
               />
             )}

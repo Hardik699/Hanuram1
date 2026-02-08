@@ -10,7 +10,11 @@ import {
 import { Layout } from "@/components/Layout";
 import { toast } from "sonner";
 import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
-import { ProfessionalForm, FormGroup, FormActions } from "@/components/ProfessionalForm";
+import {
+  ProfessionalForm,
+  FormGroup,
+  FormActions,
+} from "@/components/ProfessionalForm";
 import { DataTable } from "@/components/DataTable";
 import Modal from "@/components/ui/Modal";
 import { cn } from "@/lib/utils";
@@ -239,7 +243,10 @@ export default function LabourManagement() {
                 <div>
                   <p className="prof-form-label mb-1">Total Daily Cost</p>
                   <h3 className="text-4xl font-black text-green-600 dark:text-green-400">
-                    ₹{totalDailyCost.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                    ₹
+                    {totalDailyCost.toLocaleString("en-IN", {
+                      maximumFractionDigits: 0,
+                    })}
                   </h3>
                 </div>
                 <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-xl">
@@ -256,7 +263,11 @@ export default function LabourManagement() {
                 <div>
                   <p className="prof-form-label mb-1">Avg Salary/Day</p>
                   <h3 className="text-4xl font-black text-amber-600 dark:text-amber-400">
-                    ₹{avgSalaryPerDay.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    ₹
+                    {avgSalaryPerDay.toLocaleString("en-IN", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </h3>
                 </div>
                 <div className="bg-amber-100 dark:bg-amber-900/30 p-3 rounded-xl">
@@ -281,7 +292,10 @@ export default function LabourManagement() {
                 title="No Labour Found"
                 description="Add your first labour record to start tracking daily costs."
                 action={
-                  <button onClick={() => handleOpenDialog()} className="prof-btn-primary">
+                  <button
+                    onClick={() => handleOpenDialog()}
+                    className="prof-btn-primary"
+                  >
                     Add First Labour
                   </button>
                 }
@@ -296,28 +310,31 @@ export default function LabourManagement() {
                     label: "Labour ID",
                     render: (val) => (
                       <span className="prof-badge-blue">{val}</span>
-                    )
+                    ),
                   },
                   {
                     key: "name",
                     label: "Full Name",
-                    className: "font-bold text-slate-900 dark:text-white"
+                    className: "font-bold text-slate-900 dark:text-white",
                   },
                   {
                     key: "department",
                     label: "Department",
                     render: (val) => (
                       <span className="prof-badge-purple">{val}</span>
-                    )
+                    ),
                   },
                   {
                     key: "salaryPerDay",
                     label: "Salary / Day",
                     render: (val) => (
                       <span className="font-bold text-green-700 dark:text-green-400">
-                        ₹{val.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                        ₹
+                        {val.toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                        })}
                       </span>
-                    )
+                    ),
                   },
                   {
                     key: "id",
@@ -340,8 +357,8 @@ export default function LabourManagement() {
                           <Trash2 size={16} />
                         </button>
                       </div>
-                    )
-                  }
+                    ),
+                  },
                 ]}
               />
             )}
@@ -399,10 +416,7 @@ export default function LabourManagement() {
           </div>
 
           <FormActions>
-            <button
-              type="submit"
-              className="prof-btn-primary"
-            >
+            <button type="submit" className="prof-btn-primary">
               {editingId ? "Update Labour" : "Add Labour"}
             </button>
             <button

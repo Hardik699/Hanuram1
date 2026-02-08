@@ -359,9 +359,7 @@ export default function UserManagement() {
         {message && (
           <div
             className={
-              messageType === "success"
-                ? "prof-msg-success"
-                : "prof-msg-error"
+              messageType === "success" ? "prof-msg-success" : "prof-msg-error"
             }
           >
             <div className="flex items-center gap-3">
@@ -384,9 +382,7 @@ export default function UserManagement() {
             <form onSubmit={handleCreateUser} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="prof-form-group">
-                  <label className="prof-form-label">
-                    Username
-                  </label>
+                  <label className="prof-form-label">Username</label>
                   <div className="relative">
                     <User className="absolute left-3 top-3.5 w-5 h-5 text-slate-400" />
                     <input
@@ -403,9 +399,7 @@ export default function UserManagement() {
                 </div>
 
                 <div className="prof-form-group">
-                  <label className="prof-form-label">
-                    Email
-                  </label>
+                  <label className="prof-form-label">Email</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3.5 w-5 h-5 text-slate-400" />
                     <input
@@ -422,9 +416,7 @@ export default function UserManagement() {
 
                 {!editingUserId && (
                   <div className="prof-form-group">
-                    <label className="prof-form-label">
-                      Password
-                    </label>
+                    <label className="prof-form-label">Password</label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-3.5 w-5 h-5 text-slate-400" />
                       <input
@@ -441,9 +433,7 @@ export default function UserManagement() {
                 )}
 
                 <div className="prof-form-group">
-                  <label className="prof-form-label">
-                    Role
-                  </label>
+                  <label className="prof-form-label">Role</label>
                   <select
                     value={formData.role_id}
                     onChange={(e) => {
@@ -507,10 +497,7 @@ export default function UserManagement() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                <button
-                  type="submit"
-                  className="prof-btn-primary flex-1"
-                >
+                <button type="submit" className="prof-btn-primary flex-1">
                   {editingUserId ? "Update User" : "Create User"}
                 </button>
                 <button
@@ -534,27 +521,20 @@ export default function UserManagement() {
               <table className="w-full">
                 <thead className="prof-table-head">
                   <tr>
-                    <th className="prof-table-head-cell">
-                      Username
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Email
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Role
-                    </th>
-                    <th className="prof-table-head-cell text-center">
-                      Status
-                    </th>
-                    <th className="prof-table-head-cell">
-                      Created
-                    </th>
+                    <th className="prof-table-head-cell">Username</th>
+                    <th className="prof-table-head-cell">Email</th>
+                    <th className="prof-table-head-cell">Role</th>
+                    <th className="prof-table-head-cell text-center">Status</th>
+                    <th className="prof-table-head-cell">Created</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                   {paginatedUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-slate-500 dark:text-slate-400 font-bold">
+                      <td
+                        colSpan={5}
+                        className="px-6 py-12 text-center text-slate-500 dark:text-slate-400 font-bold"
+                      >
                         No users found
                       </td>
                     </tr>
@@ -564,7 +544,7 @@ export default function UserManagement() {
                         key={user._id}
                         className={cn(
                           "prof-table-row prof-table-row-hover",
-                          idx % 2 === 0 && "prof-table-row-even"
+                          idx % 2 === 0 && "prof-table-row-even",
                         )}
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
