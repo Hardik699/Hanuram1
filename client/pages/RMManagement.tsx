@@ -1269,17 +1269,17 @@ export default function RMManagement() {
 
           {/* Raw Materials Table */}
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
-            <div className="overflow-x-auto">
+            <div className="prof-table-responsive">
               <table className="w-full">
                 <thead className="prof-table-head">
                   <tr>
                     <th className="prof-table-head-cell">Code</th>
                     <th className="prof-table-head-cell">Name</th>
-                    <th className="prof-table-head-cell">Category</th>
-                    <th className="prof-table-head-cell">Sub Category</th>
+                    <th className="prof-table-head-cell hidden sm:table-cell">Category</th>
+                    <th className="prof-table-head-cell hidden lg:table-cell">Sub Category</th>
                     <th className="prof-table-head-cell">Unit</th>
-                    <th className="prof-table-head-cell">Last Price</th>
-                    <th className="prof-table-head-cell">Last Purchase</th>
+                    <th className="prof-table-head-cell hidden md:table-cell">Last Price</th>
+                    <th className="prof-table-head-cell hidden lg:table-cell">Last Purchase</th>
                     <th className="prof-table-head-cell text-center">Action</th>
                   </tr>
                 </thead>
