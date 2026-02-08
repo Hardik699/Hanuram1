@@ -407,16 +407,17 @@ export default function LabourManagement() {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800/50 dark:to-slate-800/30">
-                  <div className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    Showing <span className="font-bold text-indigo-600 dark:text-indigo-400">{startIdx + 1}</span> to <span className="font-bold text-indigo-600 dark:text-indigo-400">{Math.min(startIdx + itemsPerPage, filteredLabour.length)}</span> of{" "}
-                    <span className="font-bold text-slate-900 dark:text-white">{filteredLabour.length}</span> labour
+                <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                      Showing {startIdx + 1} to {Math.min(startIdx + itemsPerPage, filteredLabour.length)} of {filteredLabour.length} labour
+                    </span>
                   </div>
                   <div className="flex gap-2">
                     <Button
                       onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
-                      className="border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Previous
                     </Button>
@@ -427,7 +428,7 @@ export default function LabourManagement() {
                           onClick={() => setCurrentPage(page)}
                           className={`w-8 h-8 rounded-lg transition-colors font-semibold ${
                             currentPage === page
-                              ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+                              ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
                               : "hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
                           }`}
                         >
@@ -440,7 +441,7 @@ export default function LabourManagement() {
                         setCurrentPage(Math.min(totalPages, currentPage + 1))
                       }
                       disabled={currentPage === totalPages}
-                      className="border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Next
                     </Button>
