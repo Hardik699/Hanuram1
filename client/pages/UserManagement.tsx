@@ -331,24 +331,28 @@ export default function UserManagement() {
   return (
     <Layout title="User Management">
       <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between gap-4 mb-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-            All Users <span className="text-teal-600">({users.length})</span>
-          </h2>
-          <button
-            onClick={() => {
-              setShowForm(!showForm);
-              if (!showForm) {
-                setMessage("");
-              }
-            }}
-            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            Add User
-          </button>
-        </div>
+        <PageHeader
+          title="User Management"
+          description={`Manage ${users.length} user${users.length !== 1 ? 's' : ''} and permissions`}
+          breadcrumbs={[{ label: "User Management" }]}
+          icon={<Users className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+          actions={
+            !showForm ? (
+              <button
+                onClick={() => {
+                  setShowForm(!showForm);
+                  if (!showForm) {
+                    setMessage("");
+                  }
+                }}
+                className="flex items-center gap-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add User</span>
+              </button>
+            ) : null
+          }
+        />
 
         {/* Messages */}
         {message && (
