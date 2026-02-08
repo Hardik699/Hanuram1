@@ -593,7 +593,7 @@ export default function CreateUnit() {
             </div>
 
             {/* Pagination Controls */}
-            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-purple-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                   Items per page:
@@ -601,7 +601,7 @@ export default function CreateUnit() {
                 <select
                   value={itemsPerPage}
                   onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all font-semibold hover:border-purple-300"
+                  className="px-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all font-semibold hover:border-blue-300 dark:hover:border-blue-800"
                 >
                   <option value="10">10</option>
                   <option value="20">20</option>
