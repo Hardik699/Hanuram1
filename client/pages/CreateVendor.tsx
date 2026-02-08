@@ -727,7 +727,7 @@ export default function CreateVendor() {
                       >
                         <td
                           onClick={() => navigate(`/vendor/${vendor._id}`)}
-                          className="px-4 py-3 text-sm font-semibold text-blue-600 dark:text-blue-400 cursor-pointer group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors"
+                          className="px-4 py-3 text-sm font-semibold text-indigo-600 dark:text-indigo-400 cursor-pointer group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors"
                         >
                           {vendor.name}
                         </td>
