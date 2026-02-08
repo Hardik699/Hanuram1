@@ -8,11 +8,14 @@ import {
   Trash2,
   Edit2,
   X,
+  ChefHat,
+  Save,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { LabourCostSection } from "@/components/LabourCostSection";
 import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
-import { PermissionGate } from "@/components/PermissionGate";
+import { useAuth } from "@/hooks/useAuth";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Unit {
   _id: string;
@@ -70,6 +73,7 @@ interface Recipe {
 export default function CreateRecipe() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { hasPermission } = useAuth();
   const [units, setUnits] = useState<Unit[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
@@ -476,18 +480,21 @@ export default function CreateRecipe() {
     <Layout title={id ? "Edit Recipe" : "Create Recipe"}>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <button
-            onClick={() => navigate("/rmc")}
-            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
-            title="Back"
-          >
-            <ArrowLeft className="w-5 h-5 text-slate-600 dark:text-slate-400" />
-          </button>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
-            {id ? "Edit Recipe" : "Add New Recipe"}
-          </h1>
-        </div>
+        <PageHeader
+          title={id ? "Edit Recipe" : "Create Recipe"}
+          description={
+            id
+              ? "Update recipe details, materials, and costing information"
+              : "Create a new recipe with materials and costing details"
+          }
+          breadcrumbs={[
+            { label: "Raw Material Costing", href: "/rmc" },
+            { label: id ? "Edit Recipe" : "Create Recipe" },
+          ]}
+          icon={
+            <ChefHat className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+          }
+        />
 
         {/* Message Alert */}
         {message && (
@@ -511,12 +518,14 @@ export default function CreateRecipe() {
         )}
 
         {/* Recipe Basic Info */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
-            Recipe Information
-          </h2>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 px-8 py-6 border-b-2 border-indigo-700 dark:border-indigo-800">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              Recipe Information
+            </h2>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 p-8">
             {/* Recipe Name */}
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
@@ -533,7 +542,7 @@ export default function CreateRecipe() {
                   errors.name
                     ? "border-red-500 dark:border-red-400"
                     : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
               />
               {errors.name && (
                 <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -559,7 +568,7 @@ export default function CreateRecipe() {
                     errors.batchSize
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 />
                 {errors.batchSize && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -582,7 +591,7 @@ export default function CreateRecipe() {
                     errors.unitId
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 >
                   <option value="">Select Unit</option>
                   {units.map((unit) => (
@@ -610,7 +619,7 @@ export default function CreateRecipe() {
                     setFormData({ ...formData, yield: e.target.value })
                   }
                   placeholder="Enter yield"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -629,7 +638,7 @@ export default function CreateRecipe() {
                     })
                   }
                   placeholder="Enter moisture percentage"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
             </div>
@@ -638,12 +647,12 @@ export default function CreateRecipe() {
             <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                  Recipe Items
+                  📦 Recipe Items
                 </h3>
                 <button
                   type="button"
                   onClick={() => setShowAddItemForm(!showAddItemForm)}
-                  className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm flex items-center gap-2"
+                  className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                 >
                   <Plus className="w-4 h-4" />
                   Add Item
@@ -652,7 +661,7 @@ export default function CreateRecipe() {
 
               {/* Add Item Form */}
               {showAddItemForm && (
-                <div className="bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-200 dark:border-slate-600 p-4 mb-6 space-y-4">
+                <div className="bg-gradient-to-br from-indigo-50 dark:from-slate-700/50 to-purple-50 dark:to-slate-800/50 rounded-xl border border-indigo-200 dark:border-indigo-800/30 p-6 mb-6 space-y-4 shadow-sm">
                   {/* Filters Row - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
@@ -665,7 +674,7 @@ export default function CreateRecipe() {
                           setFilterCategoryForRM(e.target.value);
                           setFilterSubCategoryForRM("");
                         }}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                       >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -686,7 +695,7 @@ export default function CreateRecipe() {
                           setFilterSubCategoryForRM(e.target.value)
                         }
                         disabled={!filterCategoryForRM}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm disabled:opacity-50"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm disabled:opacity-50"
                       >
                         <option value="">All Sub Categories</option>
                         {getFilteredSubCategories().map((sc) => (
@@ -706,7 +715,7 @@ export default function CreateRecipe() {
                         value={filterSearchRM}
                         onChange={(e) => setFilterSearchRM(e.target.value)}
                         placeholder="Search by name..."
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                       />
                     </div>
                   </div>
@@ -747,7 +756,7 @@ export default function CreateRecipe() {
                         itemErrors.rawMaterial
                           ? "border-red-500 dark:border-red-400"
                           : "border-slate-200 dark:border-slate-600"
-                      } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm`}
+                      } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                     >
                       <option value="">-- Choose Raw Material --</option>
                       {getFilteredRawMaterials().map((rm) => (
@@ -780,7 +789,7 @@ export default function CreateRecipe() {
                           itemErrors.quantity
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                       />
                       {itemErrors.quantity && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -810,7 +819,7 @@ export default function CreateRecipe() {
                           itemErrors.price
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                       />
                       {itemErrors.price && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -848,7 +857,7 @@ export default function CreateRecipe() {
                         onChange={(e) =>
                           setItemForm({ ...itemForm, unitId: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                       >
                         <option value="">Default</option>
                         {units.map((unit) => (
@@ -901,26 +910,26 @@ export default function CreateRecipe() {
                   <p>No items added yet. Click "Add Item" to start.</p>
                 </div>
               ) : (
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                   <table className="w-full min-w-[900px]">
-                    <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                    <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Raw Material
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Qty
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Unit
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Price
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Total
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
@@ -929,16 +938,16 @@ export default function CreateRecipe() {
                       {recipeItems.map((item, index) => (
                         <tr
                           key={index}
-                          className={`transition-colors ${
+                          className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 cursor-pointer ${
                             editingItemIndex === index
-                              ? "bg-blue-50 dark:bg-blue-900/20"
-                              : "hover:bg-slate-50 dark:hover:bg-slate-700/30"
+                              ? "bg-indigo-50 dark:bg-indigo-900/20 border-l-indigo-500"
+                              : `${index % 2 === 0 ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50" : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"}`
                           }`}
                         >
-                          <td className="px-4 py-3 text-sm font-medium text-slate-900 dark:text-white">
+                          <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
                             {item.rawMaterialName} ({item.rawMaterialCode})
                           </td>
-                          <td className="px-4 py-3 text-sm text-slate-900 dark:text-white">
+                          <td className="px-6 py-4 text-sm text-slate-900 dark:text-white">
                             {editingItemIndex === index ? (
                               <input
                                 type="number"
@@ -959,7 +968,7 @@ export default function CreateRecipe() {
                               item.quantity
                             )}
                           </td>
-                          <td className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
+                          <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
                             {editingItemIndex === index ? (
                               <select
                                 value={editItemForm.unitId}
@@ -982,7 +991,7 @@ export default function CreateRecipe() {
                               item.unitName || "-"
                             )}
                           </td>
-                          <td className="px-4 py-3 text-sm text-teal-600 dark:text-teal-400 font-semibold">
+                          <td className="px-6 py-4 text-sm text-indigo-600 dark:text-indigo-400 font-semibold">
                             {editingItemIndex === index ? (
                               <input
                                 type="number"
@@ -1004,12 +1013,12 @@ export default function CreateRecipe() {
                               `₹${item.price.toFixed(2)}`
                             )}
                           </td>
-                          <td className="px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white">
+                          <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white">
                             {editingItemIndex === index
                               ? `₹${(Number(editItemForm.quantity) * Number(editItemForm.price)).toFixed(2)}`
                               : `₹${item.totalPrice.toFixed(2)}`}
                           </td>
-                          <td className="px-4 py-3 text-sm space-x-2 flex">
+                          <td className="px-6 py-4 text-sm space-x-2 flex">
                             {editingItemIndex === index ? (
                               <>
                                 <button
@@ -1059,45 +1068,45 @@ export default function CreateRecipe() {
 
               {/* Totals */}
               {id || recipeItems.length > 0 ? (
-                <div className="mt-6 space-y-3 pt-6 border-t border-slate-200 dark:border-slate-700">
+                <div className="mt-8 pt-8 border-t-2 border-indigo-200 dark:border-indigo-800">
                   {recipeItems.length === 0 && id ? (
-                    <div className="space-y-3">
+                    <div className="space-y-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg p-4">
                       <div className="flex justify-between items-center animate-pulse">
-                        <span className="text-slate-600 dark:text-slate-400 font-medium">
+                        <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                           Total Raw Material Cost:
                         </span>
-                        <div className="h-6 w-20 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                        <div className="h-6 w-24 bg-slate-300 dark:bg-slate-600 rounded"></div>
                       </div>
                       {formData.yield && Number(formData.yield) > 0 && (
                         <div className="flex justify-between items-center animate-pulse">
-                          <span className="text-slate-600 dark:text-slate-400 font-medium">
+                          <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                             Price Per Unit (Yield: {formData.yield}):
                           </span>
-                          <div className="h-6 w-20 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                          <div className="h-6 w-24 bg-slate-300 dark:bg-slate-600 rounded"></div>
                         </div>
                       )}
                     </div>
                   ) : (
-                    <>
-                      <div className="flex justify-between items-center">
-                        <span className="text-slate-600 dark:text-slate-400 font-medium">
-                          Total Raw Material Cost:
-                        </span>
-                        <span className="text-lg font-bold text-teal-600 dark:text-teal-400">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-indigo-50 dark:from-indigo-900/20 to-indigo-100/50 dark:to-indigo-900/10 rounded-lg p-4 border border-indigo-200 dark:border-indigo-800/30">
+                        <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide mb-2">
+                          Total Raw Material Cost
+                        </p>
+                        <p className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">
                           ₹{totals.totalCost.toFixed(2)}
-                        </span>
+                        </p>
                       </div>
                       {formData.yield && Number(formData.yield) > 0 && (
-                        <div className="flex justify-between items-center">
-                          <span className="text-slate-600 dark:text-slate-400 font-medium">
-                            Price Per Unit (Yield: {formData.yield}):
-                          </span>
-                          <span className="text-lg font-bold text-green-600 dark:text-green-400">
+                        <div className="bg-gradient-to-br from-green-50 dark:from-green-900/20 to-green-100/50 dark:to-green-900/10 rounded-lg p-4 border border-green-200 dark:border-green-800/30">
+                          <p className="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wide mb-2">
+                            Price Per Unit (Yield: {formData.yield})
+                          </p>
+                          <p className="text-2xl font-bold text-green-700 dark:text-green-300">
                             ₹{totals.pricePerUnit.toFixed(2)}
-                          </span>
+                          </p>
                         </div>
                       )}
-                    </>
+                    </div>
                   )}
                 </div>
               ) : null}
@@ -1108,7 +1117,7 @@ export default function CreateRecipe() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {loading ? (
                   <>
@@ -1117,7 +1126,7 @@ export default function CreateRecipe() {
                   </>
                 ) : (
                   <>
-                    <Plus className="w-4 h-4" />
+                    <Save className="w-4 h-4" />
                     <span>{id ? "Update Recipe" : "Create Recipe"}</span>
                   </>
                 )}
@@ -1125,7 +1134,7 @@ export default function CreateRecipe() {
               <button
                 type="button"
                 onClick={() => navigate("/rmc")}
-                className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-3 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
               >
                 Cancel
               </button>
@@ -1134,8 +1143,23 @@ export default function CreateRecipe() {
         </div>
 
         {/* Labour Costing Sections - Only show if recipe is created and user has permission */}
-        <PermissionGate permission="labour_view_costs">
-          {id && (
+        {id && hasPermission("labour_view_costs") && (
+          <>
+            {/* Labour Section Header Card */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 px-8 py-6 border-b-2 border-purple-700 dark:border-purple-800">
+                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                  👥 Labour & Packaging Costs
+                </h2>
+              </div>
+              <div className="px-8 py-4 border-b border-slate-200 dark:border-slate-700">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  Manage labour costs for production and packing, plus packaging
+                  and handling expenses
+                </p>
+              </div>
+            </div>
+
             <div className="space-y-6">
               {/* Production Labour Cost */}
               <LabourCostSection
@@ -1171,8 +1195,8 @@ export default function CreateRecipe() {
                 yield={parseFloat(formData.yield) || 100}
               />
             </div>
-          )}
-        </PermissionGate>
+          </>
+        )}
       </div>
     </Layout>
   );

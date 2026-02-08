@@ -11,7 +11,9 @@ import {
   Phone,
   MapPin,
   User,
+  Building2,
 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Vendor {
   _id: string;
@@ -223,13 +225,35 @@ export default function VendorDetail() {
   return (
     <Layout title="Vendor Details">
       <div className="space-y-6">
-        <button
-          onClick={() => navigate("/create-vendor")}
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Vendors
-        </button>
+        <PageHeader
+          title={vendor?.name || "Vendor Details"}
+          description={`Contact: ${vendor?.personName || "Loading..."}`}
+          breadcrumbs={[
+            { label: "Vendors", href: "/create-vendor" },
+            { label: vendor?.name || "Details" },
+          ]}
+          icon={<Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+          actions={
+            !showEditForm ? (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowEditForm(true)}
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </button>
+              </div>
+            ) : null
+          }
+        />
 
         {message && (
           <div
@@ -257,29 +281,7 @@ export default function VendorDetail() {
         )}
 
         {!showEditForm ? (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-                {vendor.name}
-              </h2>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowEditForm(true)}
-                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Edit2 className="w-4 h-4" />
-                  Edit
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  Delete
-                </button>
-              </div>
-            </div>
-
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -377,9 +379,9 @@ export default function VendorDetail() {
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              Edit Vendor
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mb-6">
+              Edit Vendor Details
             </h2>
 
             <form className="space-y-6">

@@ -3,7 +3,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { ArrowLeft, Trash2, Lock, Unlock, Check } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
+import {
+  ArrowLeft,
+  Trash2,
+  Lock,
+  Unlock,
+  Check,
+  User,
+  Mail,
+} from "lucide-react";
 import { toast } from "sonner";
 
 interface User {
@@ -44,7 +53,9 @@ export default function UserDetail() {
   const [allPermissions, setAllPermissions] = useState<Permission[]>([]);
   const [userPermissions, setUserPermissions] = useState<string[]>([]);
   const [isManagingPermissions, setIsManagingPermissions] = useState(false);
-  const [selectedPermissions, setSelectedPermissions] = useState<Set<string>>(new Set());
+  const [selectedPermissions, setSelectedPermissions] = useState<Set<string>>(
+    new Set(),
+  );
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -122,9 +133,11 @@ export default function UserDetail() {
   };
 
   const handleToggleStatus = async () => {
-    if (!window.confirm(
-      `Are you sure you want to ${user?.status === "active" ? "block" : "unblock"} this user?`
-    )) {
+    if (
+      !window.confirm(
+        `Are you sure you want to ${user?.status === "active" ? "block" : "unblock"} this user?`,
+      )
+    ) {
       return;
     }
 
@@ -140,7 +153,7 @@ export default function UserDetail() {
       if (data.success) {
         setUser({ ...user!, status: newStatus as "active" | "blocked" });
         toast.success(
-          `User ${newStatus === "active" ? "unblocked" : "blocked"} successfully`
+          `User ${newStatus === "active" ? "unblocked" : "blocked"} successfully`,
         );
       } else {
         toast.error(data.message || "Failed to update status");
@@ -224,32 +237,29 @@ export default function UserDetail() {
 
   return (
     <Layout>
-      <div className="p-6 max-w-2xl">
-        {/* Back Button */}
-        <button
-          onClick={() => navigate("/users")}
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 mb-6 font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Users
-        </button>
-
-        {/* User Details Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 mb-6">
-          <div className="flex justify-between items-start mb-6">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
-              {user.username}
-            </h1>
-            {!isEditing && (
+      <div className="space-y-6">
+        <PageHeader
+          title={user?.username || "User Details"}
+          description={user?.email || "Loading..."}
+          breadcrumbs={[
+            { label: "Users", href: "/users" },
+            { label: user?.username || "Details" },
+          ]}
+          icon={<User className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+          actions={
+            !isEditing ? (
               <Button
                 onClick={() => setIsEditing(true)}
                 className="bg-teal-600 hover:bg-teal-700"
               >
                 Edit User
               </Button>
-            )}
-          </div>
+            ) : null
+          }
+        />
 
+        {/* User Details Card */}
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
           {isEditing ? (
             <div className="space-y-4">
               <div>
@@ -432,11 +442,13 @@ export default function UserDetail() {
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition ${
-                        selectedPermissions.has(permission.permission_key)
-                          ? "bg-teal-500 border-teal-500"
-                          : "border-slate-300 dark:border-slate-500"
-                      }`}>
+                      <div
+                        className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition ${
+                          selectedPermissions.has(permission.permission_key)
+                            ? "bg-teal-500 border-teal-500"
+                            : "border-slate-300 dark:border-slate-500"
+                        }`}
+                      >
                         {selectedPermissions.has(permission.permission_key) && (
                           <Check className="w-3 h-3 text-white" />
                         )}
@@ -481,7 +493,9 @@ export default function UserDetail() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {userPermissions.map((permKey) => {
-                    const perm = allPermissions.find((p) => p.permission_key === permKey);
+                    const perm = allPermissions.find(
+                      (p) => p.permission_key === permKey,
+                    );
                     return (
                       <div
                         key={permKey}

@@ -896,59 +896,68 @@ export default function RMCManagement() {
       />
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         {/* Total Recipes Card */}
-        <div className="bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-700 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl p-6 shadow-lg border border-indigo-400/30 dark:border-indigo-800/30 text-white">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <p className="text-indigo-100 text-sm font-semibold uppercase tracking-wide">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex-1">
+              <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
                 Total Recipes
               </p>
-              <h3 className="text-4xl font-bold mt-2">{totalRecipes}</h3>
+              <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
+                {totalRecipes}
+              </h3>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                Active recipes
+              </p>
             </div>
-            <div className="bg-indigo-400/30 dark:bg-indigo-800/50 p-3 rounded-lg">
-              <BookOpen className="w-6 h-6 text-indigo-200" />
+            <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-xl">
+              <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             </div>
           </div>
-          <p className="text-indigo-200 text-xs font-medium">Active recipes</p>
+          <div className="h-1 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full mt-4"></div>
         </div>
 
         {/* Total Raw Material Cost Card */}
-        <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 dark:from-purple-900 dark:to-purple-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex-1">
+              <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
                 Total RM Cost
               </p>
-              <h3 className="text-3xl font-bold mt-2">
+              <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
                 ₹{totalRawMaterialCost.toFixed(0)}
               </h3>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                All recipes combined
+              </p>
             </div>
-            <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-purple-200" />
+            <div className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 p-4 rounded-xl">
+              <TrendingUp className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
-          <p className="text-purple-200 text-xs font-medium">
-            All recipes combined
-          </p>
+          <div className="h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mt-4"></div>
         </div>
 
         {/* Average Price Per Unit Card */}
-        <div className="bg-gradient-to-br from-pink-500 via-pink-600 to-pink-700 dark:from-pink-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-pink-400/30 dark:border-pink-800/30 text-white">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <p className="text-pink-100 text-sm font-semibold uppercase tracking-wide">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex-1">
+              <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
                 Avg Price/Unit
               </p>
-              <h3 className="text-3xl font-bold mt-2">
+              <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
                 ₹{avgPricePerUnit.toFixed(2)}
               </h3>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                Per unit average
+              </p>
             </div>
-            <div className="bg-pink-400/30 dark:bg-pink-800/50 p-3 rounded-lg">
-              <TrendingDown className="w-6 h-6 text-pink-200" />
+            <div className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 p-4 rounded-xl">
+              <TrendingDown className="w-6 h-6 text-pink-600 dark:text-pink-400" />
             </div>
           </div>
-          <p className="text-pink-200 text-xs font-medium">Per unit average</p>
+          <div className="h-1 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full mt-4"></div>
         </div>
       </div>
       <div className="space-y-2">

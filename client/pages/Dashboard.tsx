@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BarChart3, Users, FileText, Settings, Clock } from "lucide-react";
+import {
+  BarChart3,
+  Users,
+  FileText,
+  Settings,
+  Clock,
+  LayoutDashboard,
+} from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { PageHeader } from "@/components/PageHeader";
 
 interface DashboardUser {
   username: string;
@@ -37,82 +45,90 @@ export default function Dashboard() {
 
   return (
     <Layout title={`Welcome back, ${user?.username}!`}>
-      <p className="text-slate-600 dark:text-slate-400 mb-8 text-base font-medium">
-        Here's an overview of your Hanuram Foods management system.
-      </p>
+      <div className="space-y-6">
+        {/* Page Header */}
+        <PageHeader
+          title="Dashboard"
+          description="Welcome to your Hanuram Foods management system. Here's an overview of your operations."
+          icon={
+            <LayoutDashboard className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+          }
+        />
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in-up">
-        <StatCard
-          icon={Users}
-          title="Users"
-          value="0"
-          change="+0 this week"
-          color="blue"
-        />
-        <StatCard
-          icon={FileText}
-          title="Documents"
-          value="0"
-          change="+0 this week"
-          color="purple"
-        />
-        <StatCard
-          icon={BarChart3}
-          title="Analytics"
-          value="0"
-          change="View details"
-          color="green"
-        />
-        <StatCard
-          icon={Clock}
-          title="Activity"
-          value="Real-time"
-          change="All synced"
-          color="orange"
-        />
-      </div>
-
-      {/* Content sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up">
-        {/* Main section */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-8 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-            <span className="w-1 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full"></span>
-            Getting Started
-          </h3>
-          <div className="space-y-4 text-slate-600 dark:text-slate-400">
-            <p className="leading-relaxed">
-              Welcome to Hanuram Foods management system! This is your admin portal where
-              you can manage all aspects of your raw materials, vendors, and operations.
-            </p>
-            <ul className="space-y-3 pl-5 list-disc marker:text-blue-500 dark:marker:text-blue-400">
-              <li>Database is connected and all features are available</li>
-              <li>All data is synced in real-time across users</li>
-              <li>Access raw materials, pricing, and costing tools</li>
-            </ul>
-            <p className="pt-4 text-sm italic text-blue-600 dark:text-blue-400">
-              💡 Tip: Use the sidebar to navigate between different modules.
-            </p>
-          </div>
+        {/* Stats grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in-up">
+          <StatCard
+            icon={Users}
+            title="Users"
+            value="0"
+            change="+0 this week"
+            color="blue"
+          />
+          <StatCard
+            icon={FileText}
+            title="Documents"
+            value="0"
+            change="+0 this week"
+            color="purple"
+          />
+          <StatCard
+            icon={BarChart3}
+            title="Analytics"
+            value="0"
+            change="View details"
+            color="green"
+          />
+          <StatCard
+            icon={Clock}
+            title="Activity"
+            value="Real-time"
+            change="All synced"
+            color="orange"
+          />
         </div>
 
-        {/* Sidebar section */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-8 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
-            <Settings className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            Quick Actions
-          </h3>
-          <div className="space-y-3">
-            <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 text-blue-700 dark:text-blue-300 rounded-xl hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-900/30 dark:hover:to-blue-900/20 transition-all font-semibold text-sm text-left border border-blue-200 dark:border-blue-800/50 transform hover:scale-105 hover:shadow-elevation-2">
-              ⚙️ Settings
-            </button>
-            <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-300 rounded-xl hover:from-slate-200 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-700/70 transition-all font-semibold text-sm text-left border border-slate-200 dark:border-slate-700 transform hover:scale-105 hover:shadow-elevation-2">
-              📚 Documentation
-            </button>
-            <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-300 rounded-xl hover:from-slate-200 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-700/70 transition-all font-semibold text-sm text-left border border-slate-200 dark:border-slate-700 transform hover:scale-105 hover:shadow-elevation-2">
-              🤝 Support
-            </button>
+        {/* Content sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up">
+          {/* Main section */}
+          <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-8 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <span className="w-1 h-1 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"></span>
+              Getting Started
+            </h3>
+            <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <p className="leading-relaxed">
+                Welcome to Hanuram Foods management system! This is your admin
+                portal where you can manage all aspects of your raw materials,
+                vendors, and operations.
+              </p>
+              <ul className="space-y-3 pl-5 list-disc marker:text-blue-500 dark:marker:text-blue-400">
+                <li>Database is connected and all features are available</li>
+                <li>All data is synced in real-time across users</li>
+                <li>Access raw materials, pricing, and costing tools</li>
+              </ul>
+              <p className="pt-4 text-sm italic text-blue-600 dark:text-blue-400">
+                💡 Tip: Use the sidebar to navigate between different modules.
+              </p>
+            </div>
+          </div>
+
+          {/* Sidebar section */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-8 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
+              <Settings className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              Quick Actions
+            </h3>
+            <div className="space-y-3">
+              <button className="w-full px-4 py-3 bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-900/10 text-indigo-700 dark:text-indigo-300 rounded-xl hover:from-indigo-100 hover:to-indigo-200 dark:hover:from-indigo-900/30 dark:hover:to-indigo-900/20 transition-all font-semibold text-sm text-left border border-indigo-200 dark:border-indigo-800/50 transform hover:scale-105 hover:shadow-elevation-2">
+                ⚙️ Settings
+              </button>
+              <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-300 rounded-xl hover:from-slate-200 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-700/70 transition-all font-semibold text-sm text-left border border-slate-200 dark:border-slate-700 transform hover:scale-105 hover:shadow-elevation-2">
+                📚 Documentation
+              </button>
+              <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-300 rounded-xl hover:from-slate-200 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-700/70 transition-all font-semibold text-sm text-left border border-slate-200 dark:border-slate-700 transform hover:scale-105 hover:shadow-elevation-2">
+                🤝 Support
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -131,43 +147,49 @@ interface StatCardProps {
 function StatCard({ icon: Icon, title, value, change, color }: StatCardProps) {
   const colorClasses = {
     blue: {
-      bg: "bg-blue-50 dark:bg-blue-900/20",
-      text: "text-blue-600 dark:text-blue-400",
-      border: "border-blue-200 dark:border-blue-800/50",
-      gradient: "from-blue-600 to-blue-700"
+      bg: "bg-indigo-50 dark:bg-indigo-900/20",
+      text: "text-indigo-600 dark:text-indigo-400",
+      border: "border-indigo-200 dark:border-indigo-800/50",
+      gradient: "from-indigo-600 to-indigo-700",
     },
     purple: {
       bg: "bg-purple-50 dark:bg-purple-900/20",
       text: "text-purple-600 dark:text-purple-400",
       border: "border-purple-200 dark:border-purple-800/50",
-      gradient: "from-purple-600 to-purple-700"
+      gradient: "from-purple-600 to-purple-700",
     },
     green: {
-      bg: "bg-emerald-50 dark:bg-emerald-900/20",
-      text: "text-emerald-600 dark:text-emerald-400",
-      border: "border-emerald-200 dark:border-emerald-800/50",
-      gradient: "from-emerald-600 to-emerald-700"
+      bg: "bg-teal-50 dark:bg-teal-900/20",
+      text: "text-teal-600 dark:text-teal-400",
+      border: "border-teal-200 dark:border-teal-800/50",
+      gradient: "from-teal-600 to-teal-700",
     },
     orange: {
-      bg: "bg-amber-50 dark:bg-amber-900/20",
-      text: "text-amber-600 dark:text-amber-400",
-      border: "border-amber-200 dark:border-amber-800/50",
-      gradient: "from-amber-600 to-amber-700"
+      bg: "bg-indigo-50 dark:bg-indigo-900/20",
+      text: "text-indigo-600 dark:text-indigo-400",
+      border: "border-indigo-200 dark:border-indigo-800/50",
+      gradient: "from-indigo-600 to-indigo-700",
     },
   };
 
   const colorConfig = colorClasses[color];
 
   return (
-    <div className={`bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 border ${colorConfig.border} hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1 group`}>
-      <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${colorConfig.bg} ${colorConfig.text} group-hover:scale-110 transition-transform`}>
+    <div
+      className={`bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 border ${colorConfig.border} hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1 group`}
+    >
+      <div
+        className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${colorConfig.bg} ${colorConfig.text} group-hover:scale-110 transition-transform`}
+      >
         <Icon className="w-6 h-6" />
       </div>
       <h3 className="text-xs font-bold text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-widest">
         {title}
       </h3>
       <div className="flex items-baseline justify-between mb-3">
-        <p className={`text-3xl font-bold ${colorConfig.text} bg-clip-text text-transparent bg-gradient-to-r ${colorConfig.gradient}`}>
+        <p
+          className={`text-3xl font-bold ${colorConfig.text} bg-clip-text text-transparent bg-gradient-to-r ${colorConfig.gradient}`}
+        >
           {value}
         </p>
       </div>

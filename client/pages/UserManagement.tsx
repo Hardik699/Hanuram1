@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { PageHeader } from "@/components/PageHeader";
 import { useAuth } from "@/hooks/useAuth";
 import {
   Plus,
@@ -13,6 +14,7 @@ import {
   User,
   CheckCircle,
   AlertCircle,
+  Users,
 } from "lucide-react";
 
 interface User {
@@ -329,24 +331,28 @@ export default function UserManagement() {
   return (
     <Layout title="User Management">
       <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between gap-4 mb-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-            All Users <span className="text-teal-600">({users.length})</span>
-          </h2>
-          <button
-            onClick={() => {
-              setShowForm(!showForm);
-              if (!showForm) {
-                setMessage("");
-              }
-            }}
-            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            Add User
-          </button>
-        </div>
+        <PageHeader
+          title="User Management"
+          description={`Manage ${users.length} user${users.length !== 1 ? "s" : ""} and permissions`}
+          breadcrumbs={[{ label: "User Management" }]}
+          icon={<Users className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+          actions={
+            !showForm ? (
+              <button
+                onClick={() => {
+                  setShowForm(!showForm);
+                  if (!showForm) {
+                    setMessage("");
+                  }
+                }}
+                className="flex items-center gap-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add User</span>
+              </button>
+            ) : null
+          }
+        />
 
         {/* Messages */}
         {message && (
@@ -376,8 +382,8 @@ export default function UserManagement() {
 
         {/* Create Form */}
         {showForm && (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
               Create New User
             </h3>
             <form onSubmit={handleCreateUser} className="space-y-4">
@@ -502,10 +508,10 @@ export default function UserManagement() {
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-6">
                 <button
                   type="submit"
-                  className="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="flex-1 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105"
                 >
                   Create User
                 </button>
@@ -529,24 +535,24 @@ export default function UserManagement() {
         {loading ? (
           <LoadingSpinner message="Loading users..." />
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[800px]">
-                <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
+              <table className="w-full">
+                <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Username
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Role
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Created
                     </th>
                   </tr>
@@ -561,33 +567,37 @@ export default function UserManagement() {
                       </td>
                     </tr>
                   ) : (
-                    paginatedUsers.map((user) => (
+                    paginatedUsers.map((user, idx) => (
                       <tr
                         key={user._id}
-                        className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 cursor-pointer ${
+                          idx % 2 === 0
+                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                        }`}
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
-                        <td className="px-6 py-4 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
+                        <td className="px-6 py-4 text-sm font-semibold text-indigo-600 dark:text-indigo-400 cursor-pointer group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors">
                           {user.username}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
                           {user.email}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
                           {getRoleName(user.role_id)}
                         </td>
-                        <td className="px-6 py-4 text-sm">
+                        <td className="px-6 py-4 text-sm cursor-pointer">
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            className={`px-3 py-1.5 rounded-full text-xs font-semibold inline-block ${
                               user.status === "active"
-                                ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                                : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
+                                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                                : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
                             }`}
                           >
                             {user.status === "active" ? "Active" : "Blocked"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 cursor-pointer whitespace-nowrap">
                           {new Date(user.createdAt).toLocaleDateString()}
                         </td>
                       </tr>
@@ -599,9 +609,9 @@ export default function UserManagement() {
 
             {/* Pagination */}
             {users.length > 0 && (
-              <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">
+              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                     Items per page:
                   </span>
                   <select
@@ -610,7 +620,7 @@ export default function UserManagement() {
                       setItemsPerPage(parseInt(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-indigo-200 dark:border-indigo-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-semibold hover:border-indigo-300"
                   >
                     <option key="items-10" value="10">
                       10
@@ -624,31 +634,43 @@ export default function UserManagement() {
                   </select>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">
-                    {(currentPage - 1) * itemsPerPage + 1} -{" "}
-                    {Math.min(currentPage * itemsPerPage, users.length)} of{" "}
-                    {users.length}
+                <div className="flex items-center gap-6">
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                      {(currentPage - 1) * itemsPerPage + 1}-
+                      {Math.min(currentPage * itemsPerPage, users.length)}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {users.length}
+                    </span>
                   </span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <button
                       onClick={() =>
                         setCurrentPage((prev) => Math.max(prev - 1, 1))
                       }
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
                     >
                       ←
                     </button>
-                    <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
-                      Page {currentPage} of {totalPages}
+                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                      Page{" "}
+                      <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                        {currentPage}
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-bold text-slate-900 dark:text-slate-200">
+                        {totalPages}
+                      </span>
                     </span>
                     <button
                       onClick={() =>
                         setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                       }
                       disabled={currentPage === totalPages}
-                      className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
                     >
                       →
                     </button>

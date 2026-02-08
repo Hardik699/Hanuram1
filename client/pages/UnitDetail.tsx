@@ -7,7 +7,9 @@ import {
   Trash2,
   Check,
   AlertCircle,
+  Settings,
 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Unit {
   _id: string;
@@ -29,7 +31,9 @@ export default function UnitDetail() {
     shortCode: "",
   });
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState<"success" | "error">("success");
+  const [messageType, setMessageType] = useState<"success" | "error">(
+    "success",
+  );
   const [saveLoading, setSaveLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -121,8 +125,7 @@ export default function UnitDetail() {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this unit?") || !id)
-      return;
+    if (!confirm("Are you sure you want to delete this unit?") || !id) return;
 
     try {
       const response = await fetch(`/api/units/${id}`, {
@@ -178,9 +181,7 @@ export default function UnitDetail() {
       <Layout title="Unit Not Found">
         <div className="text-center p-8">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <p className="text-slate-600 dark:text-slate-400">
-            Unit not found
-          </p>
+          <p className="text-slate-600 dark:text-slate-400">Unit not found</p>
           <button
             onClick={() => navigate("/create-unit")}
             className="mt-4 text-teal-600 hover:text-teal-700 dark:text-teal-400 font-medium"
@@ -195,13 +196,37 @@ export default function UnitDetail() {
   return (
     <Layout title="Unit Details">
       <div className="space-y-6">
-        <button
-          onClick={() => navigate("/create-unit")}
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Units
-        </button>
+        <PageHeader
+          title={unit?.name || "Unit Details"}
+          description={`Short Code: ${unit?.shortCode || "Loading..."}`}
+          breadcrumbs={[
+            { label: "Units", href: "/create-unit" },
+            { label: unit?.name || "Details" },
+          ]}
+          icon={
+            <Settings className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+          }
+          actions={
+            !showEditForm ? (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowEditForm(true)}
+                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </button>
+              </div>
+            ) : null
+          }
+        />
 
         {message && (
           <div
@@ -229,29 +254,7 @@ export default function UnitDetail() {
         )}
 
         {!showEditForm ? (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-                {unit.name}
-              </h2>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowEditForm(true)}
-                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Edit2 className="w-4 h-4" />
-                  Edit
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  Delete
-                </button>
-              </div>
-            </div>
-
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
@@ -291,9 +294,9 @@ export default function UnitDetail() {
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              Edit Unit
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
+              Edit Unit Details
             </h2>
 
             <form className="space-y-6">

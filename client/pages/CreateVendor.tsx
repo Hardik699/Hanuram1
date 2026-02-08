@@ -12,8 +12,11 @@ import {
   Phone,
   MapPin,
   Upload,
+  Search,
+  Building2,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Vendor {
   _id: string;
@@ -567,6 +570,51 @@ export default function CreateVendor() {
         </div>
       ) : (
         <div className="space-y-6">
+          <PageHeader
+            title="Vendor Management"
+            description="Create, manage, and organize vendors and suppliers"
+            breadcrumbs={[{ label: "Vendor Management" }]}
+            icon={<Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+            actions={
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Upload className="w-4 h-4" />
+                  {uploading ? "Uploading..." : "Upload Excel"}
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx,.xls"
+                  onChange={(e) => {
+                    if (e.target.files?.[0]) {
+                      handleFileUpload(e.target.files[0]);
+                    }
+                  }}
+                  className="hidden"
+                />
+                <button
+                  onClick={clearAllVendors}
+                  disabled={loading || vendors.length === 0}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Clear All
+                </button>
+                <button
+                  onClick={() => setShowAddForm(true)}
+                  className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Vendor</span>
+                </button>
+              </div>
+            }
+          />
+
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border ${
@@ -592,60 +640,18 @@ export default function CreateVendor() {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-              All Vendors{" "}
-              <span className="text-blue-600">({filteredVendors.length})</span>
-            </h2>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5"
-              >
-                <Plus className="w-4 h-4" />
-                Add Vendor
-              </button>
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploading}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Upload className="w-4 h-4" />
-                {uploading ? "Uploading..." : "Upload Excel"}
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx,.xls"
-                onChange={(e) => {
-                  if (e.target.files?.[0]) {
-                    handleFileUpload(e.target.files[0]);
-                  }
-                }}
-                className="hidden"
-              />
-              <button
-                onClick={clearAllVendors}
-                disabled={loading || vendors.length === 0}
-                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Trash2 className="w-4 h-4" />
-                Clear All
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
-            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                Filter Results
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Search Vendor Name
-                  </label>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              Filter Results
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-blue-700 dark:text-blue-400">
+                  Search Vendor Name
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
                   <input
                     type="text"
                     value={searchTerm}
@@ -654,138 +660,165 @@ export default function CreateVendor() {
                       setCurrentPage(1);
                     }}
                     placeholder="Search vendors..."
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm font-medium"
                   />
                 </div>
               </div>
             </div>
+          </div>
 
-            {tableLoading ? (
-              <div className="p-8 text-center">
-                <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-600 dark:text-slate-400 mt-2">
-                  Loading vendors...
-                </p>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-800">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <Building2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    Vendors List
+                  </h2>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Showing <span className="font-bold text-slate-900 dark:text-white">{filteredVendors.length}</span> vendor{filteredVendors.length !== 1 ? 's' : ''}
+                  </p>
+                </div>
               </div>
-            ) : paginatedVendors.length === 0 ? (
-              <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                No vendors found
-              </div>
-            ) : (
-              <>
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[900px]">
-                    <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Vendor Name
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Contact Person
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Mobile
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Location
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Created By
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                      {paginatedVendors.map((vendor) => (
-                        <tr
-                          key={vendor._id}
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+            </div>
+
+            <div className="overflow-x-auto">
+              {tableLoading ? (
+                <div className="p-8 text-center">
+                  <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                  <p className="text-slate-600 dark:text-slate-400 mt-2">
+                    Loading vendors...
+                  </p>
+                </div>
+              ) : paginatedVendors.length === 0 ? (
+                <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+                  No vendors found
+                </div>
+              ) : (
+                <table className="w-full">
+                  <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Vendor Name
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Contact Person
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Mobile
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Location
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Created By
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {paginatedVendors.map((vendor, idx) => (
+                      <tr
+                        key={vendor._id}
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 ${
+                          idx % 2 === 0
+                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                        }`}
+                      >
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm font-semibold text-indigo-600 dark:text-indigo-400 cursor-pointer group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors"
                         >
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
-                          >
-                            {vendor.name}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {vendor.personName}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            <div className="flex items-center gap-2">
-                              <Phone className="w-4 h-4" />
-                              {vendor.mobileNumber}
-                            </div>
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 max-w-xs truncate"
-                          >
-                            {vendor.location}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/vendor/${vendor._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {vendor.createdBy}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                          {vendor.name}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {vendor.personName}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-4 h-4" />
+                            {vendor.mobileNumber}
+                          </div>
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer max-w-xs truncate"
+                        >
+                          {vendor.location}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/vendor/${vendor._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {vendor.createdBy}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
 
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
-                      Items per page:
-                    </span>
-                    <select
-                      value={itemsPerPage}
-                      onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                      className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                    >
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                    </select>
-                  </div>
+            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                  Items per page:
+                </span>
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
+                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-semibold hover:border-blue-300"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
-                      {startIndex + 1} -{" "}
-                      {Math.min(endIndex, filteredVendors.length)} of{" "}
-                      {filteredVendors.length}
+              <div className="flex items-center gap-6">
+                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
+                    {startIndex + 1}-{Math.min(endIndex, filteredVendors.length)}
+                  </span>{" "}
+                  of{" "}
+                  <span className="font-bold text-slate-900 dark:text-slate-200">
+                    {filteredVendors.length}
+                  </span>
+                </span>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                    Page{" "}
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
+                      {currentPage}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {totalPages || 1}
                     </span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={handlePreviousPage}
-                        disabled={currentPage === 1}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
-                        Page {currentPage} of {totalPages || 1}
-                      </span>
-                      <button
-                        onClick={handleNextPage}
-                        disabled={
-                          currentPage === totalPages || totalPages === 0
-                        }
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                  </span>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages || totalPages === 0}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </div>
         </div>
       )}

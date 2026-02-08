@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { ArrowLeft, Edit2, Trash2, Check, AlertCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  Edit2,
+  Trash2,
+  Check,
+  AlertCircle,
+  FolderOpen,
+} from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface SubCategory {
   _id: string;
@@ -211,13 +219,37 @@ export default function SubCategoryDetail() {
   return (
     <Layout title="SubCategory Details">
       <div className="space-y-6">
-        <button
-          onClick={() => navigate("/create-subcategory")}
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to SubCategories
-        </button>
+        <PageHeader
+          title={subCategory?.name || "SubCategory Details"}
+          description={`Category: ${subCategory?.categoryName || "Loading..."}`}
+          breadcrumbs={[
+            { label: "SubCategories", href: "/create-subcategory" },
+            { label: subCategory?.name || "Details" },
+          ]}
+          icon={
+            <FolderOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+          }
+          actions={
+            !showEditForm ? (
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowEditForm(true)}
+                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </button>
+              </div>
+            ) : null
+          }
+        />
 
         {message && (
           <div
@@ -245,29 +277,7 @@ export default function SubCategoryDetail() {
         )}
 
         {!showEditForm ? (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-                {subCategory.name}
-              </h2>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowEditForm(true)}
-                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Edit2 className="w-4 h-4" />
-                  Edit
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  Delete
-                </button>
-              </div>
-            </div>
-
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
@@ -323,9 +333,9 @@ export default function SubCategoryDetail() {
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              Edit SubCategory
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
+              Edit SubCategory Details
             </h2>
 
             <form className="space-y-6">

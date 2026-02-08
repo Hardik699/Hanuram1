@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Edit2, Trash2, Check, AlertCircle, Plus, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Edit2, Trash2, Check, AlertCircle, Plus, ChevronLeft, ChevronRight, X, Search, FolderOpen } from "lucide-react";
 import { Layout } from "@/components/Layout";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Category {
   _id: string;
@@ -417,6 +418,32 @@ export default function CreateSubCategory() {
         </div>
       ) : (
         <div className="space-y-6">
+          <PageHeader
+            title="Sub Category Management"
+            description="Create, manage, and organize product sub categories"
+            breadcrumbs={[{ label: "Sub Category Management" }]}
+            icon={<FolderOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+            actions={
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleClearAllClick}
+                  disabled={subcategories.length === 0}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Clear All
+                </button>
+                <button
+                  onClick={() => setShowAddForm(true)}
+                  className="flex items-center gap-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Sub Category</span>
+                </button>
+              </div>
+            }
+          />
+
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border ${
@@ -442,40 +469,18 @@ export default function CreateSubCategory() {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-              All Sub Categories <span className="text-teal-600">({filteredSubcategories.length})</span>
-            </h2>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleClearAllClick}
-                disabled={subcategories.length === 0}
-                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Trash2 className="w-4 h-4" />
-                Clear All
-              </button>
-              <button
-                onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-                Add Sub Category
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
-            <div className="p-6 border-b border-slate-200 dark:border-slate-700">
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-teal-500"></div>
-                Filter Results
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Search Name
-                  </label>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Search className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+              Filter Results
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-teal-700 dark:text-teal-400">
+                  Search Name
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-4 top-3.5 w-5 h-5 text-teal-500 dark:text-teal-400" />
                   <input
                     type="text"
                     value={searchTerm}
@@ -484,163 +489,196 @@ export default function CreateSubCategory() {
                       setCurrentPage(1);
                     }}
                     placeholder="Search sub categories..."
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                    className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all shadow-sm font-medium"
                   />
                 </div>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-teal-700 dark:text-teal-400">
+                  Category
+                </label>
+                <select
+                  value={filterCategoryId}
+                  onChange={(e) => {
+                    setFilterCategoryId(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-medium shadow-sm hover:border-teal-300"
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((cat) => (
+                    <option key={cat._id} value={cat._id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-teal-700 dark:text-teal-400">
+                  Status
+                </label>
+                <select
+                  value={filterStatus}
+                  onChange={(e) => {
+                    setFilterStatus(e.target.value as "" | "active" | "inactive");
+                    setCurrentPage(1);
+                  }}
+                  className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-medium shadow-sm hover:border-teal-300"
+                >
+                  <option value="">All Status</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800 dark:to-slate-800">
+              <div className="flex items-center justify-between">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Category
-                  </label>
-                  <select
-                    value={filterCategoryId}
-                    onChange={(e) => {
-                      setFilterCategoryId(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                  >
-                    <option value="">All Categories</option>
-                    {categories.map((cat) => (
-                      <option key={cat._id} value={cat._id}>
-                        {cat.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Status
-                  </label>
-                  <select
-                    value={filterStatus}
-                    onChange={(e) => {
-                      setFilterStatus(e.target.value as "" | "active" | "inactive");
-                      setCurrentPage(1);
-                    }}
-                    className="w-full px-3.5 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                  >
-                    <option value="">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                  </select>
+                  <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <FolderOpen className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                    Sub Categories List
+                  </h2>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Showing <span className="font-bold text-slate-900 dark:text-white">{filteredSubcategories.length}</span> sub categor{filteredSubcategories.length !== 1 ? 'ies' : 'y'}
+                  </p>
                 </div>
               </div>
             </div>
 
-            {tableLoading ? (
-              <div className="p-8 text-center">
-                <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-600 dark:text-slate-400 mt-2">Loading sub categories...</p>
-              </div>
-            ) : paginatedSubcategories.length === 0 ? (
-              <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                No sub categories found
-              </div>
-            ) : (
-              <>
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[800px]">
-                    <thead className="bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Name
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Category
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Status
-                        </th>
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          Created By
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                      {paginatedSubcategories.map((subcategory) => (
-                        <tr
-                          key={subcategory._id}
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
+            <div className="overflow-x-auto">
+              {tableLoading ? (
+                <div className="p-8 text-center">
+                  <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                  <p className="text-slate-600 dark:text-slate-400 mt-2">Loading sub categories...</p>
+                </div>
+              ) : paginatedSubcategories.length === 0 ? (
+                <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+                  No sub categories found
+                </div>
+              ) : (
+                <table className="w-full">
+                  <thead className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 dark:from-teal-900 dark:via-teal-900 dark:to-teal-950 border-b-2 border-teal-700 dark:border-teal-800 sticky top-0">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Name
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        Category
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Status
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                        Created By
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {paginatedSubcategories.map((subcategory, idx) => (
+                      <tr
+                        key={subcategory._id}
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-teal-500 ${
+                          idx % 2 === 0
+                            ? "hover:bg-teal-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-teal-50 dark:hover:bg-slate-700/50"
+                        }`}
+                      >
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm font-semibold text-teal-600 dark:text-teal-400 cursor-pointer group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors"
                         >
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline"
+                          {subcategory.name}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {subcategory.categoryName}
+                        </td>
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm cursor-pointer"
+                        >
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                              subcategory.status === "active"
+                                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                                : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
+                            }`}
                           >
-                            {subcategory.name}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {subcategory.categoryName}
-                          </td>
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm"
-                          >
-                            <span
-                              className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                                subcategory.status === "active"
-                                  ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                                  : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
-                              }`}
-                            >
-                              {subcategory.status ? subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1) : "-"}
-                            </span>
-                          </td>
-                          <td
-                            onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                            className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400"
-                          >
-                            {subcategory.createdBy}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                            {subcategory.status ? subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1) : "-"}
+                          </span>
+                        </td>
+                        <td
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                        >
+                          {subcategory.createdBy}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
 
-                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">Items per page:</span>
-                    <select
-                      value={itemsPerPage}
-                      onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                      className="px-3 py-1.5 rounded-md bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                    >
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                    </select>
-                  </div>
+            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                  Items per page:
+                </span>
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
+                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-semibold hover:border-teal-300"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
-                      {startIndex + 1} - {Math.min(endIndex, filteredSubcategories.length)} of {filteredSubcategories.length}
+              <div className="flex items-center gap-6">
+                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                  <span className="font-bold text-teal-600 dark:text-teal-400">
+                    {startIndex + 1}-{Math.min(endIndex, filteredSubcategories.length)}
+                  </span>{" "}
+                  of{" "}
+                  <span className="font-bold text-slate-900 dark:text-slate-200">
+                    {filteredSubcategories.length}
+                  </span>
+                </span>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                    Page{" "}
+                    <span className="font-bold text-teal-600 dark:text-teal-400">
+                      {currentPage}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {totalPages || 1}
                     </span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={handlePreviousPage}
-                        disabled={currentPage === 1}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <span className="text-sm text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
-                        Page {currentPage} of {totalPages || 1}
-                      </span>
-                      <button
-                        onClick={handleNextPage}
-                        disabled={currentPage === totalPages || totalPages === 0}
-                        className="inline-flex items-center justify-center p-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                  </span>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages || totalPages === 0}
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-teal-300 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-teal-500 dark:hover:border-teal-800"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </div>
         </div>
       )}
