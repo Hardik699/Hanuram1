@@ -596,7 +596,7 @@ export default function CreateVendor() {
           <div className="flex items-center justify-between gap-4 mb-6">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
               All Vendors{" "}
-              <span className="text-teal-600">({filteredVendors.length})</span>
+              <span className="text-blue-600">({filteredVendors.length})</span>
             </h2>
             <div className="flex items-center gap-3">
               <button
