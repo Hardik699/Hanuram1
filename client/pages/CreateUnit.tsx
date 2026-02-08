@@ -458,17 +458,17 @@ export default function CreateUnit() {
           </div>
 
           {/* Filter Section */}
-          <div className="bg-gradient-to-r from-purple-50 via-white to-pink-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 rounded-2xl shadow-lg p-6 mb-4 border border-purple-100/50 dark:border-purple-900/30">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Search className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-              Filter Results
+              <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              Search Units
             </h3>
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-purple-700 dark:text-purple-400">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-blue-700 dark:text-blue-400">
                 Search Unit Name
               </label>
               <div className="relative">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-purple-500 dark:text-purple-400" />
+                <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -477,7 +477,7 @@ export default function CreateUnit() {
                     setCurrentPage(1);
                   }}
                   placeholder="Search units..."
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-sm font-medium"
+                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all shadow-sm font-medium"
                 />
               </div>
             </div>
