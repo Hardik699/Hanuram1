@@ -438,19 +438,22 @@ export default function CreateUnit() {
           )}
 
           {/* Statistics Card */}
-          <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 dark:from-purple-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
                   Total Units
                 </p>
-                <h3 className="text-4xl font-bold mt-2">
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
                   {filteredUnits.length}
                 </h3>
               </div>
-              <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
-                <Settings className="w-6 h-6 text-purple-200" />
+              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
+                <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
+            </div>
+            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden mt-4">
+              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
