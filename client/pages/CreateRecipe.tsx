@@ -1136,45 +1136,43 @@ export default function CreateRecipe() {
         </div>
 
         {/* Labour Costing Sections - Only show if recipe is created and user has permission */}
-        <PermissionGate permission="labour_view_costs">
-          {id && (
-            <div className="space-y-6">
-              {/* Production Labour Cost */}
-              <LabourCostSection
-                recipeId={id}
-                recipeQuantity={parseFloat(formData.batchSize) || 0}
-                type="production"
-                title="Production Labour Cost"
-              />
+        {id && hasPermission("labour_view_costs") && (
+          <div className="space-y-6">
+            {/* Production Labour Cost */}
+            <LabourCostSection
+              recipeId={id}
+              recipeQuantity={parseFloat(formData.batchSize) || 0}
+              type="production"
+              title="Production Labour Cost"
+            />
 
-              {/* Packing Labour Cost */}
-              <LabourCostSection
-                recipeId={id}
-                recipeQuantity={parseFloat(formData.batchSize) || 0}
-                type="packing"
-                title="Packing Labour Cost"
-              />
+            {/* Packing Labour Cost */}
+            <LabourCostSection
+              recipeId={id}
+              recipeQuantity={parseFloat(formData.batchSize) || 0}
+              type="packing"
+              title="Packing Labour Cost"
+            />
 
-              {/* Packaging & Handling Costing Calculator */}
-              <CostingCalculatorForm
-                title="📦 Packaging & Handling Costing Calculator"
-                recipeId={id}
-                rmCostPerKg={
-                  parseFloat(formData.batchSize) > 0
-                    ? recipeItems.reduce(
-                        (sum, item) => sum + item.totalPrice,
-                        0,
-                      ) / parseFloat(formData.batchSize)
-                    : 0
-                }
-                productionLabourCostPerKg={productionLabourCostPerKg}
-                packingLabourCostPerKg={packingLabourCostPerKg}
-                batchSize={parseFloat(formData.batchSize) || 0}
-                yield={parseFloat(formData.yield) || 100}
-              />
-            </div>
-          )}
-        </PermissionGate>
+            {/* Packaging & Handling Costing Calculator */}
+            <CostingCalculatorForm
+              title="📦 Packaging & Handling Costing Calculator"
+              recipeId={id}
+              rmCostPerKg={
+                parseFloat(formData.batchSize) > 0
+                  ? recipeItems.reduce(
+                      (sum, item) => sum + item.totalPrice,
+                      0,
+                    ) / parseFloat(formData.batchSize)
+                  : 0
+              }
+              productionLabourCostPerKg={productionLabourCostPerKg}
+              packingLabourCostPerKg={packingLabourCostPerKg}
+              batchSize={parseFloat(formData.batchSize) || 0}
+              yield={parseFloat(formData.yield) || 100}
+            />
+          </div>
+        )}
       </div>
     </Layout>
   );
