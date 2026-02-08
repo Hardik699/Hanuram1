@@ -577,7 +577,7 @@ export default function UserManagement() {
                         }`}
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
-                        <td className="px-6 py-4 text-sm font-semibold text-teal-600 dark:text-teal-400 cursor-pointer group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">
+                        <td className="px-6 py-4 text-sm font-semibold text-indigo-600 dark:text-indigo-400 cursor-pointer group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors">
                           {user.username}
                         </td>
                         <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
