@@ -293,9 +293,9 @@ export default function UnitDetail() {
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              Edit Unit
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
+              Edit Unit Details
             </h2>
 
             <form className="space-y-6">
