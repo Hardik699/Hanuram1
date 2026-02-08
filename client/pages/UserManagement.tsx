@@ -538,7 +538,7 @@ export default function UserManagement() {
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 dark:from-teal-900 dark:via-teal-900 dark:to-teal-950 border-b-2 border-teal-700 dark:border-teal-800 sticky top-0">
+                <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
                   <tr>
                     <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Username
