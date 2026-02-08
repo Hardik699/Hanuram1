@@ -265,17 +265,17 @@ export default function LabourManagement() {
               <LoadingSpinner message="Loading labour data..." />
             </div>
           ) : labour.length === 0 ? (
-            <div className="p-12 text-center">
-              <Users className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+            <div className="p-6 sm:p-12 text-center">
+              <Users className="w-12 sm:w-16 h-12 sm:h-16 text-slate-300 dark:text-slate-600 mx-auto mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">
                 No Labour Found
               </h3>
-              <p className="text-slate-600 dark:text-slate-400 mb-6">
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mb-4 sm:mb-6">
                 Add your first labour record to start tracking daily costs.
               </p>
               <button
                 onClick={() => navigate("/labour/new")}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 sm:py-2.5 px-4 sm:px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 text-sm sm:text-base"
               >
                 <Plus className="w-4 h-4" />
                 Add First Labour
