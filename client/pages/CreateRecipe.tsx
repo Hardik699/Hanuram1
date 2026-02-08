@@ -1138,41 +1138,57 @@ export default function CreateRecipe() {
 
         {/* Labour Costing Sections - Only show if recipe is created and user has permission */}
         {id && hasPermission("labour_view_costs") && (
-          <div className="space-y-6">
-            {/* Production Labour Cost */}
-            <LabourCostSection
-              recipeId={id}
-              recipeQuantity={parseFloat(formData.batchSize) || 0}
-              type="production"
-              title="Production Labour Cost"
-            />
+          <>
+            {/* Labour Section Header Card */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 px-8 py-6 border-b-2 border-purple-700 dark:border-purple-800">
+                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                  👥 Labour & Packaging Costs
+                </h2>
+              </div>
+              <div className="px-8 py-4 border-b border-slate-200 dark:border-slate-700">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  Manage labour costs for production and packing, plus packaging and handling expenses
+                </p>
+              </div>
+            </div>
 
-            {/* Packing Labour Cost */}
-            <LabourCostSection
-              recipeId={id}
-              recipeQuantity={parseFloat(formData.batchSize) || 0}
-              type="packing"
-              title="Packing Labour Cost"
-            />
+            <div className="space-y-6">
+              {/* Production Labour Cost */}
+              <LabourCostSection
+                recipeId={id}
+                recipeQuantity={parseFloat(formData.batchSize) || 0}
+                type="production"
+                title="Production Labour Cost"
+              />
 
-            {/* Packaging & Handling Costing Calculator */}
-            <CostingCalculatorForm
-              title="📦 Packaging & Handling Costing Calculator"
-              recipeId={id}
-              rmCostPerKg={
-                parseFloat(formData.batchSize) > 0
-                  ? recipeItems.reduce(
-                      (sum, item) => sum + item.totalPrice,
-                      0,
-                    ) / parseFloat(formData.batchSize)
-                  : 0
-              }
-              productionLabourCostPerKg={productionLabourCostPerKg}
-              packingLabourCostPerKg={packingLabourCostPerKg}
-              batchSize={parseFloat(formData.batchSize) || 0}
-              yield={parseFloat(formData.yield) || 100}
-            />
-          </div>
+              {/* Packing Labour Cost */}
+              <LabourCostSection
+                recipeId={id}
+                recipeQuantity={parseFloat(formData.batchSize) || 0}
+                type="packing"
+                title="Packing Labour Cost"
+              />
+
+              {/* Packaging & Handling Costing Calculator */}
+              <CostingCalculatorForm
+                title="📦 Packaging & Handling Costing Calculator"
+                recipeId={id}
+                rmCostPerKg={
+                  parseFloat(formData.batchSize) > 0
+                    ? recipeItems.reduce(
+                        (sum, item) => sum + item.totalPrice,
+                        0,
+                      ) / parseFloat(formData.batchSize)
+                    : 0
+                }
+                productionLabourCostPerKg={productionLabourCostPerKg}
+                packingLabourCostPerKg={packingLabourCostPerKg}
+                batchSize={parseFloat(formData.batchSize) || 0}
+                yield={parseFloat(formData.yield) || 100}
+              />
+            </div>
+          </>
         )}
       </div>
     </Layout>
