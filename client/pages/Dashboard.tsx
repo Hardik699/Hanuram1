@@ -38,11 +38,15 @@ export default function Dashboard() {
 
   return (
     <Layout title={`Welcome back, ${user?.username}!`}>
-      <p className="text-slate-600 dark:text-slate-400 mb-8 text-base font-medium">
-        Here's an overview of your Hanuram Foods management system.
-      </p>
+      <div className="space-y-6">
+        {/* Page Header */}
+        <PageHeader
+          title="Dashboard"
+          description="Welcome to your Hanuram Foods management system. Here's an overview of your operations."
+          icon={<LayoutDashboard className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />}
+        />
 
-      {/* Stats grid */}
+        {/* Stats grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in-up">
         <StatCard
           icon={Users}
@@ -116,6 +120,7 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </Layout>
   );
