@@ -4,23 +4,32 @@ import {
   Edit2,
   Trash2,
   FileText,
-  MoreVertical,
   Plus,
   X,
   Check,
   AlertCircle,
   ChevronDown,
   CheckCircle,
+  History,
+  Calculator,
+  ArrowLeft,
+  Settings,
+  Shield,
+  Eye,
+  MoreVertical,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import Modal from "@/components/ui/Modal";
-import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { LabourCostSection } from "@/components/LabourCostSection";
 import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
 import { PermissionGate } from "@/components/PermissionGate";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
+import { ProfessionalForm, FormGroup, FormActions } from "@/components/ProfessionalForm";
+import { DataTable } from "@/components/DataTable";
+import { cn } from "@/lib/utils";
 
 interface Unit {
   _id: string;
