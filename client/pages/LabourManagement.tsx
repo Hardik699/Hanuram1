@@ -352,45 +352,45 @@ export default function LabourManagement() {
               </div>
 
               {/* Pagination Controls */}
-              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-6">
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+              <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                <div className="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
                     <span className="font-bold text-blue-600 dark:text-blue-400">
                       {startIdx + 1}-{Math.min(startIdx + itemsPerPage, filteredLabour.length)}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                    </span>
+                    <span className="hidden sm:inline"> of {" "}
+                    </span>
+                    <span className="hidden sm:inline font-bold text-slate-900 dark:text-slate-200">
                       {filteredLabour.length}
                     </span>
                   </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
-                    title="Previous Page"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page{" "}
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
-                      {currentPage}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
-                      {totalPages || 1}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      disabled={currentPage === 1}
+                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                      title="Previous Page"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[50px] sm:min-w-[100px] text-center">
+                      <span className="text-blue-600 dark:text-blue-400">
+                        {currentPage}
+                      </span>
+                      <span className="hidden sm:inline">/</span>
+                      <span className="hidden sm:inline text-slate-900 dark:text-slate-200">
+                        {totalPages || 1}
+                      </span>
                     </span>
-                  </span>
-                  <button
-                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                    disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
-                    title="Next Page"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
+                    <button
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      disabled={currentPage === totalPages || totalPages === 0}
+                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                      title="Next Page"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </>
