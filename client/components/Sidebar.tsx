@@ -88,6 +88,7 @@ export function Sidebar() {
       path: "/costing-calculator",
       icon: Calculator,
       module: "RAW_MATERIAL_COSTING",
+      permission: "labour_view_costs",
     },
     {
       label: "User Management",
