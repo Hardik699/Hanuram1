@@ -536,7 +536,7 @@ export default function CreateRecipe() {
                   errors.name
                     ? "border-red-500 dark:border-red-400"
                     : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
               />
               {errors.name && (
                 <p className="text-red-600 dark:text-red-400 text-sm mt-1">
