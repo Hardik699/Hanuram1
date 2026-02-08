@@ -225,31 +225,29 @@ export default function UserDetail() {
 
   return (
     <Layout>
-      <div className="p-6 max-w-2xl">
-        {/* Back Button */}
-        <button
-          onClick={() => navigate("/users")}
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 mb-6 font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Users
-        </button>
-
-        {/* User Details Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 mb-6">
-          <div className="flex justify-between items-start mb-6">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
-              {user.username}
-            </h1>
-            {!isEditing && (
+      <div className="space-y-6">
+        <PageHeader
+          title={user?.username || "User Details"}
+          description={user?.email || "Loading..."}
+          breadcrumbs={[
+            { label: "Users", href: "/users" },
+            { label: user?.username || "Details" },
+          ]}
+          icon={<User className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+          actions={
+            !isEditing ? (
               <Button
                 onClick={() => setIsEditing(true)}
                 className="bg-teal-600 hover:bg-teal-700"
               >
                 Edit User
               </Button>
-            )}
-          </div>
+            ) : null
+          }
+        />
+
+        {/* User Details Card */}
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
 
           {isEditing ? (
             <div className="space-y-4">
