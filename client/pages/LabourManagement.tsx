@@ -214,9 +214,9 @@ export default function LabourManagement() {
         </div>
 
         {/* Search Section */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-            <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-4 sm:p-6 border border-slate-200 dark:border-slate-700">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
+            <Search className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
             Search Labour
           </h3>
           <div>
@@ -224,7 +224,7 @@ export default function LabourManagement() {
               Search by Name, Code, or Department
             </label>
             <div className="relative">
-              <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
+              <Search className="absolute left-3 sm:left-4 top-3 sm:top-3.5 w-4 sm:w-5 h-4 sm:h-5 text-blue-500 dark:text-blue-400" />
               <input
                 type="text"
                 value={searchTerm}
@@ -233,7 +233,7 @@ export default function LabourManagement() {
                   setCurrentPage(1);
                 }}
                 placeholder="Search labour..."
-                className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all shadow-sm font-medium"
+                className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all shadow-sm font-medium text-sm"
               />
             </div>
           </div>
