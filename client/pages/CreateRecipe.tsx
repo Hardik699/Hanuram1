@@ -480,18 +480,15 @@ export default function CreateRecipe() {
     <Layout title={id ? "Edit Recipe" : "Create Recipe"}>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <button
-            onClick={() => navigate("/rmc")}
-            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
-            title="Back"
-          >
-            <ArrowLeft className="w-5 h-5 text-slate-600 dark:text-slate-400" />
-          </button>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
-            {id ? "Edit Recipe" : "Add New Recipe"}
-          </h1>
-        </div>
+        <PageHeader
+          title={id ? "Edit Recipe" : "Create Recipe"}
+          description={id ? "Update recipe details, materials, and costing information" : "Create a new recipe with materials and costing details"}
+          breadcrumbs={[
+            { label: "Raw Material Costing", href: "/rmc" },
+            { label: id ? "Edit Recipe" : "Create Recipe" }
+          ]}
+          icon={<ChefHat className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />}
+        />
 
         {/* Message Alert */}
         {message && (
