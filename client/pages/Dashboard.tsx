@@ -83,7 +83,7 @@ export default function Dashboard() {
         {/* Main section */}
         <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-8 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all">
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-            <span className="w-1 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full"></span>
+            <span className="w-1 h-1 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"></span>
             Getting Started
           </h3>
           <div className="space-y-4 text-slate-600 dark:text-slate-400">
