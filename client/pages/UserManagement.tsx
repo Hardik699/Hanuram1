@@ -345,7 +345,7 @@ export default function UserManagement() {
                     setMessage("");
                   }
                 }}
-                className="flex items-center gap-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
+                className="prof-btn-primary whitespace-nowrap"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add User</span>
@@ -357,43 +357,37 @@ export default function UserManagement() {
         {/* Messages */}
         {message && (
           <div
-            className={`flex items-center gap-3 p-4 rounded-lg border ${
+            className={
               messageType === "success"
-                ? "bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800"
-                : "bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800"
-            }`}
+                ? "prof-msg-success"
+                : "prof-msg-error"
+            }
           >
-            {messageType === "success" ? (
-              <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-            ) : (
-              <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-            )}
-            <span
-              className={`text-sm font-medium ${
-                messageType === "success"
-                  ? "text-green-700 dark:text-green-300"
-                  : "text-red-700 dark:text-red-300"
-              }`}
-            >
-              {message}
-            </span>
+            <div className="flex items-center gap-3">
+              {messageType === "success" ? (
+                <CheckCircle className="w-5 h-5 flex-shrink-0" />
+              ) : (
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              )}
+              <span>{message}</span>
+            </div>
           </div>
         )}
 
         {/* Create Form */}
         {showForm && (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
-              Create New User
+          <div className="prof-form">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mb-6">
+              {editingUserId ? "Edit User" : "Create New User"}
             </h3>
             <form onSubmit={handleCreateUser} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="prof-form-group">
+                  <label className="prof-form-label">
                     Username
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
+                    <User className="absolute left-3 top-3.5 w-5 h-5 text-slate-400" />
                     <input
                       type="text"
                       placeholder="Enter username"
@@ -401,17 +395,18 @@ export default function UserManagement() {
                       onChange={(e) =>
                         setFormData({ ...formData, username: e.target.value })
                       }
-                      className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      disabled={!!editingUserId}
+                      className="prof-form-input pl-10"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <div className="prof-form-group">
+                  <label className="prof-form-label">
                     Email
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
+                    <Mail className="absolute left-3 top-3.5 w-5 h-5 text-slate-400" />
                     <input
                       type="email"
                       placeholder="Enter email"
@@ -419,31 +414,33 @@ export default function UserManagement() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="prof-form-input pl-10"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
-                    <input
-                      type="password"
-                      placeholder="Enter password"
-                      value={formData.password}
-                      onChange={(e) =>
-                        setFormData({ ...formData, password: e.target.value })
-                      }
-                      className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                    />
+                {!editingUserId && (
+                  <div className="prof-form-group">
+                    <label className="prof-form-label">
+                      Password
+                    </label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-3.5 w-5 h-5 text-slate-400" />
+                      <input
+                        type="password"
+                        placeholder="Enter password"
+                        value={formData.password}
+                        onChange={(e) =>
+                          setFormData({ ...formData, password: e.target.value })
+                        }
+                        className="prof-form-input pl-10"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <div className="prof-form-group">
+                  <label className="prof-form-label">
                     Role
                   </label>
                   <select
@@ -451,7 +448,7 @@ export default function UserManagement() {
                     onChange={(e) => {
                       setFormData({ ...formData, role_id: e.target.value });
                     }}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="prof-form-select"
                   >
                     {roles.map((role, idx) => (
                       <option
@@ -466,39 +463,39 @@ export default function UserManagement() {
               </div>
 
               {/* Modules Selection */}
-              <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-200 dark:border-slate-600">
-                <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">
-                  Select Modules to Grant Access
+              <div className="mt-6 p-6 bg-slate-50 dark:bg-slate-700/50 rounded-2xl border-2 border-slate-200 dark:border-slate-700">
+                <h4 className="text-sm font-bold text-blue-700 dark:text-blue-400 uppercase tracking-widest mb-6">
+                  Module Access Control
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {AVAILABLE_MODULES.map((module) => {
                     const isChecked = selectedModules.includes(module.key);
                     return (
                       <label
                         key={module.key}
-                        className={`flex items-start gap-3 p-3 rounded cursor-pointer transition-all border ${
+                        className={`flex items-start gap-3 p-4 rounded-xl cursor-pointer transition-all border-2 ${
                           isChecked
-                            ? "bg-teal-50 dark:bg-teal-900/30 border-teal-300 dark:border-teal-700"
-                            : "border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700/50"
+                            ? "bg-blue-50 dark:bg-blue-900/20 border-blue-500 shadow-elevation-2"
+                            : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800"
                         }`}
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => handleToggleModule(module.key)}
-                          className="w-5 h-5 rounded border-2 border-teal-500 mt-0.5 flex-shrink-0 cursor-pointer accent-teal-500"
+                          className="w-5 h-5 rounded border-2 border-blue-500 mt-0.5 flex-shrink-0 cursor-pointer accent-blue-600"
                         />
                         <div className="flex-1 min-w-0">
                           <p
-                            className={`text-sm font-medium ${
+                            className={`text-sm font-bold truncate ${
                               isChecked
-                                ? "text-teal-700 dark:text-teal-300"
+                                ? "text-blue-700 dark:text-blue-300"
                                 : "text-slate-700 dark:text-slate-300"
                             }`}
                           >
                             {module.label}
                           </p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400">
+                          <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-500 uppercase">
                             {module.key}
                           </p>
                         </div>
@@ -508,21 +505,17 @@ export default function UserManagement() {
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-6">
+              <div className="flex flex-col sm:flex-row gap-4 pt-6">
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105"
+                  className="prof-btn-primary flex-1"
                 >
-                  Create User
+                  {editingUserId ? "Update User" : "Create User"}
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    setShowForm(false);
-                    setSelectedModules([]);
-                    setMessage("");
-                  }}
-                  className="flex-1 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  onClick={handleCancelEdit}
+                  className="prof-btn-secondary flex-1"
                 >
                   Cancel
                 </button>
@@ -535,24 +528,24 @@ export default function UserManagement() {
         {loading ? (
           <LoadingSpinner message="Loading users..." />
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-4 border border-slate-200 dark:border-slate-700 overflow-hidden animate-page-load">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
+                <thead className="prof-table-head">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Username
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                    <th className="prof-table-head-cell">
                       Email
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Role
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell text-center">
                       Status
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="prof-table-head-cell">
                       Created
                     </th>
                   </tr>
@@ -560,44 +553,41 @@ export default function UserManagement() {
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                   {paginatedUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-8 text-center">
-                        <p className="text-slate-600 dark:text-slate-400">
-                          No users found
-                        </p>
+                      <td colSpan={5} className="px-6 py-12 text-center text-slate-500 dark:text-slate-400 font-bold">
+                        No users found
                       </td>
                     </tr>
                   ) : (
                     paginatedUsers.map((user, idx) => (
                       <tr
                         key={user._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 cursor-pointer ${
-                          idx % 2 === 0
-                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                        }`}
+                        className={cn(
+                          "prof-table-row prof-table-row-hover",
+                          idx % 2 === 0 && "prof-table-row-even"
+                        )}
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
-                        <td className="px-6 py-4 text-sm font-semibold text-indigo-600 dark:text-indigo-400 cursor-pointer group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors">
+                        <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
                           {user.username}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
+                        <td className="prof-table-cell text-slate-600 dark:text-slate-400">
                           {user.email}
                         </td>
-                        <td className="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
+                        <td className="prof-table-cell font-bold text-slate-700 dark:text-slate-300">
                           {getRoleName(user.role_id)}
                         </td>
-                        <td className="px-6 py-4 text-sm cursor-pointer">
+                        <td className="prof-table-cell text-center">
                           <span
-                            className={`px-3 py-1.5 rounded-full text-xs font-semibold inline-block ${
+                            className={
                               user.status === "active"
-                                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-                                : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
-                            }`}
+                                ? "prof-badge-green"
+                                : "prof-badge-red"
+                            }
                           >
                             {user.status === "active" ? "Active" : "Blocked"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 cursor-pointer whitespace-nowrap">
+                        <td className="prof-table-cell text-slate-600 dark:text-slate-400 whitespace-nowrap">
                           {new Date(user.createdAt).toLocaleDateString()}
                         </td>
                       </tr>
@@ -609,7 +599,7 @@ export default function UserManagement() {
 
             {/* Pagination */}
             {users.length > 0 && (
-              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
+              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
                     Items per page:
@@ -620,7 +610,7 @@ export default function UserManagement() {
                       setItemsPerPage(parseInt(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-indigo-200 dark:border-indigo-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-semibold hover:border-indigo-300"
+                    className="prof-form-select px-4 py-2 w-24 text-sm"
                   >
                     <option key="items-10" value="10">
                       10
@@ -636,7 +626,7 @@ export default function UserManagement() {
 
                 <div className="flex items-center gap-6">
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
                       {(currentPage - 1) * itemsPerPage + 1}-
                       {Math.min(currentPage * itemsPerPage, users.length)}
                     </span>{" "}
@@ -651,13 +641,13 @@ export default function UserManagement() {
                         setCurrentPage((prev) => Math.max(prev - 1, 1))
                       }
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
+                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       ←
                     </button>
-                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
                       Page{" "}
-                      <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                      <span className="font-bold text-blue-600 dark:text-blue-400">
                         {currentPage}
                       </span>{" "}
                       of{" "}
@@ -670,7 +660,7 @@ export default function UserManagement() {
                         setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                       }
                       disabled={currentPage === totalPages}
-                      className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-indigo-300 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-indigo-500 dark:hover:border-indigo-800"
+                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       →
                     </button>
