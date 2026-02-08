@@ -570,6 +570,51 @@ export default function CreateVendor() {
         </div>
       ) : (
         <div className="space-y-6">
+          <PageHeader
+            title="Vendor Management"
+            description="Create, manage, and organize vendors and suppliers"
+            breadcrumbs={[{ label: "Vendor Management" }]}
+            icon={<Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+            actions={
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Upload className="w-4 h-4" />
+                  {uploading ? "Uploading..." : "Upload Excel"}
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx,.xls"
+                  onChange={(e) => {
+                    if (e.target.files?.[0]) {
+                      handleFileUpload(e.target.files[0]);
+                    }
+                  }}
+                  className="hidden"
+                />
+                <button
+                  onClick={clearAllVendors}
+                  disabled={loading || vendors.length === 0}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Clear All
+                </button>
+                <button
+                  onClick={() => setShowAddForm(true)}
+                  className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Vendor</span>
+                </button>
+              </div>
+            }
+          />
+
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border ${
@@ -594,49 +639,6 @@ export default function CreateVendor() {
               </span>
             </div>
           )}
-
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-              All Vendors{" "}
-              <span className="text-blue-600">({filteredVendors.length})</span>
-            </h2>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5"
-              >
-                <Plus className="w-4 h-4" />
-                Add Vendor
-              </button>
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploading}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Upload className="w-4 h-4" />
-                {uploading ? "Uploading..." : "Upload Excel"}
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx,.xls"
-                onChange={(e) => {
-                  if (e.target.files?.[0]) {
-                    handleFileUpload(e.target.files[0]);
-                  }
-                }}
-                className="hidden"
-              />
-              <button
-                onClick={clearAllVendors}
-                disabled={loading || vendors.length === 0}
-                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Trash2 className="w-4 h-4" />
-                Clear All
-              </button>
-            </div>
-          </div>
 
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
             <div className="p-6 border-b border-slate-200 dark:border-slate-700">
