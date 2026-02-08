@@ -512,12 +512,14 @@ export default function CreateRecipe() {
         )}
 
         {/* Recipe Basic Info */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
-            Recipe Information
-          </h2>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 px-8 py-6 border-b-2 border-indigo-700 dark:border-indigo-800">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              Recipe Information
+            </h2>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 p-8">
             {/* Recipe Name */}
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
