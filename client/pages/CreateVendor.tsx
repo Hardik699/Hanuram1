@@ -601,7 +601,7 @@ export default function CreateVendor() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5"
               >
                 <Plus className="w-4 h-4" />
                 Add Vendor
