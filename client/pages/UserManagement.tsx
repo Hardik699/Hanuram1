@@ -517,15 +517,15 @@ export default function UserManagement() {
           <LoadingSpinner message="Loading users..." />
         ) : (
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-4 border border-slate-200 dark:border-slate-700 overflow-hidden animate-page-load">
-            <div className="overflow-x-auto">
+            <div className="prof-table-responsive">
               <table className="w-full">
                 <thead className="prof-table-head">
                   <tr>
                     <th className="prof-table-head-cell">Username</th>
-                    <th className="prof-table-head-cell">Email</th>
+                    <th className="prof-table-head-cell hidden sm:table-cell">Email</th>
                     <th className="prof-table-head-cell">Role</th>
                     <th className="prof-table-head-cell text-center">Status</th>
-                    <th className="prof-table-head-cell">Created</th>
+                    <th className="prof-table-head-cell hidden md:table-cell">Created</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -533,7 +533,7 @@ export default function UserManagement() {
                     <tr>
                       <td
                         colSpan={5}
-                        className="px-6 py-12 text-center text-slate-500 dark:text-slate-400 font-bold"
+                        className="px-3 py-12 sm:px-6 text-center text-slate-500 dark:text-slate-400 font-bold text-sm"
                       >
                         No users found
                       </td>
@@ -543,19 +543,25 @@ export default function UserManagement() {
                       <tr
                         key={user._id}
                         className={cn(
-                          "prof-table-row prof-table-row-hover",
+                          "prof-table-row prof-table-row-hover cursor-pointer",
                           idx % 2 === 0 && "prof-table-row-even",
                         )}
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
                         <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
-                          {user.username}
+                          <div className="flex flex-col gap-1">
+                            <span>{user.username}</span>
+                            <span className="sm:hidden text-xs text-slate-500 dark:text-slate-400 font-normal">
+                              {user.email}
+                            </span>
+                          </div>
                         </td>
-                        <td className="prof-table-cell text-slate-600 dark:text-slate-400">
+                        <td className="prof-table-cell text-slate-600 dark:text-slate-400 hidden sm:table-cell truncate max-w-[200px]">
                           {user.email}
                         </td>
                         <td className="prof-table-cell font-bold text-slate-700 dark:text-slate-300">
-                          {getRoleName(user.role_id)}
+                          <span className="hidden md:inline">{getRoleName(user.role_id)}</span>
+                          <span className="md:hidden text-xs">{getRoleName(user.role_id)?.split(' ')[0]}</span>
                         </td>
                         <td className="prof-table-cell text-center">
                           <span
@@ -565,10 +571,10 @@ export default function UserManagement() {
                                 : "prof-badge-red"
                             }
                           >
-                            {user.status === "active" ? "Active" : "Blocked"}
+                            {user.status === "active" ? "✓" : "✕"}
                           </span>
                         </td>
-                        <td className="prof-table-cell text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                        <td className="prof-table-cell text-slate-600 dark:text-slate-400 whitespace-nowrap hidden md:table-cell text-xs">
                           {new Date(user.createdAt).toLocaleDateString()}
                         </td>
                       </tr>
