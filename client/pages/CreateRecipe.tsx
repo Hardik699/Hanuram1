@@ -646,7 +646,7 @@ export default function CreateRecipe() {
                 <button
                   type="button"
                   onClick={() => setShowAddItemForm(!showAddItemForm)}
-                  className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm flex items-center gap-2"
+                  className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                 >
                   <Plus className="w-4 h-4" />
                   Add Item
