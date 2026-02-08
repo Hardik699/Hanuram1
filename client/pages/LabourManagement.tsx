@@ -238,17 +238,23 @@ export default function LabourManagement() {
           </div>
 
           {/* Total Daily Cost Card */}
-          <div className="bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 dark:from-purple-900 dark:to-purple-950 rounded-2xl p-6 shadow-lg border border-purple-400/30 dark:border-purple-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-purple-100 text-sm font-semibold uppercase tracking-wide">Total Daily Cost</p>
-                <h3 className="text-3xl font-bold mt-2">₹{totalDailyCost.toFixed(0)}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Total Daily Cost
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                  ₹{totalDailyCost.toFixed(0)}
+                </h3>
               </div>
-              <div className="bg-purple-400/30 dark:bg-purple-800/50 p-3 rounded-lg">
-                <DollarSign className="w-6 h-6 text-purple-200" />
+              <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-xl">
+                <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
             </div>
-            <p className="text-purple-200 text-xs font-medium">Daily salary total</p>
+            <div className="h-1 w-full bg-green-200 dark:bg-green-900/30 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all" style={{ width: "100%" }}></div>
+            </div>
           </div>
 
           {/* Average Salary Card */}
