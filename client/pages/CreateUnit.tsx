@@ -611,7 +611,7 @@ export default function CreateUnit() {
 
               <div className="flex items-center gap-6">
                 <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                  <span className="font-bold text-purple-600 dark:text-purple-400">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
                     {startIndex + 1}-{Math.min(endIndex, filteredUnits.length)}
                   </span>{" "}
                   of{" "}
@@ -623,14 +623,14 @@ export default function CreateUnit() {
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-purple-300 dark:border-purple-900/50 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-purple-500 dark:hover:border-purple-800"
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
                     title="Previous Page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
                     Page{" "}
-                    <span className="font-bold text-purple-600 dark:text-purple-400">
+                    <span className="font-bold text-blue-600 dark:text-blue-400">
                       {currentPage}
                     </span>{" "}
                     of{" "}
@@ -641,7 +641,7 @@ export default function CreateUnit() {
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-purple-300 dark:border-purple-900/50 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-purple-500 dark:hover:border-purple-800"
+                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
                     title="Next Page"
                   >
                     <ChevronRight className="w-4 h-4" />
