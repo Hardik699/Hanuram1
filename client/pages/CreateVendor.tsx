@@ -719,10 +719,10 @@ export default function CreateVendor() {
                     {paginatedVendors.map((vendor, idx) => (
                       <tr
                         key={vendor._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 ${
                           idx % 2 === 0
-                            ? "hover:bg-blue-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
                         }`}
                       >
                         <td
