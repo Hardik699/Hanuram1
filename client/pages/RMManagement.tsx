@@ -1305,17 +1305,17 @@ export default function RMManagement() {
                       >
                         {rm.name}
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden sm:table-cell">
                         <span className="prof-badge-blue">
                           {rm.categoryName}
                         </span>
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden lg:table-cell">
                         <span className="prof-badge-green">
                           {rm.subCategoryName}
                         </span>
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell">
                         {rm.unitName ? (
                           <span className="prof-badge-orange">
                             {rm.unitName}
@@ -1324,7 +1324,7 @@ export default function RMManagement() {
                           <span className="text-slate-400">-</span>
                         )}
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden md:table-cell">
                         {rm.lastAddedPrice ? (
                           <span className="prof-badge-green">
                             ₹{rm.lastAddedPrice.toFixed(2)}/
@@ -1334,9 +1334,9 @@ export default function RMManagement() {
                           <span className="prof-badge-orange">Pending</span>
                         )}
                       </td>
-                      <td className="prof-table-cell whitespace-nowrap">
+                      <td className="prof-table-cell hidden lg:table-cell">
                         {rm.lastPriceDate ? (
-                          <span className="font-medium text-slate-600 dark:text-slate-400">
+                          <span className="font-medium text-slate-600 dark:text-slate-400 text-xs">
                             {new Date(rm.lastPriceDate).toLocaleDateString(
                               "en-IN",
                             )}
