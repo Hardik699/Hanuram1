@@ -985,7 +985,7 @@ export default function CreateRecipe() {
                               item.unitName || "-"
                             )}
                           </td>
-                          <td className="px-4 py-3 text-sm text-teal-600 dark:text-teal-400 font-semibold">
+                          <td className="px-6 py-4 text-sm text-indigo-600 dark:text-indigo-400 font-semibold">
                             {editingItemIndex === index ? (
                               <input
                                 type="number"
@@ -1007,12 +1007,12 @@ export default function CreateRecipe() {
                               `₹${item.price.toFixed(2)}`
                             )}
                           </td>
-                          <td className="px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white">
+                          <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-white">
                             {editingItemIndex === index
                               ? `₹${(Number(editItemForm.quantity) * Number(editItemForm.price)).toFixed(2)}`
                               : `₹${item.totalPrice.toFixed(2)}`}
                           </td>
-                          <td className="px-4 py-3 text-sm space-x-2 flex">
+                          <td className="px-6 py-4 text-sm space-x-2 flex">
                             {editingItemIndex === index ? (
                               <>
                                 <button
