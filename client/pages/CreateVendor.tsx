@@ -397,7 +397,7 @@ export default function CreateVendor() {
                     errors.name
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.name && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -421,7 +421,7 @@ export default function CreateVendor() {
                     errors.personName
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.personName && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -447,7 +447,7 @@ export default function CreateVendor() {
                       errors.mobileNumber
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   />
                 </div>
                 {errors.mobileNumber && (
@@ -474,7 +474,7 @@ export default function CreateVendor() {
                       errors.email
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   />
                 </div>
                 {errors.email && (
@@ -501,7 +501,7 @@ export default function CreateVendor() {
                       errors.location
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   />
                 </div>
                 {errors.location && (
@@ -526,7 +526,7 @@ export default function CreateVendor() {
                     errors.gstNumber
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.gstNumber && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
