@@ -147,10 +147,10 @@ interface StatCardProps {
 function StatCard({ icon: Icon, title, value, change, color }: StatCardProps) {
   const colorClasses = {
     blue: {
-      bg: "bg-indigo-50 dark:bg-indigo-900/20",
-      text: "text-indigo-600 dark:text-indigo-400",
-      border: "border-indigo-200 dark:border-indigo-800/50",
-      gradient: "from-indigo-600 to-indigo-700",
+      bg: "bg-blue-50 dark:bg-blue-900/20",
+      text: "text-blue-600 dark:text-blue-400",
+      border: "border-blue-200 dark:border-blue-800/50",
+      gradient: "from-blue-600 to-blue-700",
     },
     purple: {
       bg: "bg-purple-50 dark:bg-purple-900/20",
@@ -159,16 +159,16 @@ function StatCard({ icon: Icon, title, value, change, color }: StatCardProps) {
       gradient: "from-purple-600 to-purple-700",
     },
     green: {
-      bg: "bg-teal-50 dark:bg-teal-900/20",
-      text: "text-teal-600 dark:text-teal-400",
-      border: "border-teal-200 dark:border-teal-800/50",
-      gradient: "from-teal-600 to-teal-700",
+      bg: "bg-emerald-50 dark:bg-emerald-900/20",
+      text: "text-emerald-600 dark:text-emerald-400",
+      border: "border-emerald-200 dark:border-emerald-800/50",
+      gradient: "from-emerald-600 to-emerald-700",
     },
     orange: {
-      bg: "bg-indigo-50 dark:bg-indigo-900/20",
-      text: "text-indigo-600 dark:text-indigo-400",
-      border: "border-indigo-200 dark:border-indigo-800/50",
-      gradient: "from-indigo-600 to-indigo-700",
+      bg: "bg-orange-50 dark:bg-orange-900/20",
+      text: "text-orange-600 dark:text-orange-400",
+      border: "border-orange-200 dark:border-orange-800/50",
+      gradient: "from-orange-600 to-orange-700",
     },
   };
 
