@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { ArrowLeft, Edit2, Trash2, Check, AlertCircle } from "lucide-react";
+import { ArrowLeft, Edit2, Trash2, Check, AlertCircle, FolderOpen } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface SubCategory {
   _id: string;
