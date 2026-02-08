@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, Search, Users, TrendingUp, DollarSign } from "lucide-react";
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  Search,
+  Users,
+  TrendingUp,
+  DollarSign,
+} from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -136,7 +144,9 @@ export default function LabourManagement() {
 
       if (result.success) {
         toast.success(
-          editingId ? "Labour updated successfully" : "Labour added successfully"
+          editingId
+            ? "Labour updated successfully"
+            : "Labour added successfully",
         );
         fetchLabour();
         handleCloseDialog();
@@ -174,10 +184,11 @@ export default function LabourManagement() {
   };
 
   // Filter labour
-  const filteredLabour = labour.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.department.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredLabour = labour.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.department.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Pagination
@@ -185,13 +196,14 @@ export default function LabourManagement() {
   const startIdx = (currentPage - 1) * itemsPerPage;
   const paginatedLabour = filteredLabour.slice(
     startIdx,
-    startIdx + itemsPerPage
+    startIdx + itemsPerPage,
   );
 
   // Calculate statistics
   const totalLabour = labour.length;
   const totalDailyCost = labour.reduce((sum, l) => sum + l.salaryPerDay, 0);
-  const avgSalaryPerDay = labour.length > 0 ? totalDailyCost / labour.length : 0;
+  const avgSalaryPerDay =
+    labour.length > 0 ? totalDailyCost / labour.length : 0;
 
   return (
     <Layout>
@@ -253,7 +265,10 @@ export default function LabourManagement() {
               </div>
             </div>
             <div className="h-1 w-full bg-green-200 dark:bg-green-900/30 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all" style={{ width: "100%" }}></div>
+              <div
+                className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all"
+                style={{ width: "100%" }}
+              ></div>
             </div>
           </div>
 
@@ -273,7 +288,10 @@ export default function LabourManagement() {
               </div>
             </div>
             <div className="h-1 w-full bg-amber-200 dark:bg-amber-900/30 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full transition-all" style={{ width: "100%" }}></div>
+              <div
+                className="h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full transition-all"
+                style={{ width: "100%" }}
+              ></div>
             </div>
           </div>
         </div>
@@ -410,31 +428,37 @@ export default function LabourManagement() {
                 <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center gap-3">
                     <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
-                      Showing {startIdx + 1} to {Math.min(startIdx + itemsPerPage, filteredLabour.length)} of {filteredLabour.length} labour
+                      Showing {startIdx + 1} to{" "}
+                      {Math.min(startIdx + itemsPerPage, filteredLabour.length)}{" "}
+                      of {filteredLabour.length} labour
                     </span>
                   </div>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      onClick={() =>
+                        setCurrentPage(Math.max(1, currentPage - 1))
+                      }
                       disabled={currentPage === 1}
                       className="border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Previous
                     </Button>
                     <div className="flex items-center gap-2">
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          className={`w-8 h-8 rounded-lg transition-colors font-semibold ${
-                            currentPage === page
-                              ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
-                              : "hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      ))}
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                        (page) => (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`w-8 h-8 rounded-lg transition-colors font-semibold ${
+                              currentPage === page
+                                ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
+                                : "hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ),
+                      )}
                     </div>
                     <Button
                       onClick={() =>

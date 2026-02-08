@@ -79,7 +79,7 @@ export default function CreateVendor() {
 
   const clearAllVendors = async () => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete ALL vendors? This action cannot be undone."
+      "Are you sure you want to delete ALL vendors? This action cannot be undone.",
     );
     if (!confirmed) return;
 
@@ -115,7 +115,7 @@ export default function CreateVendor() {
       console.error("Error clearing vendors:", error);
       setMessageType("error");
       setMessage(
-        error instanceof Error ? error.message : "Error clearing vendors"
+        error instanceof Error ? error.message : "Error clearing vendors",
       );
     } finally {
       setLoading(false);
@@ -142,7 +142,7 @@ export default function CreateVendor() {
       if (data.success) {
         setMessageType("success");
         setMessage(
-          `Successfully uploaded! Created: ${data.created}, Skipped: ${data.skipped}`
+          `Successfully uploaded! Created: ${data.created}, Skipped: ${data.skipped}`,
         );
         setTimeout(() => {
           fetchVendors();
@@ -156,7 +156,7 @@ export default function CreateVendor() {
       console.error("Error uploading vendors:", error);
       setMessageType("error");
       setMessage(
-        error instanceof Error ? error.message : "Error uploading vendors"
+        error instanceof Error ? error.message : "Error uploading vendors",
       );
     } finally {
       setUploading(false);
@@ -176,7 +176,6 @@ export default function CreateVendor() {
     if (!formData.personName.trim()) {
       newErrors.personName = "Person name is required";
     }
-
 
     if (!formData.location.trim()) {
       newErrors.location = "Location/Address is required";
