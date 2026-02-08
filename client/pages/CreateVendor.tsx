@@ -343,205 +343,162 @@ export default function CreateVendor() {
   };
 
   return (
-    <Layout title="Vendors">
-      {showAddForm ? (
-        <div className="space-y-6">
-          <button
-            onClick={handleCancel}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
-          >
-            ← Back to List
-          </button>
-
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              {editingId ? "Edit Vendor" : "Add New Vendor"}
-            </h2>
-
-            {message && (
-              <div
-                className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
-                  messageType === "success"
-                    ? "bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800"
-                    : "bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800"
-                }`}
-              >
-                {messageType === "success" ? (
-                  <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                ) : (
-                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-                )}
-                <span
-                  className={
-                    messageType === "success"
-                      ? "text-green-700 dark:text-green-300"
-                      : "text-red-700 dark:text-red-300"
-                  }
-                >
-                  {message}
-                </span>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Vendor Name *
-                </label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  placeholder="Enter vendor name"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.name
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
-                {errors.name && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.name}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Person Name *
-                </label>
-                <input
-                  type="text"
-                  value={formData.personName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, personName: e.target.value })
-                  }
-                  placeholder="Enter contact person name"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.personName
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
-                {errors.personName && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.personName}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Mobile Number (Optional)
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-3 w-5 h-5 text-slate-400 pointer-events-none" />
-                  <input
-                    type="tel"
-                    value={formData.mobileNumber}
-                    onChange={(e) =>
-                      setFormData({ ...formData, mobileNumber: e.target.value })
-                    }
-                    placeholder="Enter mobile number"
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                      errors.mobileNumber
-                        ? "border-red-500 dark:border-red-400"
-                        : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                  />
-                </div>
-                {errors.mobileNumber && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.mobileNumber}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Email (Optional)
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 w-5 h-5 text-slate-400 pointer-events-none" />
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    placeholder="Enter email address"
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                      errors.email
-                        ? "border-red-500 dark:border-red-400"
-                        : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                  />
-                </div>
-                {errors.email && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Location/Address *
-                </label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-3 w-5 h-5 text-slate-400 pointer-events-none" />
+    <Layout>
+      <ProfessionalPage
+        title="Vendor Management"
+        description="Create, manage, and organize vendors and suppliers"
+        headerAction={
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="prof-btn-secondary"
+            >
+              <Upload className="w-4 h-4" />
+              <span>{uploading ? "Uploading..." : "Upload Excel"}</span>
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".xlsx,.xls"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  handleFileUpload(e.target.files[0]);
+                }
+              }}
+              className="hidden"
+            />
+            <button
+              onClick={clearAllVendors}
+              disabled={loading || vendors.length === 0}
+              className="prof-btn-danger"
+            >
+              <Trash2 className="w-4 h-4" />
+              <span>Clear All</span>
+            </button>
+            <button
+              onClick={() => {
+                if (showAddForm) {
+                  handleCancel();
+                } else {
+                  setShowAddForm(true);
+                }
+              }}
+              className={showAddForm ? "prof-btn-secondary" : "prof-btn-primary"}
+            >
+              {showAddForm ? (
+                <>
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Back to List</span>
+                </>
+              ) : (
+                <>
+                  <Plus className="w-4 h-4" />
+                  <span>Add Vendor</span>
+                </>
+              )}
+            </button>
+          </div>
+        }
+      >
+        {showAddForm ? (
+          <div className="max-w-3xl mx-auto">
+            <ProfessionalForm
+              title={editingId ? "Edit Vendor Details" : "New Vendor Information"}
+              onSubmit={handleSubmit}
+              onCancel={handleCancel}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormGroup label="Vendor Name *" error={errors.name}>
                   <input
                     type="text"
-                    value={formData.location}
+                    value={formData.name}
                     onChange={(e) =>
-                      setFormData({ ...formData, location: e.target.value })
+                      setFormData({ ...formData, name: e.target.value })
                     }
-                    placeholder="Enter location or full address"
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                      errors.location
-                        ? "border-red-500 dark:border-red-400"
-                        : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    placeholder="Enter vendor name"
+                    className="prof-form-input"
                   />
-                </div>
-                {errors.location && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.location}
-                  </p>
-                )}
+                </FormGroup>
+
+                <FormGroup label="Contact Person *" error={errors.personName}>
+                  <input
+                    type="text"
+                    value={formData.personName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, personName: e.target.value })
+                    }
+                    placeholder="Enter contact person name"
+                    className="prof-form-input"
+                  />
+                </FormGroup>
+
+                <FormGroup label="Mobile Number" error={errors.mobileNumber}>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                    <input
+                      type="tel"
+                      value={formData.mobileNumber}
+                      onChange={(e) =>
+                        setFormData({ ...formData, mobileNumber: e.target.value })
+                      }
+                      placeholder="Enter mobile number"
+                      className="prof-form-input pl-10"
+                    />
+                  </div>
+                </FormGroup>
+
+                <FormGroup label="Email Address" error={errors.email}>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      placeholder="Enter email address"
+                      className="prof-form-input pl-10"
+                    />
+                  </div>
+                </FormGroup>
+
+                <FormGroup label="Location / Address *" error={errors.location}>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      value={formData.location}
+                      onChange={(e) =>
+                        setFormData({ ...formData, location: e.target.value })
+                      }
+                      placeholder="Enter full address"
+                      className="prof-form-input pl-10"
+                    />
+                  </div>
+                </FormGroup>
+
+                <FormGroup label="GST Number" error={errors.gstNumber}>
+                  <div className="relative">
+                    <FileText className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      value={formData.gstNumber}
+                      onChange={(e) =>
+                        setFormData({ ...formData, gstNumber: e.target.value })
+                      }
+                      placeholder="Enter GST number"
+                      className="prof-form-input pl-10"
+                    />
+                  </div>
+                </FormGroup>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  GST Number (Optional)
-                </label>
-                <input
-                  type="text"
-                  value={formData.gstNumber}
-                  onChange={(e) =>
-                    setFormData({ ...formData, gstNumber: e.target.value })
-                  }
-                  placeholder="Enter GST number"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.gstNumber
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
-                {errors.gstNumber && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.gstNumber}
-                  </p>
-                )}
-              </div>
-
-              <div className="flex gap-3 pt-4">
+              <FormActions>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-bold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="prof-btn-primary"
                 >
                   {loading ? (
                     <>
@@ -551,277 +508,109 @@ export default function CreateVendor() {
                   ) : (
                     <>
                       <Plus className="w-4 h-4" />
-                      <span>
-                        {editingId ? "Update Vendor" : "Create Vendor"}
-                      </span>
+                      <span>{editingId ? "Update Vendor" : "Create Vendor"}</span>
                     </>
                   )}
                 </button>
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                  className="prof-btn-secondary"
                 >
                   Cancel
                 </button>
-              </div>
-            </form>
+              </FormActions>
+            </ProfessionalForm>
           </div>
-        </div>
-      ) : (
-        <div className="space-y-6">
-          <PageHeader
-            title="Vendor Management"
-            description="Create, manage, and organize vendors and suppliers"
-            breadcrumbs={[{ label: "Vendor Management" }]}
-            icon={<Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
-            actions={
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploading}
-                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Upload className="w-4 h-4" />
-                  {uploading ? "Uploading..." : "Upload Excel"}
-                </button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".xlsx,.xls"
-                  onChange={(e) => {
-                    if (e.target.files?.[0]) {
-                      handleFileUpload(e.target.files[0]);
-                    }
-                  }}
-                  className="hidden"
-                />
-                <button
-                  onClick={clearAllVendors}
-                  disabled={loading || vendors.length === 0}
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  Clear All
-                </button>
-                <button
-                  onClick={() => setShowAddForm(true)}
-                  className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Add Vendor</span>
-                </button>
+        ) : (
+          <div className="prof-section">
+            {tableLoading ? (
+              <div className="p-12 text-center">
+                <LoadingSpinner message="Loading vendor list..." />
               </div>
-            }
-          />
-
-          {message && (
-            <div
-              className={`p-4 rounded-lg flex items-start gap-3 border ${
-                messageType === "success"
-                  ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/50"
-                  : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50"
-              }`}
-            >
-              {messageType === "success" ? (
-                <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-              ) : (
-                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
-              )}
-              <span
-                className={
-                  messageType === "success"
-                    ? "text-green-800 dark:text-green-300 font-medium text-sm"
-                    : "text-red-800 dark:text-red-300 font-medium text-sm"
+            ) : vendors.length === 0 ? (
+              <EmptyState
+                icon={<Building2 size={48} />}
+                title="No Vendors Registered"
+                description="Start by adding your first vendor or upload an Excel sheet to populate the list."
+                action={
+                  <button onClick={() => setShowAddForm(true)} className="prof-btn-primary">
+                    Add First Vendor
+                  </button>
                 }
-              >
-                {message}
-              </span>
-            </div>
-          )}
-
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              Filter Results
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-blue-700 dark:text-blue-400">
-                  Search Vendor Name
-                </label>
-                <div className="relative">
-                  <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    placeholder="Search vendors..."
-                    className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm font-medium"
-                  />
-                </div>
-              </div>
-            </div>
+              />
+            ) : (
+              <DataTable
+                data={vendors}
+                searchPlaceholder="Search vendors by name, person or location..."
+                columns={[
+                  {
+                    key: "name",
+                    label: "Vendor Name",
+                    className: "font-bold text-blue-600 dark:text-blue-400 cursor-pointer",
+                    render: (val, row) => (
+                      <div onClick={() => navigate(`/vendor/${row._id}`)} className="flex items-center gap-2">
+                        <Building2 size={16} />
+                        {val}
+                      </div>
+                    )
+                  },
+                  {
+                    key: "personName",
+                    label: "Contact Person",
+                    className: "font-medium"
+                  },
+                  {
+                    key: "mobileNumber",
+                    label: "Mobile",
+                    render: (val) => (
+                      <div className="flex items-center gap-2">
+                        <Phone size={14} className="text-slate-400" />
+                        {val || "-"}
+                      </div>
+                    )
+                  },
+                  {
+                    key: "location",
+                    label: "Location",
+                    className: "max-w-xs truncate"
+                  },
+                  {
+                    key: "createdBy",
+                    label: "Created By",
+                    render: (val) => (
+                      <span className="prof-badge-blue">{val}</span>
+                    )
+                  },
+                  {
+                    key: "_id",
+                    label: "Actions",
+                    className: "text-right",
+                    render: (_, row) => (
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => handleEdit(row)}
+                          className="p-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-600 rounded-lg transition-colors"
+                          title="Edit"
+                        >
+                          <Edit2 size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(row._id)}
+                          className="p-2 hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 rounded-lg transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    )
+                  }
+                ]}
+              />
+            )}
           </div>
-
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-800">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <Building2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    Vendors List
-                  </h2>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    Showing <span className="font-bold text-slate-900 dark:text-white">{filteredVendors.length}</span> vendor{filteredVendors.length !== 1 ? 's' : ''}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="overflow-x-auto">
-              {tableLoading ? (
-                <div className="p-8 text-center">
-                  <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                  <p className="text-slate-600 dark:text-slate-400 mt-2">
-                    Loading vendors...
-                  </p>
-                </div>
-              ) : paginatedVendors.length === 0 ? (
-                <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                  No vendors found
-                </div>
-              ) : (
-                <table className="w-full">
-                  <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
-                        Vendor Name
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
-                        Contact Person
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Mobile
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
-                        Location
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Created By
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                    {paginatedVendors.map((vendor, idx) => (
-                      <tr
-                        key={vendor._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 ${
-                          idx % 2 === 0
-                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
-                        }`}
-                      >
-                        <td
-                          onClick={() => navigate(`/vendor/${vendor._id}`)}
-                          className="px-4 py-3 text-sm font-semibold text-indigo-600 dark:text-indigo-400 cursor-pointer group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors"
-                        >
-                          {vendor.name}
-                        </td>
-                        <td
-                          onClick={() => navigate(`/vendor/${vendor._id}`)}
-                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
-                        >
-                          {vendor.personName}
-                        </td>
-                        <td
-                          onClick={() => navigate(`/vendor/${vendor._id}`)}
-                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
-                        >
-                          <div className="flex items-center gap-2">
-                            <Phone className="w-4 h-4" />
-                            {vendor.mobileNumber}
-                          </div>
-                        </td>
-                        <td
-                          onClick={() => navigate(`/vendor/${vendor._id}`)}
-                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer max-w-xs truncate"
-                        >
-                          {vendor.location}
-                        </td>
-                        <td
-                          onClick={() => navigate(`/vendor/${vendor._id}`)}
-                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
-                        >
-                          {vendor.createdBy}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
-
-            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
-                  Items per page:
-                </span>
-                <select
-                  value={itemsPerPage}
-                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-semibold hover:border-blue-300"
-                >
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                </select>
-              </div>
-
-              <div className="flex items-center gap-6">
-                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                  <span className="font-bold text-blue-600 dark:text-blue-400">
-                    {startIndex + 1}-{Math.min(endIndex, filteredVendors.length)}
-                  </span>{" "}
-                  of{" "}
-                  <span className="font-bold text-slate-900 dark:text-slate-200">
-                    {filteredVendors.length}
-                  </span>
-                </span>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={handlePreviousPage}
-                    disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page{" "}
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
-                      {currentPage}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
-                      {totalPages || 1}
-                    </span>
-                  </span>
-                  <button
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
+      </ProfessionalPage>
     </Layout>
   );
 }
