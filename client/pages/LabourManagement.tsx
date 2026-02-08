@@ -283,62 +283,51 @@ export default function LabourManagement() {
             </div>
           ) : (
             <>
-              <div className="overflow-x-auto">
+              <div className="prof-table-responsive">
                 <table className="w-full">
                   <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Labour ID
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Name
-                      </th>
-                      <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Department
-                      </th>
-                      <th className="px-4 py-3 text-right text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Salary/Day
-                      </th>
-                      <th className="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Actions
-                      </th>
+                      <th className="prof-table-head-cell">Labour ID</th>
+                      <th className="prof-table-head-cell">Name</th>
+                      <th className="hidden md:table-cell prof-table-head-cell">Department</th>
+                      <th className="prof-table-head-cell text-right">Salary/Day</th>
+                      <th className="prof-table-head-cell text-center">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                     {paginatedLabour.map((item, idx) => (
                       <tr
                         key={item._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 h-16 ${
-                          idx % 2 === 0
-                            ? "hover:bg-blue-50 dark:hover:bg-blue-900/10"
-                            : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
+                        className={`prof-table-row prof-table-row-hover transition-all ${
+                          idx % 2 === 0 ? "prof-table-row-even" : ""
                         }`}
                       >
-                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white">
+                        <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
                           <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {item.code}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white">
+                        <td className="prof-table-cell text-slate-900 dark:text-white font-semibold">
                           <div className="flex flex-col gap-1">
                             <span>{item.name}</span>
-                            <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">
+                            <span className="md:hidden text-xs text-slate-500 dark:text-slate-400 font-normal">
                               Dept: {item.department}
                             </span>
                           </div>
                         </td>
-                        <td className="hidden md:table-cell px-4 py-3 text-sm">
+                        <td className="hidden md:table-cell prof-table-cell">
                           <span className="px-2.5 py-1.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-lg text-xs font-bold border border-purple-200/50 dark:border-purple-800/50">
                             {item.department}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-sm font-bold text-green-700 dark:text-green-400 text-right">
+                        <td className="prof-table-cell text-green-700 dark:text-green-400 font-bold text-right">
                           ₹
                           {item.salaryPerDay.toLocaleString("en-IN", {
                             minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
                           })}
                         </td>
-                        <td className="px-4 py-3 text-center">
+                        <td className="prof-table-cell text-center">
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => navigate(`/labour/${item._id}/edit`)}
