@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
+import { cn } from "@/lib/utils";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import RawMaterialLogs from "@/components/RawMaterialLogs";
 import {
