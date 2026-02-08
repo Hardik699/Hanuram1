@@ -8,7 +8,9 @@ import {
   Check,
   AlertCircle,
   Plus,
+  Folder,
 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Category {
   _id: string;
