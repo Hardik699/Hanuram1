@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { PageHeader } from "@/components/PageHeader";
 import { useAuth } from "@/hooks/useAuth";
 import {
   Plus,
@@ -13,6 +14,7 @@ import {
   User,
   CheckCircle,
   AlertCircle,
+  Users,
 } from "lucide-react";
 
 interface User {
