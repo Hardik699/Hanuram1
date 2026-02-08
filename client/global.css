@@ -315,6 +315,22 @@
     animation: slideInRight var(--animation-standard) ease-out;
   }
 
+  /* Slide In From Down Animation */
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-in-down {
+    animation: slideInDown var(--animation-standard) ease-out;
+  }
+
   /* Success Message Animation */
   @keyframes successPulse {
     0%, 100% {
