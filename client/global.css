@@ -727,7 +727,7 @@
 
   /* Professional Table Row */
   .prof-table-row {
-    @apply transition-all duration-200 group border-l-4 border-l-transparent hover:border-l-blue-500;
+    @apply transition-all duration-200 border-l-4 border-l-transparent hover:border-l-blue-500;
   }
 
   .prof-table-row-even {
