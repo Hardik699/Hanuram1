@@ -12,8 +12,11 @@ import {
   Phone,
   MapPin,
   Upload,
+  Search,
+  Building2,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Vendor {
   _id: string;
