@@ -418,6 +418,32 @@ export default function CreateSubCategory() {
         </div>
       ) : (
         <div className="space-y-6">
+          <PageHeader
+            title="Sub Category Management"
+            description="Create, manage, and organize product sub categories"
+            breadcrumbs={[{ label: "Sub Category Management" }]}
+            icon={<FolderOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+            actions={
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleClearAllClick}
+                  disabled={subcategories.length === 0}
+                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Clear All
+                </button>
+                <button
+                  onClick={() => setShowAddForm(true)}
+                  className="flex items-center gap-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 px-5 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Sub Category</span>
+                </button>
+              </div>
+            }
+          />
+
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border ${
@@ -442,29 +468,6 @@ export default function CreateSubCategory() {
               </span>
             </div>
           )}
-
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-              All Sub Categories <span className="text-teal-600">({filteredSubcategories.length})</span>
-            </h2>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleClearAllClick}
-                disabled={subcategories.length === 0}
-                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Trash2 className="w-4 h-4" />
-                Clear All
-              </button>
-              <button
-                onClick={() => setShowAddForm(true)}
-                className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-                Add Sub Category
-              </button>
-            </div>
-          </div>
 
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
             <div className="p-6 border-b border-slate-200 dark:border-slate-700">
