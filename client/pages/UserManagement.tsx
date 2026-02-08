@@ -570,10 +570,10 @@ export default function UserManagement() {
                     paginatedUsers.map((user, idx) => (
                       <tr
                         key={user._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-teal-500 cursor-pointer ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 cursor-pointer ${
                           idx % 2 === 0
-                            ? "hover:bg-teal-50 dark:hover:bg-slate-700/50"
-                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-teal-50 dark:hover:bg-slate-700/50"
+                            ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50"
+                            : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"
                         }`}
                         onClick={() => navigate(`/users/${user._id}`)}
                       >
