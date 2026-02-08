@@ -932,13 +932,13 @@ export default function CreateRecipe() {
                       {recipeItems.map((item, index) => (
                         <tr
                           key={index}
-                          className={`transition-colors ${
+                          className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 cursor-pointer ${
                             editingItemIndex === index
-                              ? "bg-blue-50 dark:bg-blue-900/20"
-                              : "hover:bg-slate-50 dark:hover:bg-slate-700/30"
+                              ? "bg-indigo-50 dark:bg-indigo-900/20 border-l-indigo-500"
+                              : `${index % 2 === 0 ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50" : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"}`
                           }`}
                         >
-                          <td className="px-4 py-3 text-sm font-medium text-slate-900 dark:text-white">
+                          <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
                             {item.rawMaterialName} ({item.rawMaterialCode})
                           </td>
                           <td className="px-4 py-3 text-sm text-slate-900 dark:text-white">
