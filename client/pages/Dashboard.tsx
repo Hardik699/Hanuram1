@@ -109,7 +109,7 @@ export default function Dashboard() {
             Quick Actions
           </h3>
           <div className="space-y-3">
-            <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 text-blue-700 dark:text-blue-300 rounded-xl hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-900/30 dark:hover:to-blue-900/20 transition-all font-semibold text-sm text-left border border-blue-200 dark:border-blue-800/50 transform hover:scale-105 hover:shadow-elevation-2">
+            <button className="w-full px-4 py-3 bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-900/10 text-indigo-700 dark:text-indigo-300 rounded-xl hover:from-indigo-100 hover:to-indigo-200 dark:hover:from-indigo-900/30 dark:hover:to-indigo-900/20 transition-all font-semibold text-sm text-left border border-indigo-200 dark:border-indigo-800/50 transform hover:scale-105 hover:shadow-elevation-2">
               ⚙️ Settings
             </button>
             <button className="w-full px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-300 rounded-xl hover:from-slate-200 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-700/70 transition-all font-semibold text-sm text-left border border-slate-200 dark:border-slate-700 transform hover:scale-105 hover:shadow-elevation-2">
