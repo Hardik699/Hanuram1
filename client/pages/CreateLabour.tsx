@@ -273,11 +273,11 @@ export default function CreateLabour() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-3 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-slate-200 dark:border-slate-700">
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:bg-slate-400 dark:disabled:bg-slate-600 text-white font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:scale-100"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:bg-slate-400 dark:disabled:bg-slate-600 text-white font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:scale-100 text-sm sm:text-base"
               >
                 {loading ? (
                   <>
@@ -294,7 +294,7 @@ export default function CreateLabour() {
               <button
                 type="button"
                 onClick={handleBack}
-                className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                className="sm:px-6 px-4 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors text-sm sm:text-base"
               >
                 Cancel
               </button>
