@@ -484,11 +484,11 @@ export default function CreateUnit() {
           </div>
 
           {/* Units List Header */}
-          <div className="bg-gradient-to-r from-slate-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                  <Settings className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   Units List
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
