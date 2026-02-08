@@ -526,7 +526,7 @@ export default function CreateUnit() {
                   {tableLoading ? (
                     <tr>
                       <td colSpan={4} className="px-6 py-8 text-center">
-                        <div className="inline-block w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+                        <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                         <p className="text-slate-600 dark:text-slate-400 mt-2">
                           Loading units...
                         </p>
