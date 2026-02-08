@@ -17,6 +17,7 @@ import {
 } from "@/components/ProfessionalForm";
 import { DataTable } from "@/components/DataTable";
 import Modal from "@/components/ui/Modal";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { cn } from "@/lib/utils";
 
 interface Labour {
