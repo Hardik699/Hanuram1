@@ -441,7 +441,7 @@ export default function CreateCategory() {
           )}
 
           {/* Filter Section */}
-          <div className="bg-gradient-to-r from-blue-50 via-white to-cyan-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 rounded-2xl shadow-lg p-6 mb-4 border border-blue-100/50 dark:border-blue-900/30">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               Filter Results
