@@ -258,17 +258,23 @@ export default function LabourManagement() {
           </div>
 
           {/* Average Salary Card */}
-          <div className="bg-gradient-to-br from-pink-500 via-pink-600 to-pink-700 dark:from-pink-900 dark:to-pink-950 rounded-2xl p-6 shadow-lg border border-pink-400/30 dark:border-pink-800/30 text-white">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="text-pink-100 text-sm font-semibold uppercase tracking-wide">Avg Salary/Day</p>
-                <h3 className="text-3xl font-bold mt-2">₹{avgSalaryPerDay.toFixed(2)}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+                  Avg Salary/Day
+                </p>
+                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                  ₹{avgSalaryPerDay.toFixed(2)}
+                </h3>
               </div>
-              <div className="bg-pink-400/30 dark:bg-pink-800/50 p-3 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-pink-200" />
+              <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-xl">
+                <TrendingUp className="w-6 h-6 text-amber-600 dark:text-amber-400" />
               </div>
             </div>
-            <p className="text-pink-200 text-xs font-medium">Per worker average</p>
+            <div className="h-1 w-full bg-amber-200 dark:bg-amber-900/30 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full transition-all" style={{ width: "100%" }}></div>
+            </div>
           </div>
         </div>
 
