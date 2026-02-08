@@ -515,7 +515,7 @@ export default function LabourManagement() {
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold"
               >
                 {editingId ? "Update" : "Add"} Labour
               </Button>
