@@ -465,6 +465,15 @@ async function initializeCollections() {
         { upsert: true },
       );
 
+      // Add opcost_view permission (27) to all roles
+      for (const roleId of [1, 2, 3, 4, 5, 6, 7]) {
+        await rolePermissionsCollection.updateOne(
+          { role_id: roleId, permission_id: 27 },
+          { $setOnInsert: { role_id: roleId, permission_id: 27 } },
+          { upsert: true },
+        );
+      }
+
       console.log("✅ Labour and cost viewing permissions ensured for roles");
     }
 
