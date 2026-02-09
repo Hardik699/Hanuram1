@@ -378,6 +378,7 @@ export default function UserDetail() {
         {!isEditing && (
           <div className="flex gap-3 mb-6">
             <Button
+              key="toggle-status"
               onClick={handleToggleStatus}
               className={`flex items-center gap-2 ${
                 user.status === "active"
@@ -386,15 +387,15 @@ export default function UserDetail() {
               }`}
             >
               {user.status === "active" ? (
-                <>
+                <span key="block" className="flex items-center gap-2">
                   <Lock className="w-4 h-4" />
                   Block User
-                </>
+                </span>
               ) : (
-                <>
+                <span key="unblock" className="flex items-center gap-2">
                   <Unlock className="w-4 h-4" />
                   Unblock User
-                </>
+                </span>
               )}
             </Button>
 
