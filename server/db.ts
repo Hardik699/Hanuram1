@@ -529,6 +529,7 @@ async function initializeCollections() {
         { user_id: productionUserId, module_key: "CATEGORY_UNIT" },
         { user_id: productionUserId, module_key: "RAW_MATERIAL" },
         { user_id: productionUserId, module_key: "RAW_MATERIAL_COSTING" },
+        { user_id: productionUserId, module_key: "RECIPE" },
       ];
       await db.collection("user_modules").insertMany(productionModules);
       console.log("✅ Modules assigned to Production user");
@@ -548,6 +549,29 @@ async function initializeCollections() {
       console.log(
         "✅ Production user updated with credentials: Production / Hanuram@ (Production role)",
       );
+
+      // Ensure RECIPE module is assigned to Production user
+      const productionUserDoc = await db.collection("users").findOne({
+        username: "Production",
+      });
+      if (productionUserDoc) {
+        const productionUserId = productionUserDoc._id.toString();
+        const requiredModules = [
+          "DASHBOARD",
+          "CATEGORY_UNIT",
+          "RAW_MATERIAL",
+          "RAW_MATERIAL_COSTING",
+          "RECIPE",
+        ];
+
+        for (const moduleKey of requiredModules) {
+          await db.collection("user_modules").updateOne(
+            { user_id: productionUserId, module_key: moduleKey },
+            { $setOnInsert: { user_id: productionUserId, module_key: moduleKey } },
+            { upsert: true },
+          );
+        }
+      }
     }
 
     // Create categories collection
