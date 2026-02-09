@@ -31,6 +31,7 @@ import CreateLabour from "./pages/CreateLabour";
 import CostingAnalysis from "./pages/CostingAnalysis";
 import OpCostManagement from "./pages/OpCostManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
