@@ -1266,7 +1266,7 @@ export default function RMManagement() {
           </div>
 
           {/* Raw Materials Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+          <div className="unified-table-container">
             <div className="prof-table-responsive">
               <table className="w-full">
                 <thead className="prof-table-head">
