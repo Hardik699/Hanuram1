@@ -29,13 +29,15 @@ export function Sidebar() {
   };
 
   const checkAccess = (item: any) => {
-    // Permission checks disabled - all users see all menu items
-    // if (item.module) {
-    //   return canAccess(item.module);
-    // }
-    // if (item.permission) {
-    //   return hasPermission(item.permission);
-    // }
+    // If item has a module field, check module access
+    if (item.module) {
+      return canAccess(item.module);
+    }
+    // Otherwise check permission
+    if (item.permission) {
+      return hasPermission(item.permission);
+    }
+    // No restriction
     return true;
   };
 
