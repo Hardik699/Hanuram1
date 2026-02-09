@@ -86,7 +86,8 @@ export default function CostingAnalysis() {
         : 0;
 
     // 2. Hygiene Cost / Kg
-    const hygieneCostPerKg = currentInputs.hygieneCostPerUnit * currentInputs.hygieneQtyPerKg;
+    const hygieneCostPerKg =
+      currentInputs.hygieneCostPerUnit * currentInputs.hygieneQtyPerKg;
 
     // 3. Scavenger Cost / Kg
     const scavengerCostPerKg =
@@ -96,21 +97,24 @@ export default function CostingAnalysis() {
     const mapCostPerKg = currentInputs.mapCostPerKg;
 
     // 5. Smaller Size Packaging Cost / Kg (direct input)
-    const smallerSizePackagingCostPerKg = currentInputs.smallerSizePackagingCost;
+    const smallerSizePackagingCostPerKg =
+      currentInputs.smallerSizePackagingCost;
 
     // 6. Mono Carton Cost / Kg
     const monoCartonCostPerKg =
       currentInputs.monoCartonCostPerUnit * currentInputs.monoCartonQtyPerKg;
 
     // 7. Sticker Cost / Kg
-    const stickerCostPerKg = currentInputs.stickerCostPerUnit * currentInputs.stickerQtyPerKg;
+    const stickerCostPerKg =
+      currentInputs.stickerCostPerUnit * currentInputs.stickerQtyPerKg;
 
     // 8. Butter Paper Cost / Kg
     const butterPaperCostPerKg =
       currentInputs.butterPaperCostPerKg * currentInputs.butterPaperQtyPerKg;
 
     // 9. Excess Stock Cost / Kg
-    const excessStockCostPerKg = currentInputs.excessWeightPerKg * currentInputs.rmcCostPerKg;
+    const excessStockCostPerKg =
+      currentInputs.excessWeightPerKg * currentInputs.rmcCostPerKg;
 
     // Material Wastage Cost / Kg
     const wastageBaseSum =
@@ -151,7 +155,6 @@ export default function CostingAnalysis() {
     });
   };
 
-
   return (
     <Layout title="Costing Analysis">
       <>
@@ -159,9 +162,7 @@ export default function CostingAnalysis() {
           title="Costing Analysis"
           description="Calculate packaging & handling cost per Kg for products"
           breadcrumbs={[{ label: "Costing Analysis" }]}
-          icon={
-            <Calculator className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          }
+          icon={<Calculator className="w-6 h-6 text-white" />}
         />
 
         <div className="space-y-6">
@@ -228,7 +229,11 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
                 <p className="font-medium text-blue-900 dark:text-blue-200">
-                  ✓ Shipper Box Cost / Kg = {inputs.shipperBoxCost} ÷ {inputs.shipperBoxQty} = <span className="font-bold">₹{results.shipperBoxCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Shipper Box Cost / Kg = {inputs.shipperBoxCost} ÷{" "}
+                  {inputs.shipperBoxQty} ={" "}
+                  <span className="font-bold">
+                    ₹{results.shipperBoxCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -275,7 +280,11 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-green-50 dark:bg-green-950 p-3 rounded border border-green-200 dark:border-green-800">
                 <p className="font-medium text-green-900 dark:text-green-200">
-                  ✓ Hygiene Cost / Kg = {inputs.hygieneCostPerUnit} × {inputs.hygieneQtyPerKg} = <span className="font-bold">₹{results.hygieneCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Hygiene Cost / Kg = {inputs.hygieneCostPerUnit} ×{" "}
+                  {inputs.hygieneQtyPerKg} ={" "}
+                  <span className="font-bold">
+                    ₹{results.hygieneCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -322,7 +331,11 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-purple-50 dark:bg-purple-950 p-3 rounded border border-purple-200 dark:border-purple-800">
                 <p className="font-medium text-purple-900 dark:text-purple-200">
-                  ✓ Scavenger Cost / Kg = {inputs.scavengerCostPerUnit} × {inputs.scavengerQtyPerKg} = <span className="font-bold">₹{results.scavengerCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Scavenger Cost / Kg = {inputs.scavengerCostPerUnit} ×{" "}
+                  {inputs.scavengerQtyPerKg} ={" "}
+                  <span className="font-bold">
+                    ₹{results.scavengerCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -355,7 +368,10 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-orange-50 dark:bg-orange-950 p-3 rounded border border-orange-200 dark:border-orange-800">
                 <p className="font-medium text-orange-900 dark:text-orange-200">
-                  ✓ MAP Cost / Kg = <span className="font-bold">₹{results.mapCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ MAP Cost / Kg ={" "}
+                  <span className="font-bold">
+                    ₹{results.mapCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -388,7 +404,10 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-pink-50 dark:bg-pink-950 p-3 rounded border border-pink-200 dark:border-pink-800">
                 <p className="font-medium text-pink-900 dark:text-pink-200">
-                  ✓ Smaller Size Packaging Cost / Kg = <span className="font-bold">₹{results.smallerSizePackagingCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Smaller Size Packaging Cost / Kg ={" "}
+                  <span className="font-bold">
+                    ₹{results.smallerSizePackagingCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -435,7 +454,11 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-red-50 dark:bg-red-950 p-3 rounded border border-red-200 dark:border-red-800">
                 <p className="font-medium text-red-900 dark:text-red-200">
-                  ✓ Mono Carton Cost / Kg = {inputs.monoCartonCostPerUnit} × {inputs.monoCartonQtyPerKg} = <span className="font-bold">₹{results.monoCartonCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Mono Carton Cost / Kg = {inputs.monoCartonCostPerUnit} ×{" "}
+                  {inputs.monoCartonQtyPerKg} ={" "}
+                  <span className="font-bold">
+                    ₹{results.monoCartonCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -482,7 +505,11 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-indigo-50 dark:bg-indigo-950 p-3 rounded border border-indigo-200 dark:border-indigo-800">
                 <p className="font-medium text-indigo-900 dark:text-indigo-200">
-                  ✓ Sticker Cost / Kg = {inputs.stickerCostPerUnit} × {inputs.stickerQtyPerKg} = <span className="font-bold">₹{results.stickerCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Sticker Cost / Kg = {inputs.stickerCostPerUnit} ×{" "}
+                  {inputs.stickerQtyPerKg} ={" "}
+                  <span className="font-bold">
+                    ₹{results.stickerCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -529,7 +556,11 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-yellow-50 dark:bg-yellow-950 p-3 rounded border border-yellow-200 dark:border-yellow-800">
                 <p className="font-medium text-yellow-900 dark:text-yellow-200">
-                  ✓ Butter Paper Cost / Kg = {inputs.butterPaperCostPerKg} × {inputs.butterPaperQtyPerKg} = <span className="font-bold">₹{results.butterPaperCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Butter Paper Cost / Kg = {inputs.butterPaperCostPerKg} ×{" "}
+                  {inputs.butterPaperQtyPerKg} ={" "}
+                  <span className="font-bold">
+                    ₹{results.butterPaperCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -576,7 +607,11 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-cyan-50 dark:bg-cyan-950 p-3 rounded border border-cyan-200 dark:border-cyan-800">
                 <p className="font-medium text-cyan-900 dark:text-cyan-200">
-                  ✓ Excess Stock Cost / Kg = {inputs.excessWeightPerKg} × {inputs.rmcCostPerKg} = <span className="font-bold">₹{results.excessStockCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Excess Stock Cost / Kg = {inputs.excessWeightPerKg} ×{" "}
+                  {inputs.rmcCostPerKg} ={" "}
+                  <span className="font-bold">
+                    ₹{results.excessStockCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
@@ -607,12 +642,14 @@ export default function CostingAnalysis() {
             {results && (
               <div className="bg-amber-50 dark:bg-amber-950 p-3 rounded border border-amber-200 dark:border-amber-800">
                 <p className="font-medium text-amber-900 dark:text-amber-200">
-                  ✓ Material Wastage Cost / Kg ({inputs.wastagePercentage}%) = <span className="font-bold">₹{results.materialWastageCostPerKg.toFixed(2)}/Kg</span>
+                  ✓ Material Wastage Cost / Kg ({inputs.wastagePercentage}%) ={" "}
+                  <span className="font-bold">
+                    ₹{results.materialWastageCostPerKg.toFixed(2)}/Kg
+                  </span>
                 </p>
               </div>
             )}
           </div>
-
 
           {/* Results Section */}
           {results && (

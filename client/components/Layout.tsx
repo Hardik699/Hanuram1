@@ -33,7 +33,9 @@ export function Layout({
               </div>
               <div className="flex items-center gap-4">
                 {headerActions && (
-                  <div className="flex items-center gap-2 animate-fade-in-up">{headerActions}</div>
+                  <div className="flex items-center gap-2 animate-fade-in-up">
+                    {headerActions}
+                  </div>
                 )}
                 <UserMenu />
               </div>
@@ -43,8 +45,10 @@ export function Layout({
       )}
 
       {/* Main content */}
-      <main className="md:ml-64 pt-20 sm:pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto fade-in-up page-load">{children}</div>
+      <main className="md:ml-64 pt-20 sm:pt-24 pb-12 px-0 sm:px-4 lg:px-6 overflow-x-hidden">
+        <div className="max-w-7xl mx-auto fade-in-up page-load px-4 sm:px-6 lg:px-8">
+          {children}
+        </div>
       </main>
     </div>
   );

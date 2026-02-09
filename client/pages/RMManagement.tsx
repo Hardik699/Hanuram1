@@ -1005,9 +1005,7 @@ export default function RMManagement() {
           title="Raw Material Management"
           description="Manage all raw materials and track vendor prices"
           breadcrumbs={[{ label: "Raw Material Management" }]}
-          icon={
-            <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          }
+          icon={<Package className="w-6 h-6 text-white" />}
           actions={headerActions}
         />
 
@@ -1268,7 +1266,7 @@ export default function RMManagement() {
           </div>
 
           {/* Raw Materials Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+          <div className="unified-table-container">
             <div className="prof-table-responsive">
               <table className="w-full">
                 <thead className="prof-table-head">

@@ -265,7 +265,7 @@ export default function CreateUnit() {
         title="Unit Management"
         description="Manage measurement units for products"
         breadcrumbs={[{ label: "Unit Management" }]}
-        icon={<Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+        icon={<Settings className="w-6 h-6 text-white" />}
         actions={
           !showAddForm ? (
             <div className="flex items-center gap-2">
@@ -409,7 +409,7 @@ export default function CreateUnit() {
           </div>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border animate-in fade-in slide-in-from-top-2 duration-300 ${
@@ -501,21 +501,21 @@ export default function CreateUnit() {
           </div>
 
           {/* Units Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
-            <div className="overflow-x-auto">
-              <table className="w-full">
+          <div className="unified-table-container">
+            <div className="overflow-x-auto w-full">
+              <table className="w-full min-w-full">
                 <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
                   <tr>
-                    <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Name
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Short Code
                     </th>
-                    <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="hidden md:table-cell px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Created By
                     </th>
-                    <th className="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-center text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
                       Actions
                     </th>
                   </tr>
@@ -549,7 +549,7 @@ export default function CreateUnit() {
                             : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
                         }`}
                       >
-                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white">
+                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white whitespace-nowrap">
                           <div className="flex flex-col gap-1">
                             <span>{unit.name}</span>
                             <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">
@@ -557,15 +557,15 @@ export default function CreateUnit() {
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-xs font-bold">
-                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
+                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-bold whitespace-nowrap">
+                          <span className="px-2 sm:px-2.5 py-1 sm:py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {unit.shortCode}
                           </span>
                         </td>
-                        <td className="hidden md:table-cell px-4 py-3 text-xs text-slate-600 dark:text-slate-400">
+                        <td className="hidden md:table-cell px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap">
                           {unit.createdBy}
                         </td>
-                        <td className="px-4 py-3 text-center">
+                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-center whitespace-nowrap">
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => handleEdit(unit)}

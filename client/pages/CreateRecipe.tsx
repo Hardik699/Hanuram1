@@ -73,7 +73,7 @@ interface Recipe {
 export default function CreateRecipe() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { hasPermission } = useAuth();
+  const { hasPermission, user } = useAuth();
   const [units, setUnits] = useState<Unit[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
@@ -491,9 +491,7 @@ export default function CreateRecipe() {
             { label: "Raw Material Costing", href: "/rmc" },
             { label: id ? "Edit Recipe" : "Create Recipe" },
           ]}
-          icon={
-            <ChefHat className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-          }
+          icon={<ChefHat className="w-6 h-6 text-white" />}
         />
 
         {/* Message Alert */}
@@ -1142,8 +1140,8 @@ export default function CreateRecipe() {
           </form>
         </div>
 
-        {/* Labour Costing Sections - Only show if recipe is created */}
-        {id && (
+        {/* Labour Costing Sections - Only show if recipe is created AND user is not a production user */}
+        {id && user?.role_id !== 7 && (
           <>
             {/* Labour Section Header Card */}
             <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
