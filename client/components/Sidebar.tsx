@@ -49,27 +49,28 @@ export function Sidebar() {
       permission: "dashboard_view",
     },
     {
-      label: "Category/Unit",
+      label: "Category",
+      path: "/create-category",
       icon: Package,
-      module: "CATEGORY_UNIT",
-      submenu: [
-        {
-          label: "Create Category",
-          path: "/create-category",
-          permission: "category_add",
-        },
-        {
-          label: "Create Sub Category",
-          path: "/create-subcategory",
-          permission: "subcategory_add",
-        },
-        { label: "Create Unit", path: "/create-unit", permission: "unit_add" },
-        {
-          label: "Create Vendor",
-          path: "/create-vendor",
-          permission: "vendor_add",
-        },
-      ],
+      permission: "category_add",
+    },
+    {
+      label: "Sub Category",
+      path: "/create-subcategory",
+      icon: Package,
+      permission: "subcategory_add",
+    },
+    {
+      label: "Unit",
+      path: "/create-unit",
+      icon: Package,
+      permission: "unit_add"
+    },
+    {
+      label: "Vendor",
+      path: "/create-vendor",
+      icon: Package,
+      permission: "vendor_add",
     },
     {
       label: "Raw Material",
