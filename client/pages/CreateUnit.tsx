@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
-import { ManagementNav } from "@/components/ManagementNav";
 
 interface Unit {
   _id: string;
