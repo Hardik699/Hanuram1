@@ -949,13 +949,12 @@ export default function RMCManagement() {
       {/* Content for Production Users */}
       {isProductionUser && (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-6 border border-blue-200 dark:border-slate-700">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
-              Recipe Making - Raw Materials & Labour Cost
+          <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-6 border border-orange-200 dark:border-slate-700">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              Production Labour Costs
             </h3>
             <p className="text-slate-600 dark:text-slate-400 mb-4">
-              Overview of raw materials used in recipes and associated labour
-              costs
+              Click on a recipe to view and manage its production labour costs
             </p>
 
             {recipes.length === 0 ? (
