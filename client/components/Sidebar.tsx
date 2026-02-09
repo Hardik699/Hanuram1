@@ -41,7 +41,7 @@ export function Sidebar() {
     return true;
   };
 
-  // Production user (role_id: 7) sees only these 5 items
+  // Production user (role_id: 7) sees only these items
   const isProductionUser = user?.role_id === 7;
 
   const menuItems = isProductionUser
@@ -70,6 +70,11 @@ export function Sidebar() {
           label: "Raw Material",
           path: "/raw-materials",
           icon: Package,
+        },
+        {
+          label: "Production Labour Cost",
+          path: "/rmc",
+          icon: List,
         },
       ]
     : [
