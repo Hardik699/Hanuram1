@@ -1,7 +1,6 @@
 import "./global.css";
 
 import { Toaster } from "@/components/ui/toaster";
-import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -24,8 +23,6 @@ import RMCManagement from "./pages/RMCManagement";
 import RecipeDetail from "./pages/RecipeDetail";
 import QuotationDetail from "./pages/QuotationDetail";
 import NotFound from "./pages/NotFound";
-import UserManagement from "./pages/UserManagement";
-import UserDetail from "./pages/UserDetail";
 import LabourManagement from "./pages/LabourManagement";
 import CreateLabour from "./pages/CreateLabour";
 import CostingAnalysis from "./pages/CostingAnalysis";
@@ -189,22 +186,6 @@ const App = () => (
               }
             />
             <Route
-              path="/users"
-              element={
-                <ProtectedRoute requiredPermission="user_manage">
-                  <UserManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/users/:id"
-              element={
-                <ProtectedRoute requiredPermission="user_manage">
-                  <UserDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path="/labour"
               element={
                 <ProtectedRoute requiredPermission="labour_view">
@@ -253,4 +234,4 @@ const App = () => (
   </AuthProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+export default App;

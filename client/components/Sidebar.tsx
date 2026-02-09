@@ -14,7 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 export function Sidebar() {
   const location = useLocation();
-  const { hasPermission, canAccess } = useAuth();
+  const { hasPermission, canAccess, user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
@@ -41,67 +41,89 @@ export function Sidebar() {
     return true;
   };
 
-  const menuItems = [
-    {
-      label: "Dashboard",
-      path: "/dashboard",
-      icon: LayoutGrid,
-      permission: "dashboard_view",
-    },
-    {
-      label: "Category/Unit",
-      icon: Package,
-      module: "CATEGORY_UNIT",
-      submenu: [
+  // Production user (role_id: 7) sees only these items
+  const isProductionUser = user?.role_id === 7;
+
+  const menuItems = isProductionUser
+    ? [
         {
-          label: "Create Category",
+          label: "Category",
           path: "/create-category",
-          permission: "category_add",
+          icon: Package,
         },
         {
-          label: "Create Sub Category",
+          label: "Sub Category",
           path: "/create-subcategory",
-          permission: "subcategory_add",
+          icon: Package,
         },
-        { label: "Create Unit", path: "/create-unit", permission: "unit_add" },
         {
-          label: "Create Vendor",
-          path: "/create-vendor",
-          permission: "vendor_add",
+          label: "Unit",
+          path: "/create-unit",
+          icon: Package,
         },
-      ],
-    },
-    {
-      label: "Raw Material",
-      path: "/raw-materials",
-      icon: Package,
-      permission: "rm_view",
-    },
-    {
-      label: "Labour",
-      path: "/labour",
-      icon: Users,
-      permission: "labour_view",
-    },
-    {
-      label: "Raw Material Costing",
-      path: "/rmc",
-      icon: List,
-      permission: "recipe_view",
-    },
-    {
-      label: "User Management",
-      path: "/users",
-      icon: Users,
-      permission: "user_manage",
-    },
-    {
-      label: "OP Cost Management",
-      path: "/op-cost",
-      icon: Calculator,
-      permission: "opcost_view",
-    },
-  ];
+        {
+          label: "Vendor",
+          path: "/create-vendor",
+          icon: Package,
+        },
+        {
+          label: "Raw Material",
+          path: "/raw-materials",
+          icon: Package,
+        },
+        {
+          label: "Production Labour Cost",
+          path: "/rmc",
+          icon: List,
+        },
+      ]
+    : [
+        {
+          label: "Dashboard",
+          path: "/dashboard",
+          icon: LayoutGrid,
+        },
+        {
+          label: "Category",
+          path: "/create-category",
+          icon: Package,
+        },
+        {
+          label: "Sub Category",
+          path: "/create-subcategory",
+          icon: Package,
+        },
+        {
+          label: "Unit",
+          path: "/create-unit",
+          icon: Package,
+        },
+        {
+          label: "Vendor",
+          path: "/create-vendor",
+          icon: Package,
+        },
+        {
+          label: "Raw Material",
+          path: "/raw-materials",
+          icon: Package,
+        },
+        {
+          label: "Labour",
+          path: "/labour",
+          icon: Users,
+        },
+        {
+          label: "Raw Material Costing",
+          path: "/rmc",
+          icon: List,
+        },
+        {
+          label: "OP Cost Management",
+          path: "/op-cost",
+          icon: Calculator,
+        },
+      ];
 
   const renderSubmenu = (submenu: any[], level = 0, parentLabel?: string) => {
     // Filter items by permission/module

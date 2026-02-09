@@ -80,18 +80,6 @@ import {
 } from "./routes/quotations";
 import { connectDB, getConnectionStatus } from "./db";
 import {
-  handleGetUsers,
-  handleGetUserById,
-  handleCreateUser,
-  handleUpdateUser,
-  handleUpdateUserRole,
-  handleUpdateUserStatus,
-  handleDeleteUser,
-  handleGetRoles,
-  handleGetPermissions,
-  handleUpdateUserPermissions,
-} from "./routes/users";
-import {
   handleGetLabour,
   handleCreateLabour,
   handleUpdateLabour,
@@ -332,21 +320,6 @@ export async function createServer() {
     handleChangeQuotationVendor,
   );
   app.get("/api/quotations/:quotationId/logs", handleGetQuotationLogs);
-
-  // User management routes
-  app.get("/api/users", handleGetUsers);
-  app.post("/api/users", handleCreateUser);
-  // More specific routes first
-  app.put("/api/users/:id/role", handleUpdateUserRole);
-  app.put("/api/users/:id/status", handleUpdateUserStatus);
-  app.patch("/api/users/:id/status", handleUpdateUserStatus);
-  app.put("/api/users/:id/permissions", handleUpdateUserPermissions);
-  // Less specific routes after
-  app.get("/api/users/:id", handleGetUserById);
-  app.put("/api/users/:id", handleUpdateUser);
-  app.delete("/api/users/:id", handleDeleteUser);
-  app.get("/api/roles", handleGetRoles);
-  app.get("/api/permissions", handleGetPermissions);
 
   // Labour management routes
   app.get("/api/labour", handleGetLabour);

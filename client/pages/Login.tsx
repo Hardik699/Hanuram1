@@ -35,14 +35,23 @@ export default function Login() {
 
   const checkDBStatus = async () => {
     try {
-      const response = await fetch("/api/db-status");
+      const response = await fetch("/api/db-status", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        console.warn(`DB Status check failed with status: ${response.status}`);
+        setDbConnected(false);
+        return;
       }
       const data = await response.json();
       setDbConnected(data.status === "connected");
-    } catch {
-      setDbConnected(false);
+    } catch (error) {
+      console.warn("DB Status check error:", error);
+      // Don't block login if DB status check fails
+      setDbConnected(true);
     }
   };
 
@@ -201,21 +210,6 @@ export default function Login() {
               )}
             </button>
           </form>
-        </div>
-
-        {/* Default credentials info */}
-        <div className="text-center text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700">
-          <p className="font-semibold text-slate-700 dark:text-slate-300 mb-2">
-            Default credentials:
-          </p>
-          <div className="space-y-1">
-            <p className="text-blue-600 dark:text-blue-400 font-mono font-bold">
-              Admin: admin / admin123
-            </p>
-            <p className="text-emerald-600 dark:text-emerald-400 font-mono font-bold">
-              Production: Production / Hanuram@
-            </p>
-          </div>
         </div>
       </div>
     </div>

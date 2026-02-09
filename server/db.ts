@@ -174,11 +174,6 @@ async function initializeCollections() {
           description: "Add Quotations",
         },
         {
-          permission_id: 19,
-          permission_key: "user_manage",
-          description: "Manage Users",
-        },
-        {
           permission_id: 20,
           permission_key: "labour_view",
           description: "View Labour",
@@ -347,50 +342,141 @@ async function initializeCollections() {
         { role_id: 2, permission_id: 25 },
         { role_id: 2, permission_id: 26 },
         { role_id: 2, permission_id: 27 },
-        // Manager
+        // Manager - ALL Permissions
         { role_id: 3, permission_id: 1 },
         { role_id: 3, permission_id: 2 },
+        { role_id: 3, permission_id: 3 },
+        { role_id: 3, permission_id: 4 },
         { role_id: 3, permission_id: 5 },
+        { role_id: 3, permission_id: 6 },
+        { role_id: 3, permission_id: 7 },
+        { role_id: 3, permission_id: 8 },
+        { role_id: 3, permission_id: 9 },
+        { role_id: 3, permission_id: 10 },
+        { role_id: 3, permission_id: 11 },
+        { role_id: 3, permission_id: 12 },
+        { role_id: 3, permission_id: 13 },
+        { role_id: 3, permission_id: 14 },
+        { role_id: 3, permission_id: 15 },
+        { role_id: 3, permission_id: 16 },
         { role_id: 3, permission_id: 17 },
-        { role_id: 3, permission_id: 19 }, // user_manage
-        { role_id: 3, permission_id: 20 }, // labour_view
-        // Vendor
-        { role_id: 4, permission_id: 2 }, // rm_view
-        { role_id: 4, permission_id: 14 }, // vendor_view
-        { role_id: 4, permission_id: 17 }, // quotation_view
-        { role_id: 4, permission_id: 19 }, // user_manage
-        { role_id: 4, permission_id: 20 }, // labour_view
-        // Viewer
+        { role_id: 3, permission_id: 18 },
+        { role_id: 3, permission_id: 20 },
+        { role_id: 3, permission_id: 21 },
+        { role_id: 3, permission_id: 22 },
+        { role_id: 3, permission_id: 23 },
+        { role_id: 3, permission_id: 24 },
+        { role_id: 3, permission_id: 25 },
+        { role_id: 3, permission_id: 26 },
+        { role_id: 3, permission_id: 27 },
+        // Vendor - ALL Permissions
+        { role_id: 4, permission_id: 1 },
+        { role_id: 4, permission_id: 2 },
+        { role_id: 4, permission_id: 3 },
+        { role_id: 4, permission_id: 4 },
+        { role_id: 4, permission_id: 5 },
+        { role_id: 4, permission_id: 6 },
+        { role_id: 4, permission_id: 7 },
+        { role_id: 4, permission_id: 8 },
+        { role_id: 4, permission_id: 9 },
+        { role_id: 4, permission_id: 10 },
+        { role_id: 4, permission_id: 11 },
+        { role_id: 4, permission_id: 12 },
+        { role_id: 4, permission_id: 13 },
+        { role_id: 4, permission_id: 14 },
+        { role_id: 4, permission_id: 15 },
+        { role_id: 4, permission_id: 16 },
+        { role_id: 4, permission_id: 17 },
+        { role_id: 4, permission_id: 18 },
+        { role_id: 4, permission_id: 20 },
+        { role_id: 4, permission_id: 21 },
+        { role_id: 4, permission_id: 22 },
+        { role_id: 4, permission_id: 23 },
+        { role_id: 4, permission_id: 24 },
+        { role_id: 4, permission_id: 25 },
+        { role_id: 4, permission_id: 26 },
+        { role_id: 4, permission_id: 27 },
+        // Viewer - ALL Permissions
         { role_id: 5, permission_id: 1 },
         { role_id: 5, permission_id: 2 },
+        { role_id: 5, permission_id: 3 },
+        { role_id: 5, permission_id: 4 },
         { role_id: 5, permission_id: 5 },
-        { role_id: 5, permission_id: 19 }, // user_manage
-        { role_id: 5, permission_id: 20 }, // labour_view
-        // Cost Viewer - Can see data but not cost details
+        { role_id: 5, permission_id: 6 },
+        { role_id: 5, permission_id: 7 },
+        { role_id: 5, permission_id: 8 },
+        { role_id: 5, permission_id: 9 },
+        { role_id: 5, permission_id: 10 },
+        { role_id: 5, permission_id: 11 },
+        { role_id: 5, permission_id: 12 },
+        { role_id: 5, permission_id: 13 },
+        { role_id: 5, permission_id: 14 },
+        { role_id: 5, permission_id: 15 },
+        { role_id: 5, permission_id: 16 },
+        { role_id: 5, permission_id: 17 },
+        { role_id: 5, permission_id: 18 },
+        { role_id: 5, permission_id: 20 },
+        { role_id: 5, permission_id: 21 },
+        { role_id: 5, permission_id: 22 },
+        { role_id: 5, permission_id: 23 },
+        { role_id: 5, permission_id: 24 },
+        { role_id: 5, permission_id: 25 },
+        { role_id: 5, permission_id: 26 },
+        { role_id: 5, permission_id: 27 },
+        // Cost Viewer - ALL Permissions
         { role_id: 6, permission_id: 1 },
         { role_id: 6, permission_id: 2 },
+        { role_id: 6, permission_id: 3 },
+        { role_id: 6, permission_id: 4 },
         { role_id: 6, permission_id: 5 },
+        { role_id: 6, permission_id: 6 },
+        { role_id: 6, permission_id: 7 },
         { role_id: 6, permission_id: 8 },
+        { role_id: 6, permission_id: 9 },
         { role_id: 6, permission_id: 10 },
+        { role_id: 6, permission_id: 11 },
         { role_id: 6, permission_id: 12 },
+        { role_id: 6, permission_id: 13 },
         { role_id: 6, permission_id: 14 },
+        { role_id: 6, permission_id: 15 },
+        { role_id: 6, permission_id: 16 },
+        { role_id: 6, permission_id: 17 },
+        { role_id: 6, permission_id: 18 },
         { role_id: 6, permission_id: 20 },
-        { role_id: 6, permission_id: 19 }, // user_manage
-        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited), User Management
-        { role_id: 7, permission_id: 1 }, // dashboard_view
-        { role_id: 7, permission_id: 8 }, // category_view
-        { role_id: 7, permission_id: 9 }, // category_add
-        { role_id: 7, permission_id: 10 }, // subcategory_view
-        { role_id: 7, permission_id: 11 }, // subcategory_add
-        { role_id: 7, permission_id: 12 }, // unit_view
-        { role_id: 7, permission_id: 13 }, // unit_add
-        { role_id: 7, permission_id: 2 }, // rm_view
-        { role_id: 7, permission_id: 3 }, // rm_add
-        { role_id: 7, permission_id: 4 }, // rm_edit
-        { role_id: 7, permission_id: 24 }, // rmc_view_prices
-        { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
-        { role_id: 7, permission_id: 19 }, // user_manage
-        { role_id: 7, permission_id: 27 }, // opcost_view
+        { role_id: 6, permission_id: 21 },
+        { role_id: 6, permission_id: 22 },
+        { role_id: 6, permission_id: 23 },
+        { role_id: 6, permission_id: 24 },
+        { role_id: 6, permission_id: 25 },
+        { role_id: 6, permission_id: 26 },
+        { role_id: 6, permission_id: 27 },
+        // Production - ALL Permissions
+        { role_id: 7, permission_id: 1 },
+        { role_id: 7, permission_id: 2 },
+        { role_id: 7, permission_id: 3 },
+        { role_id: 7, permission_id: 4 },
+        { role_id: 7, permission_id: 5 },
+        { role_id: 7, permission_id: 6 },
+        { role_id: 7, permission_id: 7 },
+        { role_id: 7, permission_id: 8 },
+        { role_id: 7, permission_id: 9 },
+        { role_id: 7, permission_id: 10 },
+        { role_id: 7, permission_id: 11 },
+        { role_id: 7, permission_id: 12 },
+        { role_id: 7, permission_id: 13 },
+        { role_id: 7, permission_id: 14 },
+        { role_id: 7, permission_id: 15 },
+        { role_id: 7, permission_id: 16 },
+        { role_id: 7, permission_id: 17 },
+        { role_id: 7, permission_id: 18 },
+        { role_id: 7, permission_id: 20 },
+        { role_id: 7, permission_id: 21 },
+        { role_id: 7, permission_id: 22 },
+        { role_id: 7, permission_id: 23 },
+        { role_id: 7, permission_id: 24 },
+        { role_id: 7, permission_id: 25 },
+        { role_id: 7, permission_id: 26 },
+        { role_id: 7, permission_id: 27 },
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
@@ -415,7 +501,6 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 12 }, // unit_view
         { role_id: 7, permission_id: 13 }, // unit_add
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
-        { role_id: 7, permission_id: 19 }, // user_manage
         { role_id: 7, permission_id: 27 }, // opcost_view
       ];
 
@@ -426,6 +511,36 @@ async function initializeCollections() {
         );
       }
 
+      // Ensure all roles have ALL permissions (batch operation)
+      const allRoleIds = [1, 2, 3, 4, 5, 6, 7];
+      const allPermissionIds = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21,
+        22, 23, 24, 25, 26, 27,
+      ];
+
+      const allRolePermissions = [];
+      for (const roleId of allRoleIds) {
+        for (const permId of allPermissionIds) {
+          allRolePermissions.push({ role_id: roleId, permission_id: permId });
+        }
+      }
+
+      // Use bulkWrite for efficiency instead of individual updates
+      if (allRolePermissions.length > 0) {
+        const bulkOps = allRolePermissions.map((rp) => ({
+          updateOne: {
+            filter: { role_id: rp.role_id, permission_id: rp.permission_id },
+            update: { $setOnInsert: rp },
+            upsert: true,
+          },
+        }));
+
+        // Process in batches of 1000 to avoid overwhelming the database
+        for (let i = 0; i < bulkOps.length; i += 1000) {
+          await rolePermissionsCollection.bulkWrite(bulkOps.slice(i, i + 1000));
+        }
+      }
+
       // Ensure Production role exists in roles collection
       const rolesCollection = db.collection("roles");
       await rolesCollection.updateOne(
@@ -433,64 +548,6 @@ async function initializeCollections() {
         { $setOnInsert: { role_id: 7, role_name: "Production" } },
         { upsert: true },
       );
-
-      // Add ALL permissions for Super Admin (role_id: 1)
-      for (const permId of [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ]) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: 1, permission_id: permId },
-          { $setOnInsert: { role_id: 1, permission_id: permId } },
-          { upsert: true },
-        );
-      }
-
-      // Add ALL permissions for Admin (role_id: 2)
-      for (const permId of [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ]) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: 2, permission_id: permId },
-          { $setOnInsert: { role_id: 2, permission_id: permId } },
-          { upsert: true },
-        );
-      }
-
-      // Ensure user_manage permission (19) for Admin (role_id: 2)
-      await rolePermissionsCollection.updateOne(
-        { role_id: 2, permission_id: 19 },
-        { $setOnInsert: { role_id: 2, permission_id: 19 } },
-        { upsert: true },
-      );
-
-      // Add permissions for Cost Viewer role (6) - view only without cost details
-      for (const permId of [1, 2, 5, 8, 10, 12, 14, 20]) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: 6, permission_id: permId },
-          { $setOnInsert: { role_id: 6, permission_id: permId } },
-          { upsert: true },
-        );
-      }
-
-      // Ensure Vendor role (4) can view raw materials
-      await rolePermissionsCollection.updateOne(
-        { role_id: 4, permission_id: 2 },
-        { $setOnInsert: { role_id: 4, permission_id: 2 } },
-        { upsert: true },
-      );
-
-      // Add all new permissions (23-27) to all roles
-      for (const roleId of [1, 2, 3, 4, 5, 6, 7]) {
-        for (const permId of [23, 24, 25, 26, 27]) {
-          await rolePermissionsCollection.updateOne(
-            { role_id: roleId, permission_id: permId },
-            { $setOnInsert: { role_id: roleId, permission_id: permId } },
-            { upsert: true },
-          );
-        }
-      }
 
       console.log("✅ All permissions ensured for all roles");
     }
@@ -562,6 +619,8 @@ async function initializeCollections() {
         { user_id: hardikUserId, module_key: "CATEGORY_UNIT" },
         { user_id: hardikUserId, module_key: "RAW_MATERIAL" },
         { user_id: hardikUserId, module_key: "RAW_MATERIAL_COSTING" },
+        { user_id: hardikUserId, module_key: "LABOUR" },
+        { user_id: hardikUserId, module_key: "OP_COST" },
       ];
       await db.collection("user_modules").insertMany(hardikModules);
       console.log("✅ Modules assigned to Hardik user");
@@ -609,7 +668,8 @@ async function initializeCollections() {
         { user_id: productionUserId, module_key: "CATEGORY_UNIT" },
         { user_id: productionUserId, module_key: "RAW_MATERIAL" },
         { user_id: productionUserId, module_key: "RAW_MATERIAL_COSTING" },
-        { user_id: productionUserId, module_key: "RECIPE" },
+        { user_id: productionUserId, module_key: "LABOUR" },
+        { user_id: productionUserId, module_key: "OP_COST" },
       ];
       await db.collection("user_modules").insertMany(productionModules);
       console.log("✅ Modules assigned to Production user");
@@ -630,7 +690,7 @@ async function initializeCollections() {
         "✅ Production user updated with credentials: Production / Hanuram@ (Production role)",
       );
 
-      // Ensure RECIPE module is assigned to Production user
+      // Ensure all modules are assigned to Production user
       const productionUserDoc = await db.collection("users").findOne({
         username: "Production",
       });
@@ -641,7 +701,8 @@ async function initializeCollections() {
           "CATEGORY_UNIT",
           "RAW_MATERIAL",
           "RAW_MATERIAL_COSTING",
-          "RECIPE",
+          "LABOUR",
+          "OP_COST",
         ];
 
         for (const moduleKey of requiredModules) {
@@ -656,6 +717,78 @@ async function initializeCollections() {
             { upsert: true },
           );
         }
+      }
+    }
+
+    // Ensure itandit user exists for data entry (Category, Sub Category, Unit, Vendor, Raw Material)
+    const itanditUser = await db.collection("users").findOne({
+      username: "itandit",
+    });
+
+    if (!itanditUser) {
+      // Create itandit user with role_id 3 (Data Entry/Vendor)
+      const result = await db.collection("users").insertOne({
+        username: "itandit",
+        password: "itandit@123", // In production, this should be hashed
+        email: "itandit@faction.local",
+        role_id: 3,
+        status: "active",
+        createdAt: new Date(),
+      });
+      console.log(
+        "✅ itandit user created with credentials: itandit / itandit@123 (Data Entry role)",
+      );
+
+      // Add modules for itandit user
+      const itanditUserId = result.insertedId.toString();
+      const itanditModules = [
+        { user_id: itanditUserId, module_key: "DASHBOARD" },
+        { user_id: itanditUserId, module_key: "CATEGORY_UNIT" },
+        { user_id: itanditUserId, module_key: "RAW_MATERIAL" },
+        { user_id: itanditUserId, module_key: "RAW_MATERIAL_COSTING" },
+        { user_id: itanditUserId, module_key: "LABOUR" },
+        { user_id: itanditUserId, module_key: "OP_COST" },
+      ];
+      await db.collection("user_modules").insertMany(itanditModules);
+      console.log("✅ Modules assigned to itandit user");
+    } else {
+      // Update existing itandit user to ensure correct password and role_id
+      await db.collection("users").updateOne(
+        { username: "itandit" },
+        {
+          $set: {
+            password: "itandit@123",
+            role_id: 3,
+            status: "active",
+            email: "itandit@faction.local",
+          },
+        },
+      );
+      console.log(
+        "✅ itandit user updated with credentials: itandit / itandit@123 (Data Entry role)",
+      );
+
+      // Ensure required modules are assigned to itandit user
+      const itanditUserDoc = await db.collection("users").findOne({
+        username: "itandit",
+      });
+      if (itanditUserDoc) {
+        const itanditUserId = itanditUserDoc._id.toString();
+        const requiredModules = ["CATEGORY_UNIT", "RAW_MATERIAL"];
+
+        for (const moduleKey of requiredModules) {
+          await db.collection("user_modules").updateOne(
+            { user_id: itanditUserId, module_key: moduleKey },
+            {
+              $setOnInsert: {
+                user_id: itanditUserId,
+                module_key: moduleKey,
+              },
+            },
+            { upsert: true },
+          );
+        }
+        console.log("✅ itandit user modules ensured");
       }
     }
 
@@ -795,7 +928,6 @@ async function initializeCollections() {
           { user_id: adminUserId, module_key: "RAW_MATERIAL" },
           { user_id: adminUserId, module_key: "LABOUR" },
           { user_id: adminUserId, module_key: "RAW_MATERIAL_COSTING" },
-          { user_id: adminUserId, module_key: "USER_MANAGEMENT" },
           { user_id: adminUserId, module_key: "OP_COST" },
         ] as any[];
         await db.collection("user_modules").insertMany(adminUserModules);
@@ -816,7 +948,6 @@ async function initializeCollections() {
           "RAW_MATERIAL",
           "LABOUR",
           "RAW_MATERIAL_COSTING",
-          "USER_MANAGEMENT",
           "OP_COST",
         ];
         const userModulesCollection = db.collection("user_modules");
