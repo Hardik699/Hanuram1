@@ -346,6 +346,38 @@ async function initializeCollections() {
       // Ensure labour and cost viewing permissions are added to existing roles
       const rolePermissionsCollection = db.collection("role_permissions");
 
+      // First, remove all existing Production role permissions to ensure clean state
+      await rolePermissionsCollection.deleteMany({ role_id: 7 });
+
+      // Add permissions for Production role (7)
+      const productionPermissions = [
+        { role_id: 7, permission_id: 1 },  // dashboard_view
+        { role_id: 7, permission_id: 2 },  // rm_view
+        { role_id: 7, permission_id: 3 },  // rm_add
+        { role_id: 7, permission_id: 4 },  // rm_edit
+        { role_id: 7, permission_id: 5 },  // recipe_view (limited display)
+        { role_id: 7, permission_id: 8 },  // category_view
+        { role_id: 7, permission_id: 9 },  // category_add
+        { role_id: 7, permission_id: 10 }, // subcategory_view
+        { role_id: 7, permission_id: 11 }, // subcategory_add
+        { role_id: 7, permission_id: 12 }, // unit_view
+        { role_id: 7, permission_id: 13 }, // unit_add
+        { role_id: 7, permission_id: 24 }, // rmc_view_prices
+      ];
+
+      if (productionPermissions.length > 0) {
+        await rolePermissionsCollection.insertMany(productionPermissions);
+        console.log(`✅ Production role permissions inserted (${productionPermissions.length} permissions)`);
+      }
+
+      // Ensure Production role exists in roles collection
+      const rolesCollection = db.collection("roles");
+      await rolesCollection.updateOne(
+        { role_id: 7 },
+        { $setOnInsert: { role_id: 7, role_name: "Production" } },
+        { upsert: true },
+      );
+
       // Add all labour and cost permissions (20, 21, 22, 23, 24) for Super Admin (role_id: 1)
       for (const permId of [20, 21, 22, 23, 24]) {
         await rolePermissionsCollection.updateOne(
@@ -379,38 +411,6 @@ async function initializeCollections() {
           { upsert: true },
         );
       }
-
-      // Add permissions for Production role (7)
-      const productionPermissions = [
-        1,  // dashboard_view
-        8,  // category_view
-        9,  // category_add
-        10, // subcategory_view
-        11, // subcategory_add
-        12, // unit_view
-        13, // unit_add
-        2,  // rm_view
-        3,  // rm_add
-        4,  // rm_edit
-        24, // rmc_view_prices
-        5,  // recipe_view (limited display)
-      ];
-      for (const permId of productionPermissions) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: 7, permission_id: permId },
-          { $setOnInsert: { role_id: 7, permission_id: permId } },
-          { upsert: true },
-        );
-      }
-      console.log("✅ Production role permissions ensured");
-
-      // Ensure Production role exists in roles collection
-      const rolesCollection = db.collection("roles");
-      await rolesCollection.updateOne(
-        { role_id: 7 },
-        { $setOnInsert: { role_id: 7, role_name: "Production" } },
-        { upsert: true },
-      );
 
       console.log("✅ Labour and cost viewing permissions ensured for roles");
     }
