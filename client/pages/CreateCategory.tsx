@@ -461,7 +461,7 @@ export default function CreateCategory() {
           )}
 
           {/* Filter Section */}
-          <div className="unified-card-lg mb-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               Filter Results
