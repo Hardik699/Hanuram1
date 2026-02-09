@@ -901,7 +901,8 @@ export default function RMCManagement() {
         }
       />
 
-      {/* Statistics Cards */}
+      {/* Statistics Cards - Hidden for Production Users */}
+      {!isProductionUser && (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         {/* Total Recipes Card */}
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
@@ -966,6 +967,7 @@ export default function RMCManagement() {
           <div className="h-1 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full mt-4"></div>
         </div>
       </div>
+      )}
       <div className="space-y-2">
         {/* Message Alert */}
         {message && (
