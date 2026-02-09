@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   ChevronDown,
@@ -11,6 +12,7 @@ import {
   Calculator,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { ManagementNav } from "./ManagementNav";
 
 export function Sidebar() {
   const location = useLocation();
