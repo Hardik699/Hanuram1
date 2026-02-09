@@ -1006,7 +1006,7 @@ export default function RMManagement() {
           description="Manage all raw materials and track vendor prices"
           breadcrumbs={[{ label: "Raw Material Management" }]}
           icon={
-            <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <Package className="w-6 h-6 text-white" />
           }
           actions={headerActions}
         />
