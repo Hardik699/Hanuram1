@@ -281,14 +281,23 @@ export default function RMCManagement() {
 
   const fetchRawMaterials = async () => {
     try {
-      const response = await fetch("/api/raw-materials");
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+      const response = await fetch("/api/raw-materials", { signal: controller.signal });
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       if (data.success) setRawMaterials(data.data);
     } catch (error) {
-      console.error("Error fetching raw materials:", error);
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error("Raw materials fetch timed out");
+      } else {
+        console.error("Error fetching raw materials:", error);
+      }
     }
   };
 
