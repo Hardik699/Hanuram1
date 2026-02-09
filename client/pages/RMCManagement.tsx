@@ -117,6 +117,8 @@ interface RecipeLog {
 
 export default function RMCManagement() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const isProductionUser = user?.role_id === 7;
 
   // Data
   const [units, setUnits] = useState<Unit[]>([]);
