@@ -73,6 +73,7 @@ async function initializeCollections() {
         { role_id: 4, role_name: "Vendor" },
         { role_id: 5, role_name: "Viewer" },
         { role_id: 6, role_name: "Cost Viewer" },
+        { role_id: 7, role_name: "Production" },
       ] as any[];
       await db.collection("roles").insertMany(rolesData);
       console.log("✅ Roles collection initialized");
@@ -242,7 +243,9 @@ async function initializeCollections() {
           { upsert: true },
         );
       }
-      console.log("✅ Labour and cost viewing permissions ensured in permissions collection");
+      console.log(
+        "✅ Labour and cost viewing permissions ensured in permissions collection",
+      );
     }
 
     // Ensure Cost Viewer role exists
@@ -325,12 +328,59 @@ async function initializeCollections() {
         { role_id: 6, permission_id: 12 },
         { role_id: 6, permission_id: 14 },
         { role_id: 6, permission_id: 20 },
+        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited)
+        { role_id: 7, permission_id: 1 }, // dashboard_view
+        { role_id: 7, permission_id: 8 }, // category_view
+        { role_id: 7, permission_id: 9 }, // category_add
+        { role_id: 7, permission_id: 10 }, // subcategory_view
+        { role_id: 7, permission_id: 11 }, // subcategory_add
+        { role_id: 7, permission_id: 12 }, // unit_view
+        { role_id: 7, permission_id: 13 }, // unit_add
+        { role_id: 7, permission_id: 2 }, // rm_view
+        { role_id: 7, permission_id: 3 }, // rm_add
+        { role_id: 7, permission_id: 4 }, // rm_edit
+        { role_id: 7, permission_id: 24 }, // rmc_view_prices
+        { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
     } else {
       // Ensure labour and cost viewing permissions are added to existing roles
       const rolePermissionsCollection = db.collection("role_permissions");
+
+      // First, remove all existing Production role permissions to ensure clean state
+      await rolePermissionsCollection.deleteMany({ role_id: 7 });
+
+      // Add permissions for Production role (7)
+      const productionPermissions = [
+        { role_id: 7, permission_id: 1 }, // dashboard_view
+        { role_id: 7, permission_id: 2 }, // rm_view
+        { role_id: 7, permission_id: 3 }, // rm_add
+        { role_id: 7, permission_id: 4 }, // rm_edit
+        { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
+        { role_id: 7, permission_id: 8 }, // category_view
+        { role_id: 7, permission_id: 9 }, // category_add
+        { role_id: 7, permission_id: 10 }, // subcategory_view
+        { role_id: 7, permission_id: 11 }, // subcategory_add
+        { role_id: 7, permission_id: 12 }, // unit_view
+        { role_id: 7, permission_id: 13 }, // unit_add
+        { role_id: 7, permission_id: 24 }, // rmc_view_prices
+      ];
+
+      if (productionPermissions.length > 0) {
+        await rolePermissionsCollection.insertMany(productionPermissions);
+        console.log(
+          `✅ Production role permissions inserted (${productionPermissions.length} permissions)`,
+        );
+      }
+
+      // Ensure Production role exists in roles collection
+      const rolesCollection = db.collection("roles");
+      await rolesCollection.updateOne(
+        { role_id: 7 },
+        { $setOnInsert: { role_id: 7, role_name: "Production" } },
+        { upsert: true },
+      );
 
       // Add all labour and cost permissions (20, 21, 22, 23, 24) for Super Admin (role_id: 1)
       for (const permId of [20, 21, 22, 23, 24]) {
@@ -455,6 +505,84 @@ async function initializeCollections() {
       console.log(
         "✅ Hardik user updated with credentials: Hardik / 123 (Cost Viewer role)",
       );
+    }
+
+    // Ensure Production user exists with Production role
+    const productionUser = await db.collection("users").findOne({
+      username: "Production",
+    });
+
+    if (!productionUser) {
+      // Create Production user with role_id 7 (Production)
+      const result = await db.collection("users").insertOne({
+        username: "Production",
+        password: "Hanuram@", // In production, this should be hashed
+        email: "production@faction.local",
+        role_id: 7,
+        status: "active",
+        createdAt: new Date(),
+      });
+      console.log(
+        "✅ Production user created with credentials: Production / Hanuram@ (Production role)",
+      );
+
+      // Add modules for Production user
+      const productionUserId = result.insertedId.toString();
+      const productionModules = [
+        { user_id: productionUserId, module_key: "DASHBOARD" },
+        { user_id: productionUserId, module_key: "CATEGORY_UNIT" },
+        { user_id: productionUserId, module_key: "RAW_MATERIAL" },
+        { user_id: productionUserId, module_key: "RAW_MATERIAL_COSTING" },
+        { user_id: productionUserId, module_key: "RECIPE" },
+      ];
+      await db.collection("user_modules").insertMany(productionModules);
+      console.log("✅ Modules assigned to Production user");
+    } else {
+      // Update existing Production user to ensure correct password and role_id
+      await db.collection("users").updateOne(
+        { username: "Production" },
+        {
+          $set: {
+            password: "Hanuram@",
+            role_id: 7,
+            status: "active",
+            email: "production@faction.local",
+          },
+        },
+      );
+      console.log(
+        "✅ Production user updated with credentials: Production / Hanuram@ (Production role)",
+      );
+
+      // Ensure RECIPE module is assigned to Production user
+      const productionUserDoc = await db.collection("users").findOne({
+        username: "Production",
+      });
+      if (productionUserDoc) {
+        const productionUserId = productionUserDoc._id.toString();
+        const requiredModules = [
+          "DASHBOARD",
+          "CATEGORY_UNIT",
+          "RAW_MATERIAL",
+          "RAW_MATERIAL_COSTING",
+          "RECIPE",
+        ];
+
+        for (const moduleKey of requiredModules) {
+          await db
+            .collection("user_modules")
+            .updateOne(
+              { user_id: productionUserId, module_key: moduleKey },
+              {
+                $setOnInsert: {
+                  user_id: productionUserId,
+                  module_key: moduleKey,
+                },
+              },
+              { upsert: true },
+            );
+        }
+      }
     }
 
     // Create categories collection

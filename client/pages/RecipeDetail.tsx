@@ -129,7 +129,8 @@ interface QuotationCalculatedItem {
 export default function RecipeDetail() {
   const { recipeId } = useParams();
   const navigate = useNavigate();
-  const { hasPermission } = useAuth();
+  const { hasPermission, user } = useAuth();
+  const isProductionUser = user?.role_id === 7;
 
   // Data
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -946,22 +947,26 @@ export default function RecipeDetail() {
         description={`View and manage recipe details, history, and quotations for ${recipe.code}.`}
         headerAction={
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigate(`/recipe/${recipeId}/edit`)}
-              className="prof-btn-secondary"
-              title="Edit Recipe"
-            >
-              <Edit2 size={16} />
-              <span>Edit</span>
-            </button>
-            <button
-              onClick={() => setShowDeleteModal(true)}
-              className="prof-btn-danger"
-              title="Delete Recipe"
-            >
-              <Trash2 size={16} />
-              <span>Delete</span>
-            </button>
+            {!isProductionUser && (
+              <>
+                <button
+                  onClick={() => navigate(`/recipe/${recipeId}/edit`)}
+                  className="prof-btn-secondary"
+                  title="Edit Recipe"
+                >
+                  <Edit2 size={16} />
+                  <span>Edit</span>
+                </button>
+                <button
+                  onClick={() => setShowDeleteModal(true)}
+                  className="prof-btn-danger"
+                  title="Delete Recipe"
+                >
+                  <Trash2 size={16} />
+                  <span>Delete</span>
+                </button>
+              </>
+            )}
             <button
               onClick={handlePrintRecipePDF}
               className="prof-btn-secondary"
@@ -989,16 +994,20 @@ export default function RecipeDetail() {
               label: "Information",
               icon: <FileText size={16} />,
             },
-            {
-              id: "recipe-history",
-              label: "Recipe History",
-              icon: <History size={16} />,
-            },
-            {
-              id: "quotation-history",
-              label: "Quotation History",
-              icon: <FileText size={16} />,
-            },
+            ...(isProductionUser
+              ? []
+              : [
+                  {
+                    id: "recipe-history",
+                    label: "Recipe History",
+                    icon: <History size={16} />,
+                  },
+                  {
+                    id: "quotation-history",
+                    label: "Quotation History",
+                    icon: <FileText size={16} />,
+                  },
+                ]),
           ].map((tab) => (
             <button
               key={tab.id}
@@ -1149,28 +1158,32 @@ export default function RecipeDetail() {
                 title="Production Labour Cost"
               />
 
-              {/* Packing Labour Cost */}
-              <LabourCostSection
-                recipeId={recipeId!}
-                recipeQuantity={recipe.batchSize || 0}
-                type="packing"
-                title="Packing Labour Cost"
-              />
+              {/* Packing Labour Cost - Hidden for Production Users */}
+              {!isProductionUser && (
+                <>
+                  <LabourCostSection
+                    recipeId={recipeId!}
+                    recipeQuantity={recipe.batchSize || 0}
+                    type="packing"
+                    title="Packing Labour Cost"
+                  />
 
-              {/* Costing Calculator Form */}
-              <CostingCalculatorForm
-                title="📦 Packaging & Handling Costing Calculator"
-                recipeId={recipeId}
-                rmCostPerKg={
-                  recipe.batchSize > 0
-                    ? recipe.totalRawMaterialCost / recipe.batchSize
-                    : 0
-                }
-                productionLabourCostPerKg={productionLabourCostPerKg}
-                packingLabourCostPerKg={packingLabourCostPerKg}
-                batchSize={recipe.batchSize}
-                yield={recipe.yield || 100}
-              />
+                  {/* Costing Calculator Form */}
+                  <CostingCalculatorForm
+                    title="📦 Packaging & Handling Costing Calculator"
+                    recipeId={recipeId}
+                    rmCostPerKg={
+                      recipe.batchSize > 0
+                        ? recipe.totalRawMaterialCost / recipe.batchSize
+                        : 0
+                    }
+                    productionLabourCostPerKg={productionLabourCostPerKg}
+                    packingLabourCostPerKg={packingLabourCostPerKg}
+                    batchSize={recipe.batchSize}
+                    yield={recipe.yield || 100}
+                  />
+                </>
+              )}
             </div>
           </div>
         )}

@@ -70,13 +70,18 @@ export default function Login() {
         setSuccess(true);
         // Show success message briefly then navigate
         setTimeout(() => {
+          // Always navigate to raw-materials by default
+          // Production users (role_id 7) will only see data they have access to
           navigate("/raw-materials");
         }, 500);
       } else {
         setError("Invalid username or password");
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Connection error. Please try again.";
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Connection error. Please try again.";
       setError(errorMessage);
       console.error(err);
     } finally {
@@ -200,8 +205,12 @@ export default function Login() {
 
         {/* Default credentials info */}
         <div className="text-center text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-200 dark:border-slate-700">
-          <p className="font-semibold text-slate-700 dark:text-slate-300">Default credentials:</p>
-          <p className="text-blue-600 dark:text-blue-400 font-mono font-bold">admin / admin123</p>
+          <p className="font-semibold text-slate-700 dark:text-slate-300">
+            Default credentials:
+          </p>
+          <p className="text-blue-600 dark:text-blue-400 font-mono font-bold">
+            admin / admin123
+          </p>
         </div>
       </div>
     </div>

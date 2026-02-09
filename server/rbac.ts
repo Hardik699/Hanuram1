@@ -19,10 +19,10 @@ export async function getUserPermissions(roleId: number): Promise<string[]> {
 
     if (permissionIds.length === 0) return [];
 
-    // Get permission keys
+    // Get permission keys - query by permission_id, not _id
     const permissions = await db
       .collection("permissions")
-      .find({ _id: { $in: permissionIds } })
+      .find({ permission_id: { $in: permissionIds } })
       .toArray();
 
     return permissions.map((p: any) => p.permission_key);
