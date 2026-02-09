@@ -475,16 +475,18 @@ async function initializeCollections() {
         { upsert: true },
       );
 
-      // Add opcost_view permission (27) to all roles
+      // Add all new permissions (23-27) to all roles
       for (const roleId of [1, 2, 3, 4, 5, 6, 7]) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: roleId, permission_id: 27 },
-          { $setOnInsert: { role_id: roleId, permission_id: 27 } },
-          { upsert: true },
-        );
+        for (const permId of [23, 24, 25, 26, 27]) {
+          await rolePermissionsCollection.updateOne(
+            { role_id: roleId, permission_id: permId },
+            { $setOnInsert: { role_id: roleId, permission_id: permId } },
+            { upsert: true },
+          );
+        }
       }
 
-      console.log("✅ Labour and cost viewing permissions ensured for roles");
+      console.log("✅ All permissions ensured for all roles");
     }
 
     // Create users collection if it doesn't exist
