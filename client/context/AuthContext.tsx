@@ -99,6 +99,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     (permission: string | string[]): boolean => {
       if (!user) return false;
 
+      // Admin user has all permissions
+      if (user.username === "admin") return true;
+
       const permissions = Array.isArray(permission) ? permission : [permission];
 
       return permissions.some((p) => user.permissions?.includes(p));
