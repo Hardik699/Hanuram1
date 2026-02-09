@@ -938,6 +938,49 @@ export default function RMCManagement() {
         }
       />
 
+      {/* Content for Production Users */}
+      {isProductionUser && (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-6 border border-blue-200 dark:border-slate-700">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Recipe Making - Raw Materials & Labour Cost</h3>
+            <p className="text-slate-600 dark:text-slate-400 mb-4">Overview of raw materials used in recipes and associated labour costs</p>
+
+            {recipes.length === 0 ? (
+              <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+                <p>No recipes available to display raw materials and labour costs.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4">
+                {recipes.map((recipe) => (
+                  <div key={recipe._id} className="bg-white dark:bg-slate-700 rounded-lg p-4 border border-slate-200 dark:border-slate-600">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white">{recipe.name}</h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">Recipe Code: {recipe.code}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-bold text-purple-600 dark:text-purple-400">₹{recipe.totalRawMaterialCost.toFixed(2)}</p>
+                        <p className="text-xs text-slate-600 dark:text-slate-400">Total RM Cost</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded">
+                        <p className="text-slate-600 dark:text-slate-400 text-xs">Batch Size</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{recipe.batchSize} {recipe.unitName}</p>
+                      </div>
+                      <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded">
+                        <p className="text-slate-600 dark:text-slate-400 text-xs">Price per Unit</p>
+                        <p className="font-bold text-blue-600 dark:text-blue-400">₹{recipe.pricePerUnit.toFixed(2)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Statistics Cards - Hidden for Production Users */}
       {!isProductionUser && (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
