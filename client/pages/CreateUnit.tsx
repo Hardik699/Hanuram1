@@ -549,7 +549,7 @@ export default function CreateUnit() {
                             : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
                         }`}
                       >
-                        <td className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white">
+                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white whitespace-nowrap">
                           <div className="flex flex-col gap-1">
                             <span>{unit.name}</span>
                             <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">
@@ -557,15 +557,15 @@ export default function CreateUnit() {
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-xs font-bold">
-                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
+                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-bold whitespace-nowrap">
+                          <span className="px-2 sm:px-2.5 py-1 sm:py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {unit.shortCode}
                           </span>
                         </td>
-                        <td className="hidden md:table-cell px-4 py-3 text-xs text-slate-600 dark:text-slate-400">
+                        <td className="hidden md:table-cell px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap">
                           {unit.createdBy}
                         </td>
-                        <td className="px-4 py-3 text-center">
+                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-center whitespace-nowrap">
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => handleEdit(unit)}
