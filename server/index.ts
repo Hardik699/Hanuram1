@@ -89,6 +89,7 @@ import {
   handleDeleteUser,
   handleGetRoles,
   handleGetPermissions,
+  handleUpdateUserPermissions,
 } from "./routes/users";
 import {
   handleGetLabour,
