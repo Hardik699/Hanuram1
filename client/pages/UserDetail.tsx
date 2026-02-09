@@ -408,45 +408,108 @@ export default function UserDetail() {
           </div>
         )}
 
-        {/* Permissions Card - Read Only (permissions are role-based) */}
+        {/* Permissions Management Card */}
         <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
-          <div className="mb-6">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
               Permissions
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-              Permissions are based on the user's role. Change the role above to update permissions.
-            </p>
-          </div>
-
-          <div>
-            {userPermissions.length === 0 ? (
-              <p className="text-slate-600 dark:text-slate-400">
-                No permissions assigned
-              </p>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {userPermissions.map((permKey) => {
-                  const perm = allPermissions.find(
-                    (p) => p.permission_key === permKey,
-                  );
-                  return (
-                    <div
-                      key={permKey}
-                      className="p-3 bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 rounded-lg"
-                    >
-                      <p className="font-medium text-slate-900 dark:text-white">
-                        {permKey}
-                      </p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                        {perm?.description}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
+            {!isManagingPermissions && (
+              <Button
+                onClick={() => setIsManagingPermissions(true)}
+                className="bg-teal-600 hover:bg-teal-700"
+              >
+                Manage Permissions
+              </Button>
             )}
           </div>
+
+          {isManagingPermissions ? (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {allPermissions.map((permission) => (
+                  <button
+                    key={String(permission.permission_id || permission.permission_key)}
+                    onClick={() => togglePermission(permission.permission_key)}
+                    className={`p-4 rounded-lg border-2 transition text-left ${
+                      selectedPermissions.has(permission.permission_key)
+                        ? "border-teal-500 bg-teal-50 dark:bg-teal-900/20"
+                        : "border-slate-200 dark:border-slate-600 hover:border-teal-300"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition ${
+                          selectedPermissions.has(permission.permission_key)
+                            ? "bg-teal-500 border-teal-500"
+                            : "border-slate-300 dark:border-slate-500"
+                        }`}
+                      >
+                        {selectedPermissions.has(permission.permission_key) && (
+                          <Check className="w-3 h-3 text-white" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-slate-900 dark:text-white">
+                          {permission.permission_key}
+                        </p>
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                          {permission.description}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-600">
+                <Button
+                  onClick={handleSavePermissions}
+                  className="bg-teal-600 hover:bg-teal-700"
+                >
+                  Save Permissions
+                </Button>
+                <Button
+                  onClick={() => {
+                    setIsManagingPermissions(false);
+                    setSelectedPermissions(new Set(userPermissions));
+                  }}
+                  className="bg-slate-300 hover:bg-slate-400 text-slate-900"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              {userPermissions.length === 0 ? (
+                <p className="text-slate-600 dark:text-slate-400">
+                  No permissions assigned
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {userPermissions.map((permKey) => {
+                    const perm = allPermissions.find(
+                      (p) => p.permission_key === permKey,
+                    );
+                    return (
+                      <div
+                        key={permKey}
+                        className="p-3 bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 rounded-lg"
+                      >
+                        <p className="font-medium text-slate-900 dark:text-white">
+                          {permKey}
+                        </p>
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                          {perm?.description}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </Layout>
