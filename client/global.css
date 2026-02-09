@@ -568,7 +568,24 @@
   }
 
   .table-responsive {
-    @apply overflow-x-auto rounded-2xl;
+    @apply w-full overflow-x-auto rounded-2xl;
+  }
+
+  .table-responsive table {
+    @apply w-full min-w-full;
+  }
+
+  .table-responsive table td,
+  .table-responsive table th {
+    @apply px-2 py-2 sm:px-3 md:px-4 lg:px-6 whitespace-nowrap;
+  }
+
+  .table-responsive table th {
+    @apply text-xs md:text-sm;
+  }
+
+  .table-responsive table td {
+    @apply text-xs sm:text-sm;
   }
 
   /* Professional table header styling */
