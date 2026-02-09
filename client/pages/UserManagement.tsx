@@ -75,15 +75,16 @@ export default function UserManagement() {
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!hasPermission("user_manage")) {
-      navigate("/raw-materials");
-      return;
-    }
+    // Permission checks disabled - all users have access to all pages
+    // if (!hasPermission("user_manage")) {
+    //   navigate("/raw-materials");
+    //   return;
+    // }
 
     fetchUsers();
     fetchRoles();
     fetchPermissions();
-  }, [hasPermission, navigate]);
+  }, []);
 
   const fetchUsers = async () => {
     try {
