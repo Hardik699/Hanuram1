@@ -183,10 +183,37 @@ export default function UserDetail() {
     }
   };
 
-  // Permissions management is disabled - permissions are role-based
-  // To change permissions, update the user's role above
-  // const handleSavePermissions = async () => { ... }
-  // const togglePermission = (permissionKey: string) => { ... }
+  const handleSavePermissions = async () => {
+    try {
+      const response = await fetch(`/api/users/${id}/permissions`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ permissions: Array.from(selectedPermissions) }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        toast.success("Permissions updated successfully");
+        setUserPermissions(Array.from(selectedPermissions));
+        setIsManagingPermissions(false);
+      } else {
+        toast.error(data.message || "Failed to update permissions");
+      }
+    } catch (error) {
+      console.error("Error updating permissions:", error);
+      toast.error("Failed to update permissions");
+    }
+  };
+
+  const togglePermission = (permissionKey: string) => {
+    const newSelected = new Set(selectedPermissions);
+    if (newSelected.has(permissionKey)) {
+      newSelected.delete(permissionKey);
+    } else {
+      newSelected.add(permissionKey);
+    }
+    setSelectedPermissions(newSelected);
+  };
 
   if (loading) {
     return <LoadingSpinner message="Loading user details..." fullScreen />;
