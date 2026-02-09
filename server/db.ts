@@ -471,6 +471,53 @@ async function initializeCollections() {
       );
     }
 
+    // Ensure Production user exists with Production role
+    const productionUser = await db.collection("users").findOne({
+      username: "Production",
+    });
+
+    if (!productionUser) {
+      // Create Production user with role_id 7 (Production)
+      const result = await db.collection("users").insertOne({
+        username: "Production",
+        password: "Hanuram@", // In production, this should be hashed
+        email: "production@faction.local",
+        role_id: 7,
+        status: "active",
+        createdAt: new Date(),
+      });
+      console.log(
+        "✅ Production user created with credentials: Production / Hanuram@ (Production role)",
+      );
+
+      // Add modules for Production user
+      const productionUserId = result.insertedId.toString();
+      const productionModules = [
+        { user_id: productionUserId, module_key: "DASHBOARD" },
+        { user_id: productionUserId, module_key: "CATEGORY_UNIT" },
+        { user_id: productionUserId, module_key: "RAW_MATERIAL" },
+        { user_id: productionUserId, module_key: "RAW_MATERIAL_COSTING" },
+      ];
+      await db.collection("user_modules").insertMany(productionModules);
+      console.log("✅ Modules assigned to Production user");
+    } else {
+      // Update existing Production user to ensure correct password and role_id
+      await db.collection("users").updateOne(
+        { username: "Production" },
+        {
+          $set: {
+            password: "Hanuram@",
+            role_id: 7,
+            status: "active",
+            email: "production@faction.local",
+          },
+        },
+      );
+      console.log(
+        "✅ Production user updated with credentials: Production / Hanuram@ (Production role)",
+      );
+    }
+
     // Create categories collection
     if (!collectionNames.includes("categories")) {
       await db.createCollection("categories");
