@@ -537,96 +537,108 @@ export default function CreateSubCategory() {
             </div>
           </div>
 
+          {/* Sub Categories Table */}
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800 dark:to-slate-800">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    <FolderOpen className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                    Sub Categories List
-                  </h2>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    Showing <span className="font-bold text-slate-900 dark:text-white">{filteredSubcategories.length}</span> sub categor{filteredSubcategories.length !== 1 ? 'ies' : 'y'}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="overflow-x-auto">
-              {tableLoading ? (
-                <div className="p-8 text-center">
-                  <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-                  <p className="text-slate-600 dark:text-slate-400 mt-2">Loading sub categories...</p>
-                </div>
-              ) : paginatedSubcategories.length === 0 ? (
-                <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                  No sub categories found
-                </div>
-              ) : (
-                <table className="w-full">
-                  <thead className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 dark:from-teal-900 dark:via-teal-900 dark:to-teal-950 border-b-2 border-teal-700 dark:border-teal-800 sticky top-0">
+            <div className="overflow-x-auto w-full">
+              <table className="w-full min-w-full">
+                <thead className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 dark:from-teal-900 dark:via-teal-900 dark:to-teal-950 border-b-2 border-teal-700 dark:border-teal-800 sticky top-0">
+                  <tr>
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                      Initial
+                    </th>
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                      Name
+                    </th>
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider hidden sm:table-cell">
+                      Category
+                    </th>
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
+                      Status
+                    </th>
+                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap hidden md:table-cell">
+                      Created By
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                  {tableLoading ? (
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
-                        Name
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
-                        Category
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Status
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                        Created By
-                      </th>
+                      <td colSpan={5} className="px-6 py-8 text-center">
+                        <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                        <p className="text-slate-600 dark:text-slate-400 mt-2">
+                          Loading sub categories...
+                        </p>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                    {paginatedSubcategories.map((subcategory, idx) => (
+                  ) : paginatedSubcategories.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="px-6 py-8 text-center text-slate-600 dark:text-slate-400"
+                      >
+                        No sub categories found
+                      </td>
+                    </tr>
+                  ) : (
+                    paginatedSubcategories.map((subcategory, idx) => (
                       <tr
                         key={subcategory._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-teal-500 ${
+                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-teal-500 h-16 ${
                           idx % 2 === 0
                             ? "hover:bg-teal-50 dark:hover:bg-slate-700/50"
                             : "bg-slate-50 dark:bg-slate-800/50 hover:bg-teal-50 dark:hover:bg-slate-700/50"
                         }`}
                       >
                         <td
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs font-bold text-white cursor-pointer transition-colors whitespace-nowrap"
                           onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                          className="px-4 py-3 text-sm font-semibold text-teal-600 dark:text-teal-400 cursor-pointer group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors"
+                        >
+                          <span className="inline-flex items-center justify-center px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-700 dark:to-teal-800 text-white text-xs font-bold group-hover:from-teal-700 group-hover:to-teal-800 dark:group-hover:from-teal-800 dark:group-hover:to-teal-900 transition-all shadow-md">
+                            {subcategory.name.substring(0, 1)}
+                          </span>
+                        </td>
+                        <td
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white cursor-pointer group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors truncate"
+                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          title={subcategory.name}
                         >
                           {subcategory.name}
                         </td>
                         <td
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 cursor-pointer truncate hidden sm:table-cell"
                           onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
+                          title={subcategory.categoryName || "-"}
                         >
-                          {subcategory.categoryName}
+                          {subcategory.categoryName || "-"}
                         </td>
                         <td
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm cursor-pointer whitespace-nowrap"
                           onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                          className="px-4 py-3 text-sm cursor-pointer"
                         >
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${
                               subcategory.status === "active"
                                 ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
                                 : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
                             }`}
                           >
-                            {subcategory.status ? subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1) : "-"}
+                            {subcategory.status
+                              ? subcategory.status.charAt(0).toUpperCase() +
+                                subcategory.status.slice(1)
+                              : "-"}
                           </span>
                         </td>
                         <td
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap cursor-pointer hidden md:table-cell"
                           onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                          className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400 cursor-pointer"
                         >
                           {subcategory.createdBy}
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
 
             <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800/50 dark:to-slate-800/30 flex items-center justify-between flex-wrap gap-4">
