@@ -995,7 +995,9 @@ export default function RMCManagement() {
           </div>
         )}
 
-        {/* All Recipes Header */}
+        {/* All Recipes Header - Hidden for Production Users */}
+        {!isProductionUser && (
+          <>
         <div className="bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
           <div className="flex items-center justify-between">
             <div>
@@ -1130,6 +1132,8 @@ export default function RMCManagement() {
             </div>
           )}
         </div>
+          </>
+        )}
 
         {/* Add Recipe Modal */}
         {showAddRecipeForm && (
