@@ -213,6 +213,11 @@ async function initializeCollections() {
           permission_key: "rm_view_packing_cost",
           description: "View Packing Cost in Raw Materials",
         },
+        {
+          permission_id: 27,
+          permission_key: "opcost_view",
+          description: "View OP Cost Management",
+        },
       ] as any[];
       await db.collection("permissions").insertMany(permissionsData);
       console.log("✅ Permissions collection initialized");
