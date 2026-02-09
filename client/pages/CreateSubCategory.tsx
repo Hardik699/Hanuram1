@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Edit2, Trash2, Check, AlertCircle, Plus, ChevronLeft, ChevronRight, X, Search, FolderOpen } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
+import { ManagementNav } from "@/components/ManagementNav";
 
 interface Category {
   _id: string;
