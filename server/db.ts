@@ -332,14 +332,17 @@ async function initializeCollections() {
         { role_id: 3, permission_id: 2 },
         { role_id: 3, permission_id: 5 },
         { role_id: 3, permission_id: 17 },
+        { role_id: 3, permission_id: 19 }, // user_manage
         // Vendor
         { role_id: 4, permission_id: 2 }, // rm_view
         { role_id: 4, permission_id: 14 }, // vendor_view
         { role_id: 4, permission_id: 17 }, // quotation_view
+        { role_id: 4, permission_id: 19 }, // user_manage
         // Viewer
         { role_id: 5, permission_id: 1 },
         { role_id: 5, permission_id: 2 },
         { role_id: 5, permission_id: 5 },
+        { role_id: 5, permission_id: 19 }, // user_manage
         // Cost Viewer - Can see data but not cost details
         { role_id: 6, permission_id: 1 },
         { role_id: 6, permission_id: 2 },
@@ -349,6 +352,7 @@ async function initializeCollections() {
         { role_id: 6, permission_id: 12 },
         { role_id: 6, permission_id: 14 },
         { role_id: 6, permission_id: 20 },
+        { role_id: 6, permission_id: 19 }, // user_manage
         // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited), User Management
         { role_id: 7, permission_id: 1 }, // dashboard_view
         { role_id: 7, permission_id: 8 }, // category_view
