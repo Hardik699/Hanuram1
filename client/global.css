@@ -956,4 +956,177 @@
   .prof-empty-state {
     @apply flex flex-col items-center justify-center py-12 px-4 bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700;
   }
+
+  /* ===== Unified Card & UI System ===== */
+
+  /* Unified Card - All pages should use this */
+  .unified-card {
+    @apply bg-white dark:bg-slate-800 rounded-xl border-2 border-slate-200 dark:border-slate-700 p-6 shadow-md transition-all duration-200 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600;
+  }
+
+  /* Large card variant */
+  .unified-card-lg {
+    @apply bg-white dark:bg-slate-800 rounded-2xl border-2 border-slate-200 dark:border-slate-700 p-8 shadow-elevation-2 transition-all duration-300 hover:shadow-elevation-4 hover:border-blue-200 dark:hover:border-blue-700 hover:-translate-y-1;
+  }
+
+  /* Compact card variant */
+  .unified-card-sm {
+    @apply bg-white dark:bg-slate-800 rounded-lg border-2 border-slate-200 dark:border-slate-700 p-4 shadow-sm transition-all duration-200 hover:shadow-md;
+  }
+
+  /* Header Card - for page headers */
+  .unified-header-card {
+    @apply bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-elevation-2 animate-fade-in-up;
+  }
+
+  /* Stats Card - for statistics/metrics */
+  .unified-stats-card {
+    @apply bg-white dark:bg-slate-800 rounded-xl border-2 border-slate-200 dark:border-slate-700 p-6 shadow-md hover:shadow-lg transition-all duration-200;
+  }
+
+  /* Unified Table Container - All tables should be wrapped in this */
+  .unified-table-container {
+    @apply bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-elevation-2 animate-fade-in-up;
+  }
+
+  .unified-table-container table {
+    @apply w-full;
+  }
+
+  .unified-table-container thead {
+    @apply bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 text-white border-b-2 border-blue-700 dark:border-blue-800 sticky top-0 z-10;
+  }
+
+  .unified-table-container th {
+    @apply px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold uppercase tracking-wider text-white whitespace-nowrap;
+  }
+
+  .unified-table-container tbody tr {
+    @apply border-b border-slate-200 dark:border-slate-700 transition-all duration-200 hover:bg-blue-50 dark:hover:bg-blue-900/10;
+  }
+
+  .unified-table-container td {
+    @apply px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-xs sm:text-sm text-slate-900 dark:text-slate-100 whitespace-nowrap;
+  }
+
+  .unified-table-container tbody tr:nth-child(even) {
+    @apply bg-slate-50 dark:bg-slate-800/50;
+  }
+
+  /* Unified Icon Styling */
+  .unified-icon-primary {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  .unified-icon-white {
+    @apply text-white;
+  }
+
+  .unified-icon-success {
+    @apply text-green-600 dark:text-green-400;
+  }
+
+  .unified-icon-error {
+    @apply text-red-600 dark:text-red-400;
+  }
+
+  /* Unified Status Badge */
+  .unified-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border;
+  }
+
+  .unified-badge-active {
+    @apply bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800/50;
+  }
+
+  .unified-badge-inactive {
+    @apply bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800/50;
+  }
+
+  .unified-badge-pending {
+    @apply bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/50;
+  }
+
+  /* Unified Data Item Row */
+  .unified-data-row {
+    @apply flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors duration-200;
+  }
+
+  .unified-data-label {
+    @apply text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider;
+  }
+
+  .unified-data-value {
+    @apply text-sm sm:text-base font-bold text-slate-900 dark:text-white;
+  }
+
+  /* Unified Section Title */
+  .unified-section-title {
+    @apply text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2;
+  }
+
+  /* Unified Form Input Wrapper */
+  .unified-form-field {
+    @apply mb-6;
+  }
+
+  .unified-form-field label {
+    @apply block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-blue-700 dark:text-blue-400;
+  }
+
+  /* Unified Typography */
+  .unified-text-lg {
+    @apply text-base sm:text-lg font-semibold text-slate-900 dark:text-white;
+  }
+
+  .unified-text-md {
+    @apply text-sm font-medium text-slate-700 dark:text-slate-300;
+  }
+
+  .unified-text-sm {
+    @apply text-xs sm:text-sm font-normal text-slate-600 dark:text-slate-400;
+  }
+
+  .unified-text-muted {
+    @apply text-xs text-slate-500 dark:text-slate-500;
+  }
+
+  /* Unified Navigation Item - for sidebars, dropdowns */
+  .unified-nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 border-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700;
+  }
+
+  .unified-nav-item.active {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white border-blue-600 dark:border-blue-700 shadow-md;
+  }
+
+  .unified-nav-item:hover:not(.active) {
+    @apply bg-blue-50 dark:bg-slate-700/50 border-blue-200 dark:border-blue-900/50 shadow-sm;
+  }
+
+  .unified-nav-item svg {
+    @apply w-5 h-5 transition-transform group-hover:scale-110;
+  }
+
+  .unified-nav-item.active svg {
+    @apply text-white;
+  }
+
+  .unified-nav-item:hover:not(.active) svg {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  /* Unified Action Button Group */
+  .unified-action-group {
+    @apply flex items-center gap-2 flex-wrap;
+  }
+
+  .unified-action-group-centered {
+    @apply flex items-center justify-center gap-2 flex-wrap;
+  }
+
+  /* Ensure all divs with specific bg colors maintain consistency */
+  [class*="bg-white"] {
+    @apply dark:bg-slate-800;
+  }
 }
