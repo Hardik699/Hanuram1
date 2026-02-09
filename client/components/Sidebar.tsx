@@ -234,14 +234,16 @@ export function Sidebar() {
                   <Link
                     to={item.path!}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group border-2 ${
                       isActive(item.path!)
-                        ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800"
-                        : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/40"
+                        ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800 border-blue-600 dark:border-blue-700"
+                        : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-700/50 hover:border-blue-200 dark:hover:border-blue-900/50 hover:shadow-md"
                     }`}
                   >
                     {item.icon && (
-                      <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
+                      <item.icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                        isActive(item.path!) ? "text-white" : "text-blue-600 dark:text-blue-400"
+                      }`} />
                     )}
                     <span>{item.label}</span>
                   </Link>
