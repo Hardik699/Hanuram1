@@ -544,6 +544,8 @@ async function initializeCollections() {
         { user_id: hardikUserId, module_key: "CATEGORY_UNIT" },
         { user_id: hardikUserId, module_key: "RAW_MATERIAL" },
         { user_id: hardikUserId, module_key: "RAW_MATERIAL_COSTING" },
+        { user_id: hardikUserId, module_key: "LABOUR" },
+        { user_id: hardikUserId, module_key: "OP_COST" },
       ];
       await db.collection("user_modules").insertMany(hardikModules);
       console.log("✅ Modules assigned to Hardik user");
@@ -591,7 +593,8 @@ async function initializeCollections() {
         { user_id: productionUserId, module_key: "CATEGORY_UNIT" },
         { user_id: productionUserId, module_key: "RAW_MATERIAL" },
         { user_id: productionUserId, module_key: "RAW_MATERIAL_COSTING" },
-        { user_id: productionUserId, module_key: "RECIPE" },
+        { user_id: productionUserId, module_key: "LABOUR" },
+        { user_id: productionUserId, module_key: "OP_COST" },
       ];
       await db.collection("user_modules").insertMany(productionModules);
       console.log("✅ Modules assigned to Production user");
@@ -663,8 +666,12 @@ async function initializeCollections() {
       // Add modules for itandit user
       const itanditUserId = result.insertedId.toString();
       const itanditModules = [
+        { user_id: itanditUserId, module_key: "DASHBOARD" },
         { user_id: itanditUserId, module_key: "CATEGORY_UNIT" },
         { user_id: itanditUserId, module_key: "RAW_MATERIAL" },
+        { user_id: itanditUserId, module_key: "RAW_MATERIAL_COSTING" },
+        { user_id: itanditUserId, module_key: "LABOUR" },
+        { user_id: itanditUserId, module_key: "OP_COST" },
       ];
       await db.collection("user_modules").insertMany(itanditModules);
       console.log("✅ Modules assigned to itandit user");
