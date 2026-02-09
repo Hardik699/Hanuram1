@@ -114,6 +114,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return false;
       }
 
+      console.log("🔍 Checking user:", {
+        username: user.username,
+        usernameType: typeof user.username,
+        usernameLength: user.username?.length,
+        isAdmin: user.username === "admin",
+      });
+
       // Admin user has all permissions
       if (user.username === "admin") {
         console.log("✅ Admin user - granting all permissions");
