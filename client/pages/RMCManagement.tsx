@@ -926,21 +926,23 @@ export default function RMCManagement() {
   return (
     <Layout title="Raw Material Costing">
       <PageHeader
-        title="Raw Material Costing"
-        description="Manage recipes and calculate material costs"
-        breadcrumbs={[{ label: "Raw Material Costing" }]}
+        title={isProductionUser ? "Production Labour Cost" : "Raw Material Costing"}
+        description={isProductionUser ? "View production labour costs for recipes" : "Manage recipes and calculate material costs"}
+        breadcrumbs={[{ label: isProductionUser ? "Production Labour Cost" : "Raw Material Costing" }]}
         icon={
           <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
         }
         actions={
-          <button
-            onClick={() => navigate("/recipe/new")}
-            className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap"
-          >
-            <Plus className="w-5 h-5" />
-            <span className="hidden sm:inline">Add Recipe</span>
-            <span className="sm:hidden">Add</span>
-          </button>
+          !isProductionUser && (
+            <button
+              onClick={() => navigate("/recipe/new")}
+              className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap"
+            >
+              <Plus className="w-5 h-5" />
+              <span className="hidden sm:inline">Add Recipe</span>
+              <span className="sm:hidden">Add</span>
+            </button>
+          )
         }
       />
 
