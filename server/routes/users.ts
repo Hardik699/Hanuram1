@@ -468,3 +468,79 @@ export const handleGetPermissions: RequestHandler = async (req, res) => {
     });
   }
 };
+
+/**
+ * Update user permissions
+ */
+export const handleUpdateUserPermissions: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { permissions } = req.body;
+
+    if (!id || !Array.isArray(permissions)) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID and permissions array are required",
+      });
+    }
+
+    const db = getDB();
+    if (!db) {
+      return res.status(503).json({
+        success: false,
+        message: "Database connection lost",
+      });
+    }
+
+    // Get all permissions to convert keys to IDs
+    const allPermissions = await db.collection("permissions").find({}).toArray();
+    const permissionKeyToId: Record<string, number> = {};
+    allPermissions.forEach((p: any) => {
+      permissionKeyToId[p.permission_key] = p.permission_id;
+    });
+
+    // Convert permission keys to IDs
+    const permissionIds = permissions
+      .map((key: string) => permissionKeyToId[key])
+      .filter((id: any) => id !== undefined);
+
+    // Get the user
+    const user = await db
+      .collection("users")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Delete existing user permissions
+    await db
+      .collection("user_permissions")
+      .deleteMany({ user_id: id });
+
+    // Add new user permissions
+    if (permissionIds.length > 0) {
+      const userPermissions = permissionIds.map((permId: number) => ({
+        user_id: id,
+        permission_id: permId,
+      }));
+      await db
+        .collection("user_permissions")
+        .insertMany(userPermissions);
+    }
+
+    res.json({
+      success: true,
+      message: "Permissions updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating user permissions:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
