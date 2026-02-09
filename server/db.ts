@@ -260,6 +260,11 @@ async function initializeCollections() {
           permission_key: "rm_view_packing_cost",
           description: "View Packing Cost in Raw Materials",
         },
+        {
+          permission_id: 27,
+          permission_key: "opcost_view",
+          description: "View OP Cost Management",
+        },
       ];
       for (const perm of newPerms) {
         await permissionsCollection.updateOne(
