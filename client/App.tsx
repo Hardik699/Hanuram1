@@ -231,7 +231,7 @@ const App = () => (
             <Route
               path="/costing-calculator"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="recipe_view">
                   <CostingAnalysis />
                 </ProtectedRoute>
               }
@@ -239,7 +239,7 @@ const App = () => (
             <Route
               path="/op-cost"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="opcost_view">
                   <OpCostManagement />
                 </ProtectedRoute>
               }
