@@ -409,9 +409,6 @@ export default function CreateVendor() {
           </div>
         }
       >
-        {/* Management Navigation Dropdown */}
-        <ManagementNav />
-
         {showAddForm ? (
           <div className="max-w-3xl mx-auto">
             <ProfessionalForm
