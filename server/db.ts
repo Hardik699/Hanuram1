@@ -386,6 +386,7 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 12 }, // unit_view
         { role_id: 7, permission_id: 13 }, // unit_add
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
+        { role_id: 7, permission_id: 19 }, // user_manage
       ];
 
       if (productionPermissions.length > 0) {
