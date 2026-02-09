@@ -641,6 +641,74 @@ async function initializeCollections() {
       }
     }
 
+    // Ensure itandit user exists for data entry (Category, Sub Category, Unit, Vendor, Raw Material)
+    const itanditUser = await db.collection("users").findOne({
+      username: "itandit",
+    });
+
+    if (!itanditUser) {
+      // Create itandit user with role_id 3 (Data Entry/Vendor)
+      const result = await db.collection("users").insertOne({
+        username: "itandit",
+        password: "itandit@123", // In production, this should be hashed
+        email: "itandit@faction.local",
+        role_id: 3,
+        status: "active",
+        createdAt: new Date(),
+      });
+      console.log(
+        "✅ itandit user created with credentials: itandit / itandit@123 (Data Entry role)",
+      );
+
+      // Add modules for itandit user
+      const itanditUserId = result.insertedId.toString();
+      const itanditModules = [
+        { user_id: itanditUserId, module_key: "CATEGORY_UNIT" },
+        { user_id: itanditUserId, module_key: "RAW_MATERIAL" },
+      ];
+      await db.collection("user_modules").insertMany(itanditModules);
+      console.log("✅ Modules assigned to itandit user");
+    } else {
+      // Update existing itandit user to ensure correct password and role_id
+      await db.collection("users").updateOne(
+        { username: "itandit" },
+        {
+          $set: {
+            password: "itandit@123",
+            role_id: 3,
+            status: "active",
+            email: "itandit@faction.local",
+          },
+        },
+      );
+      console.log(
+        "✅ itandit user updated with credentials: itandit / itandit@123 (Data Entry role)",
+      );
+
+      // Ensure required modules are assigned to itandit user
+      const itanditUserDoc = await db.collection("users").findOne({
+        username: "itandit",
+      });
+      if (itanditUserDoc) {
+        const itanditUserId = itanditUserDoc._id.toString();
+        const requiredModules = ["CATEGORY_UNIT", "RAW_MATERIAL"];
+
+        for (const moduleKey of requiredModules) {
+          await db.collection("user_modules").updateOne(
+            { user_id: itanditUserId, module_key: moduleKey },
+            {
+              $setOnInsert: {
+                user_id: itanditUserId,
+                module_key: moduleKey,
+              },
+            },
+            { upsert: true },
+          );
+        }
+        console.log("✅ itandit user modules ensured");
+      }
+    }
+
     // Create categories collection
     if (!collectionNames.includes("categories")) {
       await db.createCollection("categories");
