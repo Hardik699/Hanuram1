@@ -212,6 +212,11 @@ export function Sidebar() {
           </button>
         </div>
 
+        {/* Management Navigation */}
+        <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
+          <ManagementNav />
+        </div>
+
         <nav className="p-4 space-y-1.5">
           {menuItems
             .filter((item) => checkAccess(item))
