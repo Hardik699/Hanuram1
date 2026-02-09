@@ -70,16 +70,9 @@ export default function Login() {
         setSuccess(true);
         // Show success message briefly then navigate
         setTimeout(() => {
-          // Check user role from localStorage to determine redirect
-          const userStr = localStorage.getItem("user");
-          const user = userStr ? JSON.parse(userStr) : null;
-
-          // Production user (role_id 7) should go to dashboard
-          if (user?.role_id === 7) {
-            navigate("/dashboard");
-          } else {
-            navigate("/raw-materials");
-          }
+          // Always navigate to raw-materials by default
+          // Production users (role_id 7) will only see data they have access to
+          navigate("/raw-materials");
         }, 500);
       } else {
         setError("Invalid username or password");
