@@ -44,11 +44,12 @@ export const handleLogin: RequestHandler = async (req, res) => {
       const modules = await getUserModules(user._id.toString());
 
       // Log for debugging
-      console.log(
-        `✅ Login successful for user: ${username} (role_id: ${user.role_id})`,
-      );
-      console.log(`   Permissions: ${permissions.join(", ")}`);
-      console.log(`   Modules: ${modules.join(", ")}`);
+      console.log(`\n🔐 LOGIN DEBUG - User: ${username}`);
+      console.log(`   User ID: ${user._id.toString()}`);
+      console.log(`   Role ID: ${user.role_id}`);
+      console.log(`   Permissions fetched: ${permissions.length} items`);
+      console.log(`   Permissions: ${permissions.join(", ") || "NONE!"}`);
+      console.log(`   Modules: ${modules.join(", ") || "NONE!"}\n`);
 
       // In production, use JWT token
       const token = Buffer.from(`${username}:${Date.now()}`).toString("base64");
