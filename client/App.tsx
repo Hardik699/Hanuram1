@@ -24,8 +24,6 @@ import RMCManagement from "./pages/RMCManagement";
 import RecipeDetail from "./pages/RecipeDetail";
 import QuotationDetail from "./pages/QuotationDetail";
 import NotFound from "./pages/NotFound";
-import UserManagement from "./pages/UserManagement";
-import UserDetail from "./pages/UserDetail";
 import LabourManagement from "./pages/LabourManagement";
 import CreateLabour from "./pages/CreateLabour";
 import CostingAnalysis from "./pages/CostingAnalysis";
@@ -185,22 +183,6 @@ const App = () => (
               element={
                 <ProtectedRoute requiredPermission="quotation_view">
                   <QuotationDetail />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/users"
-              element={
-                <ProtectedRoute requiredPermission="user_manage">
-                  <UserManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/users/:id"
-              element={
-                <ProtectedRoute requiredPermission="user_manage">
-                  <UserDetail />
                 </ProtectedRoute>
               }
             />

@@ -90,12 +90,6 @@ export function Sidebar() {
       permission: "recipe_view",
     },
     {
-      label: "User Management",
-      path: "/users",
-      icon: Users,
-      permission: "user_manage",
-    },
-    {
       label: "OP Cost Management",
       path: "/op-cost",
       icon: Calculator,
