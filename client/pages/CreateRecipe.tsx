@@ -73,7 +73,7 @@ interface Recipe {
 export default function CreateRecipe() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { hasPermission } = useAuth();
+  const { hasPermission, user } = useAuth();
   const [units, setUnits] = useState<Unit[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
