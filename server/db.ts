@@ -380,6 +380,37 @@ async function initializeCollections() {
         );
       }
 
+      // Add permissions for Production role (7)
+      const productionPermissions = [
+        1,  // dashboard_view
+        8,  // category_view
+        9,  // category_add
+        10, // subcategory_view
+        11, // subcategory_add
+        12, // unit_view
+        13, // unit_add
+        2,  // rm_view
+        3,  // rm_add
+        4,  // rm_edit
+        24, // rmc_view_prices
+        5,  // recipe_view (limited display)
+      ];
+      for (const permId of productionPermissions) {
+        await rolePermissionsCollection.updateOne(
+          { role_id: 7, permission_id: permId },
+          { $setOnInsert: { role_id: 7, permission_id: permId } },
+          { upsert: true },
+        );
+      }
+
+      // Ensure Production role exists in roles collection
+      const rolesCollection = db.collection("roles");
+      await rolesCollection.updateOne(
+        { role_id: 7 },
+        { $setOnInsert: { role_id: 7, role_name: "Production" } },
+        { upsert: true },
+      );
+
       console.log("✅ Labour and cost viewing permissions ensured for roles");
     }
 
