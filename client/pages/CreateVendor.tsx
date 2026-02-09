@@ -10,6 +10,7 @@ import {
   Building2,
   ArrowLeft,
   FileText,
+  Edit2,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ProfessionalPage, EmptyState } from "@/components/ProfessionalPage";
@@ -21,6 +22,7 @@ import {
 import { DataTable } from "@/components/DataTable";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 interface Vendor {
   _id: string;
