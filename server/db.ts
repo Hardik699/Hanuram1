@@ -368,7 +368,6 @@ async function initializeCollections() {
         { role_id: 6, permission_id: 12 },
         { role_id: 6, permission_id: 14 },
         { role_id: 6, permission_id: 20 },
-        { role_id: 6, permission_id: 19 }, // user_manage
         // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited)
         { role_id: 7, permission_id: 1 }, // dashboard_view
         { role_id: 7, permission_id: 8 }, // category_view
