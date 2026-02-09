@@ -1262,8 +1262,8 @@ export default function RMCManagement() {
           </>
         )}
 
-        {/* Add Recipe Modal */}
-        {showAddRecipeForm && (
+        {/* Add Recipe Modal - Hidden for Production Users */}
+        {showAddRecipeForm && !isProductionUser && (
           <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 sm:p-4 backdrop-blur-sm">
             <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-y-auto border border-slate-200/50 dark:border-slate-700/50 ring-1 ring-slate-900/5">
               <div className="p-4 sm:p-6 md:p-8 border-b-2 border-gradient-to-r from-teal-200 to-cyan-200 dark:border-teal-900/50 flex items-center justify-between sticky top-0 bg-gradient-to-r from-white via-slate-50 to-white dark:from-slate-800 dark:via-slate-800 dark:to-slate-800">
