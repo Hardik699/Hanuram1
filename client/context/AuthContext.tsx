@@ -39,13 +39,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     console.log("📋 Loading auth state from localStorage", {
       hasStoredUser: !!storedUser,
       hasStoredToken: !!storedToken,
+      rawStoredUser: storedUser,
     });
 
     if (storedUser && storedToken) {
       try {
         const parsedUser = JSON.parse(storedUser);
         console.log("✅ User loaded from localStorage:", {
+          fullUser: parsedUser,
           username: parsedUser.username,
+          usernameExact: `"${parsedUser.username}"`,
           permissions: parsedUser.permissions,
         });
         setUser(parsedUser);
