@@ -1039,10 +1039,11 @@ export default function RMCManagement() {
                     <tr
                       key={recipe._id}
                       className={cn(
-                        "prof-table-row prof-table-row-hover",
+                        "prof-table-row",
                         idx % 2 === 0 && "prof-table-row-even",
+                        !isProductionUser && "prof-table-row-hover cursor-pointer"
                       )}
-                      onClick={() => navigate(`/recipe/${recipe._id}`)}
+                      onClick={() => !isProductionUser && navigate(`/recipe/${recipe._id}`)}
                     >
                       <td className="prof-table-cell">
                         <span className="prof-badge-blue">{recipe.code}</span>
