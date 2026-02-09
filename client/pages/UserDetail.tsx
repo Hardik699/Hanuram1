@@ -52,10 +52,6 @@ export default function UserDetail() {
   const [isEditing, setIsEditing] = useState(false);
   const [allPermissions, setAllPermissions] = useState<Permission[]>([]);
   const [userPermissions, setUserPermissions] = useState<string[]>([]);
-  const [isManagingPermissions, setIsManagingPermissions] = useState(false);
-  const [selectedPermissions, setSelectedPermissions] = useState<Set<string>>(
-    new Set(),
-  );
   const [formData, setFormData] = useState({
     username: "",
     email: "",
