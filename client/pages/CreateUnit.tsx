@@ -410,7 +410,10 @@ export default function CreateUnit() {
           </div>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
+          {/* Management Navigation Dropdown */}
+          <ManagementNav />
+
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border animate-in fade-in slide-in-from-top-2 duration-300 ${
