@@ -174,11 +174,6 @@ async function initializeCollections() {
           description: "Add Quotations",
         },
         {
-          permission_id: 19,
-          permission_key: "user_manage",
-          description: "Manage Users",
-        },
-        {
           permission_id: 20,
           permission_key: "labour_view",
           description: "View Labour",
@@ -795,7 +790,6 @@ async function initializeCollections() {
           { user_id: adminUserId, module_key: "RAW_MATERIAL" },
           { user_id: adminUserId, module_key: "LABOUR" },
           { user_id: adminUserId, module_key: "RAW_MATERIAL_COSTING" },
-          { user_id: adminUserId, module_key: "USER_MANAGEMENT" },
           { user_id: adminUserId, module_key: "OP_COST" },
         ] as any[];
         await db.collection("user_modules").insertMany(adminUserModules);
@@ -816,7 +810,6 @@ async function initializeCollections() {
           "RAW_MATERIAL",
           "LABOUR",
           "RAW_MATERIAL_COSTING",
-          "USER_MANAGEMENT",
           "OP_COST",
         ];
         const userModulesCollection = db.collection("user_modules");
