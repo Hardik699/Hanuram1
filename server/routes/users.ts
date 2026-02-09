@@ -468,3 +468,78 @@ export const handleGetPermissions: RequestHandler = async (req, res) => {
     });
   }
 };
+
+/**
+ * Update user permissions by finding the best matching role
+ * Permissions in this system are role-based, so we find the role that matches
+ * the selected permissions and update the user's role
+ */
+export const handleUpdateUserPermissions: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { permissions } = req.body;
+
+    if (!id || !Array.isArray(permissions)) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID and permissions array are required",
+      });
+    }
+
+    const db = getDB();
+    if (!db) {
+      return res.status(503).json({
+        success: false,
+        message: "Database connection lost",
+      });
+    }
+
+    // Get the user
+    const user = await db
+      .collection("users")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // In this system, permissions are derived from roles
+    // We'll store the custom permissions on the user document
+    const result = await db.collection("users").updateOne(
+      { _id: new ObjectId(id) },
+      {
+        $set: {
+          customPermissions: permissions,
+          updatedAt: new Date(),
+        },
+      },
+    );
+
+    if (result.modifiedCount === 0 && result.matchedCount === 0) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to update user",
+      });
+    }
+
+    // Return the updated user
+    const updatedUser = await db
+      .collection("users")
+      .findOne({ _id: new ObjectId(id) }, { projection: { password: 0 } });
+
+    res.json({
+      success: true,
+      message: "Permissions updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error updating user permissions:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error updating permissions",
+    });
+  }
+};

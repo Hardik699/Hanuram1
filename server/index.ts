@@ -89,6 +89,7 @@ import {
   handleDeleteUser,
   handleGetRoles,
   handleGetPermissions,
+  handleUpdateUserPermissions,
 } from "./routes/users";
 import {
   handleGetLabour,
@@ -339,6 +340,7 @@ export async function createServer() {
   app.put("/api/users/:id/role", handleUpdateUserRole);
   app.put("/api/users/:id/status", handleUpdateUserStatus);
   app.patch("/api/users/:id/status", handleUpdateUserStatus);
+  app.put("/api/users/:id/permissions", handleUpdateUserPermissions);
   // Less specific routes after
   app.get("/api/users/:id", handleGetUserById);
   app.put("/api/users/:id", handleUpdateUser);

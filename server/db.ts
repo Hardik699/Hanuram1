@@ -203,6 +203,21 @@ async function initializeCollections() {
           permission_key: "rmc_view_prices",
           description: "View RMC Prices",
         },
+        {
+          permission_id: 25,
+          permission_key: "rm_view_labour_cost",
+          description: "View Labour Cost in Raw Materials",
+        },
+        {
+          permission_id: 26,
+          permission_key: "rm_view_packing_cost",
+          description: "View Packing Cost in Raw Materials",
+        },
+        {
+          permission_id: 27,
+          permission_key: "opcost_view",
+          description: "View OP Cost Management",
+        },
       ] as any[];
       await db.collection("permissions").insertMany(permissionsData);
       console.log("✅ Permissions collection initialized");
@@ -234,6 +249,21 @@ async function initializeCollections() {
           permission_id: 24,
           permission_key: "rmc_view_prices",
           description: "View RMC Prices",
+        },
+        {
+          permission_id: 25,
+          permission_key: "rm_view_labour_cost",
+          description: "View Labour Cost in Raw Materials",
+        },
+        {
+          permission_id: 26,
+          permission_key: "rm_view_packing_cost",
+          description: "View Packing Cost in Raw Materials",
+        },
+        {
+          permission_id: 27,
+          permission_key: "opcost_view",
+          description: "View OP Cost Management",
         },
       ];
       for (const perm of newPerms) {
@@ -286,6 +316,11 @@ async function initializeCollections() {
         { role_id: 1, permission_id: 20 },
         { role_id: 1, permission_id: 21 },
         { role_id: 1, permission_id: 22 },
+        { role_id: 1, permission_id: 23 },
+        { role_id: 1, permission_id: 24 },
+        { role_id: 1, permission_id: 25 },
+        { role_id: 1, permission_id: 26 },
+        { role_id: 1, permission_id: 27 },
         // Admin
         { role_id: 2, permission_id: 1 },
         { role_id: 2, permission_id: 2 },
@@ -307,18 +342,30 @@ async function initializeCollections() {
         { role_id: 2, permission_id: 20 },
         { role_id: 2, permission_id: 21 },
         { role_id: 2, permission_id: 22 },
+        { role_id: 2, permission_id: 23 },
+        { role_id: 2, permission_id: 24 },
+        { role_id: 2, permission_id: 25 },
+        { role_id: 2, permission_id: 26 },
+        { role_id: 2, permission_id: 27 },
         // Manager
         { role_id: 3, permission_id: 1 },
         { role_id: 3, permission_id: 2 },
         { role_id: 3, permission_id: 5 },
         { role_id: 3, permission_id: 17 },
+        { role_id: 3, permission_id: 19 }, // user_manage
+        { role_id: 3, permission_id: 20 }, // labour_view
         // Vendor
-        { role_id: 4, permission_id: 14 },
-        { role_id: 4, permission_id: 17 },
+        { role_id: 4, permission_id: 2 }, // rm_view
+        { role_id: 4, permission_id: 14 }, // vendor_view
+        { role_id: 4, permission_id: 17 }, // quotation_view
+        { role_id: 4, permission_id: 19 }, // user_manage
+        { role_id: 4, permission_id: 20 }, // labour_view
         // Viewer
         { role_id: 5, permission_id: 1 },
         { role_id: 5, permission_id: 2 },
         { role_id: 5, permission_id: 5 },
+        { role_id: 5, permission_id: 19 }, // user_manage
+        { role_id: 5, permission_id: 20 }, // labour_view
         // Cost Viewer - Can see data but not cost details
         { role_id: 6, permission_id: 1 },
         { role_id: 6, permission_id: 2 },
@@ -328,7 +375,8 @@ async function initializeCollections() {
         { role_id: 6, permission_id: 12 },
         { role_id: 6, permission_id: 14 },
         { role_id: 6, permission_id: 20 },
-        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited)
+        { role_id: 6, permission_id: 19 }, // user_manage
+        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited), User Management
         { role_id: 7, permission_id: 1 }, // dashboard_view
         { role_id: 7, permission_id: 8 }, // category_view
         { role_id: 7, permission_id: 9 }, // category_add
@@ -341,6 +389,8 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 4 }, // rm_edit
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
         { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
+        { role_id: 7, permission_id: 19 }, // user_manage
+        { role_id: 7, permission_id: 27 }, // opcost_view
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
@@ -365,6 +415,8 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 12 }, // unit_view
         { role_id: 7, permission_id: 13 }, // unit_add
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
+        { role_id: 7, permission_id: 19 }, // user_manage
+        { role_id: 7, permission_id: 27 }, // opcost_view
       ];
 
       if (productionPermissions.length > 0) {
@@ -382,8 +434,11 @@ async function initializeCollections() {
         { upsert: true },
       );
 
-      // Add all labour and cost permissions (20, 21, 22, 23, 24) for Super Admin (role_id: 1)
-      for (const permId of [20, 21, 22, 23, 24]) {
+      // Add ALL permissions for Super Admin (role_id: 1)
+      for (const permId of [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27,
+      ]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 1, permission_id: permId },
           { $setOnInsert: { role_id: 1, permission_id: permId } },
@@ -391,8 +446,11 @@ async function initializeCollections() {
         );
       }
 
-      // Add all labour and cost permissions for Admin (role_id: 2)
-      for (const permId of [20, 21, 22, 23, 24]) {
+      // Add ALL permissions for Admin (role_id: 2)
+      for (const permId of [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27,
+      ]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 2, permission_id: permId },
           { $setOnInsert: { role_id: 2, permission_id: permId } },
@@ -416,7 +474,25 @@ async function initializeCollections() {
         );
       }
 
-      console.log("✅ Labour and cost viewing permissions ensured for roles");
+      // Ensure Vendor role (4) can view raw materials
+      await rolePermissionsCollection.updateOne(
+        { role_id: 4, permission_id: 2 },
+        { $setOnInsert: { role_id: 4, permission_id: 2 } },
+        { upsert: true },
+      );
+
+      // Add all new permissions (23-27) to all roles
+      for (const roleId of [1, 2, 3, 4, 5, 6, 7]) {
+        for (const permId of [23, 24, 25, 26, 27]) {
+          await rolePermissionsCollection.updateOne(
+            { role_id: roleId, permission_id: permId },
+            { $setOnInsert: { role_id: roleId, permission_id: permId } },
+            { upsert: true },
+          );
+        }
+      }
+
+      console.log("✅ All permissions ensured for all roles");
     }
 
     // Create users collection if it doesn't exist
@@ -569,18 +645,16 @@ async function initializeCollections() {
         ];
 
         for (const moduleKey of requiredModules) {
-          await db
-            .collection("user_modules")
-            .updateOne(
-              { user_id: productionUserId, module_key: moduleKey },
-              {
-                $setOnInsert: {
-                  user_id: productionUserId,
-                  module_key: moduleKey,
-                },
+          await db.collection("user_modules").updateOne(
+            { user_id: productionUserId, module_key: moduleKey },
+            {
+              $setOnInsert: {
+                user_id: productionUserId,
+                module_key: moduleKey,
               },
-              { upsert: true },
-            );
+            },
+            { upsert: true },
+          );
         }
       }
     }
@@ -708,27 +782,58 @@ async function initializeCollections() {
     // Create user_modules collection for module-based access control
     if (!collectionNames.includes("user_modules")) {
       await db.createCollection("user_modules");
-      // Initialize with admin user having all modules
-      const adminUserModules = [
-        { user_id: "admin", module_key: "DASHBOARD" },
-        { user_id: "admin", module_key: "CATEGORY_UNIT" },
-        { user_id: "admin", module_key: "RAW_MATERIAL" },
-        { user_id: "admin", module_key: "LABOUR" },
-        { user_id: "admin", module_key: "RAW_MATERIAL_COSTING" },
-        { user_id: "admin", module_key: "USER_MANAGEMENT" },
-        { user_id: "admin", module_key: "REPORTS" },
-        { user_id: "admin", module_key: "SETTINGS" },
-      ] as any[];
-      await db.collection("user_modules").insertMany(adminUserModules);
-      console.log("✅ User modules collection initialized");
+      // Get the admin user's ObjectId for module assignment
+      const adminUser = await db.collection("users").findOne({
+        username: "admin",
+      });
+      if (adminUser) {
+        const adminUserId = adminUser._id.toString();
+        // Initialize with admin user having all modules
+        const adminUserModules = [
+          { user_id: adminUserId, module_key: "DASHBOARD" },
+          { user_id: adminUserId, module_key: "CATEGORY_UNIT" },
+          { user_id: adminUserId, module_key: "RAW_MATERIAL" },
+          { user_id: adminUserId, module_key: "LABOUR" },
+          { user_id: adminUserId, module_key: "RAW_MATERIAL_COSTING" },
+          { user_id: adminUserId, module_key: "USER_MANAGEMENT" },
+          { user_id: adminUserId, module_key: "OP_COST" },
+        ] as any[];
+        await db.collection("user_modules").insertMany(adminUserModules);
+        console.log(
+          "✅ User modules collection initialized with admin modules",
+        );
+      }
     } else {
-      // Ensure LABOUR module exists for admin user
-      const userModulesCollection = db.collection("user_modules");
-      await userModulesCollection.updateOne(
-        { user_id: "admin", module_key: "LABOUR" },
-        { $setOnInsert: { user_id: "admin", module_key: "LABOUR" } },
-        { upsert: true },
-      );
+      // Ensure all required modules exist for admin user
+      const adminUser = await db.collection("users").findOne({
+        username: "admin",
+      });
+      if (adminUser) {
+        const adminUserId = adminUser._id.toString();
+        const requiredModules = [
+          "DASHBOARD",
+          "CATEGORY_UNIT",
+          "RAW_MATERIAL",
+          "LABOUR",
+          "RAW_MATERIAL_COSTING",
+          "USER_MANAGEMENT",
+          "OP_COST",
+        ];
+        const userModulesCollection = db.collection("user_modules");
+        for (const moduleKey of requiredModules) {
+          await userModulesCollection.updateOne(
+            { user_id: adminUserId, module_key: moduleKey },
+            {
+              $setOnInsert: {
+                user_id: adminUserId,
+                module_key: moduleKey,
+              },
+            },
+            { upsert: true },
+          );
+        }
+        console.log("✅ Admin user modules ensured");
+      }
     }
 
     // Create labour collection for factory labour management

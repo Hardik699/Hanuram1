@@ -43,6 +43,12 @@ export function Sidebar() {
 
   const menuItems = [
     {
+      label: "Dashboard",
+      path: "/dashboard",
+      icon: LayoutGrid,
+      permission: "dashboard_view",
+    },
+    {
       label: "Category/Unit",
       icon: Package,
       module: "CATEGORY_UNIT",
@@ -69,31 +75,31 @@ export function Sidebar() {
       label: "Raw Material",
       path: "/raw-materials",
       icon: Package,
-      module: "RAW_MATERIAL",
+      permission: "rm_view",
     },
     {
       label: "Labour",
       path: "/labour",
       icon: Users,
-      module: "LABOUR",
+      permission: "labour_view",
     },
     {
       label: "Raw Material Costing",
       path: "/rmc",
       icon: List,
-      module: "RAW_MATERIAL_COSTING",
+      permission: "recipe_view",
     },
     {
       label: "User Management",
       path: "/users",
       icon: Users,
-      module: "USER_MANAGEMENT",
+      permission: "user_manage",
     },
     {
       label: "OP Cost Management",
       path: "/op-cost",
       icon: Calculator,
-      module: "OP_COST",
+      permission: "opcost_view",
     },
   ];
 

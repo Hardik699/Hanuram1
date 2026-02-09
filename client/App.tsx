@@ -31,6 +31,7 @@ import CreateLabour from "./pages/CreateLabour";
 import CostingAnalysis from "./pages/CostingAnalysis";
 import OpCostManagement from "./pages/OpCostManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,14 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute requiredPermission="dashboard_view">
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/create-category"
               element={
@@ -198,7 +207,7 @@ const App = () => (
             <Route
               path="/labour"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="labour_view">
                   <LabourManagement />
                 </ProtectedRoute>
               }
@@ -206,7 +215,7 @@ const App = () => (
             <Route
               path="/labour/new"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="labour_add">
                   <CreateLabour />
                 </ProtectedRoute>
               }
@@ -214,7 +223,7 @@ const App = () => (
             <Route
               path="/labour/:id/edit"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="labour_edit">
                   <CreateLabour />
                 </ProtectedRoute>
               }
@@ -222,7 +231,7 @@ const App = () => (
             <Route
               path="/costing-calculator"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="recipe_view">
                   <CostingAnalysis />
                 </ProtectedRoute>
               }
@@ -230,7 +239,7 @@ const App = () => (
             <Route
               path="/op-cost"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="opcost_view">
                   <OpCostManagement />
                 </ProtectedRoute>
               }

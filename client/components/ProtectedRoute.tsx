@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LogOut } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -21,7 +21,13 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   fallback,
 }) => {
   const navigate = useNavigate();
-  const { isAuthenticated, loading, hasPermission, canAccess } = useAuth();
+  const { isAuthenticated, loading, hasPermission, canAccess, logout } =
+    useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
 
   if (loading) {
     return <LoadingSpinner message="Loading..." fullScreen />;
@@ -35,6 +41,15 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return (
       fallback || (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-950">
+          {/* Logout button in top right */}
+          <button
+            onClick={handleLogout}
+            className="absolute top-6 right-6 inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white font-semibold rounded-lg transition-colors"
+          >
+            <LogOut size={18} />
+            Logout
+          </button>
+
           <div className="text-center px-4">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
@@ -61,6 +76,15 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return (
       fallback || (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-950">
+          {/* Logout button in top right */}
+          <button
+            onClick={handleLogout}
+            className="absolute top-6 right-6 inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white font-semibold rounded-lg transition-colors"
+          >
+            <LogOut size={18} />
+            Logout
+          </button>
+
           <div className="text-center px-4">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">

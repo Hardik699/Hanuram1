@@ -78,6 +78,15 @@ export default function UserDetail() {
             email: userData.user.email,
             role_id: userData.user.role_id,
           });
+
+          // Set user permissions from the user data if available
+          if (
+            userData.user.permissions &&
+            Array.isArray(userData.user.permissions)
+          ) {
+            setUserPermissions(userData.user.permissions);
+            setSelectedPermissions(new Set(userData.user.permissions));
+          }
         }
 
         // Fetch all permissions
@@ -86,16 +95,6 @@ export default function UserDetail() {
           const permData = await permResponse.json();
           if (permData.success && Array.isArray(permData.data)) {
             setAllPermissions(permData.data);
-          }
-        }
-
-        // Fetch user permissions
-        const userPermResponse = await fetch(`/api/users/${id}/permissions`);
-        if (userPermResponse.ok) {
-          const userPermData = await userPermResponse.json();
-          if (userPermData.success && Array.isArray(userPermData.data)) {
-            setUserPermissions(userPermData.data);
-            setSelectedPermissions(new Set(userPermData.data));
           }
         }
       } catch (error) {
@@ -189,13 +188,23 @@ export default function UserDetail() {
 
   const handleSavePermissions = async () => {
     try {
+      console.log("Saving permissions:", Array.from(selectedPermissions));
+
       const response = await fetch(`/api/users/${id}/permissions`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ permissions: Array.from(selectedPermissions) }),
       });
 
+      console.log("Response status:", response.status);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
+      console.log("Response data:", data);
+
       if (data.success) {
         toast.success("Permissions updated successfully");
         setUserPermissions(Array.from(selectedPermissions));
@@ -304,11 +313,21 @@ export default function UserDetail() {
                   }
                   className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
-                  <option value={1}>Super Admin</option>
-                  <option value={2}>Admin</option>
-                  <option value={3}>Manager</option>
-                  <option value={4}>Vendor</option>
-                  <option value={5}>Viewer</option>
+                  <option key="role-1" value={1}>
+                    Super Admin
+                  </option>
+                  <option key="role-2" value={2}>
+                    Admin
+                  </option>
+                  <option key="role-3" value={3}>
+                    Manager
+                  </option>
+                  <option key="role-4" value={4}>
+                    Vendor
+                  </option>
+                  <option key="role-5" value={5}>
+                    Viewer
+                  </option>
                 </select>
               </div>
 
@@ -433,7 +452,9 @@ export default function UserDetail() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {allPermissions.map((permission) => (
                   <button
-                    key={permission.permission_id}
+                    key={String(
+                      permission.permission_id || permission.permission_key,
+                    )}
                     onClick={() => togglePermission(permission.permission_key)}
                     className={`p-4 rounded-lg border-2 transition text-left ${
                       selectedPermissions.has(permission.permission_key)
