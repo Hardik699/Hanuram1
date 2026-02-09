@@ -44,7 +44,9 @@ export const handleLogin: RequestHandler = async (req, res) => {
       const modules = await getUserModules(user._id.toString());
 
       // Log for debugging
-      console.log(`✅ Login successful for user: ${username} (role_id: ${user.role_id})`);
+      console.log(
+        `✅ Login successful for user: ${username} (role_id: ${user.role_id})`,
+      );
       console.log(`   Permissions: ${permissions.join(", ")}`);
       console.log(`   Modules: ${modules.join(", ")}`);
 
@@ -71,7 +73,9 @@ export const handleLogin: RequestHandler = async (req, res) => {
       });
 
       if (userExists) {
-        console.warn(`Login failed: User '${username}' found but password mismatch. Expected: '${userExists.password}', Received: '${password}'`);
+        console.warn(
+          `Login failed: User '${username}' found but password mismatch. Expected: '${userExists.password}', Received: '${password}'`,
+        );
       } else {
         console.warn(`Login failed: User '${username}' not found in database`);
       }

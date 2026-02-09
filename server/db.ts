@@ -243,7 +243,9 @@ async function initializeCollections() {
           { upsert: true },
         );
       }
-      console.log("✅ Labour and cost viewing permissions ensured in permissions collection");
+      console.log(
+        "✅ Labour and cost viewing permissions ensured in permissions collection",
+      );
     }
 
     // Ensure Cost Viewer role exists
@@ -351,13 +353,13 @@ async function initializeCollections() {
 
       // Add permissions for Production role (7)
       const productionPermissions = [
-        { role_id: 7, permission_id: 1 },  // dashboard_view
-        { role_id: 7, permission_id: 2 },  // rm_view
-        { role_id: 7, permission_id: 3 },  // rm_add
-        { role_id: 7, permission_id: 4 },  // rm_edit
-        { role_id: 7, permission_id: 5 },  // recipe_view (limited display)
-        { role_id: 7, permission_id: 8 },  // category_view
-        { role_id: 7, permission_id: 9 },  // category_add
+        { role_id: 7, permission_id: 1 }, // dashboard_view
+        { role_id: 7, permission_id: 2 }, // rm_view
+        { role_id: 7, permission_id: 3 }, // rm_add
+        { role_id: 7, permission_id: 4 }, // rm_edit
+        { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
+        { role_id: 7, permission_id: 8 }, // category_view
+        { role_id: 7, permission_id: 9 }, // category_add
         { role_id: 7, permission_id: 10 }, // subcategory_view
         { role_id: 7, permission_id: 11 }, // subcategory_add
         { role_id: 7, permission_id: 12 }, // unit_view
@@ -367,7 +369,9 @@ async function initializeCollections() {
 
       if (productionPermissions.length > 0) {
         await rolePermissionsCollection.insertMany(productionPermissions);
-        console.log(`✅ Production role permissions inserted (${productionPermissions.length} permissions)`);
+        console.log(
+          `✅ Production role permissions inserted (${productionPermissions.length} permissions)`,
+        );
       }
 
       // Ensure Production role exists in roles collection
@@ -565,11 +569,18 @@ async function initializeCollections() {
         ];
 
         for (const moduleKey of requiredModules) {
-          await db.collection("user_modules").updateOne(
-            { user_id: productionUserId, module_key: moduleKey },
-            { $setOnInsert: { user_id: productionUserId, module_key: moduleKey } },
-            { upsert: true },
-          );
+          await db
+            .collection("user_modules")
+            .updateOne(
+              { user_id: productionUserId, module_key: moduleKey },
+              {
+                $setOnInsert: {
+                  user_id: productionUserId,
+                  module_key: moduleKey,
+                },
+              },
+              { upsert: true },
+            );
         }
       }
     }
