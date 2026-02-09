@@ -579,33 +579,33 @@ export default function CreateCategory() {
                         }`}
                       >
                         <td
-                          className="px-3 py-3 text-xs font-bold text-white cursor-pointer transition-colors whitespace-nowrap"
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs font-bold text-white cursor-pointer transition-colors whitespace-nowrap"
                           onClick={() => navigate(`/category/${category._id}`)}
                         >
-                          <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white text-xs font-bold group-hover:from-blue-700 group-hover:to-blue-800 dark:group-hover:from-blue-800 dark:group-hover:to-blue-900 transition-all shadow-md">
+                          <span className="inline-flex items-center justify-center px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white text-xs font-bold group-hover:from-blue-700 group-hover:to-blue-800 dark:group-hover:from-blue-800 dark:group-hover:to-blue-900 transition-all shadow-md">
                             {category.name.substring(0, 1)}
                           </span>
                         </td>
                         <td
-                          className="px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate max-w-xs"
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate"
                           onClick={() => navigate(`/category/${category._id}`)}
                           title={category.name}
                         >
                           {category.name}
                         </td>
                         <td
-                          className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400 cursor-pointer max-w-xs truncate"
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 cursor-pointer truncate hidden sm:table-cell"
                           onClick={() => navigate(`/category/${category._id}`)}
                           title={category.description || "-"}
                         >
                           {category.description || "-"}
                         </td>
                         <td
-                          className="px-4 py-3 text-sm cursor-pointer"
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm cursor-pointer whitespace-nowrap"
                           onClick={() => navigate(`/category/${category._id}`)}
                         >
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${
                               category.status === "active"
                                 ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
                                 : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
@@ -618,7 +618,7 @@ export default function CreateCategory() {
                           </span>
                         </td>
                         <td
-                          className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400 whitespace-nowrap cursor-pointer"
+                          className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap cursor-pointer hidden md:table-cell"
                           onClick={() => navigate(`/category/${category._id}`)}
                         >
                           {category.createdBy}
