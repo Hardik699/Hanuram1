@@ -208,7 +208,7 @@ export default function CategoryDetail() {
             { label: "Categories", href: "/create-category" },
             { label: category?.name || "Details" },
           ]}
-          icon={<Folder className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+          icon={<Folder className="w-6 h-6 text-white" />}
           actions={
             !showEditForm ? (
               <div className="flex gap-3">

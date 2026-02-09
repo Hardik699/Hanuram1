@@ -204,7 +204,7 @@ export default function UnitDetail() {
             { label: unit?.name || "Details" },
           ]}
           icon={
-            <Settings className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+            <Settings className="w-6 h-6 text-white" />
           }
           actions={
             !showEditForm ? (

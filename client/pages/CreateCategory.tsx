@@ -281,7 +281,7 @@ export default function CreateCategory() {
         title="Category Management"
         description="Create, manage, and organize product categories"
         breadcrumbs={[{ label: "Category Management" }]}
-        icon={<Folder className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+        icon={<Folder className="w-6 h-6 text-white" />}
         actions={
           !showAddForm ? (
             <div className="flex items-center gap-2">

@@ -930,7 +930,7 @@ export default function RMCManagement() {
         description={isProductionUser ? "View production labour costs for recipes" : "Manage recipes and calculate material costs"}
         breadcrumbs={[{ label: isProductionUser ? "Production Labour Cost" : "Raw Material Costing" }]}
         icon={
-          <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+          <BookOpen className="w-6 h-6 text-white" />
         }
         actions={
           !isProductionUser && (

@@ -160,7 +160,7 @@ export default function CostingAnalysis() {
           description="Calculate packaging & handling cost per Kg for products"
           breadcrumbs={[{ label: "Costing Analysis" }]}
           icon={
-            <Calculator className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <Calculator className="w-6 h-6 text-white" />
           }
         />
 

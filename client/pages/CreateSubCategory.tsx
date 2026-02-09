@@ -422,7 +422,7 @@ export default function CreateSubCategory() {
             title="Sub Category Management"
             description="Create, manage, and organize product sub categories"
             breadcrumbs={[{ label: "Sub Category Management" }]}
-            icon={<FolderOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />}
+            icon={<FolderOpen className="w-6 h-6 text-white" />}
             actions={
               <div className="flex items-center gap-2">
                 <button

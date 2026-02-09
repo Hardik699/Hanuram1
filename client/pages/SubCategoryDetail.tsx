@@ -227,7 +227,7 @@ export default function SubCategoryDetail() {
             { label: subCategory?.name || "Details" },
           ]}
           icon={
-            <FolderOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+            <FolderOpen className="w-6 h-6 text-white" />
           }
           actions={
             !showEditForm ? (

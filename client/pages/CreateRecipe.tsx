@@ -492,7 +492,7 @@ export default function CreateRecipe() {
             { label: id ? "Edit Recipe" : "Create Recipe" },
           ]}
           icon={
-            <ChefHat className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <ChefHat className="w-6 h-6 text-white" />
           }
         />
 

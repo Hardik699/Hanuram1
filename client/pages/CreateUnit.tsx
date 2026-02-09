@@ -265,7 +265,7 @@ export default function CreateUnit() {
         title="Unit Management"
         description="Manage measurement units for products"
         breadcrumbs={[{ label: "Unit Management" }]}
-        icon={<Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+        icon={<Settings className="w-6 h-6 text-white" />}
         actions={
           !showAddForm ? (
             <div className="flex items-center gap-2">
