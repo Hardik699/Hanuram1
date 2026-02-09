@@ -104,12 +104,8 @@ export default function Login() {
       <div className="w-full max-w-sm sm:max-w-md">
         {/* Logo/Brand area */}
         <div className="text-center mb-8 animate-scale-in">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 mb-4 shadow-elevation-4 transform hover:scale-110 transition-transform border border-slate-200 dark:border-slate-700">
-            <img
-              src="/logo.svg"
-              alt="Hanuram Foods Logo"
-              className="w-12 h-12 object-contain"
-            />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white mb-4 shadow-elevation-4 transform hover:scale-110 transition-transform">
+            <Lock className="w-8 h-8" />
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mb-2">
             Hanuram Foods
