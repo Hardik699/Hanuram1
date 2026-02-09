@@ -434,8 +434,8 @@ async function initializeCollections() {
         { upsert: true },
       );
 
-      // Add all labour and cost permissions (20, 21, 22, 23, 24) for Super Admin (role_id: 1)
-      for (const permId of [20, 21, 22, 23, 24]) {
+      // Add ALL permissions for Super Admin (role_id: 1)
+      for (const permId of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 1, permission_id: permId },
           { $setOnInsert: { role_id: 1, permission_id: permId } },
@@ -443,8 +443,8 @@ async function initializeCollections() {
         );
       }
 
-      // Add all labour and cost permissions for Admin (role_id: 2)
-      for (const permId of [20, 21, 22, 23, 24]) {
+      // Add ALL permissions for Admin (role_id: 2)
+      for (const permId of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]) {
         await rolePermissionsCollection.updateOne(
           { role_id: 2, permission_id: permId },
           { $setOnInsert: { role_id: 2, permission_id: permId } },
