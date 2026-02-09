@@ -427,9 +427,9 @@ export default function UserDetail() {
           {isManagingPermissions ? (
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {allPermissions.map((permission, index) => (
+                {allPermissions.map((permission) => (
                   <button
-                    key={`permission-${permission.permission_id || index}`}
+                    key={`perm-${permission.permission_key}`}
                     onClick={() => togglePermission(permission.permission_key)}
                     className={`p-4 rounded-lg border-2 transition text-left ${
                       selectedPermissions.has(permission.permission_key)
