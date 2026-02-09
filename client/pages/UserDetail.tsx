@@ -78,6 +78,12 @@ export default function UserDetail() {
             email: userData.user.email,
             role_id: userData.user.role_id,
           });
+
+          // Set user permissions from the user data if available
+          if (userData.user.permissions && Array.isArray(userData.user.permissions)) {
+            setUserPermissions(userData.user.permissions);
+            setSelectedPermissions(new Set(userData.user.permissions));
+          }
         }
 
         // Fetch all permissions
@@ -86,16 +92,6 @@ export default function UserDetail() {
           const permData = await permResponse.json();
           if (permData.success && Array.isArray(permData.data)) {
             setAllPermissions(permData.data);
-          }
-        }
-
-        // Fetch user permissions
-        const userPermResponse = await fetch(`/api/users/${id}/permissions`);
-        if (userPermResponse.ok) {
-          const userPermData = await userPermResponse.json();
-          if (userPermData.success && Array.isArray(userPermData.data)) {
-            setUserPermissions(userPermData.data);
-            setSelectedPermissions(new Set(userPermData.data));
           }
         }
       } catch (error) {
