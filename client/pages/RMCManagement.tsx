@@ -242,40 +242,61 @@ export default function RMCManagement() {
 
   const fetchUnits = async () => {
     try {
-      const response = await fetch("/api/units");
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+      const response = await fetch("/api/units", { signal: controller.signal });
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       if (data.success) setUnits(data.data);
     } catch (error) {
-      console.error("Error fetching units:", error);
+      if (!(error instanceof Error && error.name === 'AbortError')) {
+        console.error("Error fetching units:", error);
+      }
     }
   };
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("/api/categories");
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+      const response = await fetch("/api/categories", { signal: controller.signal });
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       if (data.success) setCategories(data.data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      if (!(error instanceof Error && error.name === 'AbortError')) {
+        console.error("Error fetching categories:", error);
+      }
     }
   };
 
   const fetchSubCategories = async () => {
     try {
-      const response = await fetch("/api/subcategories");
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+      const response = await fetch("/api/subcategories", { signal: controller.signal });
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       if (data.success) setSubCategories(data.data);
     } catch (error) {
-      console.error("Error fetching subcategories:", error);
+      if (!(error instanceof Error && error.name === 'AbortError')) {
+        console.error("Error fetching subcategories:", error);
+      }
     }
   };
 
