@@ -333,16 +333,19 @@ async function initializeCollections() {
         { role_id: 3, permission_id: 5 },
         { role_id: 3, permission_id: 17 },
         { role_id: 3, permission_id: 19 }, // user_manage
+        { role_id: 3, permission_id: 20 }, // labour_view
         // Vendor
         { role_id: 4, permission_id: 2 }, // rm_view
         { role_id: 4, permission_id: 14 }, // vendor_view
         { role_id: 4, permission_id: 17 }, // quotation_view
         { role_id: 4, permission_id: 19 }, // user_manage
+        { role_id: 4, permission_id: 20 }, // labour_view
         // Viewer
         { role_id: 5, permission_id: 1 },
         { role_id: 5, permission_id: 2 },
         { role_id: 5, permission_id: 5 },
         { role_id: 5, permission_id: 19 }, // user_manage
+        { role_id: 5, permission_id: 20 }, // labour_view
         // Cost Viewer - Can see data but not cost details
         { role_id: 6, permission_id: 1 },
         { role_id: 6, permission_id: 2 },
