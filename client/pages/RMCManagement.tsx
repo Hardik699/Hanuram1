@@ -950,7 +950,11 @@ export default function RMCManagement() {
             ) : (
               <div className="grid grid-cols-1 gap-4">
                 {recipes.map((recipe) => (
-                  <div key={recipe._id} className="bg-white dark:bg-slate-700 rounded-lg p-4 border border-slate-200 dark:border-slate-600">
+                  <div
+                    key={recipe._id}
+                    onClick={() => navigate(`/recipe/${recipe._id}/edit`)}
+                    className="bg-white dark:bg-slate-700 rounded-lg p-4 border border-slate-200 dark:border-slate-600 cursor-pointer hover:shadow-lg hover:border-blue-400 dark:hover:border-blue-500 transition-all"
+                  >
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <h4 className="font-bold text-slate-900 dark:text-white">{recipe.name}</h4>
