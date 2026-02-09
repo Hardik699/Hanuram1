@@ -439,6 +439,13 @@ async function initializeCollections() {
         );
       }
 
+      // Ensure Vendor role (4) can view raw materials
+      await rolePermissionsCollection.updateOne(
+        { role_id: 4, permission_id: 2 },
+        { $setOnInsert: { role_id: 4, permission_id: 2 } },
+        { upsert: true },
+      );
+
       console.log("✅ Labour and cost viewing permissions ensured for roles");
     }
 
