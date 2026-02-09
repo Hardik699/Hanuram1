@@ -743,27 +743,56 @@ async function initializeCollections() {
     // Create user_modules collection for module-based access control
     if (!collectionNames.includes("user_modules")) {
       await db.createCollection("user_modules");
-      // Initialize with admin user having all modules
-      const adminUserModules = [
-        { user_id: "admin", module_key: "DASHBOARD" },
-        { user_id: "admin", module_key: "CATEGORY_UNIT" },
-        { user_id: "admin", module_key: "RAW_MATERIAL" },
-        { user_id: "admin", module_key: "LABOUR" },
-        { user_id: "admin", module_key: "RAW_MATERIAL_COSTING" },
-        { user_id: "admin", module_key: "USER_MANAGEMENT" },
-        { user_id: "admin", module_key: "REPORTS" },
-        { user_id: "admin", module_key: "SETTINGS" },
-      ] as any[];
-      await db.collection("user_modules").insertMany(adminUserModules);
-      console.log("✅ User modules collection initialized");
+      // Get the admin user's ObjectId for module assignment
+      const adminUser = await db.collection("users").findOne({
+        username: "admin",
+      });
+      if (adminUser) {
+        const adminUserId = adminUser._id.toString();
+        // Initialize with admin user having all modules
+        const adminUserModules = [
+          { user_id: adminUserId, module_key: "DASHBOARD" },
+          { user_id: adminUserId, module_key: "CATEGORY_UNIT" },
+          { user_id: adminUserId, module_key: "RAW_MATERIAL" },
+          { user_id: adminUserId, module_key: "LABOUR" },
+          { user_id: adminUserId, module_key: "RAW_MATERIAL_COSTING" },
+          { user_id: adminUserId, module_key: "USER_MANAGEMENT" },
+          { user_id: adminUserId, module_key: "OP_COST" },
+        ] as any[];
+        await db.collection("user_modules").insertMany(adminUserModules);
+        console.log("✅ User modules collection initialized with admin modules");
+      }
     } else {
-      // Ensure LABOUR module exists for admin user
-      const userModulesCollection = db.collection("user_modules");
-      await userModulesCollection.updateOne(
-        { user_id: "admin", module_key: "LABOUR" },
-        { $setOnInsert: { user_id: "admin", module_key: "LABOUR" } },
-        { upsert: true },
-      );
+      // Ensure all required modules exist for admin user
+      const adminUser = await db.collection("users").findOne({
+        username: "admin",
+      });
+      if (adminUser) {
+        const adminUserId = adminUser._id.toString();
+        const requiredModules = [
+          "DASHBOARD",
+          "CATEGORY_UNIT",
+          "RAW_MATERIAL",
+          "LABOUR",
+          "RAW_MATERIAL_COSTING",
+          "USER_MANAGEMENT",
+          "OP_COST",
+        ];
+        const userModulesCollection = db.collection("user_modules");
+        for (const moduleKey of requiredModules) {
+          await userModulesCollection.updateOne(
+            { user_id: adminUserId, module_key: moduleKey },
+            {
+              $setOnInsert: {
+                user_id: adminUserId,
+                module_key: moduleKey,
+              },
+            },
+            { upsert: true },
+          );
+        }
+        console.log("✅ Admin user modules ensured");
+      }
     }
 
     // Create labour collection for factory labour management
