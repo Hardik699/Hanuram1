@@ -990,16 +990,20 @@ export default function RecipeDetail() {
               label: "Information",
               icon: <FileText size={16} />,
             },
-            {
-              id: "recipe-history",
-              label: "Recipe History",
-              icon: <History size={16} />,
-            },
-            {
-              id: "quotation-history",
-              label: "Quotation History",
-              icon: <FileText size={16} />,
-            },
+            ...(isProductionUser
+              ? []
+              : [
+                  {
+                    id: "recipe-history",
+                    label: "Recipe History",
+                    icon: <History size={16} />,
+                  },
+                  {
+                    id: "quotation-history",
+                    label: "Quotation History",
+                    icon: <FileText size={16} />,
+                  },
+                ]),
           ].map((tab) => (
             <button
               key={tab.id}
