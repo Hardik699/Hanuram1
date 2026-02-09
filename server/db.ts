@@ -476,7 +476,7 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 24 },
         { role_id: 7, permission_id: 25 },
         { role_id: 7, permission_id: 26 },
-        { role_id: 7, permission_id: 27 }
+        { role_id: 7, permission_id: 27 },
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
@@ -513,7 +513,10 @@ async function initializeCollections() {
 
       // Ensure all roles have ALL permissions (batch operation)
       const allRoleIds = [1, 2, 3, 4, 5, 6, 7];
-      const allPermissionIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27];
+      const allPermissionIds = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21,
+        22, 23, 24, 25, 26, 27,
+      ];
 
       const allRolePermissions = [];
       for (const roleId of allRoleIds) {
@@ -524,12 +527,12 @@ async function initializeCollections() {
 
       // Use bulkWrite for efficiency instead of individual updates
       if (allRolePermissions.length > 0) {
-        const bulkOps = allRolePermissions.map(rp => ({
+        const bulkOps = allRolePermissions.map((rp) => ({
           updateOne: {
             filter: { role_id: rp.role_id, permission_id: rp.permission_id },
             update: { $setOnInsert: rp },
-            upsert: true
-          }
+            upsert: true,
+          },
         }));
 
         // Process in batches of 1000 to avoid overwhelming the database

@@ -254,7 +254,7 @@ export default function RMCManagement() {
       const data = await response.json();
       if (data.success) setUnits(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === 'AbortError')) {
+      if (!(error instanceof Error && error.name === "AbortError")) {
         console.error("Error fetching units:", error);
       }
     }
@@ -265,7 +265,9 @@ export default function RMCManagement() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
-      const response = await fetch("/api/categories", { signal: controller.signal });
+      const response = await fetch("/api/categories", {
+        signal: controller.signal,
+      });
       clearTimeout(timeoutId);
 
       if (!response.ok) {
@@ -274,7 +276,7 @@ export default function RMCManagement() {
       const data = await response.json();
       if (data.success) setCategories(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === 'AbortError')) {
+      if (!(error instanceof Error && error.name === "AbortError")) {
         console.error("Error fetching categories:", error);
       }
     }
@@ -285,7 +287,9 @@ export default function RMCManagement() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
-      const response = await fetch("/api/subcategories", { signal: controller.signal });
+      const response = await fetch("/api/subcategories", {
+        signal: controller.signal,
+      });
       clearTimeout(timeoutId);
 
       if (!response.ok) {
@@ -294,7 +298,7 @@ export default function RMCManagement() {
       const data = await response.json();
       if (data.success) setSubCategories(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === 'AbortError')) {
+      if (!(error instanceof Error && error.name === "AbortError")) {
         console.error("Error fetching subcategories:", error);
       }
     }
@@ -305,7 +309,9 @@ export default function RMCManagement() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      const response = await fetch("/api/raw-materials", { signal: controller.signal });
+      const response = await fetch("/api/raw-materials", {
+        signal: controller.signal,
+      });
       clearTimeout(timeoutId);
 
       if (!response.ok) {
@@ -314,7 +320,7 @@ export default function RMCManagement() {
       const data = await response.json();
       if (data.success) setRawMaterials(data.data);
     } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
+      if (error instanceof Error && error.name === "AbortError") {
         console.error("Raw materials fetch timed out");
       } else {
         console.error("Error fetching raw materials:", error);
@@ -327,7 +333,9 @@ export default function RMCManagement() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
-      const response = await fetch("/api/recipes", { signal: controller.signal });
+      const response = await fetch("/api/recipes", {
+        signal: controller.signal,
+      });
       clearTimeout(timeoutId);
 
       if (!response.ok) {
@@ -336,7 +344,7 @@ export default function RMCManagement() {
       const data = await response.json();
       if (data.success) setRecipes(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === 'AbortError')) {
+      if (!(error instanceof Error && error.name === "AbortError")) {
         console.error("Error fetching recipes:", error);
       }
     }
@@ -940,12 +948,20 @@ export default function RMCManagement() {
       {isProductionUser && (
         <div className="space-y-6">
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-6 border border-blue-200 dark:border-slate-700">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Recipe Making - Raw Materials & Labour Cost</h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">Overview of raw materials used in recipes and associated labour costs</p>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
+              Recipe Making - Raw Materials & Labour Cost
+            </h3>
+            <p className="text-slate-600 dark:text-slate-400 mb-4">
+              Overview of raw materials used in recipes and associated labour
+              costs
+            </p>
 
             {recipes.length === 0 ? (
               <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                <p>No recipes available to display raw materials and labour costs.</p>
+                <p>
+                  No recipes available to display raw materials and labour
+                  costs.
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-4">
@@ -957,22 +973,38 @@ export default function RMCManagement() {
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <h4 className="font-bold text-slate-900 dark:text-white">{recipe.name}</h4>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Recipe Code: {recipe.code}</p>
+                        <h4 className="font-bold text-slate-900 dark:text-white">
+                          {recipe.name}
+                        </h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                          Recipe Code: {recipe.code}
+                        </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-purple-600 dark:text-purple-400">₹{recipe.totalRawMaterialCost.toFixed(2)}</p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">Total RM Cost</p>
+                        <p className="font-bold text-purple-600 dark:text-purple-400">
+                          ₹{recipe.totalRawMaterialCost.toFixed(2)}
+                        </p>
+                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                          Total RM Cost
+                        </p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded">
-                        <p className="text-slate-600 dark:text-slate-400 text-xs">Batch Size</p>
-                        <p className="font-bold text-slate-900 dark:text-white">{recipe.batchSize} {recipe.unitName}</p>
+                        <p className="text-slate-600 dark:text-slate-400 text-xs">
+                          Batch Size
+                        </p>
+                        <p className="font-bold text-slate-900 dark:text-white">
+                          {recipe.batchSize} {recipe.unitName}
+                        </p>
                       </div>
                       <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded">
-                        <p className="text-slate-600 dark:text-slate-400 text-xs">Price per Unit</p>
-                        <p className="font-bold text-blue-600 dark:text-blue-400">₹{recipe.pricePerUnit.toFixed(2)}</p>
+                        <p className="text-slate-600 dark:text-slate-400 text-xs">
+                          Price per Unit
+                        </p>
+                        <p className="font-bold text-blue-600 dark:text-blue-400">
+                          ₹{recipe.pricePerUnit.toFixed(2)}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -985,70 +1017,70 @@ export default function RMCManagement() {
 
       {/* Statistics Cards - Hidden for Production Users */}
       {!isProductionUser && (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        {/* Total Recipes Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex-1">
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
-                Total Recipes
-              </p>
-              <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
-                {totalRecipes}
-              </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-                Active recipes
-              </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {/* Total Recipes Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
+                  Total Recipes
+                </p>
+                <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
+                  {totalRecipes}
+                </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                  Active recipes
+                </p>
+              </div>
+              <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-xl">
+                <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+              </div>
             </div>
-            <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-xl">
-              <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-            </div>
+            <div className="h-1 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full mt-4"></div>
           </div>
-          <div className="h-1 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full mt-4"></div>
-        </div>
 
-        {/* Total Raw Material Cost Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex-1">
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
-                Total RM Cost
-              </p>
-              <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
-                ₹{totalRawMaterialCost.toFixed(0)}
-              </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-                All recipes combined
-              </p>
+          {/* Total Raw Material Cost Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
+                  Total RM Cost
+                </p>
+                <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
+                  ₹{totalRawMaterialCost.toFixed(0)}
+                </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                  All recipes combined
+                </p>
+              </div>
+              <div className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 p-4 rounded-xl">
+                <TrendingUp className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              </div>
             </div>
-            <div className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 p-4 rounded-xl">
-              <TrendingUp className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-            </div>
+            <div className="h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mt-4"></div>
           </div>
-          <div className="h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mt-4"></div>
-        </div>
 
-        {/* Average Price Per Unit Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex-1">
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
-                Avg Price/Unit
-              </p>
-              <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
-                ₹{avgPricePerUnit.toFixed(2)}
-              </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-                Per unit average
-              </p>
+          {/* Average Price Per Unit Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
+                  Avg Price/Unit
+                </p>
+                <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
+                  ₹{avgPricePerUnit.toFixed(2)}
+                </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                  Per unit average
+                </p>
+              </div>
+              <div className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 p-4 rounded-xl">
+                <TrendingDown className="w-6 h-6 text-pink-600 dark:text-pink-400" />
+              </div>
             </div>
-            <div className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 p-4 rounded-xl">
-              <TrendingDown className="w-6 h-6 text-pink-600 dark:text-pink-400" />
-            </div>
+            <div className="h-1 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full mt-4"></div>
           </div>
-          <div className="h-1 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full mt-4"></div>
         </div>
-      </div>
       )}
       <div className="space-y-2">
         {/* Message Alert */}
@@ -1080,140 +1112,151 @@ export default function RMCManagement() {
         {/* All Recipes Header - Hidden for Production Users */}
         {!isProductionUser && (
           <>
-        <div className="bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                All Recipes
-              </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Showing{" "}
-                <span className="font-bold text-slate-900 dark:text-white">
-                  {recipes.length}
-                </span>{" "}
-                recipe{recipes.length !== 1 ? "s" : ""}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* All Recipes Table */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-          {tableLoading ? (
-            <div className="p-8 text-center">
-              <div className="inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-              <p className="text-slate-600 dark:text-slate-400 mt-2">
-                Loading recipes...
-              </p>
-            </div>
-          ) : recipes.length === 0 ? (
-            <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-              No recipes found. Create one above!
-            </div>
-          ) : (
-            <div className="table-responsive shadow-elevation-4 animate-page-load">
-              <table className="w-full">
-                <thead className="prof-table-head">
-                  <tr>
-                    <th className="prof-table-head-cell">Recipe Code</th>
-                    <th className="prof-table-head-cell">Recipe Name</th>
-                    <th className="prof-table-head-cell">Total RM Cost</th>
-                    <th className="prof-table-head-cell">Price per Unit</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                  {paginatedRecipes.map((recipe, idx) => (
-                    <tr
-                      key={recipe._id}
-                      className={cn(
-                        "prof-table-row",
-                        idx % 2 === 0 && "prof-table-row-even",
-                        !isProductionUser && "prof-table-row-hover cursor-pointer"
-                      )}
-                      onClick={() => !isProductionUser && navigate(`/recipe/${recipe._id}`)}
-                    >
-                      <td className="prof-table-cell">
-                        <span className="prof-badge-blue">{recipe.code}</span>
-                      </td>
-                      <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
-                        {recipe.name}
-                      </td>
-                      <td className="prof-table-cell font-bold text-slate-900 dark:text-white">
-                        <span className="text-purple-600 dark:text-purple-400">
-                          ₹{recipe.totalRawMaterialCost.toFixed(2)}
-                        </span>
-                      </td>
-                      <td className="prof-table-cell font-bold">
-                        <span className="text-blue-600 dark:text-blue-400">
-                          ₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              {/* Pagination Controls */}
-              <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
-                    Items per page:
-                  </span>
-                  <select
-                    value={itemsPerPage}
-                    onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                    className="prof-form-select px-4 py-2 w-24 text-sm"
-                  >
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                  </select>
-                </div>
-
-                <div className="flex items-center gap-6">
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
-                      {startIndex + 1}-{Math.min(endIndex, recipes.length)}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
+            <div className="bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+                    <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    All Recipes
+                  </h2>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    Showing{" "}
+                    <span className="font-bold text-slate-900 dark:text-white">
                       {recipes.length}
-                    </span>
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={handlePreviousPage}
-                      disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                      title="Previous Page"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
-                      Page{" "}
-                      <span className="font-bold text-blue-600 dark:text-blue-400">
-                        {currentPage}
-                      </span>{" "}
-                      of{" "}
-                      <span className="font-bold text-slate-900 dark:text-slate-200">
-                        {totalPages || 1}
-                      </span>
-                    </span>
-                    <button
-                      onClick={handleNextPage}
-                      disabled={currentPage === totalPages || totalPages === 0}
-                      className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                      title="Next Page"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </div>
+                    </span>{" "}
+                    recipe{recipes.length !== 1 ? "s" : ""}
+                  </p>
                 </div>
               </div>
             </div>
-          )}
-        </div>
+
+            {/* All Recipes Table */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+              {tableLoading ? (
+                <div className="p-8 text-center">
+                  <div className="inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                  <p className="text-slate-600 dark:text-slate-400 mt-2">
+                    Loading recipes...
+                  </p>
+                </div>
+              ) : recipes.length === 0 ? (
+                <div className="p-8 text-center text-slate-600 dark:text-slate-400">
+                  No recipes found. Create one above!
+                </div>
+              ) : (
+                <div className="table-responsive shadow-elevation-4 animate-page-load">
+                  <table className="w-full">
+                    <thead className="prof-table-head">
+                      <tr>
+                        <th className="prof-table-head-cell">Recipe Code</th>
+                        <th className="prof-table-head-cell">Recipe Name</th>
+                        <th className="prof-table-head-cell">Total RM Cost</th>
+                        <th className="prof-table-head-cell">Price per Unit</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                      {paginatedRecipes.map((recipe, idx) => (
+                        <tr
+                          key={recipe._id}
+                          className={cn(
+                            "prof-table-row",
+                            idx % 2 === 0 && "prof-table-row-even",
+                            !isProductionUser &&
+                              "prof-table-row-hover cursor-pointer",
+                          )}
+                          onClick={() =>
+                            !isProductionUser &&
+                            navigate(`/recipe/${recipe._id}`)
+                          }
+                        >
+                          <td className="prof-table-cell">
+                            <span className="prof-badge-blue">
+                              {recipe.code}
+                            </span>
+                          </td>
+                          <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
+                            {recipe.name}
+                          </td>
+                          <td className="prof-table-cell font-bold text-slate-900 dark:text-white">
+                            <span className="text-purple-600 dark:text-purple-400">
+                              ₹{recipe.totalRawMaterialCost.toFixed(2)}
+                            </span>
+                          </td>
+                          <td className="prof-table-cell font-bold">
+                            <span className="text-blue-600 dark:text-blue-400">
+                              ₹{recipe.pricePerUnit.toFixed(2)}/
+                              {recipe.unitName}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  {/* Pagination Controls */}
+                  <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                        Items per page:
+                      </span>
+                      <select
+                        value={itemsPerPage}
+                        onChange={(e) =>
+                          handleItemsPerPageChange(e.target.value)
+                        }
+                        className="prof-form-select px-4 py-2 w-24 text-sm"
+                      >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-center gap-6">
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                        <span className="font-bold text-blue-600 dark:text-blue-400">
+                          {startIndex + 1}-{Math.min(endIndex, recipes.length)}
+                        </span>{" "}
+                        of{" "}
+                        <span className="font-bold text-slate-900 dark:text-slate-200">
+                          {recipes.length}
+                        </span>
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={handlePreviousPage}
+                          disabled={currentPage === 1}
+                          className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                          title="Previous Page"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
+                          Page{" "}
+                          <span className="font-bold text-blue-600 dark:text-blue-400">
+                            {currentPage}
+                          </span>{" "}
+                          of{" "}
+                          <span className="font-bold text-slate-900 dark:text-slate-200">
+                            {totalPages || 1}
+                          </span>
+                        </span>
+                        <button
+                          onClick={handleNextPage}
+                          disabled={
+                            currentPage === totalPages || totalPages === 0
+                          }
+                          className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                          title="Next Page"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </>
         )}
 
