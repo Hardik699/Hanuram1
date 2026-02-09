@@ -78,7 +78,6 @@ export default function UserDetail() {
           // Set user permissions from the user data if available
           if (userData.user.permissions && Array.isArray(userData.user.permissions)) {
             setUserPermissions(userData.user.permissions);
-            setSelectedPermissions(new Set(userData.user.permissions));
           }
         }
 
