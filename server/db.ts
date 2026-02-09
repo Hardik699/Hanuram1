@@ -353,13 +353,11 @@ async function initializeCollections() {
         { role_id: 4, permission_id: 2 }, // rm_view
         { role_id: 4, permission_id: 14 }, // vendor_view
         { role_id: 4, permission_id: 17 }, // quotation_view
-        { role_id: 4, permission_id: 19 }, // user_manage
         { role_id: 4, permission_id: 20 }, // labour_view
         // Viewer
         { role_id: 5, permission_id: 1 },
         { role_id: 5, permission_id: 2 },
         { role_id: 5, permission_id: 5 },
-        { role_id: 5, permission_id: 19 }, // user_manage
         { role_id: 5, permission_id: 20 }, // labour_view
         // Cost Viewer - Can see data but not cost details
         { role_id: 6, permission_id: 1 },
@@ -371,7 +369,7 @@ async function initializeCollections() {
         { role_id: 6, permission_id: 14 },
         { role_id: 6, permission_id: 20 },
         { role_id: 6, permission_id: 19 }, // user_manage
-        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited), User Management
+        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited)
         { role_id: 7, permission_id: 1 }, // dashboard_view
         { role_id: 7, permission_id: 8 }, // category_view
         { role_id: 7, permission_id: 9 }, // category_add
@@ -384,7 +382,6 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 4 }, // rm_edit
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
         { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
-        { role_id: 7, permission_id: 19 }, // user_manage
         { role_id: 7, permission_id: 27 }, // opcost_view
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
@@ -410,7 +407,6 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 12 }, // unit_view
         { role_id: 7, permission_id: 13 }, // unit_add
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
-        { role_id: 7, permission_id: 19 }, // user_manage
         { role_id: 7, permission_id: 27 }, // opcost_view
       ];
 
