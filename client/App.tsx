@@ -207,7 +207,7 @@ const App = () => (
             <Route
               path="/labour"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="labour_view">
                   <LabourManagement />
                 </ProtectedRoute>
               }
@@ -215,7 +215,7 @@ const App = () => (
             <Route
               path="/labour/new"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="labour_add">
                   <CreateLabour />
                 </ProtectedRoute>
               }
@@ -223,7 +223,7 @@ const App = () => (
             <Route
               path="/labour/:id/edit"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredPermission="labour_edit">
                   <CreateLabour />
                 </ProtectedRoute>
               }
