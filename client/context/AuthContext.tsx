@@ -97,33 +97,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const hasPermission = useCallback(
     (permission: string | string[]): boolean => {
-      if (!user) {
-        console.log("❌ No user object available");
-        return false;
-      }
+      if (!user) return false;
 
-      console.log("🔍 Checking user:", {
-        username: user.username,
-        usernameType: typeof user.username,
-        usernameLength: user.username?.length,
-        isAdmin: user.username === "admin",
-      });
-
-      // Admin user has all permissions
-      if (user.username === "admin") {
-        console.log("✅ Admin user - granting all permissions");
-        return true;
-      }
+      // Admin user always has all permissions
+      if (user.username === "admin") return true;
 
       const permissions = Array.isArray(permission) ? permission : [permission];
-      const hasAccess = permissions.some((p) => user.permissions?.includes(p));
-
-      console.log(`Permission check for [${permissions.join(", ")}]: ${hasAccess}`, {
-        username: user.username,
-        userPermissions: user.permissions,
-      });
-
-      return hasAccess;
+      return permissions.some((p) => user.permissions?.includes(p));
     },
     [user],
   );
