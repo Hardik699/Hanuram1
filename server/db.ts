@@ -511,25 +511,32 @@ async function initializeCollections() {
         );
       }
 
-      // Ensure all roles (3, 4, 5, 6, 7) have ALL permissions
+      // Ensure all roles have ALL permissions (batch operation)
       const allRoleIds = [1, 2, 3, 4, 5, 6, 7];
       const allPermissionIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27];
 
+      const allRolePermissions = [];
       for (const roleId of allRoleIds) {
-        for (const permissionId of allPermissionIds) {
-          await rolePermissionsCollection.updateOne(
-            { role_id: roleId, permission_id: permissionId },
-            {
-              $setOnInsert: {
-                role_id: roleId,
-                permission_id: permissionId,
-              },
-            },
-            { upsert: true },
-          );
+        for (const permId of allPermissionIds) {
+          allRolePermissions.push({ role_id: roleId, permission_id: permId });
         }
       }
-      console.log("✅ All roles ensured to have ALL permissions");
+
+      // Use bulkWrite for efficiency instead of individual updates
+      if (allRolePermissions.length > 0) {
+        const bulkOps = allRolePermissions.map(rp => ({
+          updateOne: {
+            filter: { role_id: rp.role_id, permission_id: rp.permission_id },
+            update: { $setOnInsert: rp },
+            upsert: true
+          }
+        }));
+
+        // Process in batches of 1000 to avoid overwhelming the database
+        for (let i = 0; i < bulkOps.length; i += 1000) {
+          await rolePermissionsCollection.bulkWrite(bulkOps.slice(i, i + 1000));
+        }
+      }
 
       // Ensure Production role exists in roles collection
       const rolesCollection = db.collection("roles");
@@ -538,57 +545,6 @@ async function initializeCollections() {
         { $setOnInsert: { role_id: 7, role_name: "Production" } },
         { upsert: true },
       );
-
-      // Add ALL permissions for Super Admin (role_id: 1)
-      for (const permId of [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ]) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: 1, permission_id: permId },
-          { $setOnInsert: { role_id: 1, permission_id: permId } },
-          { upsert: true },
-        );
-      }
-
-      // Add ALL permissions for Admin (role_id: 2)
-      for (const permId of [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ]) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: 2, permission_id: permId },
-          { $setOnInsert: { role_id: 2, permission_id: permId } },
-          { upsert: true },
-        );
-      }
-
-      // Add permissions for Cost Viewer role (6) - view only without cost details
-      for (const permId of [1, 2, 5, 8, 10, 12, 14, 20]) {
-        await rolePermissionsCollection.updateOne(
-          { role_id: 6, permission_id: permId },
-          { $setOnInsert: { role_id: 6, permission_id: permId } },
-          { upsert: true },
-        );
-      }
-
-      // Ensure Vendor role (4) can view raw materials
-      await rolePermissionsCollection.updateOne(
-        { role_id: 4, permission_id: 2 },
-        { $setOnInsert: { role_id: 4, permission_id: 2 } },
-        { upsert: true },
-      );
-
-      // Add all new permissions (23-27) to all roles
-      for (const roleId of [1, 2, 3, 4, 5, 6, 7]) {
-        for (const permId of [23, 24, 25, 26, 27]) {
-          await rolePermissionsCollection.updateOne(
-            { role_id: roleId, permission_id: permId },
-            { $setOnInsert: { role_id: roleId, permission_id: permId } },
-            { upsert: true },
-          );
-        }
-      }
 
       console.log("✅ All permissions ensured for all roles");
     }
