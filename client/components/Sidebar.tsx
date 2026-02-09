@@ -65,26 +65,6 @@ export function Sidebar() {
           icon: LayoutGrid,
         },
         {
-          label: "Category",
-          path: "/create-category",
-          icon: Package,
-        },
-        {
-          label: "Sub Category",
-          path: "/create-subcategory",
-          icon: Package,
-        },
-        {
-          label: "Unit",
-          path: "/create-unit",
-          icon: Package,
-        },
-        {
-          label: "Vendor",
-          path: "/create-vendor",
-          icon: Package,
-        },
-        {
           label: "Raw Material",
           path: "/raw-materials",
           icon: Package,
