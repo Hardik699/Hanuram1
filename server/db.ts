@@ -615,7 +615,7 @@ async function initializeCollections() {
         "✅ Production user updated with credentials: Production / Hanuram@ (Production role)",
       );
 
-      // Ensure RECIPE module is assigned to Production user
+      // Ensure all modules are assigned to Production user
       const productionUserDoc = await db.collection("users").findOne({
         username: "Production",
       });
@@ -626,7 +626,8 @@ async function initializeCollections() {
           "CATEGORY_UNIT",
           "RAW_MATERIAL",
           "RAW_MATERIAL_COSTING",
-          "RECIPE",
+          "LABOUR",
+          "OP_COST",
         ];
 
         for (const moduleKey of requiredModules) {
