@@ -380,6 +380,7 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
         { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
         { role_id: 7, permission_id: 19 }, // user_manage
+        { role_id: 7, permission_id: 27 }, // opcost_view
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
