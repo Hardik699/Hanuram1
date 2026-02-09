@@ -507,38 +507,41 @@ export const handleUpdateUserPermissions: RequestHandler = async (req, res) => {
     }
 
     // In this system, permissions are derived from roles
-    // We just update the user's current role with the selected permissions
-    // For now, we'll store the custom permissions alongside the user
-    const updatedUser = await db
+    // We'll store the custom permissions on the user document
+    const result = await db
       .collection("users")
-      .findOneAndUpdate(
+      .updateOne(
         { _id: new ObjectId(id) },
         {
           $set: {
             customPermissions: permissions,
             updatedAt: new Date(),
           },
-        },
-        { returnDocument: "after" }
+        }
       );
 
-    if (!updatedUser.value) {
+    if (result.modifiedCount === 0 && result.matchedCount === 0) {
       return res.status(500).json({
         success: false,
         message: "Failed to update user",
       });
     }
 
+    // Return the updated user
+    const updatedUser = await db
+      .collection("users")
+      .findOne({ _id: new ObjectId(id) }, { projection: { password: 0 } });
+
     res.json({
       success: true,
       message: "Permissions updated successfully",
-      user: updatedUser.value,
+      user: updatedUser,
     });
   } catch (error) {
     console.error("Error updating user permissions:", error);
     res.status(500).json({
       success: false,
-      message: "Server error",
+      message: "Server error updating permissions",
     });
   }
 };
