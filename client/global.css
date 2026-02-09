@@ -816,6 +816,21 @@
     @apply w-full min-w-full;
   }
 
+  @media (max-width: 640px) {
+    .prof-table-responsive {
+      @apply -mx-4;
+    }
+
+    .prof-table-head-cell {
+      @apply px-2 py-2 text-xs;
+    }
+
+    .prof-table-cell,
+    .prof-table-cell-bold {
+      @apply px-2 py-1.5 min-w-fit;
+    }
+  }
+
   .prof-table-responsive::after {
     content: "";
     @apply absolute bottom-0 right-0 h-full w-8 pointer-events-none bg-gradient-to-l from-black/5 to-transparent opacity-0 transition-opacity duration-300;
