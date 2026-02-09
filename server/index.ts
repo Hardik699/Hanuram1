@@ -321,7 +321,6 @@ export async function createServer() {
   );
   app.get("/api/quotations/:quotationId/logs", handleGetQuotationLogs);
 
-
   // Labour management routes
   app.get("/api/labour", handleGetLabour);
   app.post("/api/labour", handleCreateLabour);
