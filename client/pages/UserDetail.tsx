@@ -400,6 +400,7 @@ export default function UserDetail() {
             </Button>
 
             <Button
+              key="delete-user"
               onClick={handleDeleteUser}
               className="bg-red-600 hover:bg-red-700 flex items-center gap-2"
             >
