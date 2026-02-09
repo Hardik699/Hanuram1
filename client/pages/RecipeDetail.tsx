@@ -1150,28 +1150,32 @@ export default function RecipeDetail() {
                 title="Production Labour Cost"
               />
 
-              {/* Packing Labour Cost */}
-              <LabourCostSection
-                recipeId={recipeId!}
-                recipeQuantity={recipe.batchSize || 0}
-                type="packing"
-                title="Packing Labour Cost"
-              />
+              {/* Packing Labour Cost - Hidden for Production Users */}
+              {!isProductionUser && (
+                <>
+                  <LabourCostSection
+                    recipeId={recipeId!}
+                    recipeQuantity={recipe.batchSize || 0}
+                    type="packing"
+                    title="Packing Labour Cost"
+                  />
 
-              {/* Costing Calculator Form */}
-              <CostingCalculatorForm
-                title="📦 Packaging & Handling Costing Calculator"
-                recipeId={recipeId}
-                rmCostPerKg={
-                  recipe.batchSize > 0
-                    ? recipe.totalRawMaterialCost / recipe.batchSize
-                    : 0
-                }
-                productionLabourCostPerKg={productionLabourCostPerKg}
-                packingLabourCostPerKg={packingLabourCostPerKg}
-                batchSize={recipe.batchSize}
-                yield={recipe.yield || 100}
-              />
+                  {/* Costing Calculator Form */}
+                  <CostingCalculatorForm
+                    title="📦 Packaging & Handling Costing Calculator"
+                    recipeId={recipeId}
+                    rmCostPerKg={
+                      recipe.batchSize > 0
+                        ? recipe.totalRawMaterialCost / recipe.batchSize
+                        : 0
+                    }
+                    productionLabourCostPerKg={productionLabourCostPerKg}
+                    packingLabourCostPerKg={packingLabourCostPerKg}
+                    batchSize={recipe.batchSize}
+                    yield={recipe.yield || 100}
+                  />
+                </>
+              )}
             </div>
           </div>
         )}
