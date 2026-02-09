@@ -947,22 +947,26 @@ export default function RecipeDetail() {
         description={`View and manage recipe details, history, and quotations for ${recipe.code}.`}
         headerAction={
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigate(`/recipe/${recipeId}/edit`)}
-              className="prof-btn-secondary"
-              title="Edit Recipe"
-            >
-              <Edit2 size={16} />
-              <span>Edit</span>
-            </button>
-            <button
-              onClick={() => setShowDeleteModal(true)}
-              className="prof-btn-danger"
-              title="Delete Recipe"
-            >
-              <Trash2 size={16} />
-              <span>Delete</span>
-            </button>
+            {!isProductionUser && (
+              <>
+                <button
+                  onClick={() => navigate(`/recipe/${recipeId}/edit`)}
+                  className="prof-btn-secondary"
+                  title="Edit Recipe"
+                >
+                  <Edit2 size={16} />
+                  <span>Edit</span>
+                </button>
+                <button
+                  onClick={() => setShowDeleteModal(true)}
+                  className="prof-btn-danger"
+                  title="Delete Recipe"
+                >
+                  <Trash2 size={16} />
+                  <span>Delete</span>
+                </button>
+              </>
+            )}
             <button
               onClick={handlePrintRecipePDF}
               className="prof-btn-secondary"
