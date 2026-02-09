@@ -435,9 +435,6 @@ export default function CreateCategory() {
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Management Navigation Dropdown */}
-          <ManagementNav />
-
           {message && (
             <div
               className={`p-4 rounded-lg flex items-start gap-3 border ${
