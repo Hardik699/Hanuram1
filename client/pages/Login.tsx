@@ -35,14 +35,23 @@ export default function Login() {
 
   const checkDBStatus = async () => {
     try {
-      const response = await fetch("/api/db-status");
+      const response = await fetch("/api/db-status", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        console.warn(`DB Status check failed with status: ${response.status}`);
+        setDbConnected(false);
+        return;
       }
       const data = await response.json();
       setDbConnected(data.status === "connected");
-    } catch {
-      setDbConnected(false);
+    } catch (error) {
+      console.warn("DB Status check error:", error);
+      // Don't block login if DB status check fails
+      setDbConnected(true);
     }
   };
 
