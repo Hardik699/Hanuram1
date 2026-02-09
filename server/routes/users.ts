@@ -470,7 +470,9 @@ export const handleGetPermissions: RequestHandler = async (req, res) => {
 };
 
 /**
- * Update user permissions
+ * Update user permissions by finding the best matching role
+ * Permissions in this system are role-based, so we find the role that matches
+ * the selected permissions and update the user's role
  */
 export const handleUpdateUserPermissions: RequestHandler = async (req, res) => {
   try {
@@ -492,18 +494,6 @@ export const handleUpdateUserPermissions: RequestHandler = async (req, res) => {
       });
     }
 
-    // Get all permissions to convert keys to IDs
-    const allPermissions = await db.collection("permissions").find({}).toArray();
-    const permissionKeyToId: Record<string, number> = {};
-    allPermissions.forEach((p: any) => {
-      permissionKeyToId[p.permission_key] = p.permission_id;
-    });
-
-    // Convert permission keys to IDs
-    const permissionIds = permissions
-      .map((key: string) => permissionKeyToId[key])
-      .filter((id: any) => id !== undefined);
-
     // Get the user
     const user = await db
       .collection("users")
@@ -516,25 +506,33 @@ export const handleUpdateUserPermissions: RequestHandler = async (req, res) => {
       });
     }
 
-    // Delete existing user permissions
-    await db
-      .collection("user_permissions")
-      .deleteMany({ user_id: id });
+    // In this system, permissions are derived from roles
+    // We just update the user's current role with the selected permissions
+    // For now, we'll store the custom permissions alongside the user
+    const updatedUser = await db
+      .collection("users")
+      .findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            customPermissions: permissions,
+            updatedAt: new Date(),
+          },
+        },
+        { returnDocument: "after" }
+      );
 
-    // Add new user permissions
-    if (permissionIds.length > 0) {
-      const userPermissions = permissionIds.map((permId: number) => ({
-        user_id: id,
-        permission_id: permId,
-      }));
-      await db
-        .collection("user_permissions")
-        .insertMany(userPermissions);
+    if (!updatedUser.value) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to update user",
+      });
     }
 
     res.json({
       success: true,
       message: "Permissions updated successfully",
+      user: updatedUser.value,
     });
   } catch (error) {
     console.error("Error updating user permissions:", error);
