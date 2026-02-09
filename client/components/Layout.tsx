@@ -1,6 +1,5 @@
 import { Sidebar } from "./Sidebar";
 import { UserMenu } from "./UserMenu";
-import { ManagementNav } from "./ManagementNav";
 
 interface LayoutProps {
   children: React.ReactNode;
