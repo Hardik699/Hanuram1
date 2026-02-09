@@ -347,7 +347,6 @@ async function initializeCollections() {
         { role_id: 3, permission_id: 2 },
         { role_id: 3, permission_id: 5 },
         { role_id: 3, permission_id: 17 },
-        { role_id: 3, permission_id: 19 }, // user_manage
         { role_id: 3, permission_id: 20 }, // labour_view
         // Vendor
         { role_id: 4, permission_id: 2 }, // rm_view
