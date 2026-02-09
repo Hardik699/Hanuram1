@@ -36,14 +36,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("auth_token");
 
+    console.log("📋 Loading auth state from localStorage", {
+      hasStoredUser: !!storedUser,
+      hasStoredToken: !!storedToken,
+    });
+
     if (storedUser && storedToken) {
       try {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        console.log("✅ User loaded from localStorage:", {
+          username: parsedUser.username,
+          permissions: parsedUser.permissions,
+        });
+        setUser(parsedUser);
       } catch (error) {
         console.error("Error loading stored user:", error);
         localStorage.removeItem("user");
         localStorage.removeItem("auth_token");
       }
+    } else {
+      console.log("⚠️ No stored user/token found");
     }
 
     setLoading(false);
