@@ -348,7 +348,7 @@ async function initializeCollections() {
         { role_id: 6, permission_id: 12 },
         { role_id: 6, permission_id: 14 },
         { role_id: 6, permission_id: 20 },
-        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited)
+        // Production - Dashboard, Category, SubCategory, Unit, Raw Material, Raw Material Costing, Recipe View (limited), User Management
         { role_id: 7, permission_id: 1 }, // dashboard_view
         { role_id: 7, permission_id: 8 }, // category_view
         { role_id: 7, permission_id: 9 }, // category_add
@@ -361,6 +361,7 @@ async function initializeCollections() {
         { role_id: 7, permission_id: 4 }, // rm_edit
         { role_id: 7, permission_id: 24 }, // rmc_view_prices
         { role_id: 7, permission_id: 5 }, // recipe_view (limited display)
+        { role_id: 7, permission_id: 19 }, // user_manage
       ];
       await db.collection("role_permissions").insertMany(rolePermissionsData);
       console.log("✅ Role Permissions collection initialized");
