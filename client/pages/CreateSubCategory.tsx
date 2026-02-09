@@ -418,9 +418,6 @@ export default function CreateSubCategory() {
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Management Navigation Dropdown */}
-          <ManagementNav />
-
           <PageHeader
             title="Sub Category Management"
             description="Create, manage, and organize product sub categories"
