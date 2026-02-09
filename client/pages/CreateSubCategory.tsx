@@ -473,12 +473,13 @@ export default function CreateSubCategory() {
             </div>
           )}
 
+          {/* Filter Section */}
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <Search className="w-5 h-5 text-teal-600 dark:text-teal-400" />
               Filter Results
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-teal-700 dark:text-teal-400">
                   Search Name
@@ -499,26 +500,6 @@ export default function CreateSubCategory() {
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-teal-700 dark:text-teal-400">
-                  Category
-                </label>
-                <select
-                  value={filterCategoryId}
-                  onChange={(e) => {
-                    setFilterCategoryId(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-medium shadow-sm hover:border-teal-300"
-                >
-                  <option value="">All Categories</option>
-                  {categories.map((cat) => (
-                    <option key={cat._id} value={cat._id}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 text-teal-700 dark:text-teal-400">
                   Status
                 </label>
                 <select
@@ -533,6 +514,25 @@ export default function CreateSubCategory() {
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                 </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Sub Categories List Header */}
+          <div className="bg-gradient-to-r from-slate-50 to-teal-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+                  <FolderOpen className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                  Sub Categories List
+                </h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  Showing{" "}
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {filteredSubcategories.length}
+                  </span>{" "}
+                  sub categor{filteredSubcategories.length !== 1 ? "ies" : "y"}
+                </p>
               </div>
             </div>
           </div>
