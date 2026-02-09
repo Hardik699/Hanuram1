@@ -402,6 +402,7 @@ async function initializeCollections() {
           { upsert: true },
         );
       }
+      console.log("✅ Production role permissions ensured");
 
       // Ensure Production role exists in roles collection
       const rolesCollection = db.collection("roles");
