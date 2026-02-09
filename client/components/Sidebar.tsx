@@ -46,55 +46,46 @@ export function Sidebar() {
       label: "Dashboard",
       path: "/dashboard",
       icon: LayoutGrid,
-      permission: "dashboard_view",
     },
     {
       label: "Category",
       path: "/create-category",
       icon: Package,
-      permission: "category_add",
     },
     {
       label: "Sub Category",
       path: "/create-subcategory",
       icon: Package,
-      permission: "subcategory_add",
     },
     {
       label: "Unit",
       path: "/create-unit",
       icon: Package,
-      permission: "unit_add"
     },
     {
       label: "Vendor",
       path: "/create-vendor",
       icon: Package,
-      permission: "vendor_add",
     },
     {
       label: "Raw Material",
       path: "/raw-materials",
       icon: Package,
-      permission: "rm_view",
     },
     {
       label: "Labour",
       path: "/labour",
       icon: Users,
-      permission: "labour_view",
     },
     {
       label: "Raw Material Costing",
       path: "/rmc",
       icon: List,
-      permission: "recipe_view",
     },
     {
       label: "OP Cost Management",
       path: "/op-cost",
       icon: Calculator,
-      permission: "opcost_view",
     },
   ];
 
