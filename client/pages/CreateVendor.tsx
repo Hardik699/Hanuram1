@@ -23,7 +23,6 @@ import { DataTable } from "@/components/DataTable";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { ManagementNav } from "@/components/ManagementNav";
 
 interface Vendor {
   _id: string;
