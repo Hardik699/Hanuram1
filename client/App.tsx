@@ -45,6 +45,14 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Login />} />
             <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute requiredPermission="dashboard_view">
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/create-category"
               element={
                 <ProtectedRoute requiredPermission="category_add">
