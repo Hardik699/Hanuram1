@@ -561,7 +561,7 @@ export default function CreateSubCategory() {
           </div>
 
           {/* Sub Categories Table */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="unified-table-container">
             <div className="overflow-x-auto w-full">
               <table className="w-full min-w-full">
                 <thead className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-800 dark:from-teal-900 dark:via-teal-900 dark:to-teal-950 border-b-2 border-teal-700 dark:border-teal-800 sticky top-0">
