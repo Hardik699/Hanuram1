@@ -316,6 +316,11 @@ async function initializeCollections() {
         { role_id: 1, permission_id: 20 },
         { role_id: 1, permission_id: 21 },
         { role_id: 1, permission_id: 22 },
+        { role_id: 1, permission_id: 23 },
+        { role_id: 1, permission_id: 24 },
+        { role_id: 1, permission_id: 25 },
+        { role_id: 1, permission_id: 26 },
+        { role_id: 1, permission_id: 27 },
         // Admin
         { role_id: 2, permission_id: 1 },
         { role_id: 2, permission_id: 2 },
