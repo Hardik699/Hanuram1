@@ -43,6 +43,11 @@ export const handleLogin: RequestHandler = async (req, res) => {
       // Get user modules for module-based access control
       const modules = await getUserModules(user._id.toString());
 
+      // Log for debugging
+      console.log(`✅ Login successful for user: ${username} (role_id: ${user.role_id})`);
+      console.log(`   Permissions: ${permissions.join(", ")}`);
+      console.log(`   Modules: ${modules.join(", ")}`);
+
       // In production, use JWT token
       const token = Buffer.from(`${username}:${Date.now()}`).toString("base64");
 
