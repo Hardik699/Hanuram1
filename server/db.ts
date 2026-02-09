@@ -448,13 +448,6 @@ async function initializeCollections() {
         );
       }
 
-      // Ensure user_manage permission (19) for Admin (role_id: 2)
-      await rolePermissionsCollection.updateOne(
-        { role_id: 2, permission_id: 19 },
-        { $setOnInsert: { role_id: 2, permission_id: 19 } },
-        { upsert: true },
-      );
-
       // Add permissions for Cost Viewer role (6) - view only without cost details
       for (const permId of [1, 2, 5, 8, 10, 12, 14, 20]) {
         await rolePermissionsCollection.updateOne(
