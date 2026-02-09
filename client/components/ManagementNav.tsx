@@ -37,7 +37,9 @@ export function ManagementNav() {
   ];
 
   const getCurrentLabel = () => {
-    const currentItem = navItems.find((item) => location.pathname === item.path);
+    const currentItem = navItems.find(
+      (item) => location.pathname === item.path,
+    );
     return currentItem?.label || "Management";
   };
 
@@ -112,10 +114,7 @@ export function ManagementNav() {
 
       {/* Overlay to close dropdown */}
       {isOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsOpen(false)}
-        />
+        <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
       )}
     </div>
   );

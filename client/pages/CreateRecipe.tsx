@@ -491,9 +491,7 @@ export default function CreateRecipe() {
             { label: "Raw Material Costing", href: "/rmc" },
             { label: id ? "Edit Recipe" : "Create Recipe" },
           ]}
-          icon={
-            <ChefHat className="w-6 h-6 text-white" />
-          }
+          icon={<ChefHat className="w-6 h-6 text-white" />}
         />
 
         {/* Message Alert */}

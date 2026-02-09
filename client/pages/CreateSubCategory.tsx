@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Edit2, Trash2, Check, AlertCircle, Plus, ChevronLeft, ChevronRight, X, Search, FolderOpen } from "lucide-react";
+import {
+  Edit2,
+  Trash2,
+  Check,
+  AlertCircle,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Search,
+  FolderOpen,
+} from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 
@@ -45,7 +56,9 @@ export default function CreateSubCategory() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategoryId, setFilterCategoryId] = useState("");
-  const [filterStatus, setFilterStatus] = useState<"" | "active" | "inactive">("");
+  const [filterStatus, setFilterStatus] = useState<"" | "active" | "inactive">(
+    "",
+  );
 
   // Clear all state
   const [showClearModal, setShowClearModal] = useState(false);
@@ -99,7 +112,7 @@ export default function CreateSubCategory() {
     const isDuplicate = subcategories.some(
       (sub) =>
         sub.name.toLowerCase() === formData.name.toLowerCase() &&
-        sub._id !== editingId
+        sub._id !== editingId,
     );
     if (isDuplicate) {
       newErrors.name = "Sub Category with this name already exists";
@@ -117,7 +130,9 @@ export default function CreateSubCategory() {
 
     try {
       const method = editingId ? "PUT" : "POST";
-      const url = editingId ? `/api/subcategories/${editingId}` : "/api/subcategories";
+      const url = editingId
+        ? `/api/subcategories/${editingId}`
+        : "/api/subcategories";
 
       const response = await fetch(url, {
         method,
@@ -200,7 +215,10 @@ export default function CreateSubCategory() {
 
   const getFilteredSubcategories = () => {
     return subcategories.filter((sub) => {
-      if (searchTerm && !sub.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (
+        searchTerm &&
+        !sub.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
         return false;
       }
       if (filterCategoryId && sub.categoryId !== filterCategoryId) {
@@ -217,7 +235,10 @@ export default function CreateSubCategory() {
   const totalPages = Math.ceil(filteredSubcategories.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedSubcategories = filteredSubcategories.slice(startIndex, endIndex);
+  const paginatedSubcategories = filteredSubcategories.slice(
+    startIndex,
+    endIndex,
+  );
 
   const handleItemsPerPageChange = (value: string) => {
     setItemsPerPage(parseInt(value));
@@ -401,7 +422,11 @@ export default function CreateSubCategory() {
                   ) : (
                     <>
                       <Plus className="w-4 h-4" />
-                      <span>{editingId ? "Update Sub Category" : "Create Sub Category"}</span>
+                      <span>
+                        {editingId
+                          ? "Update Sub Category"
+                          : "Create Sub Category"}
+                      </span>
                     </>
                   )}
                 </button>
@@ -501,7 +526,9 @@ export default function CreateSubCategory() {
                 <select
                   value={filterStatus}
                   onChange={(e) => {
-                    setFilterStatus(e.target.value as "" | "active" | "inactive");
+                    setFilterStatus(
+                      e.target.value as "" | "active" | "inactive",
+                    );
                     setCurrentPage(1);
                   }}
                   className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-700 border-2 border-teal-200 dark:border-teal-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all font-medium shadow-sm hover:border-teal-300"
@@ -587,7 +614,9 @@ export default function CreateSubCategory() {
                       >
                         <td
                           className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs font-bold text-white cursor-pointer transition-colors whitespace-nowrap"
-                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          onClick={() =>
+                            navigate(`/subcategory/${subcategory._id}`)
+                          }
                         >
                           <span className="inline-flex items-center justify-center px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-700 dark:to-teal-800 text-white text-xs font-bold group-hover:from-teal-700 group-hover:to-teal-800 dark:group-hover:from-teal-800 dark:group-hover:to-teal-900 transition-all shadow-md">
                             {subcategory.name.substring(0, 1)}
@@ -595,21 +624,27 @@ export default function CreateSubCategory() {
                         </td>
                         <td
                           className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white cursor-pointer group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors truncate"
-                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          onClick={() =>
+                            navigate(`/subcategory/${subcategory._id}`)
+                          }
                           title={subcategory.name}
                         >
                           {subcategory.name}
                         </td>
                         <td
                           className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 cursor-pointer truncate hidden sm:table-cell"
-                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          onClick={() =>
+                            navigate(`/subcategory/${subcategory._id}`)
+                          }
                           title={subcategory.categoryName || "-"}
                         >
                           {subcategory.categoryName || "-"}
                         </td>
                         <td
                           className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm cursor-pointer whitespace-nowrap"
-                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          onClick={() =>
+                            navigate(`/subcategory/${subcategory._id}`)
+                          }
                         >
                           <span
                             className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${
@@ -626,7 +661,9 @@ export default function CreateSubCategory() {
                         </td>
                         <td
                           className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap cursor-pointer hidden md:table-cell"
-                          onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                          onClick={() =>
+                            navigate(`/subcategory/${subcategory._id}`)
+                          }
                         >
                           {subcategory.createdBy}
                         </td>
@@ -656,7 +693,8 @@ export default function CreateSubCategory() {
               <div className="flex items-center gap-6">
                 <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                   <span className="font-bold text-teal-600 dark:text-teal-400">
-                    {startIndex + 1}-{Math.min(endIndex, filteredSubcategories.length)}
+                    {startIndex + 1}-
+                    {Math.min(endIndex, filteredSubcategories.length)}
                   </span>{" "}
                   of{" "}
                   <span className="font-bold text-slate-900 dark:text-slate-200">
@@ -707,7 +745,8 @@ export default function CreateSubCategory() {
                 </h3>
               </div>
               <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-                This will delete ALL sub categories. This action cannot be undone.
+                This will delete ALL sub categories. This action cannot be
+                undone.
               </p>
             </div>
 

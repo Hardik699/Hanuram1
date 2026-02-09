@@ -213,18 +213,22 @@ export function Sidebar() {
                     >
                       <div className="flex items-center gap-3">
                         {item.icon && (
-                          <item.icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
-                            isActive(item.submenu[0]?.path || "") ? "text-white" : "text-blue-600 dark:text-blue-400"
-                          }`} />
+                          <item.icon
+                            className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                              isActive(item.submenu[0]?.path || "")
+                                ? "text-white"
+                                : "text-blue-600 dark:text-blue-400"
+                            }`}
+                          />
                         )}
                         <span>{item.label}</span>
                       </div>
                       <ChevronDown
                         className={`w-4 h-4 transition-transform duration-200 ${
-                          isActive(item.submenu[0]?.path || "") ? "text-white" : "text-blue-600 dark:text-blue-400"
-                        } ${
-                          expandedMenu === item.label ? "rotate-180" : ""
-                        }`}
+                          isActive(item.submenu[0]?.path || "")
+                            ? "text-white"
+                            : "text-blue-600 dark:text-blue-400"
+                        } ${expandedMenu === item.label ? "rotate-180" : ""}`}
                       />
                     </button>
 
@@ -245,9 +249,13 @@ export function Sidebar() {
                     }`}
                   >
                     {item.icon && (
-                      <item.icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${
-                        isActive(item.path!) ? "text-white" : "text-blue-600 dark:text-blue-400"
-                      }`} />
+                      <item.icon
+                        className={`w-5 h-5 transition-transform group-hover:scale-110 ${
+                          isActive(item.path!)
+                            ? "text-white"
+                            : "text-blue-600 dark:text-blue-400"
+                        }`}
+                      />
                     )}
                     <span>{item.label}</span>
                   </Link>

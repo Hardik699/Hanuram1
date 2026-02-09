@@ -926,12 +926,22 @@ export default function RMCManagement() {
   return (
     <Layout title="Raw Material Costing">
       <PageHeader
-        title={isProductionUser ? "Production Labour Cost" : "Raw Material Costing"}
-        description={isProductionUser ? "View production labour costs for recipes" : "Manage recipes and calculate material costs"}
-        breadcrumbs={[{ label: isProductionUser ? "Production Labour Cost" : "Raw Material Costing" }]}
-        icon={
-          <BookOpen className="w-6 h-6 text-white" />
+        title={
+          isProductionUser ? "Production Labour Cost" : "Raw Material Costing"
         }
+        description={
+          isProductionUser
+            ? "View production labour costs for recipes"
+            : "Manage recipes and calculate material costs"
+        }
+        breadcrumbs={[
+          {
+            label: isProductionUser
+              ? "Production Labour Cost"
+              : "Raw Material Costing",
+          },
+        ]}
+        icon={<BookOpen className="w-6 h-6 text-white" />}
         actions={
           !isProductionUser && (
             <button

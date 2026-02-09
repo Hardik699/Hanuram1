@@ -203,9 +203,7 @@ export default function UnitDetail() {
             { label: "Units", href: "/create-unit" },
             { label: unit?.name || "Details" },
           ]}
-          icon={
-            <Settings className="w-6 h-6 text-white" />
-          }
+          icon={<Settings className="w-6 h-6 text-white" />}
           actions={
             !showEditForm ? (
               <div className="flex gap-3">
