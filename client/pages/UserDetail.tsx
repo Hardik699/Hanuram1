@@ -300,11 +300,11 @@ export default function UserDetail() {
                   }
                   className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
-                  <option value={1}>Super Admin</option>
-                  <option value={2}>Admin</option>
-                  <option value={3}>Manager</option>
-                  <option value={4}>Vendor</option>
-                  <option value={5}>Viewer</option>
+                  <option key="role-1" value={1}>Super Admin</option>
+                  <option key="role-2" value={2}>Admin</option>
+                  <option key="role-3" value={3}>Manager</option>
+                  <option key="role-4" value={4}>Vendor</option>
+                  <option key="role-5" value={5}>Viewer</option>
                 </select>
               </div>
 
