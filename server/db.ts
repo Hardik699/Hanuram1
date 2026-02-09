@@ -606,18 +606,16 @@ async function initializeCollections() {
         ];
 
         for (const moduleKey of requiredModules) {
-          await db
-            .collection("user_modules")
-            .updateOne(
-              { user_id: productionUserId, module_key: moduleKey },
-              {
-                $setOnInsert: {
-                  user_id: productionUserId,
-                  module_key: moduleKey,
-                },
+          await db.collection("user_modules").updateOne(
+            { user_id: productionUserId, module_key: moduleKey },
+            {
+              $setOnInsert: {
+                user_id: productionUserId,
+                module_key: moduleKey,
               },
-              { upsert: true },
-            );
+            },
+            { upsert: true },
+          );
         }
       }
     }

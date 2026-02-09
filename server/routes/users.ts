@@ -508,17 +508,15 @@ export const handleUpdateUserPermissions: RequestHandler = async (req, res) => {
 
     // In this system, permissions are derived from roles
     // We'll store the custom permissions on the user document
-    const result = await db
-      .collection("users")
-      .updateOne(
-        { _id: new ObjectId(id) },
-        {
-          $set: {
-            customPermissions: permissions,
-            updatedAt: new Date(),
-          },
-        }
-      );
+    const result = await db.collection("users").updateOne(
+      { _id: new ObjectId(id) },
+      {
+        $set: {
+          customPermissions: permissions,
+          updatedAt: new Date(),
+        },
+      },
+    );
 
     if (result.modifiedCount === 0 && result.matchedCount === 0) {
       return res.status(500).json({

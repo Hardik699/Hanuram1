@@ -80,7 +80,10 @@ export default function UserDetail() {
           });
 
           // Set user permissions from the user data if available
-          if (userData.user.permissions && Array.isArray(userData.user.permissions)) {
+          if (
+            userData.user.permissions &&
+            Array.isArray(userData.user.permissions)
+          ) {
             setUserPermissions(userData.user.permissions);
             setSelectedPermissions(new Set(userData.user.permissions));
           }
@@ -310,11 +313,21 @@ export default function UserDetail() {
                   }
                   className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                 >
-                  <option key="role-1" value={1}>Super Admin</option>
-                  <option key="role-2" value={2}>Admin</option>
-                  <option key="role-3" value={3}>Manager</option>
-                  <option key="role-4" value={4}>Vendor</option>
-                  <option key="role-5" value={5}>Viewer</option>
+                  <option key="role-1" value={1}>
+                    Super Admin
+                  </option>
+                  <option key="role-2" value={2}>
+                    Admin
+                  </option>
+                  <option key="role-3" value={3}>
+                    Manager
+                  </option>
+                  <option key="role-4" value={4}>
+                    Vendor
+                  </option>
+                  <option key="role-5" value={5}>
+                    Viewer
+                  </option>
                 </select>
               </div>
 
@@ -439,7 +452,9 @@ export default function UserDetail() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {allPermissions.map((permission) => (
                   <button
-                    key={String(permission.permission_id || permission.permission_key)}
+                    key={String(
+                      permission.permission_id || permission.permission_key,
+                    )}
                     onClick={() => togglePermission(permission.permission_key)}
                     className={`p-4 rounded-lg border-2 transition text-left ${
                       selectedPermissions.has(permission.permission_key)

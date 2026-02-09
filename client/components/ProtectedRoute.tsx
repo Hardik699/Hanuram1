@@ -21,7 +21,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   fallback,
 }) => {
   const navigate = useNavigate();
-  const { isAuthenticated, loading, hasPermission, canAccess, logout } = useAuth();
+  const { isAuthenticated, loading, hasPermission, canAccess, logout } =
+    useAuth();
 
   const handleLogout = () => {
     logout();
