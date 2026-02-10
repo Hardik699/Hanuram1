@@ -14,6 +14,8 @@ import {
   ChevronDown,
   Edit2,
   Trash2,
+  Plus,
+  Check,
 } from "lucide-react";
 
 interface RawMaterial {
