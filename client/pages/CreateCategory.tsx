@@ -524,88 +524,124 @@ export default function CreateCategory() {
             </div>
           </div>
 
-          {/* Categories Table - Modern Design */}
-          <div className="rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          {/* Categories Table - BEAST Modern Design */}
+          <div className="rounded-xl shadow-md border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-200 sticky top-0">
+                <thead className="bg-gradient-to-r from-gray-900 to-gray-800 border-b-2 border-gray-700 sticky top-0">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
                       #
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
                       Category
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider hidden sm:table-cell">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest hidden sm:table-cell">
                       Description
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
                       Status
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider hidden md:table-cell">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest hidden md:table-cell">
                       Created By
+                    </th>
+                    <th className="px-6 py-4 text-right text-xs font-bold text-white uppercase tracking-widest">
+                      Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {tableLoading ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center">
-                        <div className="inline-block w-6 h-6 border-3 border-blue-400 border-t-blue-600 rounded-full animate-spin" />
-                        <p className="text-gray-600 mt-2 text-sm">Loading categories...</p>
+                      <td colSpan={6} className="px-6 py-16 text-center">
+                        <div className="inline-block w-8 h-8 border-4 border-blue-400 border-t-blue-600 rounded-full animate-spin" />
+                        <p className="text-gray-600 mt-3 font-medium">Loading categories...</p>
                       </td>
                     </tr>
                   ) : paginatedCategories.length === 0 ? (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="px-6 py-12 text-center text-gray-500"
-                      >
-                        <Folder className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-                        <p className="font-medium">No categories yet</p>
-                        <p className="text-sm text-gray-400">Create your first category to get started</p>
+                      <td colSpan={6} className="px-6 py-16 text-center">
+                        <div className="flex flex-col items-center justify-center">
+                          <Folder className="w-12 h-12 text-gray-300 mb-3" />
+                          <p className="font-bold text-gray-900 text-lg">No categories yet</p>
+                          <p className="text-sm text-gray-500 mt-1">Create your first category to get started</p>
+                        </div>
                       </td>
                     </tr>
                   ) : (
                     paginatedCategories.map((category, idx) => (
                       <tr
                         key={category._id}
-                        className="hover:bg-blue-50 transition-colors cursor-pointer group border-l-4 border-l-transparent hover:border-l-blue-600"
-                        onClick={() => navigate(`/category/${category._id}`)}
+                        className={`transition-all duration-200 group hover:shadow-lg hover:scale-105 transform origin-center ${
+                          idx % 2 === 0 ? "bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50" : "bg-gray-50 hover:bg-gradient-to-r hover:from-blue-100/30 hover:to-indigo-100/30"
+                        }`}
                       >
-                        <td className="px-6 py-4">
-                          <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white text-sm font-bold group-hover:shadow-md transition-all">
+                        <td className="px-6 py-5">
+                          <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white text-sm font-bold group-hover:from-blue-700 group-hover:to-blue-800 group-hover:shadow-lg transition-all">
                             {category.name.substring(0, 1).toUpperCase()}
                           </span>
                         </td>
-                        <td className="px-6 py-4">
-                          <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                        <td className="px-6 py-5">
+                          <p className="text-sm font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
                             {category.name}
                           </p>
                         </td>
-                        <td className="px-6 py-4 hidden sm:table-cell">
-                          <p className="text-sm text-gray-600 truncate" title={category.description}>
-                            {category.description || <span className="text-gray-400">—</span>}
+                        <td className="px-6 py-5 hidden sm:table-cell">
+                          <p className="text-sm text-gray-600 truncate group-hover:text-gray-900 transition-colors" title={category.description}>
+                            {category.description ? (
+                              <span className="inline-flex items-center px-2 py-1 rounded-md bg-gray-200 text-gray-700 text-xs font-medium">
+                                {category.description}
+                              </span>
+                            ) : (
+                              <span className="text-gray-400 italic">—</span>
+                            )}
                           </p>
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-5">
                           <span
-                            className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${
+                            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all ${
                               category.status === "active"
-                                ? "bg-emerald-100 text-emerald-700"
-                                : "bg-red-100 text-red-700"
+                                ? "bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-700 group-hover:from-emerald-200 group-hover:to-emerald-100"
+                                : "bg-gradient-to-r from-red-100 to-red-50 text-red-700 group-hover:from-red-200 group-hover:to-red-100"
                             }`}
                           >
+                            <span className={`w-2 h-2 rounded-full ${category.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
                             {category.status
                               ? category.status.charAt(0).toUpperCase() +
                                 category.status.slice(1)
                               : "—"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 hidden md:table-cell">
-                          <p className="text-sm text-gray-600">
+                        <td className="px-6 py-5 hidden md:table-cell">
+                          <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
                             {category.createdBy}
                           </p>
+                        </td>
+                        <td className="px-6 py-5 text-right">
+                          <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(category);
+                              }}
+                              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all active:scale-95 shadow-sm hover:shadow-md"
+                              title="Edit Category"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                              <span className="hidden sm:inline">Edit</span>
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(category._id);
+                              }}
+                              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all active:scale-95 shadow-sm hover:shadow-md"
+                              title="Delete Category"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                              <span className="hidden sm:inline">Delete</span>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))
