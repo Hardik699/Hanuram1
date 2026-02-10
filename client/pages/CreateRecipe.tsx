@@ -360,7 +360,7 @@ export default function CreateRecipe() {
 
       // Show success message
       setMessage(
-        `Added recipe "${selectedRecipe.name}" with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`
+        `Added recipe "${selectedRecipe.name}" with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`,
       );
       setMessageType("success");
       setTimeout(() => {
@@ -991,7 +991,7 @@ export default function CreateRecipe() {
                             .includes(recipeSearchQuery.toLowerCase()) ||
                             recipe.code
                               .toLowerCase()
-                              .includes(recipeSearchQuery.toLowerCase()))
+                              .includes(recipeSearchQuery.toLowerCase())),
                       )
                       .map((recipe) => (
                         <button
@@ -1029,7 +1029,7 @@ export default function CreateRecipe() {
                           .includes(recipeSearchQuery.toLowerCase()) ||
                           recipe.code
                             .toLowerCase()
-                            .includes(recipeSearchQuery.toLowerCase()))
+                            .includes(recipeSearchQuery.toLowerCase())),
                     ).length === 0 && (
                       <p className="text-center text-slate-600 dark:text-slate-400 py-4">
                         {recipes.length === 0

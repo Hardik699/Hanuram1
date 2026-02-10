@@ -966,7 +966,8 @@ export default function RMCManagement() {
                   Production Labour Costs
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400">
-                  Click on a recipe to view and manage its production labour costs
+                  Click on a recipe to view and manage its production labour
+                  costs
                 </p>
               </div>
               <button
