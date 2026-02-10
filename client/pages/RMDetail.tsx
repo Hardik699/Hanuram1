@@ -573,6 +573,11 @@ export default function RMDetail() {
   };
 
   const handleAddPrice = async () => {
+    // Prevent multiple simultaneous submissions
+    if (addingPrice) {
+      return;
+    }
+
     if (!id || !addPriceFormData.vendorId) {
       setMessage("Please select a vendor");
       setMessageType("error");
@@ -585,11 +590,7 @@ export default function RMDetail() {
       return;
     }
 
-    // Prevent multiple submissions
-    if (addingPrice) {
-      return;
-    }
-
+    // Set adding state FIRST to prevent race conditions
     setAddingPrice(true);
 
     try {
@@ -611,6 +612,7 @@ export default function RMDetail() {
       });
 
       if (!response.ok) {
+        setAddingPrice(false);
         throw new Error(`Add price failed: HTTP ${response.status}`);
       }
 
@@ -618,6 +620,7 @@ export default function RMDetail() {
       if (data.success) {
         setMessage("Price added successfully");
         setMessageType("success");
+        // Reset form state immediately
         setShowAddPriceForm(false);
         setAddPriceFormData({
           vendorId: "",
@@ -627,19 +630,19 @@ export default function RMDetail() {
           billNumber: "",
         });
         setVendorSearchInput("");
-        setTimeout(() => {
-          fetchAllData();
-        }, 500);
+        setAddingPrice(false);
+        // Fetch updated data
+        await fetchAllData();
       } else {
+        setAddingPrice(false);
         setMessage(data.message || "Failed to add price");
         setMessageType("error");
       }
     } catch (error) {
       console.error("Error adding price:", error);
+      setAddingPrice(false);
       setMessage("Error adding price");
       setMessageType("error");
-    } finally {
-      setAddingPrice(false);
     }
   };
 
