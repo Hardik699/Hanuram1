@@ -104,6 +104,8 @@ export default function CreateRawMaterial() {
       }
     } catch (error) {
       console.error("Error fetching categories:", error);
+      setMessage("Failed to load categories. Please refresh the page.");
+      setMessageType("error");
     }
   };
 
@@ -119,6 +121,8 @@ export default function CreateRawMaterial() {
       }
     } catch (error) {
       console.error("Error fetching subcategories:", error);
+      setMessage("Failed to load sub-categories. Please refresh the page.");
+      setMessageType("error");
     }
   };
 
@@ -134,6 +138,8 @@ export default function CreateRawMaterial() {
       }
     } catch (error) {
       console.error("Error fetching units:", error);
+      setMessage("Failed to load units. Please refresh the page.");
+      setMessageType("error");
     }
   };
 
@@ -149,6 +155,8 @@ export default function CreateRawMaterial() {
       }
     } catch (error) {
       console.error("Error fetching brands:", error);
+      setMessage("Failed to load brands. Please refresh the page.");
+      setMessageType("error");
     }
   };
 
