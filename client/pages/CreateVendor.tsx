@@ -583,47 +583,34 @@ export default function CreateVendor() {
               paginatedVendors.map((vendor) => (
                 <div
                   key={vendor._id}
-                  className="group bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 border border-gray-200 hover:border-blue-300 rounded-xl px-5 py-4 transition-all duration-200 hover:shadow-lg hover:scale-102 cursor-pointer flex items-center justify-between"
+                  className="bg-white hover:shadow-lg border border-gray-200 hover:border-red-300 rounded-xl p-5 transition-all duration-200 cursor-pointer group"
                   onClick={() => navigate(`/vendor/${vendor._id}`)}
                 >
-                  {/* Left Content */}
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    {/* Avatar */}
-                    <div className="flex-shrink-0">
-                      <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-105 group-hover:from-blue-600 group-hover:to-blue-700 shadow-sm">
+                  {/* Header Row */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3 flex-1">
+                      {/* Avatar */}
+                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:from-red-600 group-hover:to-red-700 shadow-sm flex-shrink-0">
                         {vendor.name.substring(0, 1).toUpperCase()}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors capitalize-each-word">
+                          {vendor.name}
+                        </h3>
+                        <p className="text-xs text-red-600 font-semibold capitalize-each-word">
+                          {vendor.personName}
+                        </p>
                       </div>
                     </div>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word">
-                        {vendor.name}
-                      </h3>
-                      <p className="text-xs text-gray-500 mt-1 truncate">
-                        <span className="font-medium text-gray-700 capitalize-each-word">{vendor.personName}</span>
-                        {vendor.mobileNumber && ` • ${vendor.mobileNumber}`}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right Content */}
-                  <div className="flex items-center gap-3 ml-4 flex-shrink-0">
-                    {/* Location Badge */}
-                    {vendor.location && (
-                      <span className="hidden sm:inline text-xs bg-gray-100 group-hover:bg-gray-200 text-gray-700 px-2.5 py-1 rounded-md transition-colors truncate max-w-xs capitalize-each-word">
-                        {vendor.location}
-                      </span>
-                    )}
-
-                    {/* Action Buttons */}
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 flex-shrink-0">
+                    {/* Action Buttons - Always Visible */}
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleEdit(vendor);
                         }}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
+                        className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
                         title="Edit"
                       >
                         <Edit2 className="w-4 h-4" />
@@ -633,12 +620,61 @@ export default function CreateVendor() {
                           e.stopPropagation();
                           handleDelete(vendor._id);
                         }}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
+                        className="inline-flex items-center justify-center p-2 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white transition-all active:scale-95"
                         title="Delete"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
+                  </div>
+
+                  {/* Info Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-gray-200">
+                    {/* Mobile */}
+                    <div>
+                      <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Mobile</p>
+                      <p className="text-sm font-semibold text-gray-900">
+                        {vendor.mobileNumber ? (
+                          <a href={`tel:${vendor.mobileNumber}`} className="text-red-600 hover:text-red-700 transition-colors">
+                            {vendor.mobileNumber}
+                          </a>
+                        ) : (
+                          <span className="text-gray-400">—</span>
+                        )}
+                      </p>
+                    </div>
+
+                    {/* Email */}
+                    <div>
+                      <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Email</p>
+                      <p className="text-sm font-semibold text-gray-900 truncate">
+                        {vendor.email ? (
+                          <a href={`mailto:${vendor.email}`} className="text-red-600 hover:text-red-700 transition-colors truncate">
+                            {vendor.email}
+                          </a>
+                        ) : (
+                          <span className="text-gray-400">—</span>
+                        )}
+                      </p>
+                    </div>
+
+                    {/* Location */}
+                    <div>
+                      <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Location</p>
+                      <p className="text-sm font-semibold text-gray-900 capitalize-each-word">
+                        {vendor.location || <span className="text-gray-400">—</span>}
+                      </p>
+                    </div>
+
+                    {/* GST */}
+                    {vendor.gstNumber && (
+                      <div>
+                        <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">GST</p>
+                        <p className="text-sm font-semibold text-gray-900">
+                          {vendor.gstNumber}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))
