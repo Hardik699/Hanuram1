@@ -977,7 +977,7 @@ export default function RMCManagement() {
       {/* Content for Production Users */}
       {isProductionUser && (
         <div className="space-y-4">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 border-b-4 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
+          <div className="bg-white dark:bg-slate-800 rounded-lg p-6 border-b-2 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">
@@ -1094,7 +1094,7 @@ export default function RMCManagement() {
         {/* All Recipes Header - Hidden for Production Users */}
         {!isProductionUser && (
           <>
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-1 p-6 mb-4 border-b-4 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
+            <div className="bg-white dark:bg-slate-800 rounded-lg p-6 mb-4 border-b-2 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
@@ -1121,7 +1121,7 @@ export default function RMCManagement() {
             </div>
 
             {/* All Recipes Table */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+            <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
               {tableLoading ? (
                 <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
                   <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
@@ -1140,29 +1140,29 @@ export default function RMCManagement() {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[700px]">
-                    <thead className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 border-b-4 border-indigo-500">
+                    <thead className="bg-white dark:bg-slate-800 border-b-2 border-slate-300 dark:border-slate-600 sticky top-0">
                       <tr>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-indigo-200">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                           <span className="flex items-center gap-2">
-                            <span className="inline-block w-2 h-2 bg-indigo-400 rounded-full"></span>
+                            <span className="inline-block w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
                             Recipe Code
                           </span>
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-cyan-200">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                           <span className="flex items-center gap-2">
-                            <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full"></span>
+                            <span className="inline-block w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>
                             Recipe Name
                           </span>
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-purple-200">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                           <span className="flex items-center gap-2">
-                            <span className="inline-block w-2 h-2 bg-purple-400 rounded-full"></span>
+                            <span className="inline-block w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
                             Total RM Cost
                           </span>
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-emerald-200">
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                           <span className="flex items-center gap-2">
-                            <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full"></span>
+                            <span className="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
                             Price per Unit
                           </span>
                         </th>
@@ -1196,7 +1196,7 @@ export default function RMCManagement() {
                   </table>
 
                   {/* Pagination Controls */}
-                  <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
+                  <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center gap-3">
                       <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                         Items per page:

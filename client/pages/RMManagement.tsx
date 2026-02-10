@@ -1062,7 +1062,7 @@ export default function RMManagement() {
           )}
 
           {/* Filter Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
+          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6 mb-4 animate-fade-in-up">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <Search className="w-5 h-5 text-slate-600 dark:text-slate-400" />
               Filter & Search
@@ -1153,7 +1153,7 @@ export default function RMManagement() {
           </div>
 
           {/* Raw Materials List Header */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-1 p-6 mb-4 border-b-4 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
+          <div className="bg-white dark:bg-slate-800 rounded-lg p-6 mb-4 border-b-2 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
@@ -1181,7 +1181,7 @@ export default function RMManagement() {
 
           {/* Raw Materials Table */}
           {/* Raw Materials Table - Clean Vendor Style */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
             {paginatedRawMaterials.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
                 <div className="rounded-full bg-gradient-to-br from-indigo-100 to-cyan-100 dark:from-indigo-900/30 dark:to-cyan-900/30 p-4 mb-4">
@@ -1194,53 +1194,53 @@ export default function RMManagement() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   {/* Table Header */}
-                  <thead className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 border-b-4 border-indigo-500">
+                  <thead className="bg-white dark:bg-slate-800 border-b-2 border-slate-300 dark:border-slate-600 sticky top-0">
                     <tr>
-                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-indigo-200">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-indigo-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
                           Code
                         </span>
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-cyan-200">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>
                           Name
                         </span>
                       </th>
-                      <th className="hidden sm:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-purple-200">
+                      <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-purple-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
                           Category
                         </span>
                       </th>
-                      <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-emerald-200">
+                      <th className="hidden lg:table-cell px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
                           Sub Category
                         </span>
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-pink-200">
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-pink-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-pink-500 rounded-full"></span>
                           Unit
                         </span>
                       </th>
-                      <th className="hidden md:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-rose-200">
+                      <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-rose-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-rose-500 rounded-full"></span>
                           Last Price
                         </span>
                       </th>
-                      <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-amber-200">
+                      <th className="hidden lg:table-cell px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-amber-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
                           Last Purchase
                         </span>
                       </th>
-                      <th className="px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-teal-200">
+                      <th className="px-6 py-3 text-center text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                         <span className="flex items-center justify-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-teal-400 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-teal-500 rounded-full"></span>
                           Action
                         </span>
                       </th>
@@ -1341,7 +1341,7 @@ export default function RMManagement() {
             )}
 
             {/* Pagination Controls */}
-            <div className="mt-6 flex items-center justify-between flex-wrap gap-4 px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50">
+            <div className="mt-6 flex items-center justify-between flex-wrap gap-4 px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                   Show:
