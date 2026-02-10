@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   Check,
@@ -44,6 +45,8 @@ interface RawMaterial {
   unitName?: string;
   lastAddedPrice?: number;
   lastVendorName?: string;
+  brandIds?: string[];
+  brandNames?: string[];
 }
 
 interface RecipeItem {
@@ -57,12 +60,15 @@ interface RecipeItem {
   vendorId?: string;
   vendorName?: string;
   totalPrice: number;
+  brandId?: string;
+  brandName?: string;
 }
 
 interface Recipe {
   _id: string;
   code: string;
   name: string;
+  recipeType?: string; // "master" or "sub"
   batchSize: number;
   unitId: string;
   unitName: string;
@@ -103,6 +109,7 @@ export default function CreateRecipe() {
 
   const [formData, setFormData] = useState({
     name: "",
+    recipeType: "master",
     batchSize: "",
     unitId: "",
     yield: "",
@@ -115,6 +122,8 @@ export default function CreateRecipe() {
     price: "",
     vendorId: "",
   });
+  const [selectedBrandForItem, setSelectedBrandForItem] = useState("");
+  const [vendorPricesByRM, setVendorPricesByRM] = useState<Record<string, any[]>>({});
 
   // Recipe selection modal state
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -230,6 +239,54 @@ export default function CreateRecipe() {
     }
   };
 
+  const fetchVendorPricesForRM = async (rmId: string) => {
+    try {
+      const response = await fetch(`/api/raw-materials/${rmId}/vendor-prices`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        console.log(`Vendor prices for RM ${rmId}:`, data.data);
+        setVendorPricesByRM((prev) => ({
+          ...prev,
+          [rmId]: data.data,
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching vendor prices:", error);
+    }
+  };
+
+  // Helper function to get price for a specific brand
+  const getPriceForBrand = (rmId: string, brandId?: string): number => {
+    if (!brandId) {
+      // No brand selected, return the overall last purchase price
+      const rm = rawMaterials.find((r) => r._id === rmId);
+      return rm?.lastAddedPrice || 0;
+    }
+
+    // Find price for specific brand from vendor prices
+    const prices = vendorPricesByRM[rmId] || [];
+
+    // Try to find exact brand match
+    let brandPrice = prices.find((p: any) => p.brandId === brandId);
+
+    // If not found by brandId, try by brandName
+    if (!brandPrice) {
+      const selectedRM = rawMaterials.find((r) => r._id === rmId);
+      if (selectedRM && selectedRM.brandIds) {
+        const brandIndex = selectedRM.brandIds.indexOf(brandId);
+        if (brandIndex !== -1 && selectedRM.brandNames) {
+          const brandName = selectedRM.brandNames[brandIndex];
+          brandPrice = prices.find((p: any) => p.brandName === brandName);
+        }
+      }
+    }
+
+    return brandPrice?.price || 0;
+  };
+
   const fetchRecipe = async (recipeId: string) => {
     try {
       const response = await fetch("/api/recipes");
@@ -242,6 +299,7 @@ export default function CreateRecipe() {
         if (recipe) {
           setFormData({
             name: recipe.name,
+            recipeType: recipe.recipeType || "master",
             batchSize: recipe.batchSize.toString(),
             unitId: recipe.unitId,
             yield: recipe.yield?.toString() || "",
@@ -325,6 +383,15 @@ export default function CreateRecipe() {
 
     const totalPrice = Number(itemForm.quantity) * Number(itemForm.price);
 
+    // Get brand name if brand is selected
+    let brandName = "";
+    if (selectedBrandForItem && selectedRM.brandIds && selectedRM.brandNames) {
+      const brandIndex = selectedRM.brandIds.indexOf(selectedBrandForItem);
+      if (brandIndex !== -1) {
+        brandName = selectedRM.brandNames[brandIndex];
+      }
+    }
+
     const newItem: RecipeItem = {
       rawMaterialId: selectedRM._id,
       rawMaterialName: selectedRM.name,
@@ -341,13 +408,21 @@ export default function CreateRecipe() {
         ? selectedRM.lastVendorName
         : selectedRM.lastVendorName,
       totalPrice: parseFloat(totalPrice.toFixed(2)),
+      brandId: selectedBrandForItem || undefined,
+      brandName: brandName || undefined,
     };
 
     setRecipeItems([...recipeItems, newItem]);
-    setShowAddItemForm(false);
+    // Keep form open and reset only the fields, not closing the form
     setSelectedRMForItem("");
+    setSelectedBrandForItem("");
     setItemForm({ quantity: "", unitId: "", price: "", vendorId: "" });
     setItemErrors({});
+
+    toast.success("Item Added!", {
+      description: `${newItem.rawMaterialName} added to recipe with quantity ${newItem.quantity}`,
+      duration: 2500,
+    });
   };
 
   const handleAddRecipe = (selectedRecipe: Recipe) => {
@@ -378,23 +453,27 @@ export default function CreateRecipe() {
       setRecipeSearchQuery("");
 
       // Show success message
-      setMessage(
-        `Added recipe "${selectedRecipe.name}" with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`,
-      );
-      setMessageType("success");
-      setTimeout(() => {
-        setMessage("");
-        setMessageType("");
-      }, 3000);
+      toast.success("Recipe Added!", {
+        description: `"${selectedRecipe.name}" added with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`,
+        duration: 2500,
+      });
     } catch (error) {
       console.error("Error adding recipe:", error);
-      setMessage("Failed to add recipe");
-      setMessageType("error");
+      toast.error("Failed to Add Recipe", {
+        description: "Something went wrong while adding the recipe",
+        duration: 3000,
+      });
     }
   };
 
   const handleRemoveItem = (index: number) => {
+    const removedItem = recipeItems[index];
     setRecipeItems(recipeItems.filter((_, i) => i !== index));
+
+    toast.success("Item Removed", {
+      description: `${removedItem.rawMaterialName} has been removed from the recipe`,
+      duration: 2000,
+    });
   };
 
   const handleStartEditItem = (index: number) => {
@@ -490,11 +569,15 @@ export default function CreateRecipe() {
       const method = id ? "PUT" : "POST";
       const url = id ? `/api/recipes/${id}` : "/api/recipes";
 
+      console.log("Recipe Form Data:", formData);
+      console.log("Request URL:", url, "Method:", method);
+
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
+          recipeType: formData.recipeType,
           batchSize: Number(formData.batchSize),
           unitId: formData.unitId,
           unitName: selectedUnit?.name,
@@ -503,28 +586,39 @@ export default function CreateRecipe() {
             ? Number(formData.moisturePercentage)
             : undefined,
           items: recipeItems,
-          createdBy: "admin",
+          createdBy: localStorage.getItem("username") || "admin",
         }),
       });
 
       const data = await response.json();
+      console.log("Recipe save response:", { status: response.status, data });
 
       if (response.ok && data.success) {
-        setMessageType("success");
-        setMessage(
-          id ? "Recipe updated successfully" : "Recipe created successfully",
-        );
+        const successMsg = id ? "Recipe updated successfully!" : "Recipe created successfully!";
+        toast.success(successMsg, {
+          description: id
+            ? "Your recipe has been updated with all changes."
+            : "Your new recipe is ready to use.",
+          duration: 3000,
+        });
         setTimeout(() => {
           navigate("/rmc");
         }, 1500);
       } else {
-        setMessageType("error");
-        setMessage(data.message || "Operation failed");
+        const errorMsg = data.message || `Operation failed (Status: ${response.status})`;
+        toast.error("Operation Failed", {
+          description: errorMsg,
+          duration: 4000,
+        });
+        console.error("Recipe save failed:", errorMsg);
       }
     } catch (error) {
-      setMessageType("error");
-      setMessage("Error saving recipe");
-      console.error(error);
+      const errorDesc = error instanceof Error ? error.message : "Unknown error occurred";
+      toast.error("Error Saving Recipe", {
+        description: errorDesc,
+        duration: 4000,
+      });
+      console.error("Recipe save error:", error);
     } finally {
       setLoading(false);
     }
@@ -632,6 +726,24 @@ export default function CreateRecipe() {
                 </p>
               )}
             </div>
+
+            {/* Recipe Type */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Recipe Type *
+              </label>
+              <select
+                value={formData.recipeType}
+                onChange={(e) =>
+                  setFormData({ ...formData, recipeType: e.target.value })
+                }
+                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              >
+                <option value="master">Master Recipe</option>
+                <option value="sub">Sub Recipe</option>
+              </select>
+            </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Batch Size */}
@@ -842,6 +954,7 @@ export default function CreateRecipe() {
                       value={selectedRMForItem}
                       onChange={(rmId) => {
                         setSelectedRMForItem(rmId);
+                        setSelectedBrandForItem(""); // Reset brand selection
                         // Auto-fill unit and price
                         if (rmId) {
                           const selectedRM = rawMaterials.find(
@@ -851,10 +964,10 @@ export default function CreateRecipe() {
                             setItemForm((prev) => ({
                               ...prev,
                               unitId: selectedRM.unitId || "",
-                              price: selectedRM.lastAddedPrice
-                                ? selectedRM.lastAddedPrice.toString()
-                                : "0",
+                              price: (selectedRM.lastAddedPrice || 0).toString(),
                             }));
+                            // Fetch vendor prices for brand-aware pricing
+                            fetchVendorPricesForRM(rmId);
                           }
                         } else {
                           setItemForm((prev) => ({
@@ -876,6 +989,70 @@ export default function CreateRecipe() {
                       </p>
                     )}
                   </div>
+
+                  {/* Brand Selection - Optional if RM has brands */}
+                  {selectedRMForItem && (() => {
+                    const selectedRM = rawMaterials.find(
+                      (rm) => rm._id === selectedRMForItem,
+                    );
+                    return selectedRM?.brandNames && selectedRM.brandNames.length > 0 ? (
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                          Brand (Optional)
+                        </label>
+                        <select
+                          value={selectedBrandForItem}
+                          onChange={(e) => {
+                            const brandId = e.target.value;
+                            setSelectedBrandForItem(brandId);
+                            // Update price based on selected brand
+                            const price = getPriceForBrand(selectedRMForItem, brandId || undefined);
+                            setItemForm((prev) => ({
+                              ...prev,
+                              price: price.toString(),
+                            }));
+                          }}
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                        >
+                          <option value="">-- Select Brand --</option>
+                          {selectedRM.brandNames.map((brand, index) => {
+                            const brandId = selectedRM.brandIds?.[index];
+                            return (
+                              <option key={index} value={brandId || ""}>
+                                {brand}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        {selectedBrandForItem && (() => {
+                          const selectedRM = rawMaterials.find(
+                            (rm) => rm._id === selectedRMForItem,
+                          );
+                          const price = getPriceForBrand(selectedRMForItem, selectedBrandForItem);
+                          const prices = vendorPricesByRM[selectedRMForItem] || [];
+                          const brandPrice = prices.find(
+                            (p: any) => p.brandId === selectedBrandForItem ||
+                              p.brandName === selectedRM?.brandNames?.[
+                                selectedRM.brandIds?.indexOf(selectedBrandForItem) || 0
+                              ]
+                          );
+
+                          return (
+                            <div className="mt-2 text-xs text-slate-600 dark:text-slate-400">
+                              {price > 0 ? (
+                                <div>
+                                  Brand price: ₹{price.toFixed(2)}
+                                  {selectedRM?.unitName ? ` / ${selectedRM.unitName}` : ""}
+                                </div>
+                              ) : (
+                                <div>No price data for this brand (using default)</div>
+                              )}
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    ) : null;
+                  })()}
 
                   {/* Quantity, Price, Unit - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
@@ -937,12 +1114,36 @@ export default function CreateRecipe() {
                             const rm = rawMaterials.find(
                               (r) => r._id === selectedRMForItem,
                             );
+
+                            // If brand is selected, show brand-specific price
+                            if (selectedBrandForItem) {
+                              const brandPrice = getPriceForBrand(selectedRMForItem, selectedBrandForItem);
+                              if (brandPrice > 0) {
+                                return (
+                                  <div>
+                                    Brand price: ₹{brandPrice.toFixed(2)}
+                                    {rm?.unitName ? ` / ${rm.unitName}` : ""}
+                                  </div>
+                                );
+                              } else {
+                                return (
+                                  <div>
+                                    No brand price data. Default: ₹{(rm?.lastAddedPrice || 0).toFixed(2)}
+                                    {rm?.unitName ? ` / ${rm.unitName}` : ""}
+                                  </div>
+                                );
+                              }
+                            }
+
+                            // Otherwise show overall last purchase price
                             return rm && rm.lastAddedPrice ? (
                               <div>
                                 Last purchase: ₹{rm.lastAddedPrice.toFixed(2)}
                                 {rm.unitName ? ` / ${rm.unitName}` : ""}
                               </div>
-                            ) : null;
+                            ) : (
+                              <div>No price data available</div>
+                            );
                           })()}
                         </div>
                       )}
@@ -1029,7 +1230,7 @@ export default function CreateRecipe() {
                       onClick={handleAddItem}
                       className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
                     >
-                      Add Item
+                      ✓ Add Item & Continue
                     </button>
                     <button
                       type="button"
@@ -1046,7 +1247,7 @@ export default function CreateRecipe() {
                       }}
                       className="flex-1 px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors font-medium text-sm"
                     >
-                      Cancel
+                      Done
                     </button>
                   </div>
                 </div>

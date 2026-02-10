@@ -66,6 +66,7 @@ interface Recipe {
   _id: string;
   code: string;
   name: string;
+  recipeType?: string; // "master" or "sub"
   batchSize: number;
   unitId: string;
   unitName: string;
@@ -221,6 +222,11 @@ export default function RecipeDetail() {
   const fetchAllData = async () => {
     try {
       setLoading(true);
+      // Reset all cost states for fresh recipe data
+      setProductionLabourCostPerKg(0);
+      setPackingLabourCostPerKg(0);
+      setPackagingCostPerKg(0);
+
       if (recipeId) {
         await Promise.all([
           fetchRecipe(),
@@ -461,13 +467,28 @@ export default function RecipeDetail() {
 
       const data = await response.json();
       if (data.success) {
-        toast.success("Recipe deleted successfully");
-        navigate("/rmc");
+        toast.success("Recipe Deleted!", {
+          description: `Recipe has been permanently removed from your database`,
+          duration: 3000,
+        });
+        setTimeout(() => {
+          navigate("/rmc");
+        }, 1000);
       } else {
-        setDeleteError(data.message || "Failed to delete");
+        const errMsg = data.message || "Failed to delete recipe";
+        setDeleteError(errMsg);
+        toast.error("Delete Failed", {
+          description: errMsg,
+          duration: 3000,
+        });
       }
     } catch (error) {
-      setDeleteError("Failed to delete recipe");
+      const errMsg = "Failed to delete recipe";
+      setDeleteError(errMsg);
+      toast.error("Error Deleting Recipe", {
+        description: errMsg,
+        duration: 3000,
+      });
     }
   };
 
@@ -592,7 +613,10 @@ export default function RecipeDetail() {
 
       const data = await response.json();
       if (data.success) {
-        toast.success("Quotation created successfully");
+        toast.success("Quotation Created!", {
+          description: `Quotation for ${quotationForm.companyName} has been created successfully`,
+          duration: 3000,
+        });
         setShowQuotationForm(false);
         setQuotationForm({
           companyName: "",
@@ -614,10 +638,16 @@ export default function RecipeDetail() {
         setQuotationItemOverrides({});
         fetchQuotations();
       } else {
-        toast.error(data.message || "Failed to create quotation");
+        toast.error("Failed to Create Quotation", {
+          description: data.message || "Something went wrong",
+          duration: 3000,
+        });
       }
     } catch (error) {
-      toast.error("Failed to create quotation");
+      toast.error("Error Creating Quotation", {
+        description: "An unexpected error occurred",
+        duration: 3000,
+      });
     } finally {
       setQuotationCreating(false);
     }
@@ -1035,6 +1065,18 @@ export default function RecipeDetail() {
                 <div>
                   <p className="text-sm text-muted-foreground">Recipe Code</p>
                   <p className="font-semibold">{recipe.code}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Recipe Type</p>
+                  <p className="font-semibold">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      recipe.recipeType === "sub"
+                        ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                        : "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
+                    }`}>
+                      {recipe.recipeType === "sub" ? "Sub Recipe" : "Master Recipe"}
+                    </span>
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Batch Size</p>
