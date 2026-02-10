@@ -35,6 +35,8 @@ export interface RMVendorPrice {
   price: number;
   addedDate: Date;
   createdBy: string;
+  brandId?: string;
+  brandName?: string;
 }
 
 export interface RMPriceLog {
@@ -734,6 +736,8 @@ export const handleAddRMVendorPrice: RequestHandler = async (req, res) => {
       unitId,
       unitName,
       price,
+      brandId,
+      brandName,
       createdBy,
     } = req.body;
 
@@ -805,6 +809,8 @@ export const handleAddRMVendorPrice: RequestHandler = async (req, res) => {
       price,
       addedDate: new Date(),
       createdBy,
+      brandId,
+      brandName,
     };
 
     const result = await db

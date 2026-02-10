@@ -26,6 +26,8 @@ interface RawMaterial {
   subCategoryName: string;
   unitId?: string;
   unitName?: string;
+  brandId?: string;
+  brandName?: string;
   hsnCode?: string;
   createdAt: string;
   lastAddedPrice?: number;
@@ -51,6 +53,13 @@ interface VendorPrice {
   unitName?: string;
   price: number;
   addedDate: string;
+  brandId?: string;
+  brandName?: string;
+}
+
+interface Brand {
+  _id: string;
+  name: string;
 }
 
 interface PriceLog {
@@ -91,6 +100,7 @@ export default function RMDetail() {
   const [allVendors, setAllVendors] = useState<Vendor[]>([]);
   const [vendorPrices, setVendorPrices] = useState<VendorPrice[]>([]);
   const [recipes, setRecipes] = useState<RecipeWithItems[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [selectedVendor, setSelectedVendor] =
@@ -105,6 +115,7 @@ export default function RMDetail() {
     categoryId: "",
     subCategoryId: "",
     unitId: "",
+    brandId: "",
     hsnCode: "",
   });
   const [message, setMessage] = useState("");
@@ -117,6 +128,7 @@ export default function RMDetail() {
   const [showAddPriceForm, setShowAddPriceForm] = useState(false);
   const [addPriceFormData, setAddPriceFormData] = useState({
     vendorId: "",
+    brandId: "",
     quantity: "",
     price: "",
     billNumber: "",
@@ -180,6 +192,7 @@ export default function RMDetail() {
             fetchCategoriesData(),
             fetchSubCategoriesData(),
             fetchUnitsData(),
+            fetchBrandsData(),
           ]);
         } else {
           navigate("/raw-materials");
@@ -229,6 +242,19 @@ export default function RMDetail() {
       }
     } catch (error) {
       console.error("Error fetching units:", error);
+    }
+  };
+
+  const fetchBrandsData = async () => {
+    try {
+      const response = await fetch("/api/brands");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        setBrands(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching brands:", error);
     }
   };
 
@@ -377,6 +403,7 @@ export default function RMDetail() {
         categoryId: rawMaterial.categoryId,
         subCategoryId: rawMaterial.subCategoryId,
         unitId: rawMaterial.unitId || "",
+        brandId: rawMaterial.brandId || "",
         hsnCode: rawMaterial.hsnCode || "",
       });
       setShowEditForm(true);
@@ -393,11 +420,14 @@ export default function RMDetail() {
     }
 
     try {
+      const selectedBrand = brands.find((b) => b._id === editFormData.brandId);
+
       const response = await fetch(`/api/raw-materials/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...editFormData,
+          brandName: selectedBrand?.name,
           changedBy: localStorage.getItem("username") || "admin",
         }),
       });
@@ -495,12 +525,16 @@ export default function RMDetail() {
     }
 
     try {
+      const selectedBrand = brands.find((b) => b._id === addPriceFormData.brandId);
+
       const response = await fetch("/api/raw-materials/vendor-price", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           rawMaterialId: id,
           vendorId: addPriceFormData.vendorId,
+          brandId: addPriceFormData.brandId,
+          brandName: selectedBrand?.name,
           quantity: parseFloat(addPriceFormData.quantity),
           price: parseFloat(addPriceFormData.price),
           billNumber: addPriceFormData.billNumber,
@@ -519,6 +553,7 @@ export default function RMDetail() {
         setShowAddPriceForm(false);
         setAddPriceFormData({
           vendorId: "",
+          brandId: "",
           quantity: "",
           price: "",
           billNumber: "",
@@ -854,6 +889,26 @@ export default function RMDetail() {
 
             <div>
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                Brand (Optional)
+              </label>
+              <select
+                value={editFormData.brandId}
+                onChange={(e) =>
+                  setEditFormData({ ...editFormData, brandId: e.target.value })
+                }
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+              >
+                <option value="">Select Brand</option>
+                {brands.map((brand) => (
+                  <option key={brand._id} value={brand._id}>
+                    {brand.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                 HSN Code
               </label>
               <input
@@ -1082,6 +1137,16 @@ export default function RMDetail() {
                     {rawMaterial.unitName || "-"}
                   </p>
                 </div>
+                {rawMaterial.brandName && (
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      Brand
+                    </label>
+                    <p className="text-sm text-slate-900 dark:text-white font-medium">
+                      {rawMaterial.brandName}
+                    </p>
+                  </div>
+                )}
                 {rawMaterial.hsnCode && (
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1134,6 +1199,7 @@ export default function RMDetail() {
                       setVendorSearchInput("");
                       setAddPriceFormData({
                         vendorId: "",
+                        brandId: "",
                         quantity: "",
                         price: "",
                         billNumber: "",
@@ -1192,6 +1258,28 @@ export default function RMDetail() {
                             </p>
                           )}
                         </div>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                          Brand (Optional)
+                        </label>
+                        <select
+                          value={addPriceFormData.brandId}
+                          onChange={(e) =>
+                            setAddPriceFormData({
+                              ...addPriceFormData,
+                              brandId: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm"
+                        >
+                          <option value="">-- Select Brand --</option>
+                          {brands.map((brand) => (
+                            <option key={brand._id} value={brand._id}>
+                              {brand.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1271,6 +1359,53 @@ export default function RMDetail() {
                     >
                       Save Price
                     </button>
+                  </div>
+                )}
+
+                {/* Brands Section */}
+                {vendorPrices.length > 0 && (
+                  <div className="mt-8">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                      Brands for this Product
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full min-w-[500px]">
+                        <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Brand Name
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Vendor
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Price (₹)
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Date
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                          {vendorPrices.map((price) => (
+                            <tr key={price._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30">
+                              <td className="px-6 py-3 text-sm text-slate-900 dark:text-slate-100 font-medium">
+                                {price.brandName || "Unbranded"}
+                              </td>
+                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300">
+                                {price.vendorName}
+                              </td>
+                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300 font-semibold text-teal-600">
+                                ₹{price.price}
+                              </td>
+                              <td className="px-6 py-3 text-sm text-slate-600 dark:text-slate-400">
+                                {new Date(price.addedDate).toLocaleDateString()}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 )}
 
