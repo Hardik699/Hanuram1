@@ -10,7 +10,7 @@ export function LoadingSpinner({
   size = "md",
 }: LoadingSpinnerProps) {
   const container = fullScreen
-    ? "flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800"
+    ? "flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800"
     : "flex items-center justify-center py-8 sm:py-12";
 
   return (
@@ -61,17 +61,17 @@ export function LoadingSpinner({
         {/* Animated Loader - Elegant Pulsing Circles */}
         <div className="relative w-24 h-24 mx-auto mb-8">
           {/* Outer pulsing ring */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 opacity-20 animate-pulse-ring"></div>
-          
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 opacity-20 animate-pulse-ring"></div>
+
           {/* Main animated circle */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative w-16 h-16">
               {/* Center glowing core */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 animate-pulse shadow-lg shadow-teal-400/50 dark:shadow-teal-500/30"></div>
-              
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 animate-pulse shadow-lg shadow-blue-400/50 dark:shadow-blue-500/30"></div>
+
               {/* Rotating gradient ring */}
-              <div 
-                className="absolute inset-1 rounded-full border-2 border-transparent border-t-teal-400 border-r-cyan-400 animate-spin"
+              <div
+                className="absolute inset-1 rounded-full border-2 border-transparent border-t-blue-400 border-r-indigo-400 animate-spin"
                 style={{ animationDuration: '2s' }}
               ></div>
             </div>
@@ -83,15 +83,15 @@ export function LoadingSpinner({
 
         {/* Message with animated dots */}
         <div className="space-y-3">
-          <p className="text-slate-700 dark:text-slate-300 font-semibold text-lg">
+          <p className="text-blue-700 dark:text-blue-300 font-semibold text-lg">
             {message}
           </p>
           
           {/* Animated loading dots */}
           <div className="flex justify-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-teal-500 dark:bg-teal-400 animate-dot-1"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-teal-500 dark:bg-teal-400 animate-dot-2"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-teal-500 dark:bg-teal-400 animate-dot-3"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-1"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-2"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-3"></div>
           </div>
         </div>
       </div>
