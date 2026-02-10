@@ -531,9 +531,6 @@ export default function CreateUnit() {
                         <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word">
                           {unit.name}
                         </h3>
-                        <span className="hidden sm:inline text-xs bg-blue-100 group-hover:bg-blue-200 text-blue-700 px-2.5 py-1 rounded-md transition-colors font-medium uppercase">
-                          {unit.shortCode}
-                        </span>
                       </div>
                     </div>
                   </div>
