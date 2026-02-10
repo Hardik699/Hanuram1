@@ -1000,22 +1000,21 @@ export default function CreateRecipe() {
                           onClick={() => handleAddRecipe(recipe)}
                           className="w-full text-left p-3 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:border-orange-400 dark:hover:border-orange-600 transition-all"
                         >
-                          <div className="flex items-start justify-between">
-                            <div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
                               <p className="font-semibold text-slate-900 dark:text-white">
                                 {recipe.name}
                               </p>
-                              <p className="text-xs text-slate-600 dark:text-slate-400">
-                                Code: {recipe.code} | Items:{" "}
-                                {recipe.items?.length || 0}
+                              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                                Code: {recipe.code}
                               </p>
                             </div>
-                            <div className="text-right">
-                              <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                                ₹{recipe.totalRawMaterialCost.toFixed(2)}
+                            <div className="text-right ml-4">
+                              <p className="text-sm font-bold text-orange-600 dark:text-orange-400">
+                                ₹{recipe.pricePerUnit.toFixed(2)}
                               </p>
                               <p className="text-xs text-slate-600 dark:text-slate-400">
-                                Total RM Cost
+                                Price Per Unit
                               </p>
                             </div>
                           </div>
