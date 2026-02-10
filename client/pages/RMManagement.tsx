@@ -1042,8 +1042,8 @@ export default function RMManagement() {
                   {totalRawMaterials > 0 ? Math.round((materialsWithPrices / totalRawMaterials) * 100) : 0}% complete
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
-                <TrendingUp className="w-6 h-6 text-emerald-600" />
+              <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                <TrendingUp className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
@@ -1062,8 +1062,8 @@ export default function RMManagement() {
                   Awaiting vendor data
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
-                <AlertCircle className="w-6 h-6 text-amber-600" />
+              <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                <AlertCircle className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
@@ -1082,8 +1082,8 @@ export default function RMManagement() {
                   Total classifications
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0">
-                <LayoutGrid className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                <LayoutGrid className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
