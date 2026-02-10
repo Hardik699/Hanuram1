@@ -1099,7 +1099,7 @@ export default function RecipeDetail() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Total RM Cost</p>
-                  <p className="font-semibold text-green-600">
+                  <p className="font-semibold text-blue-600">
                     ₹{totalRMCost.toFixed(2)}
                   </p>
                 </div>
@@ -1107,7 +1107,7 @@ export default function RecipeDetail() {
                   <p className="text-sm text-muted-foreground">
                     Price per Unit
                   </p>
-                  <p className="font-semibold text-green-600">
+                  <p className="font-semibold text-blue-600">
                     ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
                   </p>
                 </div>
@@ -2699,7 +2699,7 @@ export default function RecipeDetail() {
                               first.totalRawMaterialCost >
                               second.totalRawMaterialCost
                                 ? "text-red-600"
-                                : "text-green-600"
+                                : "text-blue-600"
                             }`}
                           >
                             {first.totalRawMaterialCost >
@@ -2725,7 +2725,7 @@ export default function RecipeDetail() {
                                 100 >
                               0
                                 ? "text-red-600"
-                                : "text-green-600"
+                                : "text-blue-600"
                             }`}
                           >
                             {(
@@ -2745,7 +2745,7 @@ export default function RecipeDetail() {
                       <div className="bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 rounded-lg p-6 text-center">
                         <CheckCircle
                           size={40}
-                          className="mx-auto mb-4 text-green-600"
+                          className="mx-auto mb-4 text-blue-600"
                         />
                         <p className="text-slate-700 dark:text-slate-300 font-semibold">
                           No changes detected between these versions
