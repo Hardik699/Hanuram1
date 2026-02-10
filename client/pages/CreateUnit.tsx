@@ -513,11 +513,11 @@ export default function CreateUnit() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   {/* Table Header */}
-                  <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0">
+                  <thead className="bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 text-white sticky top-0 border-b-4 border-blue-500">
                     <tr>
-                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Unit Name</th>
-                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Short Code</th>
-                      <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Unit Name</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Short Code</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-blue-100">Actions</th>
                     </tr>
                   </thead>
 
