@@ -426,15 +426,23 @@ export default function CreateRawMaterial() {
                 <input
                   type="text"
                   placeholder="Search or select category"
-                  value={openDropdown === "category" ? searchInputs.category : formData.categoryId ? categories.find((c) => c._id === formData.categoryId)?.name || "" : ""}
+                  value={
+                    openDropdown === "category"
+                      ? searchInputs.category
+                      : formData.categoryId
+                        ? categories.find((c) => c._id === formData.categoryId)?.name || ""
+                        : ""
+                  }
                   onChange={(e) => {
                     setOpenDropdown("category");
                     setSearchInputs({ ...searchInputs, category: e.target.value });
                   }}
-                  onFocus={() => setOpenDropdown("category")}
+                  onFocus={() => {
+                    setOpenDropdown("category");
+                    setSearchInputs({ ...searchInputs, category: "" });
+                  }}
                   onBlur={() => {
                     setTimeout(() => setOpenDropdown(null), 200);
-                    setSearchInputs({ ...searchInputs, category: "" });
                   }}
                   className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
                     errors.categoryId
@@ -485,19 +493,27 @@ export default function CreateRawMaterial() {
                 <input
                   type="text"
                   placeholder="Search or select sub category"
-                  value={openDropdown === "subCategory" ? searchInputs.subCategory : formData.subCategoryId ? subCategories.find((sc) => sc._id === formData.subCategoryId)?.name || "" : ""}
+                  value={
+                    openDropdown === "subCategory"
+                      ? searchInputs.subCategory
+                      : formData.subCategoryId
+                        ? subCategories.find((sc) => sc._id === formData.subCategoryId)?.name || ""
+                        : ""
+                  }
                   onChange={(e) => {
-                    setOpenDropdown("subCategory");
-                    setSearchInputs({ ...searchInputs, subCategory: e.target.value });
+                    if (formData.categoryId) {
+                      setOpenDropdown("subCategory");
+                      setSearchInputs({ ...searchInputs, subCategory: e.target.value });
+                    }
                   }}
                   onFocus={() => {
                     if (formData.categoryId) {
                       setOpenDropdown("subCategory");
+                      setSearchInputs({ ...searchInputs, subCategory: "" });
                     }
                   }}
                   onBlur={() => {
                     setTimeout(() => setOpenDropdown(null), 200);
-                    setSearchInputs({ ...searchInputs, subCategory: "" });
                   }}
                   disabled={!formData.categoryId}
                   className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed`}
@@ -539,15 +555,23 @@ export default function CreateRawMaterial() {
                 <input
                   type="text"
                   placeholder="Search or select unit"
-                  value={openDropdown === "unit" ? searchInputs.unit : formData.unitId ? units.find((u) => u._id === formData.unitId)?.name || "" : ""}
+                  value={
+                    openDropdown === "unit"
+                      ? searchInputs.unit
+                      : formData.unitId
+                        ? units.find((u) => u._id === formData.unitId)?.name || ""
+                        : ""
+                  }
                   onChange={(e) => {
                     setOpenDropdown("unit");
                     setSearchInputs({ ...searchInputs, unit: e.target.value });
                   }}
-                  onFocus={() => setOpenDropdown("unit")}
+                  onFocus={() => {
+                    setOpenDropdown("unit");
+                    setSearchInputs({ ...searchInputs, unit: "" });
+                  }}
                   onBlur={() => {
                     setTimeout(() => setOpenDropdown(null), 200);
-                    setSearchInputs({ ...searchInputs, unit: "" });
                   }}
                   className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
@@ -587,15 +611,23 @@ export default function CreateRawMaterial() {
                     <input
                       type="text"
                       placeholder="Search or select brand"
-                      value={openDropdown === "brand" ? searchInputs.brand : formData.brandId ? brands.find((b) => b._id === formData.brandId)?.name || "" : ""}
+                      value={
+                        openDropdown === "brand"
+                          ? searchInputs.brand
+                          : formData.brandId
+                            ? brands.find((b) => b._id === formData.brandId)?.name || ""
+                            : ""
+                      }
                       onChange={(e) => {
                         setOpenDropdown("brand");
                         setSearchInputs({ ...searchInputs, brand: e.target.value });
                       }}
-                      onFocus={() => setOpenDropdown("brand")}
+                      onFocus={() => {
+                        setOpenDropdown("brand");
+                        setSearchInputs({ ...searchInputs, brand: "" });
+                      }}
                       onBlur={() => {
                         setTimeout(() => setOpenDropdown(null), 200);
-                        setSearchInputs({ ...searchInputs, brand: "" });
                       }}
                       className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
