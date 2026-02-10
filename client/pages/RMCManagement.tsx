@@ -1594,7 +1594,7 @@ export default function RMCManagement() {
                   {showAddItemForm && (
                     <div className="bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-600/30 dark:to-slate-700/20 p-6 rounded-xl mb-4 border-2 border-teal-200 dark:border-teal-900/50">
                       <h5 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                        <Plus className="w-4 h-4 text-emerald-600" />
+                        <Plus className="w-4 h-4 text-blue-600" />
                         Add Raw Material to Recipe
                       </h5>
 
@@ -2205,13 +2205,13 @@ export default function RMCManagement() {
                   </div>
                   <div>
                     <p className="text-sm text-slate-600">Total RM Cost</p>
-                    <p className="font-semibold text-teal-600">
+                    <p className="font-semibold text-blue-600">
                       ₹{selectedRecipeForView.totalRawMaterialCost.toFixed(2)}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm text-slate-600">Price per Unit</p>
-                    <p className="font-semibold text-green-600">
+                    <p className="font-semibold text-blue-600">
                       ₹{selectedRecipeForView.pricePerUnit.toFixed(2)}
                     </p>
                   </div>
@@ -2446,8 +2446,8 @@ export default function RMCManagement() {
                 </div>
 
                 {/* Differences */}
-                <div className="bg-teal-50 dark:bg-teal-950 border border-teal-200 dark:border-blue-800 rounded-lg p-6">
-                  <h4 className="font-bold text-teal-900 dark:text-teal-200 mb-4">
+                <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+                  <h4 className="font-bold text-blue-900 dark:text-blue-200 mb-4">
                     Difference Summary
                   </h4>
                   <div className="space-y-2 text-sm">
@@ -2460,7 +2460,7 @@ export default function RMCManagement() {
                           comparisonData.new.totalRawMaterialCost >
                           comparisonData.old.totalRawMaterialCost
                             ? "text-red-600 dark:text-red-400"
-                            : "text-green-600 dark:text-green-400"
+                            : "text-blue-600 dark:text-blue-400"
                         }`}
                       >
                         ₹
@@ -2479,7 +2479,7 @@ export default function RMCManagement() {
                           comparisonData.new.pricePerUnit >
                           comparisonData.old.pricePerUnit
                             ? "text-red-600 dark:text-red-400"
-                            : "text-green-600 dark:text-green-400"
+                            : "text-blue-600 dark:text-blue-400"
                         }`}
                       >
                         ₹

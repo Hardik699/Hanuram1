@@ -680,7 +680,7 @@ export default function RMDetail() {
           </p>
           <button
             onClick={() => navigate("/raw-materials")}
-            className="mt-4 px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700"
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Back to Raw Materials
           </button>
@@ -890,7 +890,7 @@ export default function RMDetail() {
                 onChange={(e) =>
                   setEditFormData({ ...editFormData, name: e.target.value })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               />
             </div>
 
@@ -907,7 +907,7 @@ export default function RMDetail() {
                     subCategoryId: "",
                   })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               >
                 <option value="">Select Category</option>
                 {categories.map((cat) => (
@@ -930,7 +930,7 @@ export default function RMDetail() {
                     subCategoryId: e.target.value,
                   })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               >
                 <option value="">Select Sub Category</option>
                 {subCategories
@@ -952,7 +952,7 @@ export default function RMDetail() {
                 onChange={(e) =>
                   setEditFormData({ ...editFormData, unitId: e.target.value })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               >
                 <option value="">Select Unit</option>
                 {units.map((unit) => (
@@ -981,7 +981,7 @@ export default function RMDetail() {
                         }
                       }
                     }}
-                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   >
                     <option value="">Select Brand</option>
                     {brands.filter(b => !selectedBrands.find(sb => sb._id === b._id)).map((brand) => (
@@ -1008,7 +1008,7 @@ export default function RMDetail() {
                     onChange={(e) => setNewBrandName(e.target.value)}
                     placeholder="Enter new brand name"
                     disabled={creatingBrand}
-                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors disabled:opacity-50"
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-50"
                   />
                   <button
                     type="button"
@@ -1052,7 +1052,7 @@ export default function RMDetail() {
                       <div
                         key={brand._id}
                         onDoubleClick={() => setSelectedBrands(selectedBrands.filter(b => b._id !== brand._id))}
-                        className="flex items-center justify-between bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800/30 rounded-lg px-4 py-2.5 cursor-pointer hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
+                        className="flex items-center justify-between bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 rounded-lg px-4 py-2.5 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
                       >
                         <span className="text-sm font-medium text-slate-900 dark:text-white">
                           {brand.name}
@@ -1060,7 +1060,7 @@ export default function RMDetail() {
                         <button
                           type="button"
                           onClick={() => setSelectedBrands(selectedBrands.filter(b => b._id !== brand._id))}
-                          className="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                          className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -1081,7 +1081,7 @@ export default function RMDetail() {
                 onChange={(e) =>
                   setEditFormData({ ...editFormData, hsnCode: e.target.value })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               />
             </div>
 
@@ -1207,24 +1207,24 @@ export default function RMDetail() {
           </div>
 
           {/* Edit, Logs and Delete Buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               onClick={handleEditClick}
-              className="flex items-center gap-2 px-4 py-2.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-lg hover:bg-teal-200 dark:hover:bg-teal-900/50 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 font-semibold text-sm active:scale-95"
             >
               <Edit2 className="w-4 h-4" />
               Edit
             </button>
             <button
               onClick={() => setShowLogsModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 font-semibold text-sm active:scale-95"
             >
               <History className="w-4 h-4" />
               Logs
             </button>
             <button
               onClick={handleDeleteClick}
-              className="flex items-center gap-2 px-4 py-2.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 font-semibold text-sm active:scale-95"
             >
               <Trash2 className="w-4 h-4" />
               Delete
@@ -1241,7 +1241,7 @@ export default function RMDetail() {
                 onClick={() => setActiveTab("overview")}
                 className={`flex-shrink-0 px-6 py-4 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === "overview"
-                    ? "border-teal-600 text-teal-600 dark:text-teal-400"
+                    ? "border-blue-600 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
@@ -1252,7 +1252,7 @@ export default function RMDetail() {
                 onClick={() => setActiveTab("vendor")}
                 className={`flex-shrink-0 px-6 py-4 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === "vendor"
-                    ? "border-teal-600 text-teal-600 dark:text-teal-400"
+                    ? "border-blue-600 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
@@ -1262,7 +1262,7 @@ export default function RMDetail() {
                 onClick={() => setActiveTab("recipe")}
                 className={`flex-shrink-0 px-6 py-4 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === "recipe"
-                    ? "border-teal-600 text-teal-600 dark:text-teal-400"
+                    ? "border-blue-600 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
@@ -1311,13 +1311,13 @@ export default function RMDetail() {
                         ? rawMaterial.brandNames.map((brand, index) => (
                             <span
                               key={index}
-                              className="px-3 py-1.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                              className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
                             >
                               {brand}
                             </span>
                           ))
                         : (
-                            <span className="px-3 py-1.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">
+                            <span className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
                               {rawMaterial.brandName}
                             </span>
                           )
@@ -1340,7 +1340,7 @@ export default function RMDetail() {
                     <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                       Last Price
                     </label>
-                    <p className="text-sm text-teal-600 dark:text-teal-400 font-semibold">
+                    <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
                       ₹{rawMaterial.lastAddedPrice.toFixed(2)}
                       {formatUnit(rawMaterial.unitName)
                         ? ` / ${formatUnit(rawMaterial.unitName)}`
@@ -1393,7 +1393,7 @@ export default function RMDetail() {
                       });
                     }
                   }}
-                  className="px-4 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
+                  className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
                 >
                   {showAddPriceForm ? "Cancel" : "+ Add Price"}
                 </button>
@@ -1414,7 +1414,7 @@ export default function RMDetail() {
                             onChange={(e) =>
                               setVendorSearchInput(e.target.value)
                             }
-                            className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm placeholder-slate-400"
+                            className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm placeholder-slate-400"
                           />
                           <select
                             value={addPriceFormData.vendorId}
@@ -1425,7 +1425,7 @@ export default function RMDetail() {
                               });
                               setVendorSearchInput("");
                             }}
-                            className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm"
+                            className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm"
                           >
                             <option value="">-- Choose Vendor --</option>
                             {filteredVendors.length > 0 ? (
@@ -1458,7 +1458,7 @@ export default function RMDetail() {
                               brandId: e.target.value,
                             })
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm"
                         >
                           <option value="">-- Select Brand --</option>
                           {brands
@@ -1487,7 +1487,7 @@ export default function RMDetail() {
                             })
                           }
                           placeholder="Enter bill number"
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm"
                         />
                       </div>
                     </div>
@@ -1507,7 +1507,7 @@ export default function RMDetail() {
                             })
                           }
                           placeholder="Qty"
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm"
                         />
                       </div>
                       <div>
@@ -1532,7 +1532,7 @@ export default function RMDetail() {
                             })
                           }
                           placeholder="Price"
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm"
                         />
                       </div>
                       <div>
@@ -1599,7 +1599,7 @@ export default function RMDetail() {
                               <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300">
                                 {price.vendorName}
                               </td>
-                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300 font-semibold text-teal-600">
+                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300 font-semibold text-blue-600">
                                 ₹{price.price}
                               </td>
                               <td className="px-6 py-3 text-sm text-slate-600 dark:text-slate-400">
@@ -1642,7 +1642,7 @@ export default function RMDetail() {
                           <tr
                             key={vendor._id}
                             onClick={() => handleVendorClick(vendor)}
-                            className="hover:bg-teal-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
+                            className="hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
                           >
                             <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
                               {vendor.name}
@@ -1651,7 +1651,7 @@ export default function RMDetail() {
                               <Phone className="w-4 h-4" />
                               {vendor.mobileNumber}
                             </td>
-                            <td className="px-6 py-4 text-sm font-semibold text-teal-600 dark:text-teal-400">
+                            <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
                               {vendor.lastPrice
                                 ? `₹${vendor.lastPrice.toFixed(2)}/${formatUnit(rawMaterial.unitName)}`
                                 : "-"}

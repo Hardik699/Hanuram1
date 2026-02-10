@@ -657,7 +657,7 @@ export default function CreateRawMaterial() {
                   <button
                     type="button"
                     onClick={() => setShowNewBrandInput(true)}
-                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
                     title="Create new brand"
                   >
                     <Plus className="w-4 h-4" />
@@ -671,13 +671,13 @@ export default function CreateRawMaterial() {
                     onChange={(e) => setNewBrandName(e.target.value)}
                     placeholder="Enter new brand name"
                     disabled={creatingBrand}
-                    className="flex-1 px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
                   />
                   <button
                     type="button"
                     onClick={handleCreateNewBrand}
                     disabled={creatingBrand}
-                    className="px-4 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-slate-400 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
                   >
                     {creatingBrand ? (
                       <>

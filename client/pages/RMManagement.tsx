@@ -1009,119 +1009,39 @@ export default function RMManagement() {
           actions={headerActions}
         />
 
-        {/* Statistics Cards - Modern SaaS Dashboard */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8 animate-fade-in-up">
-          {/* Total Raw Materials Card */}
-          <div className="stat-card group">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="stat-label mb-2">
-                  Total Materials
-                </p>
-                <h3 className="stat-value text-3xl">
-                  {totalRawMaterials}
-                </h3>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                <Package className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
-
-          {/* With Prices Card */}
-          <div className="stat-card group">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="stat-label mb-2">
-                  With Prices
-                </p>
-                <h3 className="stat-value text-3xl">
-                  {materialsWithPrices}
-                </h3>
-                <p className="text-xs text-gray-500 mt-2">
-                  {totalRawMaterials > 0 ? Math.round((materialsWithPrices / totalRawMaterials) * 100) : 0}% complete
-                </p>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          {/* Pending Prices Card */}
-          <div className="stat-card group">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="stat-label mb-2">
-                  Pending Prices
-                </p>
-                <h3 className="stat-value text-3xl">
-                  {materialsWithoutPrices}
-                </h3>
-                <p className="text-xs text-gray-500 mt-2">
-                  Awaiting vendor data
-                </p>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                <AlertCircle className="w-6 h-6 text-amber-600" />
-              </div>
-            </div>
-          </div>
-
-          {/* Total Categories Card */}
-          <div className="stat-card group">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <p className="stat-label mb-2">
-                  Categories
-                </p>
-                <h3 className="stat-value text-3xl">
-                  {categories.length}
-                </h3>
-                <p className="text-xs text-gray-500 mt-2">
-                  Total classifications
-                </p>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                <LayoutGrid className="w-6 h-6 text-purple-600" />
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="space-y-4">
           {/* Message Alert - Modern Notification */}
           {message && (
             <div
-              className={`p-4 rounded-lg flex items-start gap-3 border animate-slide-in-down ${
+              className={`p-4 rounded-xl flex items-start gap-3 border animate-slide-in-down ${
                 messageType === "success"
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-900"
-                  : "bg-red-50 border-red-200 text-red-900"
+                  ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-100"
+                  : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-900 dark:text-red-100"
               }`}
               style={{
                 boxShadow: messageType === "success"
-                  ? "0 4px 12px rgba(16, 185, 129, 0.1)"
+                  ? "0 4px 12px rgba(59, 130, 246, 0.1)"
                   : "0 4px 12px rgba(239, 68, 68, 0.1)"
               }}
             >
               {messageType === "success" ? (
-                <Check className={`w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5`} />
+                <Check className={`w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5`} />
               ) : (
-                <AlertCircle className={`w-5 h-5 text-red-600 flex-shrink-0 mt-0.5`} />
+                <AlertCircle className={`w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5`} />
               )}
               <div className="flex-1">
                 <span
                   className={
                     messageType === "success"
-                      ? "text-emerald-800 dark:text-emerald-300 font-semibold text-sm"
-                      : "text-red-800 dark:text-red-300 font-semibold text-sm"
+                      ? "text-blue-800 dark:text-blue-200 font-semibold text-sm"
+                      : "text-red-800 dark:text-red-200 font-semibold text-sm"
                   }
                 >
                   {message}
                 </span>
                 {uploadLoading && uploadProgress > 0 && (
                   <div className="mt-3">
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-bold text-blue-700 dark:text-blue-300">
                         Upload Progress
                       </span>
@@ -1129,9 +1049,9 @@ export default function RMManagement() {
                         {uploadProgress}%
                       </span>
                     </div>
-                    <div className="w-full bg-blue-200 dark:bg-blue-900/30 rounded-full h-3 overflow-hidden shadow-inner">
+                    <div className="w-full bg-blue-100 dark:bg-blue-900/30 rounded-full h-2.5 overflow-hidden shadow-sm">
                       <div
-                        className="bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-500 h-3 rounded-full transition-all duration-300 ease-out shadow-elevation-1"
+                        className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 h-2.5 rounded-full transition-all duration-300 ease-out"
                         style={{ width: `${uploadProgress}%` }}
                       ></div>
                     </div>
@@ -1233,22 +1153,24 @@ export default function RMManagement() {
           </div>
 
           {/* Raw Materials List Header */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
-            <div className="flex items-center justify-between">
+          <div className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/10 dark:to-slate-800 rounded-2xl shadow-elevation-1 p-6 mb-4 border border-blue-200 dark:border-slate-700 animate-fade-in-up">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                  <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
+                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                    <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  </div>
                   Raw Materials List
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
                   Showing{" "}
-                  <span className="font-bold text-slate-900 dark:text-white">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
                     {filteredRawMaterials.length}
                   </span>{" "}
                   material{filteredRawMaterials.length !== 1 ? "s" : ""}
                 </p>
               </div>
-              <div className="hidden sm:flex items-center gap-2 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
+              <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl border border-blue-300 dark:border-blue-800">
                 <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
                   {materialsWithPrices} with prices
@@ -1258,165 +1180,175 @@ export default function RMManagement() {
           </div>
 
           {/* Raw Materials Table */}
-          <div className="unified-table-container">
-            <div className="prof-table-responsive">
-              <table className="w-full">
-                <thead className="prof-table-head">
-                  <tr>
-                    <th className="prof-table-head-cell">Code</th>
-                    <th className="prof-table-head-cell">Name</th>
-                    <th className="prof-table-head-cell hidden sm:table-cell">
-                      Category
-                    </th>
-                    <th className="prof-table-head-cell hidden lg:table-cell">
-                      Sub Category
-                    </th>
-                    <th className="prof-table-head-cell">Unit</th>
-                    <th className="prof-table-head-cell hidden md:table-cell">
-                      Last Price
-                    </th>
-                    <th className="prof-table-head-cell hidden lg:table-cell">
-                      Last Purchase
-                    </th>
-                    <th className="prof-table-head-cell text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                  {paginatedRawMaterials.map((rm, idx) => (
-                    <tr
-                      key={rm._id}
-                      className={cn(
-                        "prof-table-row prof-table-row-hover",
-                        idx % 2 === 0 && "prof-table-row-even",
-                      )}
-                    >
-                      <td
-                        className="prof-table-cell cursor-pointer"
-                        onClick={() => navigate(`/raw-materials/${rm._id}`)}
-                      >
-                        <span className="prof-badge-blue">{rm.code}</span>
-                      </td>
-                      <td
-                        className="prof-table-cell cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 font-bold"
-                        onClick={() => navigate(`/raw-materials/${rm._id}`)}
-                        title={rm.name}
-                      >
-                        {rm.name}
-                      </td>
-                      <td className="prof-table-cell hidden sm:table-cell">
-                        <span className="prof-badge-blue">
-                          {rm.categoryName}
-                        </span>
-                      </td>
-                      <td className="prof-table-cell hidden lg:table-cell">
-                        <span className="prof-badge-green">
-                          {rm.subCategoryName}
-                        </span>
-                      </td>
-                      <td className="prof-table-cell">
-                        {rm.unitName ? (
-                          <span className="prof-badge-orange">
-                            {rm.unitName}
-                          </span>
-                        ) : (
-                          <span className="text-slate-400">-</span>
-                        )}
-                      </td>
-                      <td className="prof-table-cell hidden md:table-cell">
-                        {rm.lastAddedPrice ? (
-                          <span className="prof-badge-green">
-                            ₹{rm.lastAddedPrice.toFixed(2)}/
-                            {formatUnit(rm.unitName)}
-                          </span>
-                        ) : (
-                          <span className="prof-badge-orange">Pending</span>
-                        )}
-                      </td>
-                      <td className="prof-table-cell hidden lg:table-cell">
-                        {rm.lastPriceDate ? (
-                          <span className="font-medium text-slate-600 dark:text-slate-400 text-xs">
-                            {new Date(rm.lastPriceDate).toLocaleDateString(
-                              "en-IN",
-                            )}
-                          </span>
-                        ) : (
-                          <span className="text-slate-400">-</span>
-                        )}
-                      </td>
-                      <td className="prof-table-cell text-center whitespace-nowrap">
-                        <button
-                          onClick={() => handleViewRMPriceHistory(rm)}
-                          className="prof-btn-sm"
-                          title="View price history"
-                        >
-                          <History size={14} />
-                          <span className="hidden sm:inline">History</span>
-                        </button>
-                      </td>
+          {/* Raw Materials Table - Clean Vendor Style */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+            {paginatedRawMaterials.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
+                <div className="rounded-full bg-blue-100 dark:bg-blue-900/30 p-4 mb-4">
+                  <Package className="w-12 h-12 text-blue-600 dark:text-blue-400" />
+                </div>
+                <p className="font-bold text-slate-900 dark:text-white text-lg">No raw materials yet</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">Create your first raw material to get started</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  {/* Table Header */}
+                  <thead className="bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 text-white sticky top-0 border-b-4 border-blue-500">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Code</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Name</th>
+                      <th className="hidden sm:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Category</th>
+                      <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Sub Category</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Unit</th>
+                      <th className="hidden md:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Last Price</th>
+                      <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Last Purchase</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-blue-100">Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+
+                  {/* Table Body */}
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {paginatedRawMaterials.map((rm, idx) => (
+                      <tr
+                        key={rm._id}
+                        className={`hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 ${
+                          idx % 2 === 0 ? "bg-white dark:bg-slate-800/50" : "bg-slate-50 dark:bg-slate-800"
+                        } cursor-pointer group`}
+                        onClick={() => navigate(`/raw-materials/${rm._id}`)}
+                      >
+                        {/* Code */}
+                        <td className="px-6 py-4">
+                          <span className="text-sm font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                            {rm.code}
+                          </span>
+                        </td>
+
+                        {/* Name */}
+                        <td className="px-6 py-4">
+                          <div className="font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate capitalize-each-word max-w-sm">
+                            {rm.name}
+                          </div>
+                        </td>
+
+                        {/* Category */}
+                        <td className="hidden sm:table-cell px-6 py-4">
+                          <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                            {rm.categoryName}
+                          </span>
+                        </td>
+
+                        {/* Sub Category */}
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                            {rm.subCategoryName || "—"}
+                          </span>
+                        </td>
+
+                        {/* Unit */}
+                        <td className="px-6 py-4">
+                          {rm.unitName ? (
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                              {rm.unitName}
+                            </span>
+                          ) : (
+                            <span className="text-slate-400 dark:text-slate-500 text-sm">—</span>
+                          )}
+                        </td>
+
+                        {/* Last Price */}
+                        <td className="hidden md:table-cell px-6 py-4">
+                          {rm.lastAddedPrice ? (
+                            <span className="text-sm font-semibold text-blue-700 dark:text-blue-300 whitespace-nowrap">
+                              ₹{rm.lastAddedPrice.toFixed(2)}/{formatUnit(rm.unitName)}
+                            </span>
+                          ) : (
+                            <span className="text-sm font-semibold text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                              Pending
+                            </span>
+                          )}
+                        </td>
+
+                        {/* Last Purchase */}
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          {rm.lastPriceDate ? (
+                            <span className="font-semibold text-slate-700 dark:text-slate-300 text-xs">
+                              {new Date(rm.lastPriceDate).toLocaleDateString("en-IN")}
+                            </span>
+                          ) : (
+                            <span className="text-slate-400 dark:text-slate-500 text-sm">—</span>
+                          )}
+                        </td>
+
+                        {/* Action */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleViewRMPriceHistory(rm);
+                              }}
+                              className="inline-flex items-center justify-center p-2.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 hover:shadow-md transition-all duration-200 active:scale-95"
+                              title="View price history"
+                            >
+                              <History className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             {/* Pagination Controls */}
-            <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-              <div className="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
-                {/* Items per page - hidden on very small screens */}
-                <div className="hidden sm:flex items-center gap-2">
-                  <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                    Per page:
-                  </span>
-                  <select
-                    value={itemsPerPage}
-                    onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                    className="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all font-semibold hover:border-slate-300 dark:hover:border-slate-500 w-20"
-                  >
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                  </select>
-                </div>
+            <div className="mt-6 flex items-center justify-between flex-wrap gap-4 px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Show:
+                </span>
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
+                  className="px-3 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all hover:border-blue-400 dark:hover:border-blue-500"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </div>
 
-                {/* Pagination info and controls */}
-                <div className="flex items-center gap-2 sm:gap-4">
-                  <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
-                      {startIndex + 1}-
-                      {Math.min(endIndex, filteredRawMaterials.length)}
-                    </span>
-                    <span className="hidden sm:inline"> of </span>
-                    <span className="hidden sm:inline font-bold text-slate-900 dark:text-slate-200">
-                      {filteredRawMaterials.length}
-                    </span>
+              <div className="flex items-center gap-4">
+                <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                  <span className="font-semibold text-blue-600 dark:text-blue-400">
+                    {startIndex + 1}–{Math.min(endIndex, filteredRawMaterials.length)}
+                  </span>{" "}
+                  of{" "}
+                  <span className="font-semibold text-slate-900 dark:text-slate-100">
+                    {filteredRawMaterials.length}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={handlePreviousPage}
-                      disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all"
-                      title="Previous Page"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[50px] sm:min-w-[100px] text-center">
-                      <span className="text-blue-600 dark:text-blue-400">
-                        {currentPage}
-                      </span>
-                      <span className="hidden sm:inline">/</span>
-                      <span className="hidden sm:inline text-slate-900 dark:text-slate-200">
-                        {totalPages || 1}
-                      </span>
-                    </span>
-                    <button
-                      onClick={handleNextPage}
-                      disabled={currentPage === totalPages || totalPages === 0}
-                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all"
-                      title="Next Page"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 dark:disabled:border-slate-600 disabled:text-slate-400 dark:disabled:text-slate-500 transition-all hover:border-blue-400 dark:hover:border-blue-600"
+                    title="Previous Page"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300 min-w-[70px] text-center">
+                    <span className="font-bold text-blue-600 dark:text-blue-400">{currentPage}</span>/<span className="font-bold text-slate-900 dark:text-slate-100">{totalPages || 1}</span>
+                  </span>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages || totalPages === 0}
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 dark:disabled:border-slate-600 disabled:text-slate-400 dark:disabled:text-slate-500 transition-all hover:border-blue-400 dark:hover:border-blue-600"
+                    title="Next Page"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             </div>

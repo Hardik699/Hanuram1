@@ -496,70 +496,90 @@ export default function CreateUnit() {
             </div>
           </div>
 
-          {/* Units Grid - Light & Modern Design */}
-          <div className="space-y-3">
+          {/* Units Table - Vendor Style */}
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
             {tableLoading ? (
               <div className="flex flex-col items-center justify-center py-16">
                 <div className="inline-block w-8 h-8 border-3 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
                 <p className="text-gray-600 mt-3 font-medium text-sm">Loading units...</p>
               </div>
             ) : paginatedUnits.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-                <Settings className="w-14 h-14 text-blue-300 mb-3" />
+              <div className="flex flex-col items-center justify-center py-16 px-6">
+                <Settings className="w-14 h-14 text-gray-300 mb-3" />
                 <p className="font-bold text-gray-900 text-base">No units yet</p>
                 <p className="text-sm text-gray-500 mt-1">Create your first unit to get started</p>
               </div>
             ) : (
-              paginatedUnits.map((unit) => (
-                <div
-                  key={unit._id}
-                  className="group bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 border border-gray-200 hover:border-blue-300 rounded-xl px-5 py-4 transition-all duration-200 hover:shadow-lg hover:scale-102 cursor-pointer flex items-center justify-between"
-                  onClick={() => navigate(`/unit/${unit._id}`)}
-                >
-                  {/* Left Content */}
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    {/* Avatar */}
-                    <div className="flex-shrink-0">
-                      <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-105 group-hover:from-blue-600 group-hover:to-blue-700 shadow-sm">
-                        {unit.name.substring(0, 1).toUpperCase()}
-                      </div>
-                    </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  {/* Table Header */}
+                  <thead className="bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 text-white sticky top-0 border-b-4 border-blue-500">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Unit Name</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Short Code</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-blue-100">Actions</th>
+                    </tr>
+                  </thead>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word">
-                          {unit.name}
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
+                  {/* Table Body */}
+                  <tbody className="divide-y divide-gray-200">
+                    {paginatedUnits.map((unit, idx) => (
+                      <tr
+                        key={unit._id}
+                        className={`hover:bg-blue-50 transition-colors duration-200 ${
+                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } cursor-pointer group`}
+                        onClick={() => navigate(`/unit/${unit._id}`)}
+                      >
+                        {/* Unit Name */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0">
+                              {unit.name.substring(0, 1).toUpperCase()}
+                            </div>
+                            <div className="font-bold text-gray-900 capitalize-each-word group-hover:text-blue-600 transition-colors">
+                              {unit.name}
+                            </div>
+                          </div>
+                        </td>
 
-                  {/* Action Buttons */}
-                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 flex-shrink-0">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleEdit(unit);
-                      }}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
-                      title="Edit"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(unit._id);
-                      }}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              ))
+                        {/* Short Code */}
+                        <td className="px-6 py-4">
+                          <span className="font-semibold text-gray-900 uppercase text-sm">
+                            {unit.shortCode}
+                          </span>
+                        </td>
+
+                        {/* Actions */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center gap-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(unit);
+                              }}
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
+                              title="Edit"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(unit._id);
+                              }}
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-gray-200 hover:bg-red-600 text-gray-600 hover:text-white transition-all active:scale-95"
+                              title="Delete"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
 
             {/* Pagination Controls */}
