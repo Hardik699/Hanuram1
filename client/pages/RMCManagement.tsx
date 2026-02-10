@@ -977,10 +977,10 @@ export default function RMCManagement() {
       {/* Content for Production Users */}
       {isProductionUser && (
         <div className="space-y-4">
-          <div className="bg-gradient-to-r from-indigo-50 via-cyan-50 to-emerald-50 dark:from-indigo-900/10 dark:via-cyan-900/10 dark:to-emerald-900/10 rounded-2xl shadow-elevation-2 p-6 border border-transparent dark:border-slate-700 animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #818cf8, #06b6d4, #10b981) 1', borderImageSlice: '1'}}>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 border-b-4 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-lg font-bold bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 dark:from-indigo-400 dark:via-cyan-400 dark:to-emerald-400 bg-clip-text text-transparent mb-2">
+                <h3 className="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">
                   Production Labour Costs
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400">
@@ -1011,8 +1011,7 @@ export default function RMCManagement() {
                   <div
                     key={recipe._id}
                     onClick={() => navigate(`/recipe/${recipe._id}/edit`)}
-                    className="bg-white dark:bg-slate-700 rounded-xl p-5 border-2 border-transparent hover:border-transparent cursor-pointer hover:shadow-lg transition-all hover:scale-102 transform group"
-                    style={{backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, #818cf8, #06b6d4, #10b981)', backgroundOrigin: 'border-box', backgroundClip: 'padding-box, border-box'}}
+                    className="bg-white dark:bg-slate-700 rounded-xl p-5 border-l-4 border-indigo-500 cursor-pointer hover:shadow-lg transition-all hover:scale-102 transform group"
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -1024,7 +1023,7 @@ export default function RMCManagement() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                        <p className="font-bold text-purple-600 dark:text-purple-400">
                           ₹{recipe.totalRawMaterialCost.toFixed(2)}
                         </p>
                         <p className="text-xs text-slate-600 dark:text-slate-400">
@@ -1033,7 +1032,7 @@ export default function RMCManagement() {
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="bg-gradient-to-br from-indigo-50 to-cyan-50 dark:from-indigo-900/20 dark:to-cyan-900/20 p-3 rounded-lg border border-indigo-200/50 dark:border-indigo-800/50">
+                      <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg border border-indigo-200 dark:border-indigo-800">
                         <p className="text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase">
                           Batch Size
                         </p>
@@ -1041,7 +1040,7 @@ export default function RMCManagement() {
                           {recipe.batchSize} {recipe.unitName}
                         </p>
                       </div>
-                      <div className="bg-gradient-to-br from-emerald-50 to-cyan-50 dark:from-emerald-900/20 dark:to-cyan-900/20 p-3 rounded-lg border border-emerald-200/50 dark:border-emerald-800/50">
+                      <div className="bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded-lg border border-emerald-200 dark:border-emerald-800">
                         <p className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase">
                           Price per Unit
                         </p>
@@ -1095,26 +1094,26 @@ export default function RMCManagement() {
         {/* All Recipes Header - Hidden for Production Users */}
         {!isProductionUser && (
           <>
-            <div className="bg-gradient-to-r from-indigo-50 via-cyan-50 to-emerald-50 dark:from-indigo-900/10 dark:via-cyan-900/10 dark:to-emerald-900/10 rounded-2xl shadow-elevation-1 p-6 mb-4 border border-transparent dark:border-slate-700 animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #818cf8, #06b6d4, #10b981) 1', borderImageSlice: '1'}}>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-1 p-6 mb-4 border-b-4 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-br from-indigo-100 via-cyan-100 to-emerald-100 dark:from-indigo-900/30 dark:via-cyan-900/30 dark:to-emerald-900/30 rounded-lg">
-                      <BookOpen className="w-5 h-5 bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 dark:from-indigo-400 dark:via-cyan-400 dark:to-emerald-400 bg-clip-text text-transparent" />
+                    <div className="p-2.5 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg shadow-md">
+                      <BookOpen className="w-5 h-5 text-white" />
                     </div>
                     All Recipes
                   </h2>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
                     Showing{" "}
-                    <span className="font-bold bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 dark:from-indigo-400 dark:via-cyan-400 dark:to-emerald-400 bg-clip-text text-transparent">
+                    <span className="font-bold text-indigo-600 dark:text-indigo-400">
                       {recipes.length}
                     </span>{" "}
                     recipe{recipes.length !== 1 ? "s" : ""}
                   </p>
                 </div>
-                <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-indigo-100 via-cyan-100 to-emerald-100 dark:from-indigo-900/30 dark:via-cyan-900/30 dark:to-emerald-900/30 rounded-xl border border-gradient-to-r from-indigo-300 via-cyan-300 to-emerald-300 dark:border-indigo-700/50" style={{borderImage: 'linear-gradient(to right, #818cf8, #06b6d4, #10b981) 1'}}>
+                <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-indigo-50 to-cyan-50 dark:from-indigo-900/20 dark:to-cyan-900/20 rounded-xl border-2 border-indigo-200 dark:border-indigo-800 shadow-sm">
                   <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                  <span className="text-sm font-bold bg-gradient-to-r from-indigo-700 via-cyan-700 to-emerald-700 dark:from-indigo-300 dark:via-cyan-300 dark:to-emerald-300 bg-clip-text text-transparent">
+                  <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300">
                     {recipes.length} recipes
                   </span>
                 </div>
@@ -1141,12 +1140,24 @@ export default function RMCManagement() {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[700px]">
-                    <thead className="bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 text-white sticky top-0 border-b-0" style={{borderBottom: '4px solid', borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1'}}>
+                    <thead className="bg-gradient-to-r from-slate-900 to-slate-800 sticky top-0 border-b-4 border-transparent" style={{backgroundImage: 'linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.95)), linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981)', backgroundOrigin: 'border-box', backgroundClip: 'padding-box, border-box'}}>
                       <tr>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-indigo-200 flex items-center gap-2"><span className="inline-block w-2 h-2 bg-indigo-400 rounded-full"></span>Recipe Code</th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-cyan-200 flex items-center gap-2"><span className="inline-block w-2 h-2 bg-cyan-400 rounded-full"></span>Recipe Name</th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-purple-200 flex items-center gap-2"><span className="inline-block w-2 h-2 bg-purple-400 rounded-full"></span>Total RM Cost</th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-emerald-200 flex items-center gap-2"><span className="inline-block w-2 h-2 bg-emerald-400 rounded-full"></span>Price per Unit</th>
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-indigo-500 flex items-center gap-2">
+                          <span className="inline-block w-2 h-2 bg-indigo-400 rounded-full"></span>
+                          Recipe Code
+                        </th>
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-cyan-500 flex items-center gap-2">
+                          <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full"></span>
+                          Recipe Name
+                        </th>
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-purple-500 flex items-center gap-2">
+                          <span className="inline-block w-2 h-2 bg-purple-400 rounded-full"></span>
+                          Total RM Cost
+                        </th>
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-emerald-500 flex items-center gap-2">
+                          <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full"></span>
+                          Price per Unit
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -1157,18 +1168,18 @@ export default function RMCManagement() {
                             !isProductionUser &&
                             navigate(`/recipe/${recipe._id}`)
                           }
-                          className="hover:bg-gradient-to-r hover:from-indigo-50/30 hover:via-cyan-50/30 hover:to-emerald-50/30 dark:hover:from-indigo-900/10 dark:hover:via-cyan-900/10 dark:hover:to-emerald-900/10 transition-all duration-200 cursor-pointer border-l-4 border-transparent hover:border-l-indigo-500 hover:shadow-md"
+                          className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-150 cursor-pointer border-l-4 border-transparent hover:border-l-indigo-500 hover:shadow-md"
                         >
-                          <td className="px-6 py-4 text-sm font-bold text-indigo-700 dark:text-indigo-300 bg-gradient-to-r from-indigo-50/30 to-indigo-50/0 dark:from-indigo-900/10 dark:to-indigo-900/0">
+                          <td className="px-6 py-4 text-sm font-bold text-indigo-700 dark:text-indigo-300">
                             {recipe.code}
                           </td>
-                          <td className="px-6 py-4 text-sm font-semibold text-cyan-700 dark:text-cyan-300 bg-gradient-to-r from-cyan-50/30 to-cyan-50/0 dark:from-cyan-900/10 dark:to-cyan-900/0">
+                          <td className="px-6 py-4 text-sm font-semibold text-cyan-700 dark:text-cyan-300">
                             {recipe.name}
                           </td>
-                          <td className="px-6 py-4 text-sm font-bold text-purple-700 dark:text-purple-300 bg-gradient-to-r from-purple-50/30 to-purple-50/0 dark:from-purple-900/10 dark:to-purple-900/0">
+                          <td className="px-6 py-4 text-sm font-bold text-purple-700 dark:text-purple-300">
                             ₹{recipe.totalRawMaterialCost.toFixed(2)}
                           </td>
-                          <td className="px-6 py-4 text-sm font-bold text-emerald-700 dark:text-emerald-300 bg-gradient-to-r from-emerald-50/30 to-emerald-50/0 dark:from-emerald-900/10 dark:to-emerald-900/0">
+                          <td className="px-6 py-4 text-sm font-bold text-emerald-700 dark:text-emerald-300">
                             ₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}
                           </td>
                         </tr>
@@ -1177,9 +1188,9 @@ export default function RMCManagement() {
                   </table>
 
                   {/* Pagination Controls */}
-                  <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-gradient-to-r from-indigo-50/30 via-cyan-50/30 to-emerald-50/30 dark:from-indigo-900/5 dark:via-cyan-900/5 dark:to-emerald-900/5 flex items-center justify-between flex-wrap gap-4">
+                  <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-semibold bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 dark:from-indigo-400 dark:via-cyan-400 dark:to-emerald-400 bg-clip-text text-transparent">
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                         Items per page:
                       </span>
                       <select
@@ -1187,7 +1198,7 @@ export default function RMCManagement() {
                         onChange={(e) =>
                           handleItemsPerPageChange(e.target.value)
                         }
-                        className="px-3 py-2 rounded-lg border-2 border-transparent bg-gradient-to-r from-indigo-100 to-cyan-100 dark:from-indigo-900/30 dark:to-cyan-900/30 text-slate-900 dark:text-white text-sm font-medium hover:border-indigo-400 dark:hover:border-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500"
+                        className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-medium hover:border-indigo-400 dark:hover:border-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500"
                       >
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -1197,11 +1208,11 @@ export default function RMCManagement() {
 
                     <div className="flex items-center gap-6">
                       <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                        <span className="font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 dark:from-indigo-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                        <span className="font-bold text-indigo-600 dark:text-indigo-400">
                           {startIndex + 1}-{Math.min(endIndex, recipes.length)}
                         </span>{" "}
                         of{" "}
-                        <span className="font-bold bg-gradient-to-r from-purple-600 to-emerald-600 dark:from-purple-400 dark:to-emerald-400 bg-clip-text text-transparent">
+                        <span className="font-bold text-slate-900 dark:text-slate-200">
                           {recipes.length}
                         </span>
                       </span>
@@ -1209,18 +1220,18 @@ export default function RMCManagement() {
                         <button
                           onClick={handlePreviousPage}
                           disabled={currentPage === 1}
-                          className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:border-indigo-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                          className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:border-indigo-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                           title="Previous Page"
                         >
                           <ChevronLeft className="w-5 h-5" />
                         </button>
                         <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
                           Page{" "}
-                          <span className="font-bold bg-gradient-to-r from-cyan-600 to-emerald-600 dark:from-cyan-400 dark:to-emerald-400 bg-clip-text text-transparent">
+                          <span className="font-bold text-indigo-600 dark:text-indigo-400">
                             {currentPage}
                           </span>{" "}
                           of{" "}
-                          <span className="font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                          <span className="font-bold text-slate-900 dark:text-slate-200">
                             {totalPages || 1}
                           </span>
                         </span>
@@ -1229,7 +1240,7 @@ export default function RMCManagement() {
                           disabled={
                             currentPage === totalPages || totalPages === 0
                           }
-                          className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                          className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                           title="Next Page"
                         >
                           <ChevronRight className="w-5 h-5" />
