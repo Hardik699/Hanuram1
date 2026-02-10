@@ -14,6 +14,8 @@ import {
   ChevronDown,
   Edit2,
   Trash2,
+  Plus,
+  Check,
 } from "lucide-react";
 
 interface RawMaterial {
@@ -26,6 +28,10 @@ interface RawMaterial {
   subCategoryName: string;
   unitId?: string;
   unitName?: string;
+  brandId?: string;
+  brandName?: string;
+  brandIds?: string[];
+  brandNames?: string[];
   hsnCode?: string;
   createdAt: string;
   lastAddedPrice?: number;
@@ -51,6 +57,13 @@ interface VendorPrice {
   unitName?: string;
   price: number;
   addedDate: string;
+  brandId?: string;
+  brandName?: string;
+}
+
+interface Brand {
+  _id: string;
+  name: string;
 }
 
 interface PriceLog {
@@ -91,6 +104,7 @@ export default function RMDetail() {
   const [allVendors, setAllVendors] = useState<Vendor[]>([]);
   const [vendorPrices, setVendorPrices] = useState<VendorPrice[]>([]);
   const [recipes, setRecipes] = useState<RecipeWithItems[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [selectedVendor, setSelectedVendor] =
@@ -105,6 +119,7 @@ export default function RMDetail() {
     categoryId: "",
     subCategoryId: "",
     unitId: "",
+    brandId: "",
     hsnCode: "",
   });
   const [message, setMessage] = useState("");
@@ -117,6 +132,7 @@ export default function RMDetail() {
   const [showAddPriceForm, setShowAddPriceForm] = useState(false);
   const [addPriceFormData, setAddPriceFormData] = useState({
     vendorId: "",
+    brandId: "",
     quantity: "",
     price: "",
     billNumber: "",
@@ -125,6 +141,12 @@ export default function RMDetail() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [vendorSearchInput, setVendorSearchInput] = useState("");
+  const [showNewBrandInput, setShowNewBrandInput] = useState(false);
+  const [newBrandName, setNewBrandName] = useState("");
+  const [creatingBrand, setCreatingBrand] = useState(false);
+  const [addingPrice, setAddingPrice] = useState(false);
+  const [selectedBrandForAdd, setSelectedBrandForAdd] = useState("");
+  const [selectedBrands, setSelectedBrands] = useState<Array<{ _id: string; name: string }>>([]);
 
   // Calculate total price whenever quantity or price changes
   const totalPrice =
@@ -180,6 +202,7 @@ export default function RMDetail() {
             fetchCategoriesData(),
             fetchSubCategoriesData(),
             fetchUnitsData(),
+            fetchBrandsData(),
           ]);
         } else {
           navigate("/raw-materials");
@@ -229,6 +252,19 @@ export default function RMDetail() {
       }
     } catch (error) {
       console.error("Error fetching units:", error);
+    }
+  };
+
+  const fetchBrandsData = async () => {
+    try {
+      const response = await fetch("/api/brands");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        setBrands(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching brands:", error);
     }
   };
 
@@ -377,8 +413,21 @@ export default function RMDetail() {
         categoryId: rawMaterial.categoryId,
         subCategoryId: rawMaterial.subCategoryId,
         unitId: rawMaterial.unitId || "",
+        brandId: rawMaterial.brandId || "",
         hsnCode: rawMaterial.hsnCode || "",
       });
+
+      // Initialize selected brands from rawMaterial
+      if (rawMaterial.brandIds && rawMaterial.brandIds.length > 0) {
+        const selectedBrandList = rawMaterial.brandIds.map((brandId, index) => ({
+          _id: brandId,
+          name: rawMaterial.brandNames?.[index] || "",
+        })).filter(b => b._id && b.name);
+        setSelectedBrands(selectedBrandList);
+      } else {
+        setSelectedBrands([]);
+      }
+
       setShowEditForm(true);
     }
   };
@@ -398,6 +447,8 @@ export default function RMDetail() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...editFormData,
+          brandIds: selectedBrands.map(b => b._id),
+          brandNames: selectedBrands.map(b => b.name),
           changedBy: localStorage.getItem("username") || "admin",
         }),
       });
@@ -411,6 +462,7 @@ export default function RMDetail() {
         setMessage("Raw material updated successfully");
         setMessageType("success");
         setShowEditForm(false);
+        setSelectedBrands([]);
         setTimeout(() => {
           fetchAllData();
         }, 500);
@@ -422,6 +474,45 @@ export default function RMDetail() {
       console.error("Error updating raw material:", error);
       setMessage("Error updating raw material");
       setMessageType("error");
+    }
+  };
+
+  const handleCreateNewBrand = async () => {
+    if (!newBrandName.trim()) {
+      setMessage("Brand name cannot be empty");
+      setMessageType("error");
+      return;
+    }
+
+    setCreatingBrand(true);
+    try {
+      const response = await fetch("/api/brands", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newBrandName.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const newBrand = data.data;
+        setBrands([...brands, newBrand]);
+        // Add the new brand to the selected brands list
+        setSelectedBrands([...selectedBrands, newBrand]);
+        setShowNewBrandInput(false);
+        setNewBrandName("");
+        setMessage("Brand created and added successfully");
+        setMessageType("success");
+      } else {
+        setMessage(data.message || "Failed to create brand");
+        setMessageType("error");
+      }
+    } catch (error) {
+      console.error("Error creating brand:", error);
+      setMessage("Error creating brand");
+      setMessageType("error");
+    } finally {
+      setCreatingBrand(false);
     }
   };
 
@@ -494,13 +585,24 @@ export default function RMDetail() {
       return;
     }
 
+    // Prevent multiple submissions
+    if (addingPrice) {
+      return;
+    }
+
+    setAddingPrice(true);
+
     try {
+      const selectedBrand = brands.find((b) => b._id === addPriceFormData.brandId);
+
       const response = await fetch("/api/raw-materials/vendor-price", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           rawMaterialId: id,
           vendorId: addPriceFormData.vendorId,
+          brandId: addPriceFormData.brandId,
+          brandName: selectedBrand?.name,
           quantity: parseFloat(addPriceFormData.quantity),
           price: parseFloat(addPriceFormData.price),
           billNumber: addPriceFormData.billNumber,
@@ -519,6 +621,7 @@ export default function RMDetail() {
         setShowAddPriceForm(false);
         setAddPriceFormData({
           vendorId: "",
+          brandId: "",
           quantity: "",
           price: "",
           billNumber: "",
@@ -535,6 +638,8 @@ export default function RMDetail() {
       console.error("Error adding price:", error);
       setMessage("Error adding price");
       setMessageType("error");
+    } finally {
+      setAddingPrice(false);
     }
   };
 
@@ -737,7 +842,10 @@ export default function RMDetail() {
         <div className="space-y-6">
           <div className="flex items-center gap-4 mb-6">
             <button
-              onClick={() => setShowEditForm(false)}
+              onClick={() => {
+                setShowEditForm(false);
+                setSelectedBrands([]);
+              }}
               className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
               title="Cancel"
             >
@@ -850,6 +958,121 @@ export default function RMDetail() {
                   </option>
                 ))}
               </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                Brands (Optional - Add Multiple)
+              </label>
+              {!showNewBrandInput ? (
+                <div className="flex gap-2">
+                  <select
+                    value={selectedBrandForAdd}
+                    onChange={(e) =>
+                      setSelectedBrandForAdd(e.target.value)
+                    }
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                  >
+                    <option value="">Select Brand</option>
+                    {brands.filter(b => !selectedBrands.find(sb => sb._id === b._id)).map((brand) => (
+                      <option key={brand._id} value={brand._id}>
+                        {brand.name}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (selectedBrandForAdd) {
+                        const brand = brands.find(b => b._id === selectedBrandForAdd);
+                        if (brand) {
+                          setSelectedBrands([...selectedBrands, brand]);
+                          setSelectedBrandForAdd("");
+                        }
+                      }
+                    }}
+                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    title="Add brand"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowNewBrandInput(true)}
+                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    title="Create new brand"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newBrandName}
+                    onChange={(e) => setNewBrandName(e.target.value)}
+                    placeholder="Enter new brand name"
+                    disabled={creatingBrand}
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors disabled:opacity-50"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleCreateNewBrand();
+                      setShowNewBrandInput(false);
+                    }}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-slate-400 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                  >
+                    {creatingBrand ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      </>
+                    ) : (
+                      <Check className="w-4 h-4" />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowNewBrandInput(false);
+                      setNewBrandName("");
+                    }}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+
+              {/* Selected Brands List */}
+              {selectedBrands.length > 0 && (
+                <div className="mt-4 space-y-2">
+                  <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">
+                    Selected Brands ({selectedBrands.length})
+                  </p>
+                  <div className="space-y-2">
+                    {selectedBrands.map((brand) => (
+                      <div
+                        key={brand._id}
+                        className="flex items-center justify-between bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800/30 rounded-lg px-4 py-2.5"
+                      >
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">
+                          {brand.name}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedBrands(selectedBrands.filter(b => b._id !== brand._id))}
+                          className="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>
@@ -1082,6 +1305,16 @@ export default function RMDetail() {
                     {rawMaterial.unitName || "-"}
                   </p>
                 </div>
+                {rawMaterial.brandName && (
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      Brand
+                    </label>
+                    <p className="text-sm text-slate-900 dark:text-white font-medium">
+                      {rawMaterial.brandName}
+                    </p>
+                  </div>
+                )}
                 {rawMaterial.hsnCode && (
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1134,6 +1367,16 @@ export default function RMDetail() {
                       setVendorSearchInput("");
                       setAddPriceFormData({
                         vendorId: "",
+                        brandId: "",
+                        quantity: "",
+                        price: "",
+                        billNumber: "",
+                      });
+                    } else {
+                      // Auto-populate brand when opening form
+                      setAddPriceFormData({
+                        vendorId: "",
+                        brandId: rawMaterial?.brandId || "",
                         quantity: "",
                         price: "",
                         billNumber: "",
@@ -1192,6 +1435,28 @@ export default function RMDetail() {
                             </p>
                           )}
                         </div>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                          Brand (Optional)
+                        </label>
+                        <select
+                          value={addPriceFormData.brandId}
+                          onChange={(e) =>
+                            setAddPriceFormData({
+                              ...addPriceFormData,
+                              brandId: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors text-sm"
+                        >
+                          <option value="">-- Select Brand --</option>
+                          {brands.map((brand) => (
+                            <option key={brand._id} value={brand._id}>
+                              {brand.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1267,10 +1532,69 @@ export default function RMDetail() {
 
                     <button
                       onClick={handleAddPrice}
-                      className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
+                      disabled={addingPrice}
+                      className={`w-full px-4 py-2 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2 ${
+                        addingPrice
+                          ? "bg-slate-400 text-white cursor-not-allowed"
+                          : "bg-green-600 text-white hover:bg-green-700"
+                      }`}
                     >
-                      Save Price
+                      {addingPrice ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        "Save Price"
+                      )}
                     </button>
+                  </div>
+                )}
+
+                {/* Brands Section */}
+                {vendorPrices.length > 0 && (
+                  <div className="mt-8">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                      Brands for this Product
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full min-w-[500px]">
+                        <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Brand Name
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Vendor
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Price (₹)
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Date
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                          {vendorPrices.map((price) => (
+                            <tr key={price._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30">
+                              <td className="px-6 py-3 text-sm text-slate-900 dark:text-slate-100 font-medium">
+                                {price.brandName || "Unbranded"}
+                              </td>
+                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300">
+                                {price.vendorName}
+                              </td>
+                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300 font-semibold text-teal-600">
+                                ₹{price.price}
+                              </td>
+                              <td className="px-6 py-3 text-sm text-slate-600 dark:text-slate-400">
+                                {new Date(price.addedDate).toLocaleDateString()}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 )}
 

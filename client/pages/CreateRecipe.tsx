@@ -121,6 +121,18 @@ export default function CreateRecipe() {
   const [showAddRecipeModal, setShowAddRecipeModal] = useState(false);
   const [recipeSearchQuery, setRecipeSearchQuery] = useState("");
 
+  // Unit search state
+  const [unitSearchInput, setUnitSearchInput] = useState("");
+  const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
+
+  // Item form unit search state
+  const [itemUnitSearchInput, setItemUnitSearchInput] = useState("");
+  const [openItemUnitDropdown, setOpenItemUnitDropdown] = useState(false);
+
+  // Edit form unit search state
+  const [editUnitSearchInput, setEditUnitSearchInput] = useState("");
+  const [openEditUnitDropdown, setOpenEditUnitDropdown] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem("auth_token");
     if (!token) {
@@ -286,6 +298,13 @@ export default function CreateRecipe() {
   const getFilteredSubCategories = () => {
     if (!filterCategoryForRM) return [];
     return subCategories.filter((sc) => sc.categoryId === filterCategoryForRM);
+  };
+
+  const getFilteredUnits = () => {
+    if (!unitSearchInput) return units;
+    return units.filter((unit) =>
+      unit.name.toLowerCase().includes(unitSearchInput.toLowerCase()),
+    );
   };
 
   const handleAddItem = () => {
@@ -645,24 +664,58 @@ export default function CreateRecipe() {
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Unit *
                 </label>
-                <select
-                  value={formData.unitId}
-                  onChange={(e) =>
-                    setFormData({ ...formData, unitId: e.target.value })
-                  }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.unitId
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500`}
-                >
-                  <option value="">Select Unit</option>
-                  {units.map((unit) => (
-                    <option key={unit._id} value={unit._id}>
-                      {unit.name}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search or select unit..."
+                    value={
+                      openUnitDropdown
+                        ? unitSearchInput
+                        : formData.unitId
+                          ? units.find((u) => u._id === formData.unitId)?.name || ""
+                          : ""
+                    }
+                    onChange={(e) => {
+                      setOpenUnitDropdown(true);
+                      setUnitSearchInput(e.target.value);
+                    }}
+                    onFocus={() => {
+                      setOpenUnitDropdown(true);
+                      setUnitSearchInput("");
+                    }}
+                    onBlur={() => {
+                      setTimeout(() => setOpenUnitDropdown(false), 200);
+                    }}
+                    className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                      errors.unitId
+                        ? "border-red-500 dark:border-red-400"
+                        : "border-slate-300 dark:border-slate-600"
+                    } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                  />
+                  {openUnitDropdown && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                      {getFilteredUnits().length > 0 ? (
+                        getFilteredUnits().map((unit) => (
+                          <div
+                            key={unit._id}
+                            onClick={() => {
+                              setFormData({ ...formData, unitId: unit._id });
+                              setOpenUnitDropdown(false);
+                              setUnitSearchInput("");
+                            }}
+                            className="px-4 py-3 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0 text-slate-900 dark:text-white"
+                          >
+                            {unit.name}
+                          </div>
+                        ))
+                      ) : (
+                        <div className="px-4 py-3 text-center text-slate-500 dark:text-slate-400">
+                          No units found
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
                 {errors.unitId && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
                     {errors.unitId}
@@ -904,20 +957,69 @@ export default function CreateRecipe() {
                           </span>
                         )}
                       </label>
-                      <select
-                        value={itemForm.unitId}
-                        onChange={(e) =>
-                          setItemForm({ ...itemForm, unitId: e.target.value })
-                        }
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-                      >
-                        <option value="">Default</option>
-                        {units.map((unit) => (
-                          <option key={unit._id} value={unit._id}>
-                            {unit.name}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Search or select unit..."
+                          value={
+                            openItemUnitDropdown
+                              ? itemUnitSearchInput
+                              : itemForm.unitId
+                                ? units.find((u) => u._id === itemForm.unitId)?.name || ""
+                                : ""
+                          }
+                          onChange={(e) => {
+                            setOpenItemUnitDropdown(true);
+                            setItemUnitSearchInput(e.target.value);
+                          }}
+                          onFocus={() => {
+                            setOpenItemUnitDropdown(true);
+                            setItemUnitSearchInput("");
+                          }}
+                          onBlur={() => {
+                            setTimeout(() => setOpenItemUnitDropdown(false), 200);
+                          }}
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                        />
+                        {openItemUnitDropdown && (
+                          <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
+                            <div
+                              onClick={() => {
+                                setItemForm({ ...itemForm, unitId: "" });
+                                setOpenItemUnitDropdown(false);
+                                setItemUnitSearchInput("");
+                              }}
+                              className="px-4 py-3 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 text-slate-900 dark:text-white"
+                            >
+                              Default
+                            </div>
+                            {units
+                              .filter((unit) =>
+                                unit.name.toLowerCase().includes(itemUnitSearchInput.toLowerCase()),
+                              )
+                              .map((unit) => (
+                                <div
+                                  key={unit._id}
+                                  onClick={() => {
+                                    setItemForm({ ...itemForm, unitId: unit._id });
+                                    setOpenItemUnitDropdown(false);
+                                    setItemUnitSearchInput("");
+                                  }}
+                                  className="px-4 py-3 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0 text-slate-900 dark:text-white"
+                                >
+                                  {unit.name}
+                                </div>
+                              ))}
+                            {units.filter((unit) =>
+                              unit.name.toLowerCase().includes(itemUnitSearchInput.toLowerCase()),
+                            ).length === 0 && (
+                              <div className="px-4 py-3 text-center text-slate-500 dark:text-slate-400 text-sm">
+                                No units found
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -1124,23 +1226,62 @@ export default function CreateRecipe() {
                           </td>
                           <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
                             {editingItemIndex === index ? (
-                              <select
-                                value={editItemForm.unitId}
-                                onChange={(e) =>
-                                  setEditItemForm({
-                                    ...editItemForm,
-                                    unitId: e.target.value,
-                                  })
-                                }
-                                className="px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm"
-                              >
-                                <option value="">Default</option>
-                                {units.map((unit) => (
-                                  <option key={unit._id} value={unit._id}>
-                                    {unit.name}
-                                  </option>
-                                ))}
-                              </select>
+                              <div className="relative w-32">
+                                <input
+                                  type="text"
+                                  placeholder="Search unit..."
+                                  value={
+                                    openEditUnitDropdown
+                                      ? editUnitSearchInput
+                                      : editItemForm.unitId
+                                        ? units.find((u) => u._id === editItemForm.unitId)?.name || ""
+                                        : ""
+                                  }
+                                  onChange={(e) => {
+                                    setOpenEditUnitDropdown(true);
+                                    setEditUnitSearchInput(e.target.value);
+                                  }}
+                                  onFocus={() => {
+                                    setOpenEditUnitDropdown(true);
+                                    setEditUnitSearchInput("");
+                                  }}
+                                  onBlur={() => {
+                                    setTimeout(() => setOpenEditUnitDropdown(false), 200);
+                                  }}
+                                  className="w-full px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                                {openEditUnitDropdown && (
+                                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded shadow-lg z-20 max-h-40 overflow-y-auto">
+                                    <div
+                                      onClick={() => {
+                                        setEditItemForm({ ...editItemForm, unitId: "" });
+                                        setOpenEditUnitDropdown(false);
+                                        setEditUnitSearchInput("");
+                                      }}
+                                      className="px-3 py-2 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 text-slate-900 dark:text-white text-sm"
+                                    >
+                                      Default
+                                    </div>
+                                    {units
+                                      .filter((unit) =>
+                                        unit.name.toLowerCase().includes(editUnitSearchInput.toLowerCase()),
+                                      )
+                                      .map((unit) => (
+                                        <div
+                                          key={unit._id}
+                                          onClick={() => {
+                                            setEditItemForm({ ...editItemForm, unitId: unit._id });
+                                            setOpenEditUnitDropdown(false);
+                                            setEditUnitSearchInput("");
+                                          }}
+                                          className="px-3 py-2 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0 text-slate-900 dark:text-white text-sm"
+                                        >
+                                          {unit.name}
+                                        </div>
+                                      ))}
+                                  </div>
+                                )}
+                              </div>
                             ) : (
                               item.unitName || "-"
                             )}

@@ -20,6 +20,11 @@ interface Unit {
   name: string;
 }
 
+interface Brand {
+  _id: string;
+  name: string;
+}
+
 interface RawMaterial {
   _id: string;
   code: string;
@@ -30,6 +35,8 @@ interface RawMaterial {
   subCategoryName: string;
   unitId?: string;
   unitName?: string;
+  brandId?: string;
+  brandName?: string;
   hsnCode?: string;
 }
 
@@ -39,16 +46,28 @@ export default function CreateRawMaterial() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [units, setUnits] = useState<Unit[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(id ? true : false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showNewBrandInput, setShowNewBrandInput] = useState(false);
+  const [newBrandName, setNewBrandName] = useState("");
+  const [creatingBrand, setCreatingBrand] = useState(false);
+  const [searchInputs, setSearchInputs] = useState({
+    category: "",
+    subCategory: "",
+    unit: "",
+    brand: "",
+  });
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     categoryId: "",
     subCategoryId: "",
     unitId: "",
+    brandId: "",
     hsnCode: "",
   });
 
@@ -63,6 +82,7 @@ export default function CreateRawMaterial() {
       fetchCategories(),
       fetchSubCategories(),
       fetchUnits(),
+      fetchBrands(),
     ]).then(() => {
       if (id) {
         fetchRawMaterial(id);
@@ -84,6 +104,8 @@ export default function CreateRawMaterial() {
       }
     } catch (error) {
       console.error("Error fetching categories:", error);
+      setMessage("Failed to load categories. Please refresh the page.");
+      setMessageType("error");
     }
   };
 
@@ -99,6 +121,8 @@ export default function CreateRawMaterial() {
       }
     } catch (error) {
       console.error("Error fetching subcategories:", error);
+      setMessage("Failed to load sub-categories. Please refresh the page.");
+      setMessageType("error");
     }
   };
 
@@ -114,6 +138,63 @@ export default function CreateRawMaterial() {
       }
     } catch (error) {
       console.error("Error fetching units:", error);
+      setMessage("Failed to load units. Please refresh the page.");
+      setMessageType("error");
+    }
+  };
+
+  const fetchBrands = async () => {
+    try {
+      const response = await fetch("/api/brands");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        setBrands(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+      setMessage("Failed to load brands. Please refresh the page.");
+      setMessageType("error");
+    }
+  };
+
+  const handleCreateNewBrand = async () => {
+    if (!newBrandName.trim()) {
+      setMessage("Brand name cannot be empty");
+      setMessageType("error");
+      return;
+    }
+
+    setCreatingBrand(true);
+    try {
+      const response = await fetch("/api/brands", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newBrandName.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const newBrand = data.data;
+        setBrands([...brands, newBrand]);
+        setFormData({ ...formData, brandId: newBrand._id });
+        setShowNewBrandInput(false);
+        setNewBrandName("");
+        setMessage("Brand created successfully");
+        setMessageType("success");
+      } else {
+        setMessage(data.message || "Failed to create brand");
+        setMessageType("error");
+      }
+    } catch (error) {
+      console.error("Error creating brand:", error);
+      setMessage("Error creating brand");
+      setMessageType("error");
+    } finally {
+      setCreatingBrand(false);
     }
   };
 
@@ -132,6 +213,7 @@ export default function CreateRawMaterial() {
             categoryId: rm.categoryId,
             subCategoryId: rm.subCategoryId,
             unitId: rm.unitId || "",
+            brandId: rm.brandId || "",
             hsnCode: rm.hsnCode || "",
           });
         } else {
@@ -157,12 +239,40 @@ export default function CreateRawMaterial() {
       newErrors.categoryId = "Category is required";
     }
 
-    if (!formData.subCategoryId) {
-      newErrors.subCategoryId = "Sub-category is required";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const getFilteredCategories = () => {
+    if (!searchInputs.category) return categories;
+    return categories.filter((cat) =>
+      cat.name.toLowerCase().includes(searchInputs.category.toLowerCase()),
+    );
+  };
+
+  const getFilteredSubCategories = () => {
+    let filtered = subCategories;
+    if (formData.categoryId) {
+      filtered = filtered.filter((sc) => sc.categoryId === formData.categoryId);
+    }
+    if (!searchInputs.subCategory) return filtered;
+    return filtered.filter((sc) =>
+      sc.name.toLowerCase().includes(searchInputs.subCategory.toLowerCase()),
+    );
+  };
+
+  const getFilteredUnits = () => {
+    if (!searchInputs.unit) return units;
+    return units.filter((unit) =>
+      unit.name.toLowerCase().includes(searchInputs.unit.toLowerCase()),
+    );
+  };
+
+  const getFilteredBrands = () => {
+    if (!searchInputs.brand) return brands;
+    return brands.filter((brand) =>
+      brand.name.toLowerCase().includes(searchInputs.brand.toLowerCase()),
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -183,6 +293,7 @@ export default function CreateRawMaterial() {
         (sc) => sc._id === formData.subCategoryId,
       );
       const selectedUnit = units.find((u) => u._id === formData.unitId);
+      const selectedBrand = brands.find((b) => b._id === formData.brandId);
 
       const method = id ? "PUT" : "POST";
       const url = id ? `/api/raw-materials/${id}` : "/api/raw-materials";
@@ -198,6 +309,8 @@ export default function CreateRawMaterial() {
           subCategoryName: selectedSubCategory?.name,
           unitId: formData.unitId,
           unitName: selectedUnit?.name,
+          brandId: formData.brandId,
+          brandName: selectedBrand?.name,
           hsnCode: formData.hsnCode,
           createdBy: "admin",
         }),
@@ -224,11 +337,6 @@ export default function CreateRawMaterial() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const getFilteredSubCategories = () => {
-    if (!formData.categoryId) return subCategories;
-    return subCategories.filter((sc) => sc.categoryId === formData.categoryId);
   };
 
   if (pageLoading) {
@@ -314,28 +422,61 @@ export default function CreateRawMaterial() {
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Category *
               </label>
-              <select
-                value={formData.categoryId}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    categoryId: e.target.value,
-                    subCategoryId: "",
-                  })
-                }
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                  errors.categoryId
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
-              >
-                <option value="">Select Category</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search or select category"
+                  value={
+                    openDropdown === "category"
+                      ? searchInputs.category
+                      : formData.categoryId
+                        ? categories.find((c) => c._id === formData.categoryId)?.name || ""
+                        : ""
+                  }
+                  onChange={(e) => {
+                    setOpenDropdown("category");
+                    setSearchInputs({ ...searchInputs, category: e.target.value });
+                  }}
+                  onFocus={() => {
+                    setOpenDropdown("category");
+                    setSearchInputs({ ...searchInputs, category: "" });
+                  }}
+                  onBlur={() => {
+                    setTimeout(() => setOpenDropdown(null), 200);
+                  }}
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                    errors.categoryId
+                      ? "border-red-500 dark:border-red-400"
+                      : "border-slate-300 dark:border-slate-600"
+                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                />
+                {openDropdown === "category" && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                    {getFilteredCategories().map((cat) => (
+                      <div
+                        key={cat._id}
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            categoryId: cat._id,
+                            subCategoryId: "",
+                          });
+                          setOpenDropdown(null);
+                          setSearchInputs({ ...searchInputs, category: "" });
+                        }}
+                        className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                      >
+                        {cat.name}
+                      </div>
+                    ))}
+                    {getFilteredCategories().length === 0 && (
+                      <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                        No categories found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
               {errors.categoryId && (
                 <p className="text-red-600 dark:text-red-400 text-sm mt-1">
                   {errors.categoryId}
@@ -346,35 +487,63 @@ export default function CreateRawMaterial() {
             {/* Sub Category */}
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Sub Category *
+                Sub Category (Optional)
               </label>
-              <select
-                value={formData.subCategoryId}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    subCategoryId: e.target.value,
-                  })
-                }
-                disabled={!formData.categoryId}
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                  errors.subCategoryId
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                <option value="">Select Sub Category</option>
-                {getFilteredSubCategories().map((subcat) => (
-                  <option key={subcat._id} value={subcat._id}>
-                    {subcat.name}
-                  </option>
-                ))}
-              </select>
-              {errors.subCategoryId && (
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                  {errors.subCategoryId}
-                </p>
-              )}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search or select sub category"
+                  value={
+                    openDropdown === "subCategory"
+                      ? searchInputs.subCategory
+                      : formData.subCategoryId
+                        ? subCategories.find((sc) => sc._id === formData.subCategoryId)?.name || ""
+                        : ""
+                  }
+                  onChange={(e) => {
+                    if (formData.categoryId) {
+                      setOpenDropdown("subCategory");
+                      setSearchInputs({ ...searchInputs, subCategory: e.target.value });
+                    }
+                  }}
+                  onFocus={() => {
+                    if (formData.categoryId) {
+                      setOpenDropdown("subCategory");
+                      setSearchInputs({ ...searchInputs, subCategory: "" });
+                    }
+                  }}
+                  onBlur={() => {
+                    setTimeout(() => setOpenDropdown(null), 200);
+                  }}
+                  disabled={!formData.categoryId}
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed`}
+                />
+                {openDropdown === "subCategory" && formData.categoryId && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                    {getFilteredSubCategories().map((subcat) => (
+                      <div
+                        key={subcat._id}
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            subCategoryId: subcat._id,
+                          });
+                          setOpenDropdown(null);
+                          setSearchInputs({ ...searchInputs, subCategory: "" });
+                        }}
+                        className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                      >
+                        {subcat.name}
+                      </div>
+                    ))}
+                    {getFilteredSubCategories().length === 0 && (
+                      <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                        No sub categories found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Unit */}
@@ -382,20 +551,155 @@ export default function CreateRawMaterial() {
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Unit (Optional)
               </label>
-              <select
-                value={formData.unitId}
-                onChange={(e) =>
-                  setFormData({ ...formData, unitId: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
-              >
-                <option value="">Select Unit</option>
-                {units.map((unit) => (
-                  <option key={unit._id} value={unit._id}>
-                    {unit.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search or select unit"
+                  value={
+                    openDropdown === "unit"
+                      ? searchInputs.unit
+                      : formData.unitId
+                        ? units.find((u) => u._id === formData.unitId)?.name || ""
+                        : ""
+                  }
+                  onChange={(e) => {
+                    setOpenDropdown("unit");
+                    setSearchInputs({ ...searchInputs, unit: e.target.value });
+                  }}
+                  onFocus={() => {
+                    setOpenDropdown("unit");
+                    setSearchInputs({ ...searchInputs, unit: "" });
+                  }}
+                  onBlur={() => {
+                    setTimeout(() => setOpenDropdown(null), 200);
+                  }}
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+                {openDropdown === "unit" && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                    {getFilteredUnits().map((unit) => (
+                      <div
+                        key={unit._id}
+                        onClick={() => {
+                          setFormData({ ...formData, unitId: unit._id });
+                          setOpenDropdown(null);
+                          setSearchInputs({ ...searchInputs, unit: "" });
+                        }}
+                        className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                      >
+                        {unit.name}
+                      </div>
+                    ))}
+                    {getFilteredUnits().length === 0 && (
+                      <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                        No units found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Brand */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Brand (Optional)
+              </label>
+              {!showNewBrandInput ? (
+                <div className="flex gap-2">
+                  <div className="flex-1 relative">
+                    <input
+                      type="text"
+                      placeholder="Search or select brand"
+                      value={
+                        openDropdown === "brand"
+                          ? searchInputs.brand
+                          : formData.brandId
+                            ? brands.find((b) => b._id === formData.brandId)?.name || ""
+                            : ""
+                      }
+                      onChange={(e) => {
+                        setOpenDropdown("brand");
+                        setSearchInputs({ ...searchInputs, brand: e.target.value });
+                      }}
+                      onFocus={() => {
+                        setOpenDropdown("brand");
+                        setSearchInputs({ ...searchInputs, brand: "" });
+                      }}
+                      onBlur={() => {
+                        setTimeout(() => setOpenDropdown(null), 200);
+                      }}
+                      className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    />
+                    {openDropdown === "brand" && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                        {getFilteredBrands().map((brand) => (
+                          <div
+                            key={brand._id}
+                            onClick={() => {
+                              setFormData({ ...formData, brandId: brand._id });
+                              setOpenDropdown(null);
+                              setSearchInputs({ ...searchInputs, brand: "" });
+                            }}
+                            className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                          >
+                            {brand.name}
+                          </div>
+                        ))}
+                        {getFilteredBrands().length === 0 && (
+                          <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                            No brands found
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowNewBrandInput(true)}
+                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    title="Create new brand"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newBrandName}
+                    onChange={(e) => setNewBrandName(e.target.value)}
+                    placeholder="Enter new brand name"
+                    disabled={creatingBrand}
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleCreateNewBrand}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-slate-400 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                  >
+                    {creatingBrand ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      </>
+                    ) : (
+                      <Check className="w-4 h-4" />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowNewBrandInput(false);
+                      setNewBrandName("");
+                    }}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* HSN Code */}

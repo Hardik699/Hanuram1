@@ -13,6 +13,8 @@ export interface RawMaterial {
   subCategoryName: string;
   unitId?: string;
   unitName?: string;
+  brandId?: string;
+  brandName?: string;
   hsnCode?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -33,6 +35,8 @@ export interface RMVendorPrice {
   price: number;
   addedDate: Date;
   createdBy: string;
+  brandId?: string;
+  brandName?: string;
 }
 
 export interface RMPriceLog {
@@ -134,15 +138,17 @@ export const handleCreateRawMaterial: RequestHandler = async (req, res) => {
       subCategoryName,
       unitId,
       unitName,
+      brandId,
+      brandName,
       hsnCode,
       createdBy,
     } = req.body;
 
     // Validate required fields
-    if (!name || !categoryId || !subCategoryId) {
+    if (!name || !categoryId) {
       return res.status(400).json({
         success: false,
-        message: "Name, category, and sub-category are required",
+        message: "Name and category are required",
       });
     }
 
@@ -157,6 +163,8 @@ export const handleCreateRawMaterial: RequestHandler = async (req, res) => {
       subCategoryName,
       unitId,
       unitName,
+      brandId,
+      brandName,
       hsnCode,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -200,6 +208,10 @@ export const handleUpdateRawMaterial: RequestHandler = async (req, res) => {
       subCategoryName,
       unitId,
       unitName,
+      brandId,
+      brandName,
+      brandIds,
+      brandNames,
       hsnCode,
     } = req.body;
 
@@ -225,6 +237,10 @@ export const handleUpdateRawMaterial: RequestHandler = async (req, res) => {
     if (subCategoryName) updateData.subCategoryName = subCategoryName;
     if (unitId) updateData.unitId = unitId;
     if (unitName) updateData.unitName = unitName;
+    if (brandId) updateData.brandId = brandId;
+    if (brandName) updateData.brandName = brandName;
+    if (brandIds && Array.isArray(brandIds)) updateData.brandIds = brandIds;
+    if (brandNames && Array.isArray(brandNames)) updateData.brandNames = brandNames;
     if (hsnCode !== undefined) updateData.hsnCode = hsnCode;
 
     const result = await db
@@ -724,6 +740,8 @@ export const handleAddRMVendorPrice: RequestHandler = async (req, res) => {
       unitId,
       unitName,
       price,
+      brandId,
+      brandName,
       createdBy,
     } = req.body;
 
@@ -795,6 +813,8 @@ export const handleAddRMVendorPrice: RequestHandler = async (req, res) => {
       price,
       addedDate: new Date(),
       createdBy,
+      brandId,
+      brandName,
     };
 
     const result = await db
