@@ -52,12 +52,14 @@ export function ManagementNav() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-blue-50 rounded-lg px-4 py-3 flex items-center justify-between gap-3 hover:bg-blue-100 transition-colors border border-blue-200"
+        className={`w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-all rounded-lg ${
+          isOpen
+            ? "text-blue-600 bg-blue-50"
+            : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+        }`}
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
-            <Package className="w-5 h-5" />
-          </div>
+          <Package className={`w-5 h-5 transition-colors ${isOpen ? "text-blue-600" : "text-gray-500"}`} />
           <div className="text-left">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
               Master Data
@@ -68,8 +70,8 @@ export function ManagementNav() {
           </div>
         </div>
         <ChevronDown
-          className={`w-5 h-5 text-blue-600 transition-transform flex-shrink-0 ${
-            isOpen ? "rotate-180" : ""
+          className={`w-5 h-5 transition-transform flex-shrink-0 ${
+            isOpen ? "rotate-180 text-blue-600" : "text-gray-500"
           }`}
         />
       </button>
