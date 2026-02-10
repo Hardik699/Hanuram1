@@ -1260,12 +1260,7 @@ export default function RMManagement() {
           {/* Raw Materials Table */}
           {/* Raw Materials Table - Clean Vendor Style */}
           <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
-            {loading ? (
-              <div className="flex flex-col items-center justify-center py-16">
-                <div className="inline-block w-8 h-8 border-3 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
-                <p className="text-gray-600 mt-3 font-medium text-sm">Loading raw materials...</p>
-              </div>
-            ) : paginatedRawMaterials.length === 0 ? (
+            {paginatedRawMaterials.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 px-6">
                 <Package className="w-14 h-14 text-gray-300 mb-3" />
                 <p className="font-bold text-gray-900 text-base">No raw materials yet</p>
