@@ -1060,44 +1060,44 @@ export default function RecipeDetail() {
         {activeTab === "information" && (
           <div className="space-y-6">
             {/* Recipe Info Section */}
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md border border-slate-200 dark:border-slate-700 p-8">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Recipe Information</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Recipe Code</label>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">{recipe.code}</p>
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md border border-slate-200 dark:border-slate-700 p-6">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Recipe Information</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Recipe Code</label>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.code}</p>
                 </div>
 
-                <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Recipe Type</label>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">
+                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Recipe Type</label>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">
                     {recipe.recipeType === "sub" ? "Sub Recipe" : "Master Recipe"}
                   </p>
                 </div>
 
-                <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Batch Size</label>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">{recipe.batchSize} {recipe.unitName}</p>
+                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Batch Size</label>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.batchSize} {recipe.unitName}</p>
                 </div>
 
-                <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Yield</label>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">{recipe.yield || "-"}</p>
+                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Yield</label>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.yield || "-"}</p>
                 </div>
 
-                <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Moisture %</label>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">{recipe.moisturePercentage || "-"}%</p>
+                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Moisture %</label>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.moisturePercentage || "-"}%</p>
                 </div>
 
-                <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Total RM Cost</label>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">₹{totalRMCost.toFixed(2)}</p>
+                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Total RM Cost</label>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">₹{totalRMCost.toFixed(2)}</p>
                 </div>
 
-                <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Price per Unit</label>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">₹{pricePerUnit.toFixed(2)}/{recipe.unitName}</p>
+                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
+                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Price per Unit</label>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">₹{pricePerUnit.toFixed(2)}/{recipe.unitName}</p>
                 </div>
               </div>
             </div>
