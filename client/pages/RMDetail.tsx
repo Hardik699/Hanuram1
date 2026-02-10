@@ -142,6 +142,7 @@ export default function RMDetail() {
   const [showNewBrandInput, setShowNewBrandInput] = useState(false);
   const [newBrandName, setNewBrandName] = useState("");
   const [creatingBrand, setCreatingBrand] = useState(false);
+  const [addingPrice, setAddingPrice] = useState(false);
 
   // Calculate total price whenever quantity or price changes
   const totalPrice =
@@ -567,6 +568,13 @@ export default function RMDetail() {
       return;
     }
 
+    // Prevent multiple submissions
+    if (addingPrice) {
+      return;
+    }
+
+    setAddingPrice(true);
+
     try {
       const selectedBrand = brands.find((b) => b._id === addPriceFormData.brandId);
 
@@ -613,6 +621,8 @@ export default function RMDetail() {
       console.error("Error adding price:", error);
       setMessage("Error adding price");
       setMessageType("error");
+    } finally {
+      setAddingPrice(false);
     }
   };
 
@@ -1455,9 +1465,21 @@ export default function RMDetail() {
 
                     <button
                       onClick={handleAddPrice}
-                      className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
+                      disabled={addingPrice}
+                      className={`w-full px-4 py-2 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2 ${
+                        addingPrice
+                          ? "bg-slate-400 text-white cursor-not-allowed"
+                          : "bg-green-600 text-white hover:bg-green-700"
+                      }`}
                     >
-                      Save Price
+                      {addingPrice ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        "Save Price"
+                      )}
                     </button>
                   </div>
                 )}
