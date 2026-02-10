@@ -20,6 +20,11 @@ interface Unit {
   name: string;
 }
 
+interface Brand {
+  _id: string;
+  name: string;
+}
+
 interface RawMaterial {
   _id: string;
   code: string;
@@ -30,6 +35,8 @@ interface RawMaterial {
   subCategoryName: string;
   unitId?: string;
   unitName?: string;
+  brandId?: string;
+  brandName?: string;
   hsnCode?: string;
 }
 
@@ -39,16 +46,21 @@ export default function CreateRawMaterial() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [units, setUnits] = useState<Unit[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(id ? true : false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showNewBrandInput, setShowNewBrandInput] = useState(false);
+  const [newBrandName, setNewBrandName] = useState("");
+  const [creatingBrand, setCreatingBrand] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     categoryId: "",
     subCategoryId: "",
     unitId: "",
+    brandId: "",
     hsnCode: "",
   });
 
@@ -63,6 +75,7 @@ export default function CreateRawMaterial() {
       fetchCategories(),
       fetchSubCategories(),
       fetchUnits(),
+      fetchBrands(),
     ]).then(() => {
       if (id) {
         fetchRawMaterial(id);
@@ -117,6 +130,59 @@ export default function CreateRawMaterial() {
     }
   };
 
+  const fetchBrands = async () => {
+    try {
+      const response = await fetch("/api/brands");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        setBrands(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+    }
+  };
+
+  const handleCreateNewBrand = async () => {
+    if (!newBrandName.trim()) {
+      setMessage("Brand name cannot be empty");
+      setMessageType("error");
+      return;
+    }
+
+    setCreatingBrand(true);
+    try {
+      const response = await fetch("/api/brands", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newBrandName.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const newBrand = data.data;
+        setBrands([...brands, newBrand]);
+        setFormData({ ...formData, brandId: newBrand._id });
+        setShowNewBrandInput(false);
+        setNewBrandName("");
+        setMessage("Brand created successfully");
+        setMessageType("success");
+      } else {
+        setMessage(data.message || "Failed to create brand");
+        setMessageType("error");
+      }
+    } catch (error) {
+      console.error("Error creating brand:", error);
+      setMessage("Error creating brand");
+      setMessageType("error");
+    } finally {
+      setCreatingBrand(false);
+    }
+  };
+
   const fetchRawMaterial = async (rmId: string) => {
     try {
       const response = await fetch("/api/raw-materials");
@@ -132,6 +198,7 @@ export default function CreateRawMaterial() {
             categoryId: rm.categoryId,
             subCategoryId: rm.subCategoryId,
             unitId: rm.unitId || "",
+            brandId: rm.brandId || "",
             hsnCode: rm.hsnCode || "",
           });
         } else {
@@ -183,6 +250,7 @@ export default function CreateRawMaterial() {
         (sc) => sc._id === formData.subCategoryId,
       );
       const selectedUnit = units.find((u) => u._id === formData.unitId);
+      const selectedBrand = brands.find((b) => b._id === formData.brandId);
 
       const method = id ? "PUT" : "POST";
       const url = id ? `/api/raw-materials/${id}` : "/api/raw-materials";
@@ -198,6 +266,8 @@ export default function CreateRawMaterial() {
           subCategoryName: selectedSubCategory?.name,
           unitId: formData.unitId,
           unitName: selectedUnit?.name,
+          brandId: formData.brandId,
+          brandName: selectedBrand?.name,
           hsnCode: formData.hsnCode,
           createdBy: "admin",
         }),
@@ -396,6 +466,75 @@ export default function CreateRawMaterial() {
                   </option>
                 ))}
               </select>
+            </div>
+
+            {/* Brand */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Brand (Optional)
+              </label>
+              {!showNewBrandInput ? (
+                <div className="flex gap-2">
+                  <select
+                    value={formData.brandId}
+                    onChange={(e) =>
+                      setFormData({ ...formData, brandId: e.target.value })
+                    }
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  >
+                    <option value="">Select Brand</option>
+                    {brands.map((brand) => (
+                      <option key={brand._id} value={brand._id}>
+                        {brand.name}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={() => setShowNewBrandInput(true)}
+                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    title="Create new brand"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newBrandName}
+                    onChange={(e) => setNewBrandName(e.target.value)}
+                    placeholder="Enter new brand name"
+                    disabled={creatingBrand}
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleCreateNewBrand}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-slate-400 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                  >
+                    {creatingBrand ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      </>
+                    ) : (
+                      <Check className="w-4 h-4" />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowNewBrandInput(false);
+                      setNewBrandName("");
+                    }}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* HSN Code */}

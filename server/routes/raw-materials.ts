@@ -13,6 +13,8 @@ export interface RawMaterial {
   subCategoryName: string;
   unitId?: string;
   unitName?: string;
+  brandId?: string;
+  brandName?: string;
   hsnCode?: string;
   createdAt: Date;
   updatedAt: Date;

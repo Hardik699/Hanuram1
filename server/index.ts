@@ -104,6 +104,13 @@ import {
   handleDeleteOpCost,
   handleBulkUpdateOpCosts,
 } from "./routes/op-costs";
+import {
+  handleGetBrands,
+  handleCreateBrand,
+  handleUpdateBrand,
+  handleDeleteBrand,
+  handleClearAllBrands,
+} from "./routes/brands";
 import { requirePermission } from "./middleware/authMiddleware";
 
 export async function createServer() {
@@ -244,6 +251,13 @@ export async function createServer() {
   app.delete("/api/units/clear/all", handleClearAllUnits);
   app.put("/api/units/:id", handleUpdateUnit);
   app.delete("/api/units/:id", handleDeleteUnit);
+
+  // Brand routes
+  app.get("/api/brands", handleGetBrands);
+  app.post("/api/brands", handleCreateBrand);
+  app.delete("/api/brands/clear/all", handleClearAllBrands);
+  app.put("/api/brands/:id", handleUpdateBrand);
+  app.delete("/api/brands/:id", handleDeleteBrand);
 
   // Vendor routes
   app.get("/api/vendors", handleGetVendors);
