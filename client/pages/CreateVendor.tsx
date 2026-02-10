@@ -566,118 +566,143 @@ export default function CreateVendor() {
             </div>
           </div>
 
-          {/* Vendors Grid */}
-          <div className="space-y-3">
+          {/* Vendors Table */}
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
             {tableLoading ? (
               <div className="flex flex-col items-center justify-center py-16">
                 <div className="inline-block w-8 h-8 border-3 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
                 <p className="text-gray-600 mt-3 font-medium text-sm">Loading vendors...</p>
               </div>
             ) : paginatedVendors.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-                <Building2 className="w-14 h-14 text-blue-300 mb-3" />
+              <div className="flex flex-col items-center justify-center py-16 px-6">
+                <Building2 className="w-14 h-14 text-gray-300 mb-3" />
                 <p className="font-bold text-gray-900 text-base">No vendors yet</p>
                 <p className="text-sm text-gray-500 mt-1">Create your first vendor to get started</p>
               </div>
             ) : (
-              paginatedVendors.map((vendor) => (
-                <div
-                  key={vendor._id}
-                  className="bg-white hover:shadow-lg border border-gray-200 hover:border-red-300 rounded-xl p-5 transition-all duration-200 cursor-pointer group"
-                  onClick={() => navigate(`/vendor/${vendor._id}`)}
-                >
-                  {/* Header Row */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3 flex-1">
-                      {/* Avatar */}
-                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:from-red-600 group-hover:to-red-700 shadow-sm flex-shrink-0">
-                        {vendor.name.substring(0, 1).toUpperCase()}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors capitalize-each-word">
-                          {vendor.name}
-                        </h3>
-                        <p className="text-xs text-red-600 font-semibold capitalize-each-word">
-                          {vendor.personName}
-                        </p>
-                      </div>
-                    </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  {/* Table Header */}
+                  <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Vendor Name</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Contact Person</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Mobile</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Location</th>
+                      {paginatedVendors.some(v => v.gstNumber) && (
+                        <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">GST</th>
+                      )}
+                      <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
 
-                    {/* Action Buttons - Always Visible */}
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleEdit(vendor);
-                        }}
-                        className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
-                        title="Edit"
+                  {/* Table Body */}
+                  <tbody className="divide-y divide-gray-200">
+                    {paginatedVendors.map((vendor, idx) => (
+                      <tr
+                        key={vendor._id}
+                        className={`hover:bg-blue-50 transition-colors duration-200 ${
+                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } cursor-pointer group`}
+                        onClick={() => navigate(`/vendor/${vendor._id}`)}
                       >
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(vendor._id);
-                        }}
-                        className="inline-flex items-center justify-center p-2 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white transition-all active:scale-95"
-                        title="Delete"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                        {/* Vendor Name */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0">
+                              {vendor.name.substring(0, 1).toUpperCase()}
+                            </div>
+                            <div className="font-bold text-gray-900 capitalize-each-word group-hover:text-red-600 transition-colors">
+                              {vendor.name}
+                            </div>
+                          </div>
+                        </td>
 
-                  {/* Info Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-gray-200">
-                    {/* Mobile */}
-                    <div>
-                      <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Mobile</p>
-                      <p className="text-sm font-semibold text-gray-900">
-                        {vendor.mobileNumber ? (
-                          <a href={`tel:${vendor.mobileNumber}`} className="text-red-600 hover:text-red-700 transition-colors">
-                            {vendor.mobileNumber}
-                          </a>
-                        ) : (
-                          <span className="text-gray-400">—</span>
+                        {/* Contact Person */}
+                        <td className="px-6 py-4">
+                          <span className="font-semibold text-gray-900 capitalize-each-word">
+                            {vendor.personName}
+                          </span>
+                        </td>
+
+                        {/* Mobile */}
+                        <td className="px-6 py-4">
+                          {vendor.mobileNumber ? (
+                            <a
+                              href={`tel:${vendor.mobileNumber}`}
+                              onClick={(e) => e.stopPropagation()}
+                              className="font-semibold text-red-600 hover:text-red-700 transition-colors"
+                            >
+                              {vendor.mobileNumber}
+                            </a>
+                          ) : (
+                            <span className="text-gray-400">—</span>
+                          )}
+                        </td>
+
+                        {/* Email */}
+                        <td className="px-6 py-4">
+                          {vendor.email ? (
+                            <a
+                              href={`mailto:${vendor.email}`}
+                              onClick={(e) => e.stopPropagation()}
+                              className="font-semibold text-red-600 hover:text-red-700 transition-colors truncate max-w-xs block"
+                              title={vendor.email}
+                            >
+                              {vendor.email}
+                            </a>
+                          ) : (
+                            <span className="text-gray-400">—</span>
+                          )}
+                        </td>
+
+                        {/* Location */}
+                        <td className="px-6 py-4">
+                          <span className="font-semibold text-gray-900 capitalize-each-word">
+                            {vendor.location || "—"}
+                          </span>
+                        </td>
+
+                        {/* GST */}
+                        {paginatedVendors.some(v => v.gstNumber) && (
+                          <td className="px-6 py-4">
+                            <span className="font-semibold text-gray-900">
+                              {vendor.gstNumber || "—"}
+                            </span>
+                          </td>
                         )}
-                      </p>
-                    </div>
 
-                    {/* Email */}
-                    <div>
-                      <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Email</p>
-                      <p className="text-sm font-semibold text-gray-900 truncate">
-                        {vendor.email ? (
-                          <a href={`mailto:${vendor.email}`} className="text-red-600 hover:text-red-700 transition-colors truncate">
-                            {vendor.email}
-                          </a>
-                        ) : (
-                          <span className="text-gray-400">—</span>
-                        )}
-                      </p>
-                    </div>
-
-                    {/* Location */}
-                    <div>
-                      <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Location</p>
-                      <p className="text-sm font-semibold text-gray-900 capitalize-each-word">
-                        {vendor.location || <span className="text-gray-400">—</span>}
-                      </p>
-                    </div>
-
-                    {/* GST */}
-                    {vendor.gstNumber && (
-                      <div>
-                        <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">GST</p>
-                        <p className="text-sm font-semibold text-gray-900">
-                          {vendor.gstNumber}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))
+                        {/* Actions */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center gap-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(vendor);
+                              }}
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
+                              title="Edit"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(vendor._id);
+                              }}
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white transition-all active:scale-95"
+                              title="Delete"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
 
             {/* Pagination Controls */}
