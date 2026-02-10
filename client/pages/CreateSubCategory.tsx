@@ -552,92 +552,108 @@ export default function CreateSubCategory() {
           </div>
 
           {/* Sub Categories Grid - Light & Modern Design */}
-          <div className="space-y-3">
+          {/* Sub Categories Table - Vendor Style */}
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
             {tableLoading ? (
               <div className="flex flex-col items-center justify-center py-16">
                 <div className="inline-block w-8 h-8 border-3 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
                 <p className="text-gray-600 mt-3 font-medium text-sm">Loading sub categories...</p>
               </div>
             ) : paginatedSubcategories.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-                <FolderOpen className="w-14 h-14 text-blue-300 mb-3" />
+              <div className="flex flex-col items-center justify-center py-16 px-6">
+                <FolderOpen className="w-14 h-14 text-gray-300 mb-3" />
                 <p className="font-bold text-gray-900 text-base">No sub categories yet</p>
                 <p className="text-sm text-gray-500 mt-1">Create your first sub category to get started</p>
               </div>
             ) : (
-              paginatedSubcategories.map((subcategory) => (
-                <div
-                  key={subcategory._id}
-                  className="group bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 border border-gray-200 hover:border-blue-300 rounded-xl px-5 py-4 transition-all duration-200 hover:shadow-lg hover:scale-102 cursor-pointer flex items-center justify-between"
-                  onClick={() => navigate(`/subcategory/${subcategory._id}`)}
-                >
-                  {/* Left Content */}
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    {/* Avatar - Theme Color */}
-                    <div className="flex-shrink-0">
-                      <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-105 group-hover:from-blue-600 group-hover:to-blue-700 shadow-sm">
-                        {subcategory.name.substring(0, 1).toUpperCase()}
-                      </div>
-                    </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  {/* Table Header */}
+                  <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Sub Category Name</th>
+                      <th className="hidden sm:table-cell px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Category</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word">
-                          {subcategory.name}
-                        </h3>
-                        {subcategory.categoryName && (
-                          <span className="hidden sm:inline text-xs bg-gray-100 group-hover:bg-gray-200 text-gray-700 px-2.5 py-1 rounded-md transition-colors truncate max-w-xs capitalize-each-word">
-                            {subcategory.categoryName}
+                  {/* Table Body */}
+                  <tbody className="divide-y divide-gray-200">
+                    {paginatedSubcategories.map((subcategory, idx) => (
+                      <tr
+                        key={subcategory._id}
+                        className={`hover:bg-blue-50 transition-colors duration-200 ${
+                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } cursor-pointer group`}
+                        onClick={() => navigate(`/subcategory/${subcategory._id}`)}
+                      >
+                        {/* Sub Category Name */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0">
+                              {subcategory.name.substring(0, 1).toUpperCase()}
+                            </div>
+                            <div className="font-bold text-gray-900 capitalize-each-word group-hover:text-blue-600 transition-colors">
+                              {subcategory.name}
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Category */}
+                        <td className="hidden sm:table-cell px-6 py-4">
+                          <span className="text-sm text-gray-600 capitalize-each-word">
+                            {subcategory.categoryName || "—"}
                           </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                        </td>
 
-                  {/* Right Content */}
-                  <div className="flex items-center gap-3 ml-4 flex-shrink-0">
-                    {/* Status */}
-                    <span
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all capitalize-each-word ${
-                        subcategory.status === "active"
-                          ? "bg-emerald-100 text-emerald-700 group-hover:bg-emerald-200"
-                          : "bg-red-100 text-red-700 group-hover:bg-red-200"
-                      }`}
-                    >
-                      <span className={`w-2 h-2 rounded-full ${subcategory.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
-                      {subcategory.status ? subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1) : "—"}
-                    </span>
+                        {/* Status */}
+                        <td className="px-6 py-4">
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
+                              subcategory.status === "active"
+                                ? "bg-emerald-100 text-emerald-700"
+                                : "bg-red-100 text-red-700"
+                            }`}
+                          >
+                            <span className={`w-2 h-2 rounded-full ${subcategory.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
+                            {subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1)}
+                          </span>
+                        </td>
 
-                    {/* Action Buttons */}
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 flex-shrink-0">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleEdit(subcategory);
-                        }}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
-                        title="Edit"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(subcategory._id);
-                        }}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
-                        title="Delete"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
+                        {/* Actions */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center gap-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(subcategory);
+                              }}
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
+                              title="Edit"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(subcategory._id);
+                              }}
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-gray-200 hover:bg-red-600 text-gray-600 hover:text-white transition-all active:scale-95"
+                              title="Delete"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
 
-            {/* Pagination Controls - Light Style */}
+            {/* Pagination Controls */}
             <div className="mt-6 flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium text-gray-700">
