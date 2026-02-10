@@ -1309,14 +1309,14 @@ export default function RMManagement() {
 
                         {/* Category */}
                         <td className="hidden sm:table-cell px-6 py-4">
-                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 whitespace-nowrap">
+                          <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
                             {rm.categoryName}
                           </span>
                         </td>
 
                         {/* Sub Category */}
                         <td className="hidden lg:table-cell px-6 py-4">
-                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 whitespace-nowrap">
+                          <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
                             {rm.subCategoryName || "—"}
                           </span>
                         </td>
@@ -1324,7 +1324,7 @@ export default function RMManagement() {
                         {/* Unit */}
                         <td className="px-6 py-4">
                           {rm.unitName ? (
-                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
                               {rm.unitName}
                             </span>
                           ) : (
@@ -1335,11 +1335,11 @@ export default function RMManagement() {
                         {/* Last Price */}
                         <td className="hidden md:table-cell px-6 py-4">
                           {rm.lastAddedPrice ? (
-                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-emerald-700 whitespace-nowrap">
                               ₹{rm.lastAddedPrice.toFixed(2)}/{formatUnit(rm.unitName)}
                             </span>
                           ) : (
-                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-orange-100 text-orange-700 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-orange-600 whitespace-nowrap">
                               Pending
                             </span>
                           )}
