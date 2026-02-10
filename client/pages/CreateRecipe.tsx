@@ -413,7 +413,7 @@ export default function CreateRecipe() {
     };
 
     setRecipeItems([...recipeItems, newItem]);
-    setShowAddItemForm(false);
+    // Keep form open and reset only the fields, not closing the form
     setSelectedRMForItem("");
     setSelectedBrandForItem("");
     setItemForm({ quantity: "", unitId: "", price: "", vendorId: "" });
@@ -1230,7 +1230,7 @@ export default function CreateRecipe() {
                       onClick={handleAddItem}
                       className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
                     >
-                      Add Item
+                      ✓ Add Item & Continue
                     </button>
                     <button
                       type="button"
@@ -1247,7 +1247,7 @@ export default function CreateRecipe() {
                       }}
                       className="flex-1 px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors font-medium text-sm"
                     >
-                      Cancel
+                      Done
                     </button>
                   </div>
                 </div>
