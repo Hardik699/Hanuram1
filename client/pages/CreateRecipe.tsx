@@ -244,6 +244,7 @@ export default function CreateRecipe() {
       }
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
+        console.log(`Vendor prices for RM ${rmId}:`, data.data);
         setVendorPricesByRM((prev) => ({
           ...prev,
           [rmId]: data.data,
@@ -262,9 +263,24 @@ export default function CreateRecipe() {
       return rm?.lastAddedPrice || 0;
     }
 
-    // Find price for specific brand
+    // Find price for specific brand from vendor prices
     const prices = vendorPricesByRM[rmId] || [];
-    const brandPrice = prices.find((p: any) => p.brandId === brandId);
+
+    // Try to find exact brand match
+    let brandPrice = prices.find((p: any) => p.brandId === brandId);
+
+    // If not found by brandId, try by brandName
+    if (!brandPrice) {
+      const selectedRM = rawMaterials.find((r) => r._id === rmId);
+      if (selectedRM && selectedRM.brandIds) {
+        const brandIndex = selectedRM.brandIds.indexOf(brandId);
+        if (brandIndex !== -1 && selectedRM.brandNames) {
+          const brandName = selectedRM.brandNames[brandIndex];
+          brandPrice = prices.find((p: any) => p.brandName === brandName);
+        }
+      }
+    }
+
     return brandPrice?.price || 0;
   };
 
@@ -962,6 +978,32 @@ export default function CreateRecipe() {
                             );
                           })}
                         </select>
+                        {selectedBrandForItem && (() => {
+                          const selectedRM = rawMaterials.find(
+                            (rm) => rm._id === selectedRMForItem,
+                          );
+                          const price = getPriceForBrand(selectedRMForItem, selectedBrandForItem);
+                          const prices = vendorPricesByRM[selectedRMForItem] || [];
+                          const brandPrice = prices.find(
+                            (p: any) => p.brandId === selectedBrandForItem ||
+                              p.brandName === selectedRM?.brandNames?.[
+                                selectedRM.brandIds?.indexOf(selectedBrandForItem) || 0
+                              ]
+                          );
+
+                          return (
+                            <div className="mt-2 text-xs text-slate-600 dark:text-slate-400">
+                              {price > 0 ? (
+                                <div>
+                                  Brand price: ₹{price.toFixed(2)}
+                                  {selectedRM?.unitName ? ` / ${selectedRM.unitName}` : ""}
+                                </div>
+                              ) : (
+                                <div>No price data for this brand (using default)</div>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </div>
                     ) : null;
                   })()}
@@ -1026,12 +1068,36 @@ export default function CreateRecipe() {
                             const rm = rawMaterials.find(
                               (r) => r._id === selectedRMForItem,
                             );
+
+                            // If brand is selected, show brand-specific price
+                            if (selectedBrandForItem) {
+                              const brandPrice = getPriceForBrand(selectedRMForItem, selectedBrandForItem);
+                              if (brandPrice > 0) {
+                                return (
+                                  <div>
+                                    Brand price: ₹{brandPrice.toFixed(2)}
+                                    {rm?.unitName ? ` / ${rm.unitName}` : ""}
+                                  </div>
+                                );
+                              } else {
+                                return (
+                                  <div>
+                                    No brand price data. Default: ₹{(rm?.lastAddedPrice || 0).toFixed(2)}
+                                    {rm?.unitName ? ` / ${rm.unitName}` : ""}
+                                  </div>
+                                );
+                              }
+                            }
+
+                            // Otherwise show overall last purchase price
                             return rm && rm.lastAddedPrice ? (
                               <div>
                                 Last purchase: ₹{rm.lastAddedPrice.toFixed(2)}
                                 {rm.unitName ? ` / ${rm.unitName}` : ""}
                               </div>
-                            ) : null;
+                            ) : (
+                              <div>No price data available</div>
+                            );
                           })()}
                         </div>
                       )}
