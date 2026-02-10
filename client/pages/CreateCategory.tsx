@@ -567,11 +567,9 @@ export default function CreateCategory() {
                   <div className="flex items-center gap-4 flex-1 min-w-0">
                     {/* Avatar - Colorful & Dynamic */}
                     <div className="flex-shrink-0 relative">
-                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${getColorByName(category.name).bg} text-white font-bold text-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:scale-110 group-hover:-translate-y-1 shadow-md`}>
+                      <div className={`w-11 h-11 rounded-lg bg-gradient-to-br ${getColorByName(category.name).bg} text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-105 shadow-sm`}>
                         {category.name.substring(0, 1).toUpperCase()}
                       </div>
-                      {/* Subtle glow effect */}
-                      <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${getColorByName(category.name).bg} opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300`}></div>
                     </div>
 
                     {/* Info */}
