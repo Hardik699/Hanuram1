@@ -116,6 +116,11 @@ export default function CreateRecipe() {
     vendorId: "",
   });
 
+  // Recipe selection modal state
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [showAddRecipeModal, setShowAddRecipeModal] = useState(false);
+  const [recipeSearchQuery, setRecipeSearchQuery] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("auth_token");
     if (!token) {
