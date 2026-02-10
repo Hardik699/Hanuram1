@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Command,
   CommandEmpty,
@@ -54,9 +58,10 @@ export function SearchableRMSelect({
   }, [searchValue]);
 
   // Filter options based on search
-  const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(internalSearch.toLowerCase()) ||
-    option.code.toLowerCase().includes(internalSearch.toLowerCase())
+  const filteredOptions = options.filter(
+    (option) =>
+      option.name.toLowerCase().includes(internalSearch.toLowerCase()) ||
+      option.code.toLowerCase().includes(internalSearch.toLowerCase()),
   );
 
   const selectedRM = options.find((rm) => rm._id === value);
@@ -88,7 +93,7 @@ export function SearchableRMSelect({
               ? "border-red-500 dark:border-red-400"
               : "border-slate-200 dark:border-slate-600",
             "text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm",
-            disabled && "opacity-50 cursor-not-allowed"
+            disabled && "opacity-50 cursor-not-allowed",
           )}
           role="combobox"
           aria-expanded={open}
@@ -96,7 +101,8 @@ export function SearchableRMSelect({
           <span className="truncate">
             {selectedRM ? (
               <span>
-                {selectedRM.name} <span className="text-slate-500">({selectedRM.code})</span>
+                {selectedRM.name}{" "}
+                <span className="text-slate-500">({selectedRM.code})</span>
               </span>
             ) : (
               <span className="text-slate-500 dark:text-slate-400">
@@ -134,7 +140,10 @@ export function SearchableRMSelect({
                     className="flex items-center justify-between cursor-pointer"
                   >
                     <span>
-                      {option.name} <span className="text-xs text-slate-500">({option.code})</span>
+                      {option.name}{" "}
+                      <span className="text-xs text-slate-500">
+                        ({option.code})
+                      </span>
                     </span>
                     {value === option._id && (
                       <Check className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />

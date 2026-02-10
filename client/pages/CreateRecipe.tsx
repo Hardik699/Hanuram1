@@ -704,7 +704,6 @@ export default function CreateRecipe() {
                         ))}
                       </select>
                     </div>
-
                   </div>
 
                   {/* Raw Material Selection - Full Width with Integrated Search */}
