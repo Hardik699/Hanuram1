@@ -4,12 +4,12 @@ let client: MongoClient | null = null;
 let db: Db | null = null;
 let connectionStatus = "disconnected";
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
 export async function connectDB(): Promise<boolean> {
   if (db) {
     return true;
   }
+
+  const MONGODB_URI = process.env.MONGODB_URI;
 
   try {
     if (!MONGODB_URI) {
