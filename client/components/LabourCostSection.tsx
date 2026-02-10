@@ -109,7 +109,7 @@ export function LabourCostSection({
         </div>
         <Button
           onClick={() => setRefreshTrigger((prev) => prev + 1)}
-          className="bg-teal-600 hover:bg-teal-700 text-white"
+          className="bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-700 dark:hover:bg-slate-600"
           disabled={!recipeId}
         >
           <Plus className="w-4 h-4 mr-2" />
@@ -199,21 +199,21 @@ export function LabourCostSection({
           </div>
 
           {/* Cost Summary Footer */}
-          <div className="bg-gradient-to-r from-teal-50 to-cyan-50 border border-teal-200 rounded-lg p-4 space-y-3">
+          <div className="bg-slate-100 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 rounded-lg p-4 space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-slate-700">
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 Total {type === "production" ? "Production" : "Packing"} Labour Cost
               </span>
-              <span className="text-lg font-bold text-teal-700">
+              <span className="text-lg font-bold text-slate-900 dark:text-white">
                 ₹{totalLabourCost.toFixed(2)}
               </span>
             </div>
-            <div className="h-px bg-teal-200"></div>
+            <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-slate-700">
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {type === "production" ? "Production" : "Packing"} Labour Cost / KG
               </span>
-              <span className="text-lg font-bold text-teal-700">
+              <span className="text-lg font-bold text-slate-900 dark:text-white">
                 ₹{labourCostPerKg.toFixed(4)}
               </span>
             </div>
