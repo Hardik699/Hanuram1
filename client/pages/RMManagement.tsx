@@ -1335,11 +1335,11 @@ export default function RMManagement() {
                         {/* Last Price */}
                         <td className="hidden md:table-cell px-6 py-4">
                           {rm.lastAddedPrice ? (
-                            <span className="text-sm font-semibold text-emerald-700 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
                               ₹{rm.lastAddedPrice.toFixed(2)}/{formatUnit(rm.unitName)}
                             </span>
                           ) : (
-                            <span className="text-sm font-semibold text-orange-600 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-gray-400 whitespace-nowrap">
                               Pending
                             </span>
                           )}
