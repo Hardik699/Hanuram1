@@ -188,8 +188,8 @@ export default function SubCategoryDetail() {
     return (
       <Layout title="SubCategory Details">
         <div className="flex items-center justify-center p-8">
-          <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-slate-600 dark:text-slate-400 ml-3">
+          <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-gray-600 ml-3">
             Loading subcategory...
           </p>
         </div>
@@ -202,12 +202,12 @@ export default function SubCategoryDetail() {
       <Layout title="SubCategory Not Found">
         <div className="text-center p-8">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-gray-600">
             SubCategory not found
           </p>
           <button
             onClick={() => navigate("/create-subcategory")}
-            className="mt-4 text-teal-600 hover:text-teal-700 dark:text-teal-400 font-medium"
+            className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
           >
             Back to SubCategories
           </button>
@@ -224,7 +224,7 @@ export default function SubCategoryDetail() {
           description={`Category: ${subCategory?.categoryName || "Loading..."}`}
           breadcrumbs={[
             { label: "SubCategories", href: "/create-subcategory" },
-            { label: subCategory?.name || "Details" },
+            { label: subCategory?.name ? subCategory.name.charAt(0).toUpperCase() + subCategory.name.slice(1) : "Details" },
           ]}
           icon={<FolderOpen className="w-6 h-6 text-white" />}
           actions={
@@ -232,14 +232,14 @@ export default function SubCategoryDetail() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
                 >
                   <Trash2 className="w-4 h-4" />
                   Delete
@@ -251,95 +251,126 @@ export default function SubCategoryDetail() {
 
         {message && (
           <div
-            className={`p-4 rounded-lg flex items-start gap-3 border ${
+            className={`p-4 rounded-lg flex items-start gap-3 border animate-slide-in-down ${
               messageType === "success"
-                ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/50"
-                : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50"
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                : "bg-red-50 border-red-200 text-red-900"
             }`}
           >
             {messageType === "success" ? (
-              <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+              <Check className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             )}
-            <span
-              className={
-                messageType === "success"
-                  ? "text-green-800 dark:text-green-300 font-medium text-sm"
-                  : "text-red-800 dark:text-red-300 font-medium text-sm"
-              }
-            >
+            <span className="font-medium text-sm">
               {message}
             </span>
           </div>
         )}
 
         {!showEditForm ? (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Sub Category Name
+                </label>
+                <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
+                  {subCategory.name}
+                </p>
+              </div>
+
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Category
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
                   {subCategory.categoryName}
                 </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Status
                 </label>
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-semibold inline-block ${
-                    (subCategory.status || "inactive") === "active"
-                      ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
-                      : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300"
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold capitalize-each-word ${
+                    subCategory.status === "active"
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-red-100 text-red-700"
                   }`}
                 >
-                  {(subCategory.status || "inactive").charAt(0).toUpperCase() +
-                    (subCategory.status || "inactive").slice(1)}
+                  <span className={`w-2 h-2 rounded-full ${subCategory.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
+                  {subCategory.status ? subCategory.status.charAt(0).toUpperCase() + subCategory.status.slice(1) : "—"}
                 </span>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                  Created By
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Created On
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {subCategory.createdBy}
+                <p className="text-gray-900 font-semibold">
+                  {new Date(subCategory.createdAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                  Created Date
-                </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {new Date(subCategory.createdAt).toLocaleString()}
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Last Updated
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {new Date(subCategory.updatedAt).toLocaleString()}
+                <p className="text-gray-900 font-semibold">
+                  {new Date(subCategory.updatedAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </p>
               </div>
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
-              Edit SubCategory Details
-            </h2>
+          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8 animate-fade-in">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                Edit Sub Category
+              </h2>
+              <p className="text-gray-600">
+                Update sub category information
+              </p>
+            </div>
 
-            <form className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Category *
+            {message && (
+              <div
+                className={`mb-6 p-4 rounded-lg flex items-center gap-3 border animate-slide-in-down ${
+                  messageType === "success"
+                    ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                    : "bg-red-50 border-red-200 text-red-900"
+                }`}
+              >
+                {messageType === "success" ? (
+                  <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                ) : (
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                )}
+                <span className="font-medium text-sm">
+                  {message}
+                </span>
+              </div>
+            )}
+
+            <form className="space-y-7">
+              {/* Category Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Category <span className="text-red-500">*</span>
                 </label>
                 <select
                   value={editFormData.categoryId}
@@ -349,11 +380,11 @@ export default function SubCategoryDetail() {
                       categoryId: e.target.value,
                     })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all text-gray-900 placeholder-gray-400 focus:outline-none ${
                     errors.categoryId
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 >
                   <option value="">Select a category</option>
                   {categories.map((cat) => (
@@ -363,15 +394,17 @@ export default function SubCategoryDetail() {
                   ))}
                 </select>
                 {errors.categoryId && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.categoryId}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  SubCategory Name *
+              {/* SubCategory Name Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Sub Category Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -379,22 +412,26 @@ export default function SubCategoryDetail() {
                   onChange={(e) =>
                     setEditFormData({ ...editFormData, name: e.target.value })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  placeholder="e.g., Electronics Accessories..."
+                  autoCapitalize="words"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word text-gray-900 placeholder-gray-400 focus:outline-none ${
                     errors.name
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 />
                 {errors.name && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.name}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Status *
+              {/* Status Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Status <span className="text-red-500">*</span>
                 </label>
                 <select
                   value={editFormData.status}
@@ -404,19 +441,20 @@ export default function SubCategoryDetail() {
                       status: e.target.value as "active" | "inactive",
                     })
                   }
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                 </select>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-6 border-t border-gray-200 mt-8">
                 <button
                   type="button"
                   onClick={handleSave}
                   disabled={saveLoading}
-                  className="flex-1 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
                 >
                   {saveLoading ? (
                     <>
@@ -433,7 +471,7 @@ export default function SubCategoryDetail() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                  className="px-8 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg transition-all"
                 >
                   Cancel
                 </button>
