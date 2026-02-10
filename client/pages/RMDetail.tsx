@@ -1023,7 +1023,7 @@ export default function RMDetail() {
                   <button
                     type="button"
                     onClick={() => setShowNewBrandInput(true)}
-                    className="px-3 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-1.5 text-sm whitespace-nowrap"
+                    className="px-3 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-1.5 text-sm whitespace-nowrap"
                     title="Create new brand"
                   >
                     <Plus className="w-4 h-4" />
@@ -1118,7 +1118,7 @@ export default function RMDetail() {
             <div className="flex gap-3 pt-4">
               <button
                 onClick={handleUpdateRawMaterial}
-                className="flex-1 px-4 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium"
+                className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
                 Save Changes
               </button>
