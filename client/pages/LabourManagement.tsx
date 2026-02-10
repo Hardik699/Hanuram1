@@ -169,35 +169,35 @@ export default function LabourManagement() {
             </div>
           </div>
 
-          {/* Total Daily Cost Card - Emerald */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-emerald-200/50 dark:border-emerald-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+          {/* Total Daily Cost Card - Blue */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
                 <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Total Daily Cost
                 </p>
-                <h3 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">
+                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
                   ₹{totalDailyCost.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
                 </h3>
                 <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Daily expenses</p>
               </div>
-              <div className="bg-gradient-to-br from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-900/20 p-4 rounded-2xl">
-                <DollarSign className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
+              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
+                <DollarSign className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <div className="h-1.5 w-full bg-emerald-100 dark:bg-emerald-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          {/* Avg Salary Card - Indigo */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-indigo-200/50 dark:border-indigo-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+          {/* Avg Salary Card - Blue */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
                 <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Avg Salary/Day
                 </p>
-                <h3 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
                   ₹{avgSalaryPerDay.toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -205,28 +205,29 @@ export default function LabourManagement() {
                 </h3>
                 <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Per worker</p>
               </div>
-              <div className="bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/40 dark:to-indigo-900/20 p-4 rounded-2xl">
-                <TrendingUp className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
+              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
+                <TrendingUp className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <div className="h-1.5 w-full bg-indigo-100 dark:bg-indigo-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
         </div>
 
         {/* Search Section */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-4 sm:p-6 border border-slate-200 dark:border-slate-700">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
-            <Search className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+        <div className="space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
             Search Labour
           </h3>
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-blue-700 dark:text-blue-400">
+          <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-xl p-5 border border-blue-100/50 dark:border-blue-800/20">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">🔍</span>
               Search by Name, Code, or Department
             </label>
             <div className="relative">
-              <Search className="absolute left-3 sm:left-4 top-3 sm:top-3.5 w-4 sm:w-5 h-4 sm:h-5 text-blue-500 dark:text-blue-400" />
+              <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
               <input
                 type="text"
                 value={searchTerm}
@@ -235,33 +236,30 @@ export default function LabourManagement() {
                   setCurrentPage(1);
                 }}
                 placeholder="Search labour..."
-                className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all shadow-sm font-medium text-sm"
+                className="w-full pl-12 pr-4 py-3 rounded-lg bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-800/30 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm font-medium text-base"
               />
             </div>
           </div>
         </div>
 
         {/* Labour Table Header */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
+        <div className="space-y-4 mt-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                Labour List
-              </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Showing{" "}
-                <span className="font-bold text-slate-900 dark:text-white">
-                  {filteredLabour.length}
-                </span>{" "}
-                labour record{filteredLabour.length !== 1 ? "s" : ""}
-              </p>
-            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+              <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+              Labour List
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              <span className="font-bold text-slate-900 dark:text-white">
+                {filteredLabour.length}
+              </span>{" "}
+              record{filteredLabour.length !== 1 ? "s" : ""}
+            </p>
           </div>
         </div>
 
         {/* Labour Table */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-blue-200/50 dark:border-blue-800/20 overflow-hidden animate-fade-in-up">
           {loading ? (
             <div className="p-12 text-center">
               <LoadingSpinner message="Loading labour data..." />
@@ -287,13 +285,13 @@ export default function LabourManagement() {
             <>
               <div className="prof-table-responsive">
                 <table className="w-full">
-                  <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
+                  <thead className="bg-gradient-to-r from-blue-50 via-blue-50/80 to-blue-50/60 dark:from-blue-900/20 dark:via-blue-900/15 dark:to-blue-900/10 border-b-2 border-blue-200 dark:border-blue-800/30 sticky top-0">
                     <tr>
-                      <th className="prof-table-head-cell">Labour ID</th>
-                      <th className="prof-table-head-cell">Name</th>
-                      <th className="hidden md:table-cell prof-table-head-cell">Department</th>
-                      <th className="prof-table-head-cell text-right">Salary/Day</th>
-                      <th className="prof-table-head-cell text-center">Actions</th>
+                      <th className="prof-table-head-cell text-blue-700 dark:text-blue-300 font-bold">Labour ID</th>
+                      <th className="prof-table-head-cell text-blue-700 dark:text-blue-300 font-bold">Name</th>
+                      <th className="hidden md:table-cell prof-table-head-cell text-blue-700 dark:text-blue-300 font-bold">Department</th>
+                      <th className="prof-table-head-cell text-right text-blue-700 dark:text-blue-300 font-bold">Salary/Day</th>
+                      <th className="prof-table-head-cell text-center text-blue-700 dark:text-blue-300 font-bold">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -318,13 +316,12 @@ export default function LabourManagement() {
                           </div>
                         </td>
                         <td className="hidden md:table-cell prof-table-cell">
-                          <span className="px-2.5 py-1.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-lg text-xs font-bold border border-purple-200/50 dark:border-purple-800/50">
+                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {item.department}
                           </span>
                         </td>
-                        <td className="prof-table-cell text-green-700 dark:text-green-400 font-bold text-right">
-                          ₹
-                          {item.salaryPerDay.toLocaleString("en-IN", {
+                        <td className="prof-table-cell text-blue-700 dark:text-blue-400 font-bold text-right">
+                          ₹{item.salaryPerDay.toLocaleString("en-IN", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}
@@ -354,7 +351,7 @@ export default function LabourManagement() {
               </div>
 
               {/* Pagination Controls */}
-              <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+              <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-blue-200 dark:border-blue-800/20 bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-900/5 dark:to-slate-800">
                 <div className="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
                   <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
                     <span className="font-bold text-blue-600 dark:text-blue-400">
