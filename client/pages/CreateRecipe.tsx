@@ -67,7 +67,7 @@ interface Recipe {
   _id: string;
   code: string;
   name: string;
-  recipeType?: "master" | "sub"; // "master" or "sub"
+  recipeType?: string; // "master" or "sub"
   batchSize: number;
   unitId: string;
   unitName: string;
@@ -108,7 +108,7 @@ export default function CreateRecipe() {
 
   const [formData, setFormData] = useState({
     name: "",
-    recipeType: "master", // "master" or "sub"
+    recipeType: "master",
     batchSize: "",
     unitId: "",
     yield: "",
@@ -567,7 +567,7 @@ export default function CreateRecipe() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
-          recipeType: formData.recipeType || "master",
+          recipeType: formData.recipeType,
           batchSize: Number(formData.batchSize),
           unitId: formData.unitId,
           unitName: selectedUnit?.name,
@@ -715,9 +715,9 @@ export default function CreateRecipe() {
                 Recipe Type *
               </label>
               <select
-                value={formData.recipeType || "master"}
+                value={formData.recipeType}
                 onChange={(e) =>
-                  setFormData({ ...formData, recipeType: e.target.value as "master" | "sub" })
+                  setFormData({ ...formData, recipeType: e.target.value })
                 }
                 className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
               >
@@ -725,6 +725,7 @@ export default function CreateRecipe() {
                 <option value="sub">Sub Recipe</option>
               </select>
             </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Batch Size */}
@@ -1270,7 +1271,6 @@ export default function CreateRecipe() {
                       .filter(
                         (recipe) =>
                           recipe._id !== id && // Exclude current recipe
-                          (recipe.recipeType === "sub" || !recipe.recipeType) && // Show sub-recipes or untyped recipes (backward compatibility)
                           (recipe.name
                             .toLowerCase()
                             .includes(recipeSearchQuery.toLowerCase()) ||
@@ -1309,7 +1309,6 @@ export default function CreateRecipe() {
                     {recipes.filter(
                       (recipe) =>
                         recipe._id !== id &&
-                        (recipe.recipeType === "sub" || !recipe.recipeType) &&
                         (recipe.name
                           .toLowerCase()
                           .includes(recipeSearchQuery.toLowerCase()) ||

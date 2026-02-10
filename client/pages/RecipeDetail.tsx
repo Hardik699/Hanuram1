@@ -66,7 +66,7 @@ interface Recipe {
   _id: string;
   code: string;
   name: string;
-  recipeType?: "master" | "sub"; // "master" or "sub"
+  recipeType?: string; // "master" or "sub"
   batchSize: number;
   unitId: string;
   unitName: string;
