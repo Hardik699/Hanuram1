@@ -608,10 +608,10 @@ export default function CreateVendor() {
                         {/* Vendor Name */}
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0">
+                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0">
                               {vendor.name.substring(0, 1).toUpperCase()}
                             </div>
-                            <div className="font-bold text-gray-900 capitalize-each-word group-hover:text-red-600 transition-colors">
+                            <div className="font-bold text-gray-900 capitalize-each-word group-hover:text-blue-600 transition-colors">
                               {vendor.name}
                             </div>
                           </div>
@@ -623,7 +623,7 @@ export default function CreateVendor() {
                             <a
                               href={`tel:${vendor.mobileNumber}`}
                               onClick={(e) => e.stopPropagation()}
-                              className="font-semibold text-red-600 hover:text-red-700 transition-colors"
+                              className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                             >
                               {vendor.mobileNumber}
                             </a>
@@ -638,7 +638,7 @@ export default function CreateVendor() {
                             <a
                               href={`mailto:${vendor.email}`}
                               onClick={(e) => e.stopPropagation()}
-                              className="font-semibold text-red-600 hover:text-red-700 transition-colors truncate max-w-xs block"
+                              className="font-semibold text-blue-600 hover:text-blue-700 transition-colors truncate max-w-xs block"
                               title={vendor.email}
                             >
                               {vendor.email}
@@ -675,7 +675,7 @@ export default function CreateVendor() {
                                 e.stopPropagation();
                                 handleDelete(vendor._id);
                               }}
-                              className="inline-flex items-center justify-center p-2 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white transition-all active:scale-95"
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-gray-200 hover:bg-red-600 text-gray-600 hover:text-white transition-all active:scale-95"
                               title="Delete"
                             >
                               <Trash2 className="w-4 h-4" />
