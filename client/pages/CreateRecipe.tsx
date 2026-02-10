@@ -331,6 +331,51 @@ export default function CreateRecipe() {
     setItemErrors({});
   };
 
+  const handleAddRecipe = async (selectedRecipe: Recipe) => {
+    try {
+      // Fetch recipe items if not already available
+      let itemsToAdd = selectedRecipe.items || [];
+      if (!selectedRecipe.items) {
+        const response = await fetch(
+          `/api/recipes/${selectedRecipe._id}/items`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch recipe items");
+        }
+        const data = await response.json();
+        itemsToAdd = data.success ? data.data : [];
+      }
+
+      if (itemsToAdd.length === 0) {
+        setMessage("This recipe has no items to add");
+        setMessageType("error");
+        return;
+      }
+
+      // Add all items from the selected recipe to current recipe
+      const newItems = [...recipeItems, ...itemsToAdd];
+      setRecipeItems(newItems);
+
+      // Close modal and reset search
+      setShowAddRecipeModal(false);
+      setRecipeSearchQuery("");
+
+      // Show success message
+      setMessage(
+        `Added ${itemsToAdd.length} item(s) from recipe "${selectedRecipe.name}"`
+      );
+      setMessageType("success");
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 3000);
+    } catch (error) {
+      console.error("Error adding recipe items:", error);
+      setMessage("Failed to add recipe items");
+      setMessageType("error");
+    }
+  };
+
   const handleRemoveItem = (index: number) => {
     setRecipeItems(recipeItems.filter((_, i) => i !== index));
   };
