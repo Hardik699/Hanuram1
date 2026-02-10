@@ -1013,35 +1013,35 @@ export default function RMManagement() {
           {/* Message Alert - Modern Notification */}
           {message && (
             <div
-              className={`p-4 rounded-lg flex items-start gap-3 border animate-slide-in-down ${
+              className={`p-4 rounded-xl flex items-start gap-3 border animate-slide-in-down ${
                 messageType === "success"
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-900"
-                  : "bg-red-50 border-red-200 text-red-900"
+                  ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-100"
+                  : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-900 dark:text-red-100"
               }`}
               style={{
                 boxShadow: messageType === "success"
-                  ? "0 4px 12px rgba(16, 185, 129, 0.1)"
+                  ? "0 4px 12px rgba(59, 130, 246, 0.1)"
                   : "0 4px 12px rgba(239, 68, 68, 0.1)"
               }}
             >
               {messageType === "success" ? (
-                <Check className={`w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5`} />
+                <Check className={`w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5`} />
               ) : (
-                <AlertCircle className={`w-5 h-5 text-red-600 flex-shrink-0 mt-0.5`} />
+                <AlertCircle className={`w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5`} />
               )}
               <div className="flex-1">
                 <span
                   className={
                     messageType === "success"
-                      ? "text-emerald-800 dark:text-emerald-300 font-semibold text-sm"
-                      : "text-red-800 dark:text-red-300 font-semibold text-sm"
+                      ? "text-blue-800 dark:text-blue-200 font-semibold text-sm"
+                      : "text-red-800 dark:text-red-200 font-semibold text-sm"
                   }
                 >
                   {message}
                 </span>
                 {uploadLoading && uploadProgress > 0 && (
                   <div className="mt-3">
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-bold text-blue-700 dark:text-blue-300">
                         Upload Progress
                       </span>
@@ -1049,9 +1049,9 @@ export default function RMManagement() {
                         {uploadProgress}%
                       </span>
                     </div>
-                    <div className="w-full bg-blue-200 dark:bg-blue-900/30 rounded-full h-3 overflow-hidden shadow-inner">
+                    <div className="w-full bg-blue-100 dark:bg-blue-900/30 rounded-full h-2.5 overflow-hidden shadow-sm">
                       <div
-                        className="bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-500 h-3 rounded-full transition-all duration-300 ease-out shadow-elevation-1"
+                        className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 h-2.5 rounded-full transition-all duration-300 ease-out"
                         style={{ width: `${uploadProgress}%` }}
                       ></div>
                     </div>
@@ -1153,22 +1153,24 @@ export default function RMManagement() {
           </div>
 
           {/* Raw Materials List Header */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
-            <div className="flex items-center justify-between">
+          <div className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/10 dark:to-slate-800 rounded-2xl shadow-elevation-1 p-6 mb-4 border border-blue-200 dark:border-slate-700 animate-fade-in-up">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                  <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
+                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                    <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  </div>
                   Raw Materials List
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
                   Showing{" "}
-                  <span className="font-bold text-slate-900 dark:text-white">
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
                     {filteredRawMaterials.length}
                   </span>{" "}
                   material{filteredRawMaterials.length !== 1 ? "s" : ""}
                 </p>
               </div>
-              <div className="hidden sm:flex items-center gap-2 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
+              <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl border border-blue-300 dark:border-blue-800">
                 <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
                   {materialsWithPrices} with prices
@@ -1179,12 +1181,14 @@ export default function RMManagement() {
 
           {/* Raw Materials Table */}
           {/* Raw Materials Table - Clean Vendor Style */}
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
             {paginatedRawMaterials.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 px-6">
-                <Package className="w-14 h-14 text-gray-300 mb-3" />
-                <p className="font-bold text-gray-900 text-base">No raw materials yet</p>
-                <p className="text-sm text-gray-500 mt-1">Create your first raw material to get started</p>
+              <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
+                <div className="rounded-full bg-blue-100 dark:bg-blue-900/30 p-4 mb-4">
+                  <Package className="w-12 h-12 text-blue-600 dark:text-blue-400" />
+                </div>
+                <p className="font-bold text-slate-900 dark:text-white text-lg">No raw materials yet</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">Create your first raw material to get started</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -1204,39 +1208,39 @@ export default function RMManagement() {
                   </thead>
 
                   {/* Table Body */}
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                     {paginatedRawMaterials.map((rm, idx) => (
                       <tr
                         key={rm._id}
-                        className={`hover:bg-blue-50 transition-colors duration-200 ${
-                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        className={`hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 ${
+                          idx % 2 === 0 ? "bg-white dark:bg-slate-800/50" : "bg-slate-50 dark:bg-slate-800"
                         } cursor-pointer group`}
                         onClick={() => navigate(`/raw-materials/${rm._id}`)}
                       >
                         {/* Code */}
                         <td className="px-6 py-4">
-                          <span className="text-sm font-bold text-gray-900 whitespace-nowrap">
+                          <span className="text-sm font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
                             {rm.code}
                           </span>
                         </td>
 
                         {/* Name */}
                         <td className="px-6 py-4">
-                          <div className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word max-w-sm">
+                          <div className="font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate capitalize-each-word max-w-sm">
                             {rm.name}
                           </div>
                         </td>
 
                         {/* Category */}
                         <td className="hidden sm:table-cell px-6 py-4">
-                          <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
+                          <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
                             {rm.categoryName}
                           </span>
                         </td>
 
                         {/* Sub Category */}
                         <td className="hidden lg:table-cell px-6 py-4">
-                          <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
+                          <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
                             {rm.subCategoryName || "—"}
                           </span>
                         </td>
@@ -1244,22 +1248,22 @@ export default function RMManagement() {
                         {/* Unit */}
                         <td className="px-6 py-4">
                           {rm.unitName ? (
-                            <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
                               {rm.unitName}
                             </span>
                           ) : (
-                            <span className="text-gray-400 text-sm">—</span>
+                            <span className="text-slate-400 dark:text-slate-500 text-sm">—</span>
                           )}
                         </td>
 
                         {/* Last Price */}
                         <td className="hidden md:table-cell px-6 py-4">
                           {rm.lastAddedPrice ? (
-                            <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-blue-700 dark:text-blue-300 whitespace-nowrap">
                               ₹{rm.lastAddedPrice.toFixed(2)}/{formatUnit(rm.unitName)}
                             </span>
                           ) : (
-                            <span className="text-sm font-semibold text-gray-400 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-slate-400 dark:text-slate-500 whitespace-nowrap">
                               Pending
                             </span>
                           )}
@@ -1268,11 +1272,11 @@ export default function RMManagement() {
                         {/* Last Purchase */}
                         <td className="hidden lg:table-cell px-6 py-4">
                           {rm.lastPriceDate ? (
-                            <span className="font-semibold text-gray-700 text-xs">
+                            <span className="font-semibold text-slate-700 dark:text-slate-300 text-xs">
                               {new Date(rm.lastPriceDate).toLocaleDateString("en-IN")}
                             </span>
                           ) : (
-                            <span className="text-gray-400 text-sm">—</span>
+                            <span className="text-slate-400 dark:text-slate-500 text-sm">—</span>
                           )}
                         </td>
 
@@ -1284,7 +1288,7 @@ export default function RMManagement() {
                                 e.stopPropagation();
                                 handleViewRMPriceHistory(rm);
                               }}
-                              className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
+                              className="inline-flex items-center justify-center p-2.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 hover:shadow-md transition-all duration-200 active:scale-95"
                               title="View price history"
                             >
                               <History className="w-4 h-4" />
@@ -1299,15 +1303,15 @@ export default function RMManagement() {
             )}
 
             {/* Pagination Controls */}
-            <div className="mt-6 flex items-center justify-between flex-wrap gap-4 px-6 py-4">
+            <div className="mt-6 flex items-center justify-between flex-wrap gap-4 px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                   Show:
                 </span>
                 <select
                   value={itemsPerPage}
                   onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-sm text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all hover:border-blue-400"
+                  className="px-3 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all hover:border-blue-400 dark:hover:border-blue-500"
                 >
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -1316,12 +1320,12 @@ export default function RMManagement() {
               </div>
 
               <div className="flex items-center gap-4">
-                <span className="text-xs font-medium text-gray-600">
-                  <span className="font-semibold text-blue-600">
+                <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                  <span className="font-semibold text-blue-600 dark:text-blue-400">
                     {startIndex + 1}–{Math.min(endIndex, filteredRawMaterials.length)}
                   </span>{" "}
                   of{" "}
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-slate-900 dark:text-slate-100">
                     {filteredRawMaterials.length}
                   </span>
                 </span>
@@ -1329,18 +1333,18 @@ export default function RMManagement() {
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-400 transition-all hover:border-blue-400"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 dark:disabled:border-slate-600 disabled:text-slate-400 dark:disabled:text-slate-500 transition-all hover:border-blue-400 dark:hover:border-blue-600"
                     title="Previous Page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="text-xs font-medium text-gray-700 min-w-[70px] text-center">
-                    <span className="font-bold text-blue-600">{currentPage}</span>/<span className="font-bold text-gray-900">{totalPages || 1}</span>
+                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300 min-w-[70px] text-center">
+                    <span className="font-bold text-blue-600 dark:text-blue-400">{currentPage}</span>/<span className="font-bold text-slate-900 dark:text-slate-100">{totalPages || 1}</span>
                   </span>
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-400 transition-all hover:border-blue-400"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 dark:disabled:border-slate-600 disabled:text-slate-400 dark:disabled:text-slate-500 transition-all hover:border-blue-400 dark:hover:border-blue-600"
                     title="Next Page"
                   >
                     <ChevronRight className="w-4 h-4" />
