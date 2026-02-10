@@ -910,8 +910,8 @@ export default function RMDetail() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
-                    <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">📁</span>
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2.5">
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">📁</span>
                     Category
                   </label>
                   <select
@@ -935,8 +935,8 @@ export default function RMDetail() {
                 </div>
 
                 <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
-                    <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">🏷</span>
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2.5">
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">🏷</span>
                     Sub Category
                   </label>
                   <select
@@ -970,8 +970,8 @@ export default function RMDetail() {
               </h3>
 
               <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
-                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">⚖</span>
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2.5">
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">⚖</span>
                   Unit
                 </label>
                 <select
@@ -1313,8 +1313,8 @@ export default function RMDetail() {
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
-                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
-                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">📁</span>
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">📁</span>
                         Category
                       </label>
                       <p className="text-base font-semibold text-slate-900 dark:text-white">
@@ -1322,8 +1322,8 @@ export default function RMDetail() {
                       </p>
                     </div>
                     <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
-                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
-                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">🏷</span>
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">🏷</span>
                         Sub Category
                       </label>
                       <p className="text-base font-semibold text-slate-900 dark:text-white">
@@ -1340,8 +1340,8 @@ export default function RMDetail() {
                     Unit of Measurement
                   </h3>
                   <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
-                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
-                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">⚖</span>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">⚖</span>
                       Unit
                     </label>
                     <p className="text-base font-semibold text-slate-900 dark:text-white">
@@ -1387,8 +1387,8 @@ export default function RMDetail() {
                       Tax Information
                     </h3>
                     <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
-                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
-                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">📋</span>
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">📋</span>
                         HSN Code
                       </label>
                       <p className="text-base font-semibold text-slate-900 dark:text-white font-mono">
@@ -1408,8 +1408,8 @@ export default function RMDetail() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {typeof rawMaterial.lastAddedPrice === "number" && (
                         <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
-                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
-                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">💰</span>
+                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">💰</span>
                             Last Price
                           </label>
                           <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
@@ -1427,8 +1427,8 @@ export default function RMDetail() {
                       )}
                       {rawMaterial.lastPriceDate && (
                         <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
-                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
-                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">📅</span>
+                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">📅</span>
                             Last Purchase Date
                           </label>
                           <p className="text-base font-semibold text-slate-900 dark:text-white">
