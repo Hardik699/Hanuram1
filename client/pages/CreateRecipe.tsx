@@ -133,6 +133,7 @@ export default function CreateRecipe() {
       fetchCategories(),
       fetchSubCategories(),
       fetchRawMaterials(),
+      fetchRecipes(),
     ]).then(() => {
       if (id) {
         fetchRecipe(id);
