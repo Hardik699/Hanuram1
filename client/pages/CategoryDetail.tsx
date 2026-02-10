@@ -252,9 +252,9 @@ export default function CategoryDetail() {
 
         {!showEditForm ? (
           <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="p-5 rounded-lg bg-blue-50 border border-blue-200">
-                <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">
                   Category Name
                 </label>
                 <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
@@ -262,8 +262,8 @@ export default function CategoryDetail() {
                 </p>
               </div>
 
-              <div className="p-5 rounded-lg bg-blue-50 border border-blue-200">
-                <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">
                   Status
                 </label>
                 <span
@@ -278,8 +278,8 @@ export default function CategoryDetail() {
                 </span>
               </div>
 
-              <div className="md:col-span-2 p-5 rounded-lg bg-blue-50 border border-blue-200">
-                <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
+              <div className="md:col-span-2 p-6 rounded-lg bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">
                   Description
                 </label>
                 <p className="text-gray-700 leading-relaxed capitalize-each-word">
@@ -287,8 +287,8 @@ export default function CategoryDetail() {
                 </p>
               </div>
 
-              <div className="p-5 rounded-lg bg-blue-50 border border-blue-200">
-                <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">
                   Created By
                 </label>
                 <p className="text-gray-900 font-semibold capitalize-each-word">
@@ -296,8 +296,8 @@ export default function CategoryDetail() {
                 </p>
               </div>
 
-              <div className="p-5 rounded-lg bg-blue-50 border border-blue-200">
-                <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">
                   Created On
                 </label>
                 <p className="text-gray-900 font-semibold">
@@ -311,8 +311,8 @@ export default function CategoryDetail() {
                 </p>
               </div>
 
-              <div className="p-5 rounded-lg bg-blue-50 border border-blue-200">
-                <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-3">
                   Last Updated
                 </label>
                 <p className="text-gray-900 font-semibold">
