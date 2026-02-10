@@ -1140,23 +1140,31 @@ export default function RMCManagement() {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[700px]">
-                    <thead className="bg-gradient-to-r from-slate-900 to-slate-800 sticky top-0 border-b-4 border-transparent" style={{backgroundImage: 'linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.95)), linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981)', backgroundOrigin: 'border-box', backgroundClip: 'padding-box, border-box'}}>
+                    <thead className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 border-b-4 border-indigo-500">
                       <tr>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-indigo-500 flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-indigo-400 rounded-full"></span>
-                          Recipe Code
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-indigo-200">
+                          <span className="flex items-center gap-2">
+                            <span className="inline-block w-2 h-2 bg-indigo-400 rounded-full"></span>
+                            Recipe Code
+                          </span>
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-cyan-500 flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full"></span>
-                          Recipe Name
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-cyan-200">
+                          <span className="flex items-center gap-2">
+                            <span className="inline-block w-2 h-2 bg-cyan-400 rounded-full"></span>
+                            Recipe Name
+                          </span>
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-purple-500 flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-purple-400 rounded-full"></span>
-                          Total RM Cost
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-purple-200">
+                          <span className="flex items-center gap-2">
+                            <span className="inline-block w-2 h-2 bg-purple-400 rounded-full"></span>
+                            Total RM Cost
+                          </span>
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-white border-l-4 border-emerald-500 flex items-center gap-2">
-                          <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full"></span>
-                          Price per Unit
+                        <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-emerald-200">
+                          <span className="flex items-center gap-2">
+                            <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full"></span>
+                            Price per Unit
+                          </span>
                         </th>
                       </tr>
                     </thead>
@@ -1168,7 +1176,7 @@ export default function RMCManagement() {
                             !isProductionUser &&
                             navigate(`/recipe/${recipe._id}`)
                           }
-                          className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-150 cursor-pointer border-l-4 border-transparent hover:border-l-indigo-500 hover:shadow-md"
+                          className="hover:bg-indigo-50/50 dark:hover:bg-slate-700/50 transition-all duration-150 cursor-pointer"
                         >
                           <td className="px-6 py-4 text-sm font-bold text-indigo-700 dark:text-indigo-300">
                             {recipe.code}
