@@ -714,14 +714,24 @@ export default function CreateRecipe() {
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   📦 Recipe Items
                 </h3>
-                <button
-                  type="button"
-                  onClick={() => setShowAddItemForm(!showAddItemForm)}
-                  className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
-                >
-                  <Plus className="w-4 h-4" />
-                  Add Item
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddRecipeModal(!showAddRecipeModal)}
+                    className="px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Recipe
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddItemForm(!showAddItemForm)}
+                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Item
+                  </button>
+                </div>
               </div>
 
               {/* Add Item Form */}
