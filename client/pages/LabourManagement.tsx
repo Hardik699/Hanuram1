@@ -307,10 +307,8 @@ export default function LabourManagement() {
                         key={item._id}
                         className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
                       >
-                        <td className="px-6 py-3 text-sm font-medium text-blue-600 dark:text-blue-400">
-                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
-                            {item.code}
-                          </span>
+                        <td className="px-6 py-3 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                          {item.code}
                         </td>
                         <td className="px-6 py-3 text-sm font-medium text-slate-900 dark:text-white">
                           <div className="flex flex-col gap-1">
@@ -320,10 +318,8 @@ export default function LabourManagement() {
                             </span>
                           </div>
                         </td>
-                        <td className="hidden md:table-cell px-6 py-3 text-sm text-slate-700 dark:text-slate-300">
-                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
-                            {item.department}
-                          </span>
+                        <td className="hidden md:table-cell px-6 py-3 text-sm font-medium text-slate-900 dark:text-white">
+                          {item.department}
                         </td>
                         <td className="px-6 py-3 text-sm font-semibold text-blue-600 dark:text-blue-400">
                           ₹{item.salaryPerDay.toLocaleString("en-IN", {
