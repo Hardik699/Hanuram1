@@ -438,7 +438,7 @@ export default function CreateRecipe() {
           ? units.find((u) => u._id === formData.unitId)?.name ||
             selectedRecipe.unitName
           : selectedRecipe.unitName,
-        price: selectedRecipe.pricePerUnit,
+        price: 0,
         vendorId: selectedRecipe._id,
         vendorName: selectedRecipe.name,
         totalPrice: 0,
@@ -454,7 +454,7 @@ export default function CreateRecipe() {
 
       // Show success message
       toast.success("Recipe Added!", {
-        description: `"${selectedRecipe.name}" added with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`,
+        description: `"${selectedRecipe.name}" added. Please set the price manually.`,
         duration: 2500,
       });
     } catch (error) {
