@@ -261,17 +261,8 @@ export default function UnitDetail() {
                 <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Short Code
                 </label>
-                <p className="text-2xl font-bold text-gray-900 font-mono tracking-widest">
+                <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
                   {unit.shortCode}
-                </p>
-              </div>
-
-              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
-                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
-                  Created By
-                </label>
-                <p className="text-gray-900 font-semibold capitalize-each-word">
-                  {unit.createdBy}
                 </p>
               </div>
 
