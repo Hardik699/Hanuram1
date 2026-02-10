@@ -53,7 +53,7 @@ export function Sidebar() {
           icon: Package,
         },
         {
-          label: "Production Labour Cost",
+          label: "Recipe",
           path: "/rmc",
           icon: List,
         },
