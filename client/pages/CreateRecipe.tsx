@@ -203,6 +203,21 @@ export default function CreateRecipe() {
     }
   };
 
+  const fetchRecipes = async () => {
+    try {
+      const response = await fetch("/api/recipes");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        setRecipes(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
+  };
+
   const fetchRecipe = async (recipeId: string) => {
     try {
       const response = await fetch("/api/recipes");
