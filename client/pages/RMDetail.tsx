@@ -1446,39 +1446,47 @@ export default function RMDetail() {
 
             {/* Vendor Tab */}
             {activeTab === "vendor" && (
-              <div className="space-y-4">
-                {/* Add Price Button */}
-                <button
-                  onClick={() => {
-                    setShowAddPriceForm(!showAddPriceForm);
-                    if (showAddPriceForm) {
-                      setVendorSearchInput("");
-                      setAddPriceFormData({
-                        vendorId: "",
-                        brandId: "",
-                        quantity: "",
-                        price: "",
-                        billNumber: "",
-                      });
-                    } else {
-                      // Auto-populate brand when opening form
-                      setAddPriceFormData({
-                        vendorId: "",
-                        brandId: rawMaterial?.brandId || "",
-                        quantity: "",
-                        price: "",
-                        billNumber: "",
-                      });
-                    }
-                  }}
-                  className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
-                >
-                  {showAddPriceForm ? "Cancel" : "+ Add Price"}
-                </button>
+              <div className="space-y-8">
+                {/* Add Price Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                    Add Vendor Price
+                  </h3>
+
+                  <button
+                    onClick={() => {
+                      setShowAddPriceForm(!showAddPriceForm);
+                      if (showAddPriceForm) {
+                        setVendorSearchInput("");
+                        setAddPriceFormData({
+                          vendorId: "",
+                          brandId: "",
+                          quantity: "",
+                          price: "",
+                          billNumber: "",
+                        });
+                      } else {
+                        // Auto-populate brand when opening form
+                        setAddPriceFormData({
+                          vendorId: "",
+                          brandId: rawMaterial?.brandId || "",
+                          quantity: "",
+                          price: "",
+                          billNumber: "",
+                        });
+                      }
+                    }}
+                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all shadow-sm hover:shadow-md font-semibold text-sm flex items-center gap-2 active:scale-95"
+                  >
+                    <span className="text-lg">+</span>
+                    {showAddPriceForm ? "Cancel" : "Add Price"}
+                  </button>
+                </div>
 
                 {/* Add Price Form */}
                 {showAddPriceForm && (
-                  <div className="bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-200 dark:border-slate-600 p-4 space-y-3">
+                  <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg border border-blue-100/50 dark:border-blue-800/20 p-6 space-y-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1646,13 +1654,14 @@ export default function RMDetail() {
 
                 {/* Brands Section */}
                 {vendorPrices.length > 0 && (
-                  <div className="mt-8">
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-rose-600 rounded-full"></div>
                       Brands for this Product
                     </h3>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                       <table className="w-full min-w-[500px]">
-                        <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                        <thead className="bg-gradient-to-r from-rose-50 to-rose-50/50 dark:from-rose-900/20 dark:to-rose-900/10 border-b border-slate-200 dark:border-slate-700">
                           <tr>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                               Brand Name
@@ -1693,56 +1702,62 @@ export default function RMDetail() {
 
                 {/* Vendors Table */}
                 {vendors.length === 0 ? (
-                  <div className="text-center py-12 text-slate-500 dark:text-slate-400">
-                    <p>No vendors available for this raw material</p>
+                  <div className="text-center py-16 rounded-lg bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50">
+                    <p className="text-slate-600 dark:text-slate-400 font-medium">No vendors available for this raw material</p>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full min-w-[700px]">
-                      <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
-                        <tr>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Vendor Name
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Contact Number
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Last Purchase Price
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Last Purchase Date
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                        {vendors.map((vendor) => (
-                          <tr
-                            key={vendor._id}
-                            onClick={() => handleVendorClick(vendor)}
-                            className="hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
-                          >
-                            <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
-                              {vendor.name}
-                            </td>
-                            <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2">
-                              <Phone className="w-4 h-4" />
-                              {vendor.mobileNumber}
-                            </td>
-                            <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
-                              {vendor.lastPrice
-                                ? `₹${vendor.lastPrice.toFixed(2)}/${formatUnit(rawMaterial.unitName)}`
-                                : "-"}
-                            </td>
-                            <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
-                              {vendor.lastPurchaseDate
-                                ? formatDate(vendor.lastPurchaseDate)
-                                : "-"}
-                            </td>
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-indigo-600 rounded-full"></div>
+                      Vendor List
+                    </h3>
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+                      <table className="w-full min-w-[700px]">
+                        <thead className="bg-gradient-to-r from-indigo-50 to-indigo-50/50 dark:from-indigo-900/20 dark:to-indigo-900/10 border-b border-slate-200 dark:border-slate-700">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Vendor Name
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Contact Number
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Last Purchase Price
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Last Purchase Date
+                            </th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                          {vendors.map((vendor) => (
+                            <tr
+                              key={vendor._id}
+                              onClick={() => handleVendorClick(vendor)}
+                              className="hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors cursor-pointer"
+                            >
+                              <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                                {vendor.name}
+                              </td>
+                              <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                                <Phone className="w-4 h-4" />
+                                {vendor.mobileNumber}
+                              </td>
+                              <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                                {vendor.lastPrice
+                                  ? `₹${vendor.lastPrice.toFixed(2)}/${formatUnit(rawMaterial.unitName)}`
+                                  : "-"}
+                              </td>
+                              <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                                {vendor.lastPurchaseDate
+                                  ? formatDate(vendor.lastPurchaseDate)
+                                  : "-"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 )}
               </div>
