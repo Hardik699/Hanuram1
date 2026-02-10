@@ -214,14 +214,14 @@ export default function CategoryDetail() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
+                  className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 active:scale-95"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
+                  className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 active:scale-95"
                 >
                   <Trash2 className="w-4 h-4" />
                   Delete

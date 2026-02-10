@@ -1207,24 +1207,24 @@ export default function RMDetail() {
           </div>
 
           {/* Edit, Logs and Delete Buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               onClick={handleEditClick}
-              className="flex items-center gap-2 px-4 py-2.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-lg hover:bg-teal-200 dark:hover:bg-teal-900/50 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 font-semibold text-sm active:scale-95"
             >
               <Edit2 className="w-4 h-4" />
               Edit
             </button>
             <button
               onClick={() => setShowLogsModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 font-semibold text-sm active:scale-95"
             >
               <History className="w-4 h-4" />
               Logs
             </button>
             <button
               onClick={handleDeleteClick}
-              className="flex items-center gap-2 px-4 py-2.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 font-semibold text-sm active:scale-95"
             >
               <Trash2 className="w-4 h-4" />
               Delete

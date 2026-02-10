@@ -209,14 +209,14 @@ export default function UnitDetail() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
+                  className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 active:scale-95"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
+                  className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 active:scale-95"
                 >
                   <Trash2 className="w-4 h-4" />
                   Delete
@@ -390,11 +390,11 @@ export default function UnitDetail() {
                   type="button"
                   onClick={handleSave}
                   disabled={saveLoading}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-50 border border-blue-200 text-blue-700 font-bold py-3 px-4 rounded-lg hover:bg-blue-100 hover:border-blue-300 hover:shadow-md transition-all duration-200 active:scale-95 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {saveLoading ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
                       <span>Saving...</span>
                     </>
                   ) : (
@@ -407,7 +407,7 @@ export default function UnitDetail() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-8 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg transition-all"
+                  className="px-8 bg-gray-50 border border-gray-200 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-200 active:scale-95"
                 >
                   Cancel
                 </button>
