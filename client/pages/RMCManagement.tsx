@@ -160,6 +160,8 @@ export default function RMCManagement() {
   const [filterCategoryForRM, setFilterCategoryForRM] = useState("");
   const [filterSubCategoryForRM, setFilterSubCategoryForRM] = useState("");
   const [filterSearchRM, setFilterSearchRM] = useState("");
+  const [rmSearchInput, setRmSearchInput] = useState("");
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   // History & Comparison modals
   const [showHistoryModal, setShowHistoryModal] = useState(false);
@@ -371,6 +373,22 @@ export default function RMCManagement() {
   const getFilteredSubCategories = () => {
     if (!filterCategoryForRM) return [];
     return subCategories.filter((sc) => sc.categoryId === filterCategoryForRM);
+  };
+
+  const getFilteredRawMaterialsForDropdown = () => {
+    return rawMaterials.filter((rm) => {
+      // Exclude already added RMs
+      if (recipeItems.some((item) => item.rawMaterialId === rm._id))
+        return false;
+      // Search by name or code
+      if (
+        rmSearchInput &&
+        !rm.name.toLowerCase().includes(rmSearchInput.toLowerCase()) &&
+        !rm.code.toLowerCase().includes(rmSearchInput.toLowerCase())
+      )
+        return false;
+      return true;
+    });
   };
 
   // Pagination calculations
@@ -1580,23 +1598,68 @@ export default function RMCManagement() {
                         Add Raw Material to Recipe
                       </h5>
 
-                      {/* Raw Material Selection - Full Width */}
+                      {/* Raw Material Selection - Full Width with Search */}
                       <div className="mb-4">
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                           Raw Material *
                         </label>
-                        <select
-                          value={selectedRMForItem}
-                          onChange={(e) => handleRMSelection(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
-                        >
-                          <option value="">Select Raw Material</option>
-                          {getFilteredRawMaterials().map((rm) => (
-                            <option key={rm._id} value={rm._id}>
-                              {rm.code} - {rm.name}
-                            </option>
-                          ))}
-                        </select>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            placeholder="🔍 Search by name or code..."
+                            value={
+                              openDropdown === "rm"
+                                ? rmSearchInput
+                                : selectedRMForItem
+                                  ? rawMaterials.find(
+                                      (rm) => rm._id === selectedRMForItem,
+                                    )?.name || ""
+                                  : ""
+                            }
+                            onChange={(e) => {
+                              setOpenDropdown("rm");
+                              setRmSearchInput(e.target.value);
+                            }}
+                            onFocus={() => {
+                              setOpenDropdown("rm");
+                              setRmSearchInput("");
+                            }}
+                            onBlur={() => {
+                              setTimeout(() => setOpenDropdown(null), 200);
+                            }}
+                            className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                          />
+                          {openDropdown === "rm" && (
+                            <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-64 overflow-y-auto">
+                              {getFilteredRawMaterialsForDropdown().length > 0 ? (
+                                getFilteredRawMaterialsForDropdown().map((rm) => (
+                                  <div
+                                    key={rm._id}
+                                    onClick={() => {
+                                      handleRMSelection(rm._id);
+                                      setOpenDropdown(null);
+                                      setRmSearchInput("");
+                                    }}
+                                    className="px-4 py-3 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0"
+                                  >
+                                    <div className="font-medium text-slate-900 dark:text-white">
+                                      {rm.code} - {rm.name}
+                                    </div>
+                                    {rm.lastVendorName && (
+                                      <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                        Last price: ₹{rm.lastAddedPrice} from {rm.lastVendorName}
+                                      </div>
+                                    )}
+                                  </div>
+                                ))
+                              ) : (
+                                <div className="px-4 py-3 text-center text-slate-500 dark:text-slate-400">
+                                  No raw materials found
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
 
                       {/* Quantity, Price, Unit - 3 Columns */}

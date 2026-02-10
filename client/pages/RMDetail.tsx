@@ -137,6 +137,9 @@ export default function RMDetail() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [vendorSearchInput, setVendorSearchInput] = useState("");
+  const [showNewBrandInput, setShowNewBrandInput] = useState(false);
+  const [newBrandName, setNewBrandName] = useState("");
+  const [creatingBrand, setCreatingBrand] = useState(false);
 
   // Calculate total price whenever quantity or price changes
   const totalPrice =
@@ -452,6 +455,44 @@ export default function RMDetail() {
       console.error("Error updating raw material:", error);
       setMessage("Error updating raw material");
       setMessageType("error");
+    }
+  };
+
+  const handleCreateNewBrand = async () => {
+    if (!newBrandName.trim()) {
+      setMessage("Brand name cannot be empty");
+      setMessageType("error");
+      return;
+    }
+
+    setCreatingBrand(true);
+    try {
+      const response = await fetch("/api/brands", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newBrandName.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const newBrand = data.data;
+        setBrands([...brands, newBrand]);
+        setEditFormData({ ...editFormData, brandId: newBrand._id });
+        setShowNewBrandInput(false);
+        setNewBrandName("");
+        setMessage("Brand created successfully");
+        setMessageType("success");
+      } else {
+        setMessage(data.message || "Failed to create brand");
+        setMessageType("error");
+      }
+    } catch (error) {
+      console.error("Error creating brand:", error);
+      setMessage("Error creating brand");
+      setMessageType("error");
+    } finally {
+      setCreatingBrand(false);
     }
   };
 
@@ -891,20 +932,68 @@ export default function RMDetail() {
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                 Brand (Optional)
               </label>
-              <select
-                value={editFormData.brandId}
-                onChange={(e) =>
-                  setEditFormData({ ...editFormData, brandId: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
-              >
-                <option value="">Select Brand</option>
-                {brands.map((brand) => (
-                  <option key={brand._id} value={brand._id}>
-                    {brand.name}
-                  </option>
-                ))}
-              </select>
+              {!showNewBrandInput ? (
+                <div className="flex gap-2">
+                  <select
+                    value={editFormData.brandId}
+                    onChange={(e) =>
+                      setEditFormData({ ...editFormData, brandId: e.target.value })
+                    }
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                  >
+                    <option value="">Select Brand</option>
+                    {brands.map((brand) => (
+                      <option key={brand._id} value={brand._id}>
+                        {brand.name}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={() => setShowNewBrandInput(true)}
+                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    title="Create new brand"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newBrandName}
+                    onChange={(e) => setNewBrandName(e.target.value)}
+                    placeholder="Enter new brand name"
+                    disabled={creatingBrand}
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors disabled:opacity-50"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleCreateNewBrand}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-slate-400 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                  >
+                    {creatingBrand ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      </>
+                    ) : (
+                      <Check className="w-4 h-4" />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowNewBrandInput(false);
+                      setNewBrandName("");
+                    }}
+                    disabled={creatingBrand}
+                    className="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
             </div>
 
             <div>
