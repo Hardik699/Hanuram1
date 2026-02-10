@@ -201,7 +201,7 @@ export default function UnitDetail() {
           description={`Short Code: ${unit?.shortCode || "Loading..."}`}
           breadcrumbs={[
             { label: "Units", href: "/create-unit" },
-            { label: unit?.name || "Details" },
+            { label: unit?.name ? unit.name.charAt(0).toUpperCase() + unit.name.slice(1) : "Details" },
           ]}
           icon={<Settings className="w-6 h-6 text-white" />}
           actions={

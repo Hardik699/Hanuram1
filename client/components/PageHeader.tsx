@@ -42,12 +42,12 @@ export function PageHeader({
               {crumb.path || crumb.href ? (
                 <button
                   onClick={() => navigate(crumb.path || crumb.href || "/")}
-                  className="text-muted-foreground hover:text-primary dark:hover:text-primary transition-colors duration-200"
+                  className="text-muted-foreground hover:text-primary dark:hover:text-primary transition-colors duration-200 capitalize"
                 >
                   {crumb.label}
                 </button>
               ) : (
-                <span className="text-foreground font-medium">
+                <span className="text-foreground font-medium capitalize">
                   {crumb.label}
                 </span>
               )}
