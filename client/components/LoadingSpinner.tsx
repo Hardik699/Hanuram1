@@ -14,80 +14,126 @@ export function LoadingSpinner({
     return (
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
         <style>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-          }
-          @keyframes pulse-ring {
-            0% {
-              transform: scale(0.8);
-              opacity: 1;
+          @keyframes shimmer-flash {
+            0%, 100% { 
+              box-shadow: 0 0 0px rgba(59, 130, 246, 0), 
+                          0 0 0px rgba(99, 102, 241, 0),
+                          0 0 0px rgba(139, 92, 246, 0);
+              transform: scale(1);
             }
-            100% {
-              transform: scale(2.2);
+            25% { 
+              box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
+                          0 0 40px rgba(99, 102, 241, 0.4),
+                          0 0 60px rgba(139, 92, 246, 0.2);
+              transform: scale(1.05);
+            }
+            50% { 
+              box-shadow: 0 0 30px rgba(59, 130, 246, 0.8),
+                          0 0 50px rgba(99, 102, 241, 0.6),
+                          0 0 70px rgba(139, 92, 246, 0.3);
+              transform: scale(1.1);
+            }
+            75% { 
+              box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
+                          0 0 40px rgba(99, 102, 241, 0.4),
+                          0 0 60px rgba(139, 92, 246, 0.2);
+              transform: scale(1.05);
+            }
+          }
+          
+          @keyframes orbit-spin {
+            0% { transform: rotate(0deg) }
+            100% { transform: rotate(360deg) }
+          }
+          
+          @keyframes particle-float {
+            0%, 100% { 
               opacity: 0;
+              transform: translateY(0px) scale(0);
+            }
+            50% { 
+              opacity: 1;
+              transform: translateY(-30px) scale(1);
             }
           }
-          @keyframes dot-bounce {
-            0%, 80%, 100% { opacity: 0.4; transform: scale(0.8); }
-            40% { opacity: 1; transform: scale(1); }
+          
+          @keyframes pulse-intense {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
           }
-          .animate-float {
-            animation: float 3s ease-in-out infinite;
+          
+          .shimmer-core {
+            animation: shimmer-flash 2s ease-in-out infinite;
           }
-          .animate-pulse-ring {
-            animation: pulse-ring 2s ease-out infinite;
+          
+          .orbit-ring {
+            animation: orbit-spin 3s linear infinite;
           }
-          .animate-dot-1 {
-            animation: dot-bounce 1.4s infinite;
+          
+          .particle-1 {
+            animation: particle-float 2s ease-in-out infinite;
+            animation-delay: 0s;
           }
-          .animate-dot-2 {
-            animation: dot-bounce 1.4s infinite;
-            animation-delay: 0.2s;
+          
+          .particle-2 {
+            animation: particle-float 2s ease-in-out infinite;
+            animation-delay: 0.3s;
           }
-          .animate-dot-3 {
-            animation: dot-bounce 1.4s infinite;
-            animation-delay: 0.4s;
+          
+          .particle-3 {
+            animation: particle-float 2s ease-in-out infinite;
+            animation-delay: 0.6s;
+          }
+          
+          .particle-4 {
+            animation: particle-float 2s ease-in-out infinite;
+            animation-delay: 0.9s;
+          }
+          
+          .pulse-dot {
+            animation: pulse-intense 1.5s ease-in-out infinite;
           }
         `}</style>
 
         {/* Modal Card */}
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-12 max-w-sm mx-4">
           <div className="text-center">
-            {/* Animated Loader - Elegant Pulsing Circles */}
-            <div className="relative w-24 h-24 mx-auto mb-8">
-              {/* Outer pulsing ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 opacity-20 animate-pulse-ring"></div>
-
-              {/* Main animated circle */}
+            {/* Dynamic Tadakta Fadakta Loading Animation */}
+            <div className="relative w-32 h-32 mx-auto mb-8">
+              {/* Main Shimmering Core */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-16 h-16">
-                  {/* Center glowing core */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 animate-pulse shadow-lg shadow-blue-400/50 dark:shadow-blue-500/30"></div>
-
-                  {/* Rotating gradient ring */}
-                  <div
-                    className="absolute inset-1 rounded-full border-2 border-transparent border-t-blue-400 border-r-indigo-400 animate-spin"
-                    style={{ animationDuration: '2s' }}
-                  ></div>
+                <div className="relative w-24 h-24">
+                  {/* Sparkling Core */}
+                  <div className="shimmer-core absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-indigo-500 shadow-lg"></div>
+                  
+                  {/* Orbiting Ring */}
+                  <div className="orbit-ring absolute inset-0">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '0 8px 0 rgba(59, 130, 246, 0.8)' }}></div>
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-indigo-300 rounded-full" style={{ boxShadow: '0 -8px 0 rgba(99, 102, 241, 0.8)' }}></div>
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-purple-300 rounded-full" style={{ boxShadow: '8px 0 0 rgba(139, 92, 246, 0.8)' }}></div>
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '-8px 0 0 rgba(59, 130, 246, 0.8)' }}></div>
+                  </div>
                 </div>
               </div>
 
-              {/* Floating animation wrapper */}
-              <div className="absolute inset-0 animate-float"></div>
+              {/* Floating Particles */}
+              <div className="particle-1 absolute top-0 left-1/4 w-2 h-2 bg-blue-400 rounded-full blur-sm"></div>
+              <div className="particle-2 absolute top-1/4 right-1/4 w-2 h-2 bg-indigo-400 rounded-full blur-sm"></div>
+              <div className="particle-3 absolute bottom-1/4 left-1/3 w-2 h-2 bg-purple-400 rounded-full blur-sm"></div>
+              <div className="particle-4 absolute top-1/2 right-1/3 w-2 h-2 bg-blue-300 rounded-full blur-sm"></div>
             </div>
 
-            {/* Message with animated dots */}
-            <div className="space-y-3">
-              <p className="text-blue-700 dark:text-blue-300 font-semibold text-lg">
+            {/* Message with Pulsing Dots */}
+            <div className="space-y-4">
+              <p className="text-blue-700 dark:text-blue-300 font-bold text-lg">
                 {message}
               </p>
               
-              {/* Animated loading dots */}
-              <div className="flex justify-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-1"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-2"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-3"></div>
+              {/* Pulsing Indicator Dots */}
+              <div className="flex justify-center gap-2">
+                <div className="pulse-dot w-3 h-3 rounded-full bg-blue-500"></div>
+                <div className="pulse-dot w-3 h-3 rounded-full bg-indigo-500" style={{ animationDelay: '0.3s' }}></div>
+                <div className="pulse-dot w-3 h-3 rounded-full bg-purple-500" style={{ animationDelay: '0.6s' }}></div>
               </div>
             </div>
           </div>
@@ -100,78 +146,124 @@ export function LoadingSpinner({
   return (
     <div className="flex items-center justify-center py-8 sm:py-12">
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes pulse-ring {
-          0% {
-            transform: scale(0.8);
-            opacity: 1;
+        @keyframes shimmer-flash {
+          0%, 100% { 
+            box-shadow: 0 0 0px rgba(59, 130, 246, 0), 
+                        0 0 0px rgba(99, 102, 241, 0),
+                        0 0 0px rgba(139, 92, 246, 0);
+            transform: scale(1);
           }
-          100% {
-            transform: scale(2.2);
+          25% { 
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
+                        0 0 40px rgba(99, 102, 241, 0.4),
+                        0 0 60px rgba(139, 92, 246, 0.2);
+            transform: scale(1.05);
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8),
+                        0 0 50px rgba(99, 102, 241, 0.6),
+                        0 0 70px rgba(139, 92, 246, 0.3);
+            transform: scale(1.1);
+          }
+          75% { 
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
+                        0 0 40px rgba(99, 102, 241, 0.4),
+                        0 0 60px rgba(139, 92, 246, 0.2);
+            transform: scale(1.05);
+          }
+        }
+        
+        @keyframes orbit-spin {
+          0% { transform: rotate(0deg) }
+          100% { transform: rotate(360deg) }
+        }
+        
+        @keyframes particle-float {
+          0%, 100% { 
             opacity: 0;
+            transform: translateY(0px) scale(0);
+          }
+          50% { 
+            opacity: 1;
+            transform: translateY(-30px) scale(1);
           }
         }
-        @keyframes dot-bounce {
-          0%, 80%, 100% { opacity: 0.4; transform: scale(0.8); }
-          40% { opacity: 1; transform: scale(1); }
+        
+        @keyframes pulse-intense {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 1; }
         }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
+        
+        .shimmer-core {
+          animation: shimmer-flash 2s ease-in-out infinite;
         }
-        .animate-pulse-ring {
-          animation: pulse-ring 2s ease-out infinite;
+        
+        .orbit-ring {
+          animation: orbit-spin 3s linear infinite;
         }
-        .animate-dot-1 {
-          animation: dot-bounce 1.4s infinite;
+        
+        .particle-1 {
+          animation: particle-float 2s ease-in-out infinite;
+          animation-delay: 0s;
         }
-        .animate-dot-2 {
-          animation: dot-bounce 1.4s infinite;
-          animation-delay: 0.2s;
+        
+        .particle-2 {
+          animation: particle-float 2s ease-in-out infinite;
+          animation-delay: 0.3s;
         }
-        .animate-dot-3 {
-          animation: dot-bounce 1.4s infinite;
-          animation-delay: 0.4s;
+        
+        .particle-3 {
+          animation: particle-float 2s ease-in-out infinite;
+          animation-delay: 0.6s;
+        }
+        
+        .particle-4 {
+          animation: particle-float 2s ease-in-out infinite;
+          animation-delay: 0.9s;
+        }
+        
+        .pulse-dot {
+          animation: pulse-intense 1.5s ease-in-out infinite;
         }
       `}</style>
       
       <div className="text-center">
-        {/* Animated Loader - Elegant Pulsing Circles */}
-        <div className="relative w-24 h-24 mx-auto mb-8">
-          {/* Outer pulsing ring */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 opacity-20 animate-pulse-ring"></div>
-
-          {/* Main animated circle */}
+        {/* Dynamic Tadakta Fadakta Loading Animation */}
+        <div className="relative w-32 h-32 mx-auto mb-8">
+          {/* Main Shimmering Core */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-16 h-16">
-              {/* Center glowing core */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 animate-pulse shadow-lg shadow-blue-400/50 dark:shadow-blue-500/30"></div>
-
-              {/* Rotating gradient ring */}
-              <div
-                className="absolute inset-1 rounded-full border-2 border-transparent border-t-blue-400 border-r-indigo-400 animate-spin"
-                style={{ animationDuration: '2s' }}
-              ></div>
+            <div className="relative w-24 h-24">
+              {/* Sparkling Core */}
+              <div className="shimmer-core absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-indigo-500 shadow-lg"></div>
+              
+              {/* Orbiting Ring */}
+              <div className="orbit-ring absolute inset-0">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '0 8px 0 rgba(59, 130, 246, 0.8)' }}></div>
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-indigo-300 rounded-full" style={{ boxShadow: '0 -8px 0 rgba(99, 102, 241, 0.8)' }}></div>
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-purple-300 rounded-full" style={{ boxShadow: '8px 0 0 rgba(139, 92, 246, 0.8)' }}></div>
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '-8px 0 0 rgba(59, 130, 246, 0.8)' }}></div>
+              </div>
             </div>
           </div>
 
-          {/* Floating animation wrapper */}
-          <div className="absolute inset-0 animate-float"></div>
+          {/* Floating Particles */}
+          <div className="particle-1 absolute top-0 left-1/4 w-2 h-2 bg-blue-400 rounded-full blur-sm"></div>
+          <div className="particle-2 absolute top-1/4 right-1/4 w-2 h-2 bg-indigo-400 rounded-full blur-sm"></div>
+          <div className="particle-3 absolute bottom-1/4 left-1/3 w-2 h-2 bg-purple-400 rounded-full blur-sm"></div>
+          <div className="particle-4 absolute top-1/2 right-1/3 w-2 h-2 bg-blue-300 rounded-full blur-sm"></div>
         </div>
 
-        {/* Message with animated dots */}
-        <div className="space-y-3">
-          <p className="text-blue-700 dark:text-blue-300 font-semibold text-lg">
+        {/* Message with Pulsing Dots */}
+        <div className="space-y-4">
+          <p className="text-blue-700 dark:text-blue-300 font-bold text-lg">
             {message}
           </p>
           
-          {/* Animated loading dots */}
-          <div className="flex justify-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-1"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-2"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-dot-3"></div>
+          {/* Pulsing Indicator Dots */}
+          <div className="flex justify-center gap-2">
+            <div className="pulse-dot w-3 h-3 rounded-full bg-blue-500"></div>
+            <div className="pulse-dot w-3 h-3 rounded-full bg-indigo-500" style={{ animationDelay: '0.3s' }}></div>
+            <div className="pulse-dot w-3 h-3 rounded-full bg-purple-500" style={{ animationDelay: '0.6s' }}></div>
           </div>
         </div>
       </div>
