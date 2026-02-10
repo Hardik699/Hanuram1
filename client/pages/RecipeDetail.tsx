@@ -1070,13 +1070,9 @@ export default function RecipeDetail() {
 
                 <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
                   <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Recipe Type</label>
-                  <span className={`inline-flex px-3 py-1 rounded-lg text-sm font-bold ${
-                    recipe.recipeType === "sub"
-                      ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                      : "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
-                  }`}>
+                  <p className="text-lg font-bold text-slate-900 dark:text-white">
                     {recipe.recipeType === "sub" ? "Sub Recipe" : "Master Recipe"}
-                  </span>
+                  </p>
                 </div>
 
                 <div className="p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
