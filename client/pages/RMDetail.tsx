@@ -1298,16 +1298,30 @@ export default function RMDetail() {
                     {rawMaterial.unitName || "-"}
                   </p>
                 </div>
-                {rawMaterial.brandName && (
-                  <div>
+                {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0) || rawMaterial.brandName ? (
+                  <div className="md:col-span-2">
                     <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Brand
+                      Brands
                     </label>
-                    <p className="text-sm text-slate-900 dark:text-white font-medium">
-                      {rawMaterial.brandName}
-                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0)
+                        ? rawMaterial.brandNames.map((brand, index) => (
+                            <span
+                              key={index}
+                              className="px-3 py-1.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium"
+                            >
+                              {brand}
+                            </span>
+                          ))
+                        : (
+                            <span className="px-3 py-1.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">
+                              {rawMaterial.brandName}
+                            </span>
+                          )
+                      }
+                    </div>
                   </div>
-                )}
+                ) : null}
                 {rawMaterial.hsnCode && (
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
