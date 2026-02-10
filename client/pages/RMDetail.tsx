@@ -1293,6 +1293,15 @@ export default function RMDetail() {
                         price: "",
                         billNumber: "",
                       });
+                    } else {
+                      // Auto-populate brand when opening form
+                      setAddPriceFormData({
+                        vendorId: "",
+                        brandId: rawMaterial?.brandId || "",
+                        quantity: "",
+                        price: "",
+                        billNumber: "",
+                      });
                     }
                   }}
                   className="px-4 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
