@@ -1012,77 +1012,77 @@ export default function RMManagement() {
         {/* Statistics Cards - Modern SaaS Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8 animate-fade-in-up">
           {/* Total Raw Materials Card */}
-          <div className="stat-card group">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition-all">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="stat-label mb-2">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                   Total Materials
                 </p>
-                <h3 className="stat-value text-3xl">
+                <h3 className="text-4xl font-bold text-gray-900">
                   {totalRawMaterials}
                 </h3>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
                 <Package className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
 
           {/* With Prices Card */}
-          <div className="stat-card group">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition-all">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="stat-label mb-2">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                   With Prices
                 </p>
-                <h3 className="stat-value text-3xl">
+                <h3 className="text-4xl font-bold text-gray-900">
                   {materialsWithPrices}
                 </h3>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-600 mt-3 font-semibold">
                   {totalRawMaterials > 0 ? Math.round((materialsWithPrices / totalRawMaterials) * 100) : 0}% complete
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                <TrendingUp className="w-6 h-6 text-emerald-600" />
               </div>
             </div>
           </div>
 
           {/* Pending Prices Card */}
-          <div className="stat-card group">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition-all">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="stat-label mb-2">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                   Pending Prices
                 </p>
-                <h3 className="stat-value text-3xl">
+                <h3 className="text-4xl font-bold text-gray-900">
                   {materialsWithoutPrices}
                 </h3>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-600 mt-3 font-semibold">
                   Awaiting vendor data
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
                 <AlertCircle className="w-6 h-6 text-amber-600" />
               </div>
             </div>
           </div>
 
           {/* Total Categories Card */}
-          <div className="stat-card group">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition-all">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="stat-label mb-2">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                   Categories
                 </p>
-                <h3 className="stat-value text-3xl">
+                <h3 className="text-4xl font-bold text-gray-900">
                   {categories.length}
                 </h3>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-600 mt-3 font-semibold">
                   Total classifications
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0">
                 <LayoutGrid className="w-6 h-6 text-purple-600" />
               </div>
             </div>
