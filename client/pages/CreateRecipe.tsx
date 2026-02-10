@@ -352,8 +352,16 @@ export default function CreateRecipe() {
         return;
       }
 
+      // Ensure all items have proper totalPrice calculation
+      const processedItems = itemsToAdd.map((item) => ({
+        ...item,
+        totalPrice: parseFloat(
+          (item.quantity * item.price).toFixed(2)
+        ),
+      }));
+
       // Add all items from the selected recipe to current recipe
-      const newItems = [...recipeItems, ...itemsToAdd];
+      const newItems = [...recipeItems, ...processedItems];
       setRecipeItems(newItems);
 
       // Close modal and reset search
