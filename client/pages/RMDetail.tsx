@@ -665,9 +665,7 @@ export default function RMDetail() {
 
   if (loading) {
     return (
-      <Layout title="Loading...">
-        <LoadingSpinner message="Loading raw material..." />
-      </Layout>
+      <LoadingSpinner message="Loading raw material..." fullScreen={true} />
     );
   }
 
