@@ -202,7 +202,7 @@ export default function CategoryDetail() {
     <Layout title="Category Details">
       <div className="space-y-6 animate-fade-in">
         <PageHeader
-          title={category?.name || "Category Details"}
+          title={category?.name ? category.name.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ') : "Category Details"}
           description={category?.description || "View and manage category information"}
           breadcrumbs={[
             { label: "Categories", href: "/create-category" },
@@ -257,7 +257,7 @@ export default function CategoryDetail() {
                 <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Category Name
                 </label>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
                   {category.name}
                 </p>
               </div>
@@ -267,7 +267,7 @@ export default function CategoryDetail() {
                   Status
                 </label>
                 <span
-                  className={`inline-flex px-4 py-2 rounded-lg text-sm font-bold ${
+                  className={`inline-flex px-4 py-2 rounded-lg text-sm font-bold capitalize-each-word ${
                     (category.status || "inactive") === "active"
                       ? "bg-emerald-100 text-emerald-700"
                       : "bg-red-100 text-red-700"
@@ -282,7 +282,7 @@ export default function CategoryDetail() {
                 <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Description
                 </label>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed capitalize-each-word">
                   {category.description || <span className="text-gray-400">No description provided</span>}
                 </p>
               </div>
@@ -291,7 +291,7 @@ export default function CategoryDetail() {
                 <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
                   Created By
                 </label>
-                <p className="text-gray-900 font-semibold">
+                <p className="text-gray-900 font-semibold capitalize-each-word">
                   {category.createdBy}
                 </p>
               </div>
@@ -347,7 +347,8 @@ export default function CategoryDetail() {
                   onChange={(e) =>
                     setEditFormData({ ...editFormData, name: e.target.value })
                   }
-                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all ${
+                  autoCapitalize="words"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word ${
                     errors.name
                       ? "border-red-500 ring-1 ring-red-500"
                       : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
@@ -374,7 +375,8 @@ export default function CategoryDetail() {
                     })
                   }
                   rows={4}
-                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
+                  autoCapitalize="words"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none capitalize-each-word"
                 />
               </div>
 

@@ -280,7 +280,7 @@ export default function CreateCategory() {
     <Layout title="Categories">
       <PageHeader
         title="Category Management"
-        description="Create, manage, and organize product categories with ease"
+        description="Create, manage, and organize product categories"
         breadcrumbs={[{ label: "Category Management" }]}
         icon={<Folder className="w-6 h-6 text-white" />}
         actions={
@@ -359,7 +359,8 @@ export default function CreateCategory() {
                       setFormData({ ...formData, name: e.target.value })
                     }
                     placeholder="e.g., Electronics, Furniture..."
-                    className={`w-full px-4 py-3 rounded-lg bg-white border transition-all ${
+                    autoCapitalize="words"
+                    className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word ${
                       errors.name
                         ? "border-red-500 ring-1 ring-red-500"
                         : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
@@ -385,7 +386,8 @@ export default function CreateCategory() {
                   }
                   placeholder="Add details about this category..."
                   rows={4}
-                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
+                  autoCapitalize="words"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none capitalize-each-word"
                 />
               </div>
 
@@ -557,16 +559,16 @@ export default function CreateCategory() {
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate">
+                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word">
                           {category.name}
                         </h3>
                         {category.description && (
-                          <span className="hidden sm:inline text-xs bg-gray-100 group-hover:bg-gray-200 text-gray-700 px-2.5 py-1 rounded-md transition-colors truncate max-w-xs">
+                          <span className="hidden sm:inline text-xs bg-gray-100 group-hover:bg-gray-200 text-gray-700 px-2.5 py-1 rounded-md transition-colors truncate max-w-xs capitalize-each-word">
                             {category.description}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">by <span className="font-medium text-gray-700">{category.createdBy}</span></p>
+                      <p className="text-xs text-gray-500 mt-1">by <span className="font-medium text-gray-700 capitalize-each-word">{category.createdBy}</span></p>
                     </div>
                   </div>
 
@@ -574,7 +576,7 @@ export default function CreateCategory() {
                   <div className="flex items-center gap-3 ml-4 flex-shrink-0">
                     {/* Status */}
                     <span
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all capitalize-each-word ${
                         category.status === "active"
                           ? "bg-emerald-100 text-emerald-700 group-hover:bg-emerald-200"
                           : "bg-red-100 text-red-700 group-hover:bg-red-200"

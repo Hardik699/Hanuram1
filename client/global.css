@@ -276,6 +276,15 @@
     color: var(--text-muted);
   }
 
+  /* Text Capitalization */
+  .capitalize-title {
+    text-transform: capitalize;
+  }
+
+  .capitalize-each-word {
+    text-transform: capitalize;
+  }
+
   /* Utilities */
   .text-primary { color: var(--primary); }
   .text-secondary { color: var(--text-secondary); }
