@@ -222,6 +222,11 @@ export default function RecipeDetail() {
   const fetchAllData = async () => {
     try {
       setLoading(true);
+      // Reset all cost states for fresh recipe data
+      setProductionLabourCostPerKg(0);
+      setPackingLabourCostPerKg(0);
+      setPackagingCostPerKg(0);
+
       if (recipeId) {
         await Promise.all([
           fetchRecipe(),
