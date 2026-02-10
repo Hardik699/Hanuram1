@@ -559,6 +559,9 @@ export default function CreateRecipe() {
       const method = id ? "PUT" : "POST";
       const url = id ? `/api/recipes/${id}` : "/api/recipes";
 
+      console.log("Recipe Form Data:", formData);
+      console.log("Request URL:", url, "Method:", method);
+
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
@@ -573,11 +576,12 @@ export default function CreateRecipe() {
             ? Number(formData.moisturePercentage)
             : undefined,
           items: recipeItems,
-          createdBy: "admin",
+          createdBy: localStorage.getItem("username") || "admin",
         }),
       });
 
       const data = await response.json();
+      console.log("Recipe save response:", { status: response.status, data });
 
       if (response.ok && data.success) {
         setMessageType("success");
@@ -589,12 +593,14 @@ export default function CreateRecipe() {
         }, 1500);
       } else {
         setMessageType("error");
-        setMessage(data.message || "Operation failed");
+        const errorMsg = data.message || `Operation failed (Status: ${response.status})`;
+        setMessage(errorMsg);
+        console.error("Recipe save failed:", errorMsg);
       }
     } catch (error) {
       setMessageType("error");
-      setMessage("Error saving recipe");
-      console.error(error);
+      setMessage("Error saving recipe: " + (error instanceof Error ? error.message : "Unknown error"));
+      console.error("Recipe save error:", error);
     } finally {
       setLoading(false);
     }
