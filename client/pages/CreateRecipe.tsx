@@ -1264,7 +1264,7 @@ export default function CreateRecipe() {
                       .filter(
                         (recipe) =>
                           recipe._id !== id && // Exclude current recipe
-                          recipe.recipeType === "sub" && // Show only sub-recipes
+                          (recipe.recipeType === "sub" || !recipe.recipeType) && // Show sub-recipes or untyped recipes (backward compatibility)
                           (recipe.name
                             .toLowerCase()
                             .includes(recipeSearchQuery.toLowerCase()) ||
@@ -1303,7 +1303,7 @@ export default function CreateRecipe() {
                     {recipes.filter(
                       (recipe) =>
                         recipe._id !== id &&
-                        recipe.recipeType === "sub" &&
+                        (recipe.recipeType === "sub" || !recipe.recipeType) &&
                         (recipe.name
                           .toLowerCase()
                           .includes(recipeSearchQuery.toLowerCase()) ||
