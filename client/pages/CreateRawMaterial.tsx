@@ -55,6 +55,13 @@ export default function CreateRawMaterial() {
   const [showNewBrandInput, setShowNewBrandInput] = useState(false);
   const [newBrandName, setNewBrandName] = useState("");
   const [creatingBrand, setCreatingBrand] = useState(false);
+  const [searchInputs, setSearchInputs] = useState({
+    category: "",
+    subCategory: "",
+    unit: "",
+    brand: "",
+  });
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     categoryId: "",
@@ -224,12 +231,40 @@ export default function CreateRawMaterial() {
       newErrors.categoryId = "Category is required";
     }
 
-    if (!formData.subCategoryId) {
-      newErrors.subCategoryId = "Sub-category is required";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const getFilteredCategories = () => {
+    if (!searchInputs.category) return categories;
+    return categories.filter((cat) =>
+      cat.name.toLowerCase().includes(searchInputs.category.toLowerCase()),
+    );
+  };
+
+  const getFilteredSubCategories = () => {
+    let filtered = subCategories;
+    if (formData.categoryId) {
+      filtered = filtered.filter((sc) => sc.categoryId === formData.categoryId);
+    }
+    if (!searchInputs.subCategory) return filtered;
+    return filtered.filter((sc) =>
+      sc.name.toLowerCase().includes(searchInputs.subCategory.toLowerCase()),
+    );
+  };
+
+  const getFilteredUnits = () => {
+    if (!searchInputs.unit) return units;
+    return units.filter((unit) =>
+      unit.name.toLowerCase().includes(searchInputs.unit.toLowerCase()),
+    );
+  };
+
+  const getFilteredBrands = () => {
+    if (!searchInputs.brand) return brands;
+    return brands.filter((brand) =>
+      brand.name.toLowerCase().includes(searchInputs.brand.toLowerCase()),
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -294,11 +329,6 @@ export default function CreateRawMaterial() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const getFilteredSubCategories = () => {
-    if (!formData.categoryId) return subCategories;
-    return subCategories.filter((sc) => sc.categoryId === formData.categoryId);
   };
 
   if (pageLoading) {
@@ -384,28 +414,53 @@ export default function CreateRawMaterial() {
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Category *
               </label>
-              <select
-                value={formData.categoryId}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    categoryId: e.target.value,
-                    subCategoryId: "",
-                  })
-                }
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                  errors.categoryId
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
-              >
-                <option value="">Select Category</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search or select category"
+                  value={openDropdown === "category" ? searchInputs.category : formData.categoryId ? categories.find((c) => c._id === formData.categoryId)?.name || "" : ""}
+                  onChange={(e) => {
+                    setOpenDropdown("category");
+                    setSearchInputs({ ...searchInputs, category: e.target.value });
+                  }}
+                  onFocus={() => setOpenDropdown("category")}
+                  onBlur={() => {
+                    setTimeout(() => setOpenDropdown(null), 200);
+                    setSearchInputs({ ...searchInputs, category: "" });
+                  }}
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                    errors.categoryId
+                      ? "border-red-500 dark:border-red-400"
+                      : "border-slate-300 dark:border-slate-600"
+                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                />
+                {openDropdown === "category" && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                    {getFilteredCategories().map((cat) => (
+                      <div
+                        key={cat._id}
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            categoryId: cat._id,
+                            subCategoryId: "",
+                          });
+                          setOpenDropdown(null);
+                          setSearchInputs({ ...searchInputs, category: "" });
+                        }}
+                        className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                      >
+                        {cat.name}
+                      </div>
+                    ))}
+                    {getFilteredCategories().length === 0 && (
+                      <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                        No categories found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
               {errors.categoryId && (
                 <p className="text-red-600 dark:text-red-400 text-sm mt-1">
                   {errors.categoryId}
@@ -416,35 +471,55 @@ export default function CreateRawMaterial() {
             {/* Sub Category */}
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Sub Category *
+                Sub Category (Optional)
               </label>
-              <select
-                value={formData.subCategoryId}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    subCategoryId: e.target.value,
-                  })
-                }
-                disabled={!formData.categoryId}
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                  errors.subCategoryId
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                <option value="">Select Sub Category</option>
-                {getFilteredSubCategories().map((subcat) => (
-                  <option key={subcat._id} value={subcat._id}>
-                    {subcat.name}
-                  </option>
-                ))}
-              </select>
-              {errors.subCategoryId && (
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                  {errors.subCategoryId}
-                </p>
-              )}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search or select sub category"
+                  value={openDropdown === "subCategory" ? searchInputs.subCategory : formData.subCategoryId ? subCategories.find((sc) => sc._id === formData.subCategoryId)?.name || "" : ""}
+                  onChange={(e) => {
+                    setOpenDropdown("subCategory");
+                    setSearchInputs({ ...searchInputs, subCategory: e.target.value });
+                  }}
+                  onFocus={() => {
+                    if (formData.categoryId) {
+                      setOpenDropdown("subCategory");
+                    }
+                  }}
+                  onBlur={() => {
+                    setTimeout(() => setOpenDropdown(null), 200);
+                    setSearchInputs({ ...searchInputs, subCategory: "" });
+                  }}
+                  disabled={!formData.categoryId}
+                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed`}
+                />
+                {openDropdown === "subCategory" && formData.categoryId && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                    {getFilteredSubCategories().map((subcat) => (
+                      <div
+                        key={subcat._id}
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            subCategoryId: subcat._id,
+                          });
+                          setOpenDropdown(null);
+                          setSearchInputs({ ...searchInputs, subCategory: "" });
+                        }}
+                        className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                      >
+                        {subcat.name}
+                      </div>
+                    ))}
+                    {getFilteredSubCategories().length === 0 && (
+                      <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                        No sub categories found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Unit */}
@@ -452,20 +527,45 @@ export default function CreateRawMaterial() {
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Unit (Optional)
               </label>
-              <select
-                value={formData.unitId}
-                onChange={(e) =>
-                  setFormData({ ...formData, unitId: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
-              >
-                <option value="">Select Unit</option>
-                {units.map((unit) => (
-                  <option key={unit._id} value={unit._id}>
-                    {unit.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search or select unit"
+                  value={openDropdown === "unit" ? searchInputs.unit : formData.unitId ? units.find((u) => u._id === formData.unitId)?.name || "" : ""}
+                  onChange={(e) => {
+                    setOpenDropdown("unit");
+                    setSearchInputs({ ...searchInputs, unit: e.target.value });
+                  }}
+                  onFocus={() => setOpenDropdown("unit")}
+                  onBlur={() => {
+                    setTimeout(() => setOpenDropdown(null), 200);
+                    setSearchInputs({ ...searchInputs, unit: "" });
+                  }}
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+                {openDropdown === "unit" && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                    {getFilteredUnits().map((unit) => (
+                      <div
+                        key={unit._id}
+                        onClick={() => {
+                          setFormData({ ...formData, unitId: unit._id });
+                          setOpenDropdown(null);
+                          setSearchInputs({ ...searchInputs, unit: "" });
+                        }}
+                        className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                      >
+                        {unit.name}
+                      </div>
+                    ))}
+                    {getFilteredUnits().length === 0 && (
+                      <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                        No units found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Brand */}
@@ -475,20 +575,45 @@ export default function CreateRawMaterial() {
               </label>
               {!showNewBrandInput ? (
                 <div className="flex gap-2">
-                  <select
-                    value={formData.brandId}
-                    onChange={(e) =>
-                      setFormData({ ...formData, brandId: e.target.value })
-                    }
-                    className="flex-1 px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  >
-                    <option value="">Select Brand</option>
-                    {brands.map((brand) => (
-                      <option key={brand._id} value={brand._id}>
-                        {brand.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex-1 relative">
+                    <input
+                      type="text"
+                      placeholder="Search or select brand"
+                      value={openDropdown === "brand" ? searchInputs.brand : formData.brandId ? brands.find((b) => b._id === formData.brandId)?.name || "" : ""}
+                      onChange={(e) => {
+                        setOpenDropdown("brand");
+                        setSearchInputs({ ...searchInputs, brand: e.target.value });
+                      }}
+                      onFocus={() => setOpenDropdown("brand")}
+                      onBlur={() => {
+                        setTimeout(() => setOpenDropdown(null), 200);
+                        setSearchInputs({ ...searchInputs, brand: "" });
+                      }}
+                      className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    />
+                    {openDropdown === "brand" && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                        {getFilteredBrands().map((brand) => (
+                          <div
+                            key={brand._id}
+                            onClick={() => {
+                              setFormData({ ...formData, brandId: brand._id });
+                              setOpenDropdown(null);
+                              setSearchInputs({ ...searchInputs, brand: "" });
+                            }}
+                            className="px-4 py-2.5 hover:bg-teal-50 dark:hover:bg-slate-600 cursor-pointer text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-600 last:border-b-0"
+                          >
+                            {brand.name}
+                          </div>
+                        ))}
+                        {getFilteredBrands().length === 0 && (
+                          <div className="px-4 py-2.5 text-slate-500 dark:text-slate-400 text-center">
+                            No brands found
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                   <button
                     type="button"
                     onClick={() => setShowNewBrandInput(true)}
