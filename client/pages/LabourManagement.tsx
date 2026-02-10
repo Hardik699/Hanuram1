@@ -37,11 +37,18 @@ export default function LabourManagement() {
 
   // Fetch labour list with retry logic
   const fetchLabour = async (retryCount = 0) => {
-    setLoading(true);
     try {
+      if (retryCount === 0) {
+        setLoading(true);
+      }
+
+      const token = localStorage.getItem("auth_token");
       const response = await fetch("/api/labour", {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -51,24 +58,28 @@ export default function LabourManagement() {
       const result = await response.json();
       if (result.success && Array.isArray(result.data)) {
         setLabour(result.data);
+        setLoading(false);
       } else {
         throw new Error(result.message || "Failed to fetch labour");
       }
     } catch (error) {
       console.error("Error fetching labour:", error);
 
-      // Retry logic: retry up to 3 times on failure
-      if (retryCount < 3) {
-        console.warn(`Retrying labour fetch (attempt ${retryCount + 1}/3)...`);
+      // Retry logic: retry up to 2 times on failure
+      if (retryCount < 2) {
+        console.warn(
+          `Retrying labour fetch (attempt ${retryCount + 1}/3)...`,
+        );
         setTimeout(() => fetchLabour(retryCount + 1), 1000 * (retryCount + 1));
       } else {
+        setLoading(false);
         toast.error(
-          "Failed to fetch labour: " +
+          "Failed to load labour data: " +
             (error instanceof Error ? error.message : "Unknown error"),
         );
+        // Set empty array to show empty state instead of loading forever
+        setLabour([]);
       }
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -87,8 +98,12 @@ export default function LabourManagement() {
     }
 
     try {
+      const token = localStorage.getItem("auth_token");
       const response = await fetch(`/api/labour/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
       });
 
       const result = await response.json();
@@ -133,7 +148,7 @@ export default function LabourManagement() {
         title="Labour Management"
         description="Manage factory labour and track salary costs"
         breadcrumbs={[{ label: "Labour Management" }]}
-        icon={<Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+        icon={<Users className="w-6 h-6 text-white" />}
         actions={
           <button
             onClick={() => navigate("/labour/new")}
@@ -148,83 +163,86 @@ export default function LabourManagement() {
       <div className="space-y-4 sm:space-y-6">
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-fade-in-up">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          {/* Total Labour Card - Blue */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Total Labour
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                <h3 className="text-5xl font-bold text-blue-600 dark:text-blue-400">
                   {totalLabour}
                 </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Workers on Staff</p>
               </div>
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
-                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
+                <Users className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden mt-4">
-              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          {/* Total Daily Cost Card - Blue */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Total Daily Cost
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-                  ₹
-                  {totalDailyCost.toLocaleString("en-IN", {
-                    maximumFractionDigits: 0,
-                  })}
+                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
+                  ₹{totalDailyCost.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
                 </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Daily expenses</p>
               </div>
-              <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-xl">
-                <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
+              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
+                <DollarSign className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <div className="h-1 w-full bg-green-200 dark:bg-green-900/30 rounded-full overflow-hidden mt-4">
-              <div className="h-full w-full bg-gradient-to-r from-green-500 to-green-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          {/* Avg Salary Card - Blue */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Avg Salary/Day
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-amber-600 to-amber-700 bg-clip-text text-transparent">
-                  ₹
-                  {avgSalaryPerDay.toLocaleString("en-IN", {
+                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
+                  ₹{avgSalaryPerDay.toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Per worker</p>
               </div>
-              <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-xl">
-                <TrendingUp className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
+                <TrendingUp className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <div className="h-1 w-full bg-amber-200 dark:bg-amber-900/30 rounded-full overflow-hidden mt-4">
-              <div className="h-full w-full bg-gradient-to-r from-amber-500 to-amber-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
         </div>
 
         {/* Search Section */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-4 sm:p-6 border border-slate-200 dark:border-slate-700">
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
-            <Search className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+        <div className="space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
             Search Labour
           </h3>
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-blue-700 dark:text-blue-400">
+          <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-xl p-5 border border-blue-100/50 dark:border-blue-800/20">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">🔍</span>
               Search by Name, Code, or Department
             </label>
             <div className="relative">
-              <Search className="absolute left-3 sm:left-4 top-3 sm:top-3.5 w-4 sm:w-5 h-4 sm:h-5 text-blue-500 dark:text-blue-400" />
+              <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
               <input
                 type="text"
                 value={searchTerm}
@@ -233,33 +251,30 @@ export default function LabourManagement() {
                   setCurrentPage(1);
                 }}
                 placeholder="Search labour..."
-                className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all shadow-sm font-medium text-sm"
+                className="w-full pl-12 pr-4 py-3 rounded-lg bg-white dark:bg-slate-700 border-2 border-blue-200 dark:border-blue-800/30 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm font-medium text-base"
               />
             </div>
           </div>
         </div>
 
         {/* Labour Table Header */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
+        <div className="space-y-4 mt-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                Labour List
-              </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Showing{" "}
-                <span className="font-bold text-slate-900 dark:text-white">
-                  {filteredLabour.length}
-                </span>{" "}
-                labour record{filteredLabour.length !== 1 ? "s" : ""}
-              </p>
-            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+              <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+              Labour List
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              <span className="font-bold text-slate-900 dark:text-white">
+                {filteredLabour.length}
+              </span>{" "}
+              record{filteredLabour.length !== 1 ? "s" : ""}
+            </p>
           </div>
         </div>
 
         {/* Labour Table */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-3 border border-blue-200/50 dark:border-blue-800/20 overflow-hidden animate-fade-in-up">
           {loading ? (
             <div className="p-12 text-center">
               <LoadingSpinner message="Loading labour data..." />
@@ -283,31 +298,27 @@ export default function LabourManagement() {
             </div>
           ) : (
             <>
-              <div className="prof-table-responsive">
-                <table className="w-full">
-                  <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
+              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+                <table className="w-full min-w-[500px]">
+                  <thead className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10 border-b border-slate-200 dark:border-slate-700">
                     <tr>
-                      <th className="prof-table-head-cell">Labour ID</th>
-                      <th className="prof-table-head-cell">Name</th>
-                      <th className="hidden md:table-cell prof-table-head-cell">Department</th>
-                      <th className="prof-table-head-cell text-right">Salary/Day</th>
-                      <th className="prof-table-head-cell text-center">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Labour ID</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Name</th>
+                      <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Department</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Salary/Day</th>
+                      <th className="px-6 py-3 text-center text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                    {paginatedLabour.map((item, idx) => (
+                    {paginatedLabour.map((item) => (
                       <tr
                         key={item._id}
-                        className={`prof-table-row prof-table-row-hover transition-all ${
-                          idx % 2 === 0 ? "prof-table-row-even" : ""
-                        }`}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
                       >
-                        <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
-                          <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
-                            {item.code}
-                          </span>
+                        <td className="px-6 py-3 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                          {item.code}
                         </td>
-                        <td className="prof-table-cell text-slate-900 dark:text-white font-semibold">
+                        <td className="px-6 py-3 text-sm font-medium text-slate-900 dark:text-white">
                           <div className="flex flex-col gap-1">
                             <span>{item.name}</span>
                             <span className="md:hidden text-xs text-slate-500 dark:text-slate-400 font-normal">
@@ -315,19 +326,16 @@ export default function LabourManagement() {
                             </span>
                           </div>
                         </td>
-                        <td className="hidden md:table-cell prof-table-cell">
-                          <span className="px-2.5 py-1.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 rounded-lg text-xs font-bold border border-purple-200/50 dark:border-purple-800/50">
-                            {item.department}
-                          </span>
+                        <td className="hidden md:table-cell px-6 py-3 text-sm font-medium text-slate-900 dark:text-white">
+                          {item.department}
                         </td>
-                        <td className="prof-table-cell text-green-700 dark:text-green-400 font-bold text-right">
-                          ₹
-                          {item.salaryPerDay.toLocaleString("en-IN", {
+                        <td className="px-6 py-3 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                          ₹{item.salaryPerDay.toLocaleString("en-IN", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}
                         </td>
-                        <td className="prof-table-cell text-center">
+                        <td className="px-6 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => navigate(`/labour/${item._id}/edit`)}
@@ -352,15 +360,14 @@ export default function LabourManagement() {
               </div>
 
               {/* Pagination Controls */}
-              <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                <div className="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
-                  <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
+              <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
                       {startIdx + 1}-{Math.min(startIdx + itemsPerPage, filteredLabour.length)}
                     </span>
-                    <span className="hidden sm:inline"> of {" "}
-                    </span>
-                    <span className="hidden sm:inline font-bold text-slate-900 dark:text-slate-200">
+                    {" "}of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
                       {filteredLabour.length}
                     </span>
                   </span>
@@ -368,24 +375,18 @@ export default function LabourManagement() {
                     <button
                       onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                      className="inline-flex items-center justify-center p-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                       title="Previous Page"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[50px] sm:min-w-[100px] text-center">
-                      <span className="text-blue-600 dark:text-blue-400">
-                        {currentPage}
-                      </span>
-                      <span className="hidden sm:inline">/</span>
-                      <span className="hidden sm:inline text-slate-900 dark:text-slate-200">
-                        {totalPages || 1}
-                      </span>
+                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
+                      {currentPage}/{totalPages || 1}
                     </span>
                     <button
                       onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages || totalPages === 0}
-                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                      className="inline-flex items-center justify-center p-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                       title="Next Page"
                     >
                       <ChevronRight className="w-4 h-4" />

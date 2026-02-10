@@ -964,7 +964,7 @@ export default function RMCManagement() {
           !isProductionUser && (
             <button
               onClick={() => navigate("/recipe/new")}
-              className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap"
+              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap"
             >
               <Plus className="w-5 h-5" />
               <span className="hidden sm:inline">Add Recipe</span>
@@ -977,7 +977,7 @@ export default function RMCManagement() {
       {/* Content for Production Users */}
       {isProductionUser && (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-6 border border-orange-200 dark:border-slate-700">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10 rounded-2xl shadow-md p-6 border border-blue-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
@@ -990,7 +990,7 @@ export default function RMCManagement() {
               </div>
               <button
                 onClick={() => navigate("/recipe/new")}
-                className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap h-fit"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap h-fit"
               >
                 <Plus className="w-5 h-5" />
                 <span className="hidden sm:inline">Add Recipe</span>
@@ -1057,73 +1057,6 @@ export default function RMCManagement() {
         </div>
       )}
 
-      {/* Statistics Cards - Hidden for Production Users */}
-      {!isProductionUser && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          {/* Total Recipes Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
-                  Total Recipes
-                </p>
-                <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
-                  {totalRecipes}
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-                  Active recipes
-                </p>
-              </div>
-              <div className="bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-xl">
-                <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-              </div>
-            </div>
-            <div className="h-1 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full mt-4"></div>
-          </div>
-
-          {/* Total Raw Material Cost Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
-                  Total RM Cost
-                </p>
-                <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
-                  ₹{totalRawMaterialCost.toFixed(0)}
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-                  All recipes combined
-                </p>
-              </div>
-              <div className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 p-4 rounded-xl">
-                <TrendingUp className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              </div>
-            </div>
-            <div className="h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mt-4"></div>
-          </div>
-
-          {/* Average Price Per Unit Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">
-                  Avg Price/Unit
-                </p>
-                <h3 className="text-4xl font-bold text-slate-900 dark:text-white">
-                  ₹{avgPricePerUnit.toFixed(2)}
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-                  Per unit average
-                </p>
-              </div>
-              <div className="bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 p-4 rounded-xl">
-                <TrendingDown className="w-6 h-6 text-pink-600 dark:text-pink-400" />
-              </div>
-            </div>
-            <div className="h-1 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full mt-4"></div>
-          </div>
-        </div>
-      )}
       <div className="space-y-2">
         {/* Message Alert */}
         {message && (
@@ -1154,11 +1087,11 @@ export default function RMCManagement() {
         {/* All Recipes Header - Hidden for Production Users */}
         {!isProductionUser && (
           <>
-            <div className="bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-5 mb-4 border border-slate-200 dark:border-slate-700">
+            <div className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10 rounded-2xl shadow-md p-5 mb-4 border border-blue-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                    <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                     All Recipes
                   </h2>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -1176,7 +1109,7 @@ export default function RMCManagement() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
               {tableLoading ? (
                 <div className="p-8 text-center">
-                  <div className="inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                  <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                   <p className="text-slate-600 dark:text-slate-400 mt-2">
                     Loading recipes...
                   </p>
@@ -1186,49 +1119,37 @@ export default function RMCManagement() {
                   No recipes found. Create one above!
                 </div>
               ) : (
-                <div className="table-responsive shadow-elevation-4 animate-page-load">
-                  <table className="w-full">
-                    <thead className="prof-table-head">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[700px]">
+                    <thead className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10 border-b border-slate-200 dark:border-slate-700">
                       <tr>
-                        <th className="prof-table-head-cell">Recipe Code</th>
-                        <th className="prof-table-head-cell">Recipe Name</th>
-                        <th className="prof-table-head-cell">Total RM Cost</th>
-                        <th className="prof-table-head-cell">Price per Unit</th>
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Recipe Code</th>
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Recipe Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Total RM Cost</th>
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Price per Unit</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                      {paginatedRecipes.map((recipe, idx) => (
+                      {paginatedRecipes.map((recipe) => (
                         <tr
                           key={recipe._id}
-                          className={cn(
-                            "prof-table-row",
-                            idx % 2 === 0 && "prof-table-row-even",
-                            !isProductionUser &&
-                              "prof-table-row-hover cursor-pointer",
-                          )}
                           onClick={() =>
                             !isProductionUser &&
                             navigate(`/recipe/${recipe._id}`)
                           }
+                          className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors cursor-pointer"
                         >
-                          <td className="prof-table-cell">
-                            <span className="prof-badge-blue">
-                              {recipe.code}
-                            </span>
+                          <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                            {recipe.code}
                           </td>
-                          <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
+                          <td className="px-6 py-4 text-sm font-medium text-blue-600 dark:text-blue-400">
                             {recipe.name}
                           </td>
-                          <td className="prof-table-cell font-bold text-slate-900 dark:text-white">
-                            <span className="text-purple-600 dark:text-purple-400">
-                              ₹{recipe.totalRawMaterialCost.toFixed(2)}
-                            </span>
+                          <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                            ₹{recipe.totalRawMaterialCost.toFixed(2)}
                           </td>
-                          <td className="prof-table-cell font-bold">
-                            <span className="text-blue-600 dark:text-blue-400">
-                              ₹{recipe.pricePerUnit.toFixed(2)}/
-                              {recipe.unitName}
-                            </span>
+                          <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                            ₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}
                           </td>
                         </tr>
                       ))}
@@ -1236,9 +1157,9 @@ export default function RMCManagement() {
                   </table>
 
                   {/* Pagination Controls */}
-                  <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
+                  <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                         Items per page:
                       </span>
                       <select
@@ -1246,7 +1167,7 @@ export default function RMCManagement() {
                         onChange={(e) =>
                           handleItemsPerPageChange(e.target.value)
                         }
-                        className="prof-form-select px-4 py-2 w-24 text-sm"
+                        className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-medium hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
                       >
                         <option value="10">10</option>
                         <option value="20">20</option>

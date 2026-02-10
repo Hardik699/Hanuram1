@@ -665,9 +665,7 @@ export default function RMDetail() {
 
   if (loading) {
     return (
-      <Layout title="Loading...">
-        <LoadingSpinner message="Loading raw material..." />
-      </Layout>
+      <LoadingSpinner message="Loading raw material..." fullScreen={true} />
     );
   }
 
@@ -879,88 +877,118 @@ export default function RMDetail() {
             </div>
           )}
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-6 space-y-6">
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Raw Material Name
-              </label>
-              <input
-                type="text"
-                value={editFormData.name}
-                onChange={(e) =>
-                  setEditFormData({ ...editFormData, name: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              />
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8 space-y-8">
+            {/* Basic Information Section */}
+            <div className="space-y-5">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                Basic Information
+              </h3>
+
+              <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">⚙</span>
+                  Raw Material Name
+                </label>
+                <input
+                  type="text"
+                  value={editFormData.name}
+                  onChange={(e) =>
+                    setEditFormData({ ...editFormData, name: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Category
-              </label>
-              <select
-                value={editFormData.categoryId}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    categoryId: e.target.value,
-                    subCategoryId: "",
-                  })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                <option value="">Select Category</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
+            {/* Classification Section */}
+            <div className="space-y-5">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                Classification
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2.5">
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">📁</span>
+                    Category
+                  </label>
+                  <select
+                    value={editFormData.categoryId}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        categoryId: e.target.value,
+                        subCategoryId: "",
+                      })
+                    }
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                      <option key={cat._id} value={cat._id}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2.5">
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">🏷</span>
+                    Sub Category
+                  </label>
+                  <select
+                    value={editFormData.subCategoryId}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        subCategoryId: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+                  >
+                    <option value="">Select Sub Category</option>
+                    {subCategories
+                      .filter((sc) => sc.categoryId === editFormData.categoryId)
+                      .map((subcat) => (
+                        <option key={subcat._id} value={subcat._id}>
+                          {subcat.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Sub Category
-              </label>
-              <select
-                value={editFormData.subCategoryId}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    subCategoryId: e.target.value,
-                  })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                <option value="">Select Sub Category</option>
-                {subCategories
-                  .filter((sc) => sc.categoryId === editFormData.categoryId)
-                  .map((subcat) => (
-                    <option key={subcat._id} value={subcat._id}>
-                      {subcat.name}
+            {/* Unit Section */}
+            <div className="space-y-5">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                Unit of Measurement
+              </h3>
+
+              <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2.5">
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-base">⚖</span>
+                  Unit
+                </label>
+                <select
+                  value={editFormData.unitId}
+                  onChange={(e) =>
+                    setEditFormData({ ...editFormData, unitId: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+                >
+                  <option value="">Select Unit</option>
+                  {units.map((unit) => (
+                    <option key={unit._id} value={unit._id}>
+                      {unit.name}
                     </option>
                   ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Unit
-              </label>
-              <select
-                value={editFormData.unitId}
-                onChange={(e) =>
-                  setEditFormData({ ...editFormData, unitId: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                <option value="">Select Unit</option>
-                {units.map((unit) => (
-                  <option key={unit._id} value={unit._id}>
-                    {unit.name}
-                  </option>
-                ))}
-              </select>
+                </select>
+              </div>
             </div>
 
             <div>
@@ -993,7 +1021,7 @@ export default function RMDetail() {
                   <button
                     type="button"
                     onClick={() => setShowNewBrandInput(true)}
-                    className="px-3 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-1.5 text-sm whitespace-nowrap"
+                    className="px-3 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-1.5 text-sm whitespace-nowrap"
                     title="Create new brand"
                   >
                     <Plus className="w-4 h-4" />
@@ -1088,7 +1116,7 @@ export default function RMDetail() {
             <div className="flex gap-3 pt-4">
               <button
                 onClick={handleUpdateRawMaterial}
-                className="flex-1 px-4 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium"
+                className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
                 Save Changes
               </button>
@@ -1256,7 +1284,7 @@ export default function RMDetail() {
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
-                Vendor ⭐
+                Vendor
               </button>
               <button
                 onClick={() => setActiveTab("recipe")}
@@ -1276,91 +1304,139 @@ export default function RMDetail() {
           <div className="p-6">
             {/* Overview Tab */}
             {activeTab === "overview" && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Category
-                  </label>
-                  <p className="text-sm text-slate-900 dark:text-white font-medium">
-                    {rawMaterial.categoryName}
-                  </p>
+              <div className="space-y-8">
+                {/* Classification Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                    Classification
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">📁</span>
+                        Category
+                      </label>
+                      <p className="text-base font-semibold text-slate-900 dark:text-white">
+                        {rawMaterial.categoryName}
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">🏷</span>
+                        Sub Category
+                      </label>
+                      <p className="text-base font-semibold text-slate-900 dark:text-white">
+                        {rawMaterial.subCategoryName}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Sub Category
-                  </label>
-                  <p className="text-sm text-slate-900 dark:text-white font-medium">
-                    {rawMaterial.subCategoryName}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Unit
-                  </label>
-                  <p className="text-sm text-slate-900 dark:text-white font-medium">
-                    {rawMaterial.unitName || "-"}
-                  </p>
-                </div>
-                {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0) || rawMaterial.brandName ? (
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Brands
+
+                {/* Unit & Measurement Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                    Unit of Measurement
+                  </h3>
+                  <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">⚖</span>
+                      Unit
                     </label>
-                    <div className="flex flex-wrap gap-2">
-                      {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0)
-                        ? rawMaterial.brandNames.map((brand, index) => (
-                            <span
-                              key={index}
-                              className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
-                            >
-                              {brand}
-                            </span>
-                          ))
-                        : (
-                            <span className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
-                              {rawMaterial.brandName}
-                            </span>
-                          )
-                      }
+                    <p className="text-base font-semibold text-slate-900 dark:text-white">
+                      {rawMaterial.unitName || "-"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Brands Section */}
+                {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0) || rawMaterial.brandName ? (
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                      Brands
+                    </h3>
+                    <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
+                      <div className="flex flex-wrap gap-2">
+                        {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0)
+                          ? rawMaterial.brandNames.map((brand, index) => (
+                              <span
+                                key={index}
+                                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full text-sm font-semibold shadow-sm"
+                              >
+                                {brand}
+                              </span>
+                            ))
+                          : (
+                              <span className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full text-sm font-semibold shadow-sm">
+                                {rawMaterial.brandName}
+                              </span>
+                            )
+                        }
+                      </div>
                     </div>
                   </div>
                 ) : null}
+
+                {/* Tax & Code Section */}
                 {rawMaterial.hsnCode && (
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      HSN Code
-                    </label>
-                    <p className="text-sm text-slate-900 dark:text-white font-medium">
-                      {rawMaterial.hsnCode}
-                    </p>
-                  </div>
-                )}
-                {typeof rawMaterial.lastAddedPrice === "number" && (
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Last Price
-                    </label>
-                    <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
-                      ₹{rawMaterial.lastAddedPrice.toFixed(2)}
-                      {formatUnit(rawMaterial.unitName)
-                        ? ` / ${formatUnit(rawMaterial.unitName)}`
-                        : ""}
-                    </p>
-                    {rawMaterial.lastVendorName && (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                        from {rawMaterial.lastVendorName}
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                      Tax Information
+                    </h3>
+                    <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">📋</span>
+                        HSN Code
+                      </label>
+                      <p className="text-base font-semibold text-slate-900 dark:text-white font-mono">
+                        {rawMaterial.hsnCode}
                       </p>
-                    )}
+                    </div>
                   </div>
                 )}
-                {rawMaterial.lastPriceDate && (
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Last Purchase Date
-                    </label>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      {formatDate(rawMaterial.lastPriceDate)}
-                    </p>
+
+                {/* Pricing Section */}
+                {(typeof rawMaterial.lastAddedPrice === "number" || rawMaterial.lastPriceDate) && (
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                      Pricing Information
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {typeof rawMaterial.lastAddedPrice === "number" && (
+                        <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
+                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">💰</span>
+                            Last Price
+                          </label>
+                          <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                            ₹{rawMaterial.lastAddedPrice.toFixed(2)}
+                            {formatUnit(rawMaterial.unitName)
+                              ? ` / ${formatUnit(rawMaterial.unitName)}`
+                              : ""}
+                          </p>
+                          {rawMaterial.lastVendorName && (
+                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 font-medium">
+                              From: <span className="text-slate-900 dark:text-white">{rawMaterial.lastVendorName}</span>
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {rawMaterial.lastPriceDate && (
+                        <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-4 border border-blue-100/50 dark:border-blue-800/20">
+                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2.5">
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-lg">📅</span>
+                            Last Purchase Date
+                          </label>
+                          <p className="text-base font-semibold text-slate-900 dark:text-white">
+                            {formatDate(rawMaterial.lastPriceDate)}
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
@@ -1368,39 +1444,47 @@ export default function RMDetail() {
 
             {/* Vendor Tab */}
             {activeTab === "vendor" && (
-              <div className="space-y-4">
-                {/* Add Price Button */}
-                <button
-                  onClick={() => {
-                    setShowAddPriceForm(!showAddPriceForm);
-                    if (showAddPriceForm) {
-                      setVendorSearchInput("");
-                      setAddPriceFormData({
-                        vendorId: "",
-                        brandId: "",
-                        quantity: "",
-                        price: "",
-                        billNumber: "",
-                      });
-                    } else {
-                      // Auto-populate brand when opening form
-                      setAddPriceFormData({
-                        vendorId: "",
-                        brandId: rawMaterial?.brandId || "",
-                        quantity: "",
-                        price: "",
-                        billNumber: "",
-                      });
-                    }
-                  }}
-                  className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
-                >
-                  {showAddPriceForm ? "Cancel" : "+ Add Price"}
-                </button>
+              <div className="space-y-8">
+                {/* Add Price Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                    Add Vendor Price
+                  </h3>
+
+                  <button
+                    onClick={() => {
+                      setShowAddPriceForm(!showAddPriceForm);
+                      if (showAddPriceForm) {
+                        setVendorSearchInput("");
+                        setAddPriceFormData({
+                          vendorId: "",
+                          brandId: "",
+                          quantity: "",
+                          price: "",
+                          billNumber: "",
+                        });
+                      } else {
+                        // Auto-populate brand when opening form
+                        setAddPriceFormData({
+                          vendorId: "",
+                          brandId: rawMaterial?.brandId || "",
+                          quantity: "",
+                          price: "",
+                          billNumber: "",
+                        });
+                      }
+                    }}
+                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all shadow-sm hover:shadow-md font-semibold text-sm flex items-center gap-2 active:scale-95"
+                  >
+                    <span className="text-lg">+</span>
+                    {showAddPriceForm ? "Cancel" : "Add Price"}
+                  </button>
+                </div>
 
                 {/* Add Price Form */}
                 {showAddPriceForm && (
-                  <div className="bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-200 dark:border-slate-600 p-4 space-y-3">
+                  <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg border border-blue-100/50 dark:border-blue-800/20 p-6 space-y-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
@@ -1568,13 +1652,14 @@ export default function RMDetail() {
 
                 {/* Brands Section */}
                 {vendorPrices.length > 0 && (
-                  <div className="mt-8">
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
                       Brands for this Product
                     </h3>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                       <table className="w-full min-w-[500px]">
-                        <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                        <thead className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10 border-b border-slate-200 dark:border-slate-700">
                           <tr>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                               Brand Name
@@ -1615,56 +1700,62 @@ export default function RMDetail() {
 
                 {/* Vendors Table */}
                 {vendors.length === 0 ? (
-                  <div className="text-center py-12 text-slate-500 dark:text-slate-400">
-                    <p>No vendors available for this raw material</p>
+                  <div className="text-center py-16 rounded-lg bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50">
+                    <p className="text-slate-600 dark:text-slate-400 font-medium">No vendors available for this raw material</p>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full min-w-[700px]">
-                      <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
-                        <tr>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Vendor Name
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Contact Number
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Last Purchase Price
-                          </th>
-                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            Last Purchase Date
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                        {vendors.map((vendor) => (
-                          <tr
-                            key={vendor._id}
-                            onClick={() => handleVendorClick(vendor)}
-                            className="hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
-                          >
-                            <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
-                              {vendor.name}
-                            </td>
-                            <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2">
-                              <Phone className="w-4 h-4" />
-                              {vendor.mobileNumber}
-                            </td>
-                            <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
-                              {vendor.lastPrice
-                                ? `₹${vendor.lastPrice.toFixed(2)}/${formatUnit(rawMaterial.unitName)}`
-                                : "-"}
-                            </td>
-                            <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
-                              {vendor.lastPurchaseDate
-                                ? formatDate(vendor.lastPurchaseDate)
-                                : "-"}
-                            </td>
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-indigo-600 rounded-full"></div>
+                      Vendor List
+                    </h3>
+                    <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+                      <table className="w-full min-w-[700px]">
+                        <thead className="bg-gradient-to-r from-indigo-50 to-indigo-50/50 dark:from-indigo-900/20 dark:to-indigo-900/10 border-b border-slate-200 dark:border-slate-700">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Vendor Name
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Contact Number
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Last Purchase Price
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Last Purchase Date
+                            </th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                          {vendors.map((vendor) => (
+                            <tr
+                              key={vendor._id}
+                              onClick={() => handleVendorClick(vendor)}
+                              className="hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-colors cursor-pointer"
+                            >
+                              <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                                {vendor.name}
+                              </td>
+                              <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                                <Phone className="w-4 h-4" />
+                                {vendor.mobileNumber}
+                              </td>
+                              <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                                {vendor.lastPrice
+                                  ? `₹${vendor.lastPrice.toFixed(2)}/${formatUnit(rawMaterial.unitName)}`
+                                  : "-"}
+                              </td>
+                              <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                                {vendor.lastPurchaseDate
+                                  ? formatDate(vendor.lastPurchaseDate)
+                                  : "-"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 )}
               </div>
