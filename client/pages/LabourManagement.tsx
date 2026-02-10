@@ -37,8 +37,11 @@ export default function LabourManagement() {
 
   // Fetch labour list with retry logic
   const fetchLabour = async (retryCount = 0) => {
-    setLoading(true);
     try {
+      if (retryCount === 0) {
+        setLoading(true);
+      }
+
       const response = await fetch("/api/labour", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -51,24 +54,28 @@ export default function LabourManagement() {
       const result = await response.json();
       if (result.success && Array.isArray(result.data)) {
         setLabour(result.data);
+        setLoading(false);
       } else {
         throw new Error(result.message || "Failed to fetch labour");
       }
     } catch (error) {
       console.error("Error fetching labour:", error);
 
-      // Retry logic: retry up to 3 times on failure
-      if (retryCount < 3) {
-        console.warn(`Retrying labour fetch (attempt ${retryCount + 1}/3)...`);
+      // Retry logic: retry up to 2 times on failure
+      if (retryCount < 2) {
+        console.warn(
+          `Retrying labour fetch (attempt ${retryCount + 1}/3)...`,
+        );
         setTimeout(() => fetchLabour(retryCount + 1), 1000 * (retryCount + 1));
       } else {
+        setLoading(false);
         toast.error(
-          "Failed to fetch labour: " +
+          "Failed to load labour data: " +
             (error instanceof Error ? error.message : "Unknown error"),
         );
+        // Set empty array to show empty state instead of loading forever
+        setLabour([]);
       }
-    } finally {
-      setLoading(false);
     }
   };
 
