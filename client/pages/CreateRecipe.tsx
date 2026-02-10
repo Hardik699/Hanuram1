@@ -333,12 +333,12 @@ export default function CreateRecipe() {
 
   const handleAddRecipe = (selectedRecipe: Recipe) => {
     try {
-      // Add the entire recipe as a single item
+      // Add the entire recipe as a single item (with empty quantity for manual input)
       const recipeAsItem: RecipeItem = {
         rawMaterialId: selectedRecipe._id,
         rawMaterialName: selectedRecipe.name,
         rawMaterialCode: selectedRecipe.code,
-        quantity: 1,
+        quantity: 0,
         unitId: formData.unitId || selectedRecipe.unitId,
         unitName: formData.unitId
           ? units.find((u) => u._id === formData.unitId)?.name ||
@@ -347,7 +347,7 @@ export default function CreateRecipe() {
         price: selectedRecipe.pricePerUnit,
         vendorId: selectedRecipe._id,
         vendorName: selectedRecipe.name,
-        totalPrice: parseFloat(selectedRecipe.pricePerUnit.toFixed(2)),
+        totalPrice: 0,
       };
 
       // Add recipe as a single item
