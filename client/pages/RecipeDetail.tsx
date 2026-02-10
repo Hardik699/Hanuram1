@@ -1348,7 +1348,7 @@ export default function RecipeDetail() {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
                             {isCurrent && (
-                              <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-semibold rounded">
+                              <span className="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white text-xs font-semibold rounded">
                                 Current
                               </span>
                             )}
@@ -1371,7 +1371,7 @@ export default function RecipeDetail() {
                             Changed by: {snapshot.changedBy}
                           </p>
                           {changedItems.length > 0 && (
-                            <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
+                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">
                               📊 {changedItems.length} item(s) changed
                             </p>
                           )}
@@ -1380,7 +1380,7 @@ export default function RecipeDetail() {
                           <p className="text-xs text-slate-600 dark:text-slate-400">
                             Total RM Cost
                           </p>
-                          <p className="text-lg font-bold text-teal-600 dark:text-teal-400">
+                          <p className="text-lg font-bold text-slate-900 dark:text-white">
                             ₹{snapshot.totalRawMaterialCost.toFixed(2)}
                           </p>
                         </div>
@@ -2367,21 +2367,21 @@ export default function RecipeDetail() {
                       {changes.map((change, idx) => (
                         <div
                           key={idx}
-                          className="bg-white dark:bg-slate-800/50 rounded p-4 border-l-4 border-l-amber-500"
+                          className="bg-white dark:bg-slate-800/50 rounded p-4 border-l-4 border-l-blue-300 dark:border-l-blue-700"
                         >
-                          <p className="font-bold text-amber-900 dark:text-amber-100">
+                          <p className="font-bold text-slate-900 dark:text-white">
                             {change.rawMaterialName}
                           </p>
-                          <p className="text-sm text-amber-800 dark:text-amber-200 mt-2">
+                          <p className="text-sm text-slate-700 dark:text-slate-300 mt-2">
                             <span className="font-semibold">
                               {change.field}:
                             </span>
                             <br />
-                            <span className="line-through text-red-500">
+                            <span className="line-through text-slate-500">
                               Old: {change.oldValue}
                             </span>
                             <br />
-                            <span className="text-green-600 dark:text-green-400 font-bold">
+                            <span className="text-slate-900 dark:text-white font-bold">
                               New: {change.newValue}
                             </span>
                           </p>
@@ -2659,26 +2659,26 @@ export default function RecipeDetail() {
                         </div>
                       </div>
 
-                      <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-lg p-6">
-                        <h3 className="text-lg font-bold text-green-900 dark:text-green-100 mb-2">
+                      <div className="bg-blue-50 dark:bg-blue-900/10 border-2 border-blue-200 dark:border-blue-700 rounded-lg p-6">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
                           NEWER VERSION
                         </h3>
                         <div className="space-y-2">
-                          <p className="text-sm text-green-800 dark:text-green-200">
+                          <p className="text-sm text-slate-700 dark:text-slate-300">
                             <span className="font-semibold">Date:</span>
                             <br />
                             {new Date(first.snapshotDate).toLocaleString(
                               "en-IN",
                             )}
                           </p>
-                          <p className="text-sm text-green-800 dark:text-green-200">
+                          <p className="text-sm text-slate-700 dark:text-slate-300">
                             <span className="font-semibold">Changed by:</span>{" "}
                             {first.changedBy}
                           </p>
-                          <p className="text-sm text-green-800 dark:text-green-200">
+                          <p className="text-sm text-slate-700 dark:text-slate-300">
                             <span className="font-semibold">Total Cost:</span>
                             <br />
-                            <span className="text-lg font-bold text-green-600 dark:text-green-400">
+                            <span className="text-lg font-bold text-slate-900 dark:text-white">
                               ₹{first.totalRawMaterialCost.toFixed(2)}
                             </span>
                           </p>
@@ -2698,12 +2698,7 @@ export default function RecipeDetail() {
                             Cost Difference:
                           </span>
                           <span
-                            className={`ml-2 font-bold text-lg ${
-                              first.totalRawMaterialCost >
-                              second.totalRawMaterialCost
-                                ? "text-red-600"
-                                : "text-blue-600"
-                            }`}
+                            className={`ml-2 font-bold text-lg text-slate-900 dark:text-white`}
                           >
                             {first.totalRawMaterialCost >
                             second.totalRawMaterialCost
@@ -2727,8 +2722,8 @@ export default function RecipeDetail() {
                                 second.totalRawMaterialCost) *
                                 100 >
                               0
-                                ? "text-red-600"
-                                : "text-blue-600"
+                                ? "text-slate-900 dark:text-white"
+                                : "text-slate-900 dark:text-white"
                             }`}
                           >
                             {(
@@ -2783,19 +2778,19 @@ export default function RecipeDetail() {
                                         {change.field}
                                       </p>
                                     </div>
-                                    <div className="bg-red-50 dark:bg-red-900/20 rounded p-3 border border-red-200 dark:border-red-800">
-                                      <p className="text-xs text-red-700 dark:text-red-400 font-semibold mb-1">
+                                    <div className="bg-slate-100 dark:bg-slate-700 rounded p-3 border border-slate-200 dark:border-slate-600">
+                                      <p className="text-xs text-slate-700 dark:text-slate-300 font-semibold mb-1">
                                         BEFORE (Old)
                                       </p>
-                                      <p className="text-sm font-bold text-red-600 dark:text-red-400">
+                                      <p className="text-sm font-bold text-slate-900 dark:text-white">
                                         {change.oldValueFormatted}
                                       </p>
                                     </div>
-                                    <div className="bg-green-50 dark:bg-green-900/20 rounded p-3 border border-green-200 dark:border-green-800">
-                                      <p className="text-xs text-green-700 dark:text-green-400 font-semibold mb-1">
+                                    <div className="bg-blue-50 dark:bg-blue-900/10 rounded p-3 border border-blue-200 dark:border-blue-700">
+                                      <p className="text-xs text-blue-700 dark:text-blue-300 font-semibold mb-1">
                                         AFTER (New)
                                       </p>
-                                      <p className="text-sm font-bold text-green-600 dark:text-green-400">
+                                      <p className="text-sm font-bold text-slate-900 dark:text-white">
                                         {change.newValueFormatted}
                                       </p>
                                     </div>
