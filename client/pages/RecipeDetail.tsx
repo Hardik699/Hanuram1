@@ -1018,7 +1018,7 @@ export default function RecipeDetail() {
         }
       >
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex gap-2 mb-4">
           {[
             {
               id: "information",
@@ -1044,7 +1044,7 @@ export default function RecipeDetail() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
               className={cn(
-                "flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap border",
+                "flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap border",
                 activeTab === tab.id
                   ? "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 hover:border-blue-300 hover:shadow-md"
                   : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400",
@@ -1058,82 +1058,82 @@ export default function RecipeDetail() {
 
         {/* TAB 1: Information */}
         {activeTab === "information" && (
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Recipe Info Section */}
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md border border-slate-200 dark:border-slate-700 p-6">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Recipe Information</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Recipe Code</label>
-                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.code}</p>
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-5">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Recipe Information</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Recipe Code</label>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.code}</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Recipe Type</label>
-                  <p className="text-base font-bold text-slate-900 dark:text-white">
+                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Recipe Type</label>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">
                     {recipe.recipeType === "sub" ? "Sub Recipe" : "Master Recipe"}
                   </p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Batch Size</label>
-                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.batchSize} {recipe.unitName}</p>
+                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Batch Size</label>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.batchSize} {recipe.unitName}</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Yield</label>
-                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.yield || "-"}</p>
+                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Yield</label>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.yield || "-"}</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Moisture %</label>
-                  <p className="text-base font-bold text-slate-900 dark:text-white">{recipe.moisturePercentage || "-"}%</p>
+                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Moisture %</label>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.moisturePercentage || "-"}%</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Total RM Cost</label>
-                  <p className="text-base font-bold text-slate-900 dark:text-white">₹{totalRMCost.toFixed(2)}</p>
+                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Total RM Cost</label>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">₹{totalRMCost.toFixed(2)}</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">Price per Unit</label>
-                  <p className="text-base font-bold text-slate-900 dark:text-white">₹{pricePerUnit.toFixed(2)}/{recipe.unitName}</p>
+                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Price per Unit</label>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">₹{pricePerUnit.toFixed(2)}/{recipe.unitName}</p>
                 </div>
               </div>
             </div>
 
             {/* RM Table */}
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md border border-slate-200 dark:border-slate-700 p-8">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Recipe Making RM</h2>
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-5">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Recipe Making RM</h2>
               <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                 <table className="w-full">
-                  <thead className="bg-white dark:bg-slate-800 border-b-2 border-slate-300 dark:border-slate-600">
+                  <thead className="bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-900/50">
                     <tr>
-                      <th className="text-left py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
+                      <th className="text-left py-2 px-4 font-semibold text-slate-700 dark:text-slate-300 text-xs uppercase tracking-wider">
                         <span className="flex items-center gap-2">
                           <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
                           Raw Material
                         </span>
                       </th>
-                      <th className="text-left py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
+                      <th className="text-left py-2 px-4 font-semibold text-slate-700 dark:text-slate-300 text-xs uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                          <span className="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
                           Qty
                         </span>
                       </th>
-                      <th className="text-left py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
+                      <th className="text-left py-2 px-4 font-semibold text-slate-700 dark:text-slate-300 text-xs uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                          <span className="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
                           Unit
                         </span>
                       </th>
-                      <th className="text-right py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
+                      <th className="text-right py-2 px-4 font-semibold text-slate-700 dark:text-slate-300 text-xs uppercase tracking-wider">
                         <span className="flex items-center justify-end gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                          <span className="inline-block w-1 h-1 bg-blue-500 rounded-full"></span>
                           Unit Price
                         </span>
                       </th>
-                      <th className="text-right py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
+                      <th className="text-right py-2 px-4 font-semibold text-slate-700 dark:text-slate-300 text-xs uppercase tracking-wider">
                         <span className="flex items-center justify-end gap-2">
                           <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
                           Total
@@ -1145,26 +1145,26 @@ export default function RecipeDetail() {
                     {recipe.items?.map((item) => (
                       <tr
                         key={item._id || item.rawMaterialId}
-                        className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                        className="hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors border-b border-slate-100 dark:border-slate-700/50"
                       >
-                        <td className="py-4 px-6">
-                          <p className="font-semibold text-slate-900 dark:text-white">
+                        <td className="py-2.5 px-4">
+                          <p className="font-semibold text-slate-900 dark:text-white text-sm">
                             {item.rawMaterialName}
                           </p>
-                          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                             {item.rawMaterialCode}
                           </p>
                         </td>
-                        <td className="py-4 px-6 text-slate-900 dark:text-white font-semibold">
+                        <td className="py-2.5 px-4 text-slate-900 dark:text-white font-semibold text-sm">
                           {item.quantity}
                         </td>
-                        <td className="py-4 px-6 text-slate-700 dark:text-slate-300 font-medium">
+                        <td className="py-2.5 px-4 text-slate-700 dark:text-slate-300 font-medium text-sm">
                           {item.unitName || "-"}
                         </td>
-                        <td className="py-4 px-6 text-right text-slate-900 dark:text-white font-semibold">
+                        <td className="py-2.5 px-4 text-right text-slate-900 dark:text-white font-semibold text-sm">
                           ₹{item.price.toFixed(2)}
                         </td>
-                        <td className="py-4 px-6 text-right font-bold text-slate-900 dark:text-white">
+                        <td className="py-2.5 px-4 text-right font-bold text-slate-900 dark:text-white text-sm">
                           ₹{item.totalPrice.toFixed(2)}
                         </td>
                       </tr>
@@ -1174,20 +1174,20 @@ export default function RecipeDetail() {
               </div>
 
               {/* Summary */}
-              <div className="flex justify-end gap-12 mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
-                <div className="text-right p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <p className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+              <div className="flex justify-end gap-6 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                <div className="text-right p-4 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                     Total RM Cost
                   </p>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                  <p className="text-lg font-bold text-slate-900 dark:text-white">
                     ₹{totalRMCost.toFixed(2)}
                   </p>
                 </div>
-                <div className="text-right p-6 rounded-lg bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700">
-                  <p className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
+                <div className="text-right p-4 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+                  <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-1">
                     Per Unit Price
                   </p>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                  <p className="text-lg font-bold text-slate-900 dark:text-white">
                     ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
                   </p>
                 </div>
@@ -1195,7 +1195,7 @@ export default function RecipeDetail() {
             </div>
 
             {/* Labour Costing Sections */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               {/* Production Labour Cost */}
               <LabourCostSection
                 recipeId={recipeId!}
