@@ -586,7 +586,6 @@ export default function CreateVendor() {
                   <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0">
                     <tr>
                       <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Vendor Name</th>
-                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Contact Person</th>
                       <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Mobile</th>
                       <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Email</th>
                       {paginatedVendors.some(v => v.gstNumber) && (
@@ -616,13 +615,6 @@ export default function CreateVendor() {
                               {vendor.name}
                             </div>
                           </div>
-                        </td>
-
-                        {/* Contact Person */}
-                        <td className="px-6 py-4">
-                          <span className="font-semibold text-gray-900 capitalize-each-word">
-                            {vendor.personName}
-                          </span>
                         </td>
 
                         {/* Mobile */}
