@@ -147,6 +147,8 @@ export default function RMDetail() {
   const [addingPrice, setAddingPrice] = useState(false);
   const [selectedBrandForAdd, setSelectedBrandForAdd] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<Array<{ _id: string; name: string }>>([]);
+  const [selectedRecipeForAdd, setSelectedRecipeForAdd] = useState("");
+  const [selectedRecipes, setSelectedRecipes] = useState<RecipeWithItems[]>([]);
 
   // Calculate total price whenever quantity or price changes
   const totalPrice =
@@ -1087,6 +1089,76 @@ export default function RMDetail() {
 
             <div>
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                Recipes (Optional - Add Multiple)
+              </label>
+              <div className="space-y-3">
+                <select
+                  value={selectedRecipeForAdd}
+                  onChange={(e) => setSelectedRecipeForAdd(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+                >
+                  <option value="">Select Recipe</option>
+                  {recipes.filter(r => !selectedRecipes.find(sr => sr._id === r._id)).map((recipe) => (
+                    <option key={recipe._id} value={recipe._id}>
+                      {recipe.code} - {recipe.name}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (selectedRecipeForAdd) {
+                      const recipe = recipes.find(r => r._id === selectedRecipeForAdd);
+                      if (recipe) {
+                        setSelectedRecipes([...selectedRecipes, recipe]);
+                        setSelectedRecipeForAdd("");
+                      }
+                    }
+                  }}
+                  className="w-full px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Recipe
+                </button>
+              </div>
+
+              {/* Selected Recipes List */}
+              {selectedRecipes.length > 0 && (
+                <div className="mt-4 space-y-2">
+                  <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">
+                    Selected Recipes ({selectedRecipes.length})
+                  </p>
+                  <div className="space-y-2">
+                    {selectedRecipes.map((recipe) => (
+                      <div
+                        key={recipe._id}
+                        onDoubleClick={() => setSelectedRecipes(selectedRecipes.filter(r => r._id !== recipe._id))}
+                        className="flex items-center justify-between bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800/30 rounded-lg px-4 py-2.5 cursor-pointer hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
+                      >
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-slate-900 dark:text-white">
+                            {recipe.code} - {recipe.name}
+                          </p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                            Qty: {recipe.rawMaterialQuantity} {recipe.rawMaterialUnit ? formatUnit(recipe.rawMaterialUnit) : ''}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedRecipes(selectedRecipes.filter(r => r._id !== recipe._id))}
+                          className="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors ml-2"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                 HSN Code
               </label>
               <input
@@ -1689,6 +1761,9 @@ export default function RMDetail() {
                           <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                             Updated At
                           </th>
+                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                            Action
+                          </th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -1700,7 +1775,15 @@ export default function RMDetail() {
                             <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
                               {recipe.code}
                             </td>
-                            <td className="px-6 py-4 text-sm text-slate-900 dark:text-white font-medium">
+                            <td
+                              className="px-6 py-4 text-sm text-slate-900 dark:text-white font-medium cursor-pointer hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                              onDoubleClick={() => {
+                                if (!selectedRecipes.find(r => r._id === recipe._id)) {
+                                  setSelectedRecipes([...selectedRecipes, recipe]);
+                                }
+                              }}
+                              title="Double-click to add to selection"
+                            >
                               {recipe.name}
                             </td>
                             <td className="px-6 py-4 text-sm text-teal-600 dark:text-teal-400 font-semibold">
@@ -1711,6 +1794,21 @@ export default function RMDetail() {
                             </td>
                             <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
                               {formatDate(recipe.updatedAt)}
+                            </td>
+                            <td className="px-6 py-4 text-sm">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (!selectedRecipes.find(r => r._id === recipe._id)) {
+                                    setSelectedRecipes([...selectedRecipes, recipe]);
+                                  }
+                                }}
+                                className="px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors flex items-center gap-1 text-xs font-medium"
+                                title="Add recipe"
+                              >
+                                <Plus className="w-3.5 h-3.5" />
+                                Add
+                              </button>
                             </td>
                           </tr>
                         ))}
