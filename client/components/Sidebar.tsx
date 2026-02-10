@@ -90,10 +90,10 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile menu button */}
+      {/* Mobile menu button - Modern Design */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
+        className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2.5 rounded-lg hover:bg-blue-700 active:scale-95 transition-all shadow-lg"
       >
         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
@@ -101,57 +101,58 @@ export function Sidebar() {
       {/* Sidebar overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/20 z-30 md:hidden"
+          className="fixed inset-0 bg-black/30 z-30 md:hidden backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Modern Flat Design */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 overflow-y-auto z-40 transition-transform duration-300 md:translate-x-0 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-        style={{ width: "260px" }}
+        className={`fixed left-0 top-0 h-screen w-64 bg-slate-50 border-r transition-transform duration-300 md:translate-x-0 overflow-y-auto z-40 flex flex-col`}
+        style={{
+          width: "260px",
+          borderColor: "#e2e8f0"
+        }}
       >
         {/* Logo/Brand Section */}
-        <div className="px-4 py-4">
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all rounded-lg">
-            <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+        <div className="px-4 py-6 border-b" style={{ borderColor: "#e2e8f0" }}>
+          <div className="flex items-center gap-3 px-3 py-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md">
               HF
             </div>
             <div className="text-left">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Company
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                Hanuram
               </p>
-              <h2 className="text-sm font-bold text-gray-900">Hanuram Foods</h2>
+              <h2 className="text-sm font-bold text-gray-900">Foods</h2>
             </div>
-          </button>
+          </div>
         </div>
 
-        {/* MENU Label */}
-        <div className="px-4 py-3">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+        {/* Menu Label */}
+        <div className="px-4 py-4">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">
             Menu
           </p>
         </div>
 
-        {/* Menu Items */}
-        <nav className="px-4 space-y-0">
+        {/* Menu Items - Scrollable */}
+        <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
           {menuItems
             .filter((item) => checkAccess(item))
             .map((item, index) => {
               const itemActive = isActive(item.path || "");
-              
+
               return (
                 <div key={index}>
                   {item.submenu ? (
                     <div>
                       <button
                         onClick={() => toggleMenu(item.label)}
-                        className={`w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-all rounded-lg ${
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium transition-all rounded-lg mb-1 ${
                           expandedMenu === item.label
-                            ? "text-blue-600 bg-blue-50"
-                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                            ? "text-blue-600 bg-blue-100"
+                            : "text-gray-700 hover:text-gray-900"
                         }`}
                       >
                         <div className="flex items-center gap-3">
@@ -160,20 +161,11 @@ export function Sidebar() {
                               className={`w-5 h-5 transition-colors ${
                                 expandedMenu === item.label
                                   ? "text-blue-600"
-                                  : "text-gray-500"
+                                  : "text-gray-600"
                               }`}
                             />
                           )}
-                          <div className="text-left">
-                            {item.label === "Master Data Management" && (
-                              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Master Data
-                              </p>
-                            )}
-                            <span className={item.label === "Master Data Management" ? "text-sm font-bold text-gray-900" : ""}>
-                              {item.label === "Master Data Management" ? "Management" : item.label}
-                            </span>
-                          </div>
+                          <span>{item.label === "Master Data Management" ? "Management" : item.label}</span>
                         </div>
                         <ChevronDown
                           className={`w-4 h-4 transition-transform ${
@@ -183,16 +175,16 @@ export function Sidebar() {
                       </button>
 
                       {expandedMenu === item.label && (
-                        <div className="mt-0 ml-2 pl-4 border-l-2 border-gray-200 space-y-0">
+                        <div className="ml-2 pl-3 border-l-2 space-y-1 mb-1" style={{ borderColor: "#cbd5e1" }}>
                           {item.submenu.map((subitem: any, subindex: number) => (
                             <Link
                               key={subindex}
                               to={subitem.path}
                               onClick={() => setIsOpen(false)}
-                              className={`block px-4 py-2.5 text-sm font-medium transition-all rounded-lg ${
+                              className={`block px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                                 isActive(subitem.path)
-                                  ? "text-blue-600 bg-blue-50"
-                                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                                  ? "text-white bg-blue-600 font-semibold"
+                                  : "text-gray-700 hover:text-gray-900 hover:bg-gray-200"
                               }`}
                             >
                               {subitem.label}
@@ -205,28 +197,31 @@ export function Sidebar() {
                     <Link
                       to={item.path!}
                       onClick={() => setIsOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all rounded-lg ${
+                      className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all rounded-lg mb-1 ${
                         itemActive
-                          ? "text-blue-600 bg-blue-50"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          ? "text-white bg-blue-600 shadow-md"
+                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-200"
                       }`}
                     >
                       {item.icon && (
                         <item.icon
-                          className={`w-5 h-5 transition-colors ${
+                          className={`w-5 h-5 flex-shrink-0 transition-colors ${
                             itemActive
-                              ? "text-blue-600"
-                              : "text-gray-500"
+                              ? "text-white"
+                              : "text-gray-600"
                           }`}
                         />
                       )}
-                      <span>{item.label}</span>
+                      <span className="flex-1 text-left">{item.label}</span>
                     </Link>
                   )}
                 </div>
               );
             })}
         </nav>
+
+        {/* Footer spacer */}
+        <div className="h-4" />
       </aside>
 
       {/* Main content wrapper - offset from sidebar */}

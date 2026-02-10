@@ -100,14 +100,11 @@ export default function VendorDetail() {
     if (!editFormData.personName.trim()) {
       newErrors.personName = "Contact person name is required";
     }
-    if (!editFormData.mobileNumber.trim()) {
-      newErrors.mobileNumber = "Mobile number is required";
-    }
-    if (!editFormData.email.trim()) {
-      newErrors.email = "Email is required";
-    }
     if (!editFormData.location.trim()) {
       newErrors.location = "Location is required";
+    }
+    if (editFormData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editFormData.email)) {
+      newErrors.email = "Invalid email address";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -196,8 +193,8 @@ export default function VendorDetail() {
     return (
       <Layout title="Vendor Details">
         <div className="flex items-center justify-center p-8">
-          <div className="inline-block w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-slate-600 dark:text-slate-400 ml-3">
+          <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-gray-600 ml-3">
             Loading vendor...
           </p>
         </div>
@@ -210,10 +207,10 @@ export default function VendorDetail() {
       <Layout title="Vendor Not Found">
         <div className="text-center p-8">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <p className="text-slate-600 dark:text-slate-400">Vendor not found</p>
+          <p className="text-gray-600">Vendor not found</p>
           <button
             onClick={() => navigate("/create-vendor")}
-            className="mt-4 text-teal-600 hover:text-teal-700 dark:text-teal-400 font-medium"
+            className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
           >
             Back to Vendors
           </button>
@@ -230,22 +227,22 @@ export default function VendorDetail() {
           description={`Contact: ${vendor?.personName || "Loading..."}`}
           breadcrumbs={[
             { label: "Vendors", href: "/create-vendor" },
-            { label: vendor?.name || "Details" },
+            { label: vendor?.name ? vendor.name.charAt(0).toUpperCase() + vendor.name.slice(1) : "Details" },
           ]}
-          icon={<Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+          icon={<Building2 className="w-6 h-6 text-white" />}
           actions={
             !showEditForm ? (
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
                 >
                   <Trash2 className="w-4 h-4" />
                   Delete
@@ -257,137 +254,154 @@ export default function VendorDetail() {
 
         {message && (
           <div
-            className={`p-4 rounded-lg flex items-start gap-3 border ${
+            className={`p-4 rounded-lg flex items-start gap-3 border animate-slide-in-down ${
               messageType === "success"
-                ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/50"
-                : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50"
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                : "bg-red-50 border-red-200 text-red-900"
             }`}
           >
             {messageType === "success" ? (
-              <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+              <Check className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             )}
-            <span
-              className={
-                messageType === "success"
-                  ? "text-green-800 dark:text-green-300 font-medium text-sm"
-                  : "text-red-800 dark:text-red-300 font-medium text-sm"
-              }
-            >
+            <span className="font-medium text-sm">
               {message}
             </span>
           </div>
         )}
 
         {!showEditForm ? (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 p-8">
+          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <User className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Contact Person
-                  </label>
-                </div>
-                <p className="text-slate-600 dark:text-slate-400 text-lg">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Vendor Name
+                </label>
+                <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
+                  {vendor.name}
+                </p>
+              </div>
+
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Contact Person
+                </label>
+                <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
                   {vendor.personName}
                 </p>
               </div>
 
-              <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Phone className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Mobile Number
-                  </label>
-                </div>
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Mobile Number
+                </label>
                 <a
                   href={`tel:${vendor.mobileNumber}`}
-                  className="text-teal-600 dark:text-teal-400 hover:underline text-lg"
+                  className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   {vendor.mobileNumber}
                 </a>
               </div>
 
-              <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Mail className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Email
-                  </label>
-                </div>
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Email Address
+                </label>
                 <a
                   href={`mailto:${vendor.email}`}
-                  className="text-teal-600 dark:text-teal-400 hover:underline text-lg"
+                  className="text-sm font-bold text-blue-600 hover:text-blue-700 break-all"
                 >
                   {vendor.email}
                 </a>
               </div>
 
-              <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <MapPin className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Location
-                  </label>
-                </div>
-                <p className="text-slate-600 dark:text-slate-400 text-lg">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Location
+                </label>
+                <p className="text-gray-900 font-semibold capitalize-each-word">
                   {vendor.location}
                 </p>
               </div>
 
               {vendor.gstNumber && (
-                <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
-                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                  <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                     GST Number
                   </label>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg">
+                  <p className="text-gray-900 font-semibold">
                     {vendor.gstNumber}
                   </p>
                 </div>
               )}
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                  Created By
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Created On
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {vendor.createdBy}
+                <p className="text-gray-900 font-semibold">
+                  {new Date(vendor.createdAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                  Created Date
-                </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {new Date(vendor.createdAt).toLocaleString()}
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Last Updated
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {new Date(vendor.updatedAt).toLocaleString()}
+                <p className="text-gray-900 font-semibold">
+                  {new Date(vendor.updatedAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </p>
               </div>
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mb-6">
-              Edit Vendor Details
-            </h2>
+          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8 animate-fade-in">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                Edit Vendor
+              </h2>
+              <p className="text-gray-600">
+                Update vendor information and details
+              </p>
+            </div>
 
-            <form className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Vendor Name *
+            {message && (
+              <div
+                className={`mb-6 p-4 rounded-lg flex items-center gap-3 border animate-slide-in-down ${
+                  messageType === "success"
+                    ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                    : "bg-red-50 border-red-200 text-red-900"
+                }`}
+              >
+                {messageType === "success" ? (
+                  <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                ) : (
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                )}
+                <span className="font-medium text-sm">
+                  {message}
+                </span>
+              </div>
+            )}
+
+            <form className="space-y-7">
+              {/* Vendor Name Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Vendor Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -395,22 +409,26 @@ export default function VendorDetail() {
                   onChange={(e) =>
                     setEditFormData({ ...editFormData, name: e.target.value })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  placeholder="e.g., ABC Supply Co..."
+                  autoCapitalize="words"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word text-gray-900 placeholder-gray-400 focus:outline-none ${
                     errors.name
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 />
                 {errors.name && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.name}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Contact Person Name *
+              {/* Contact Person Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Contact Person <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -421,97 +439,110 @@ export default function VendorDetail() {
                       personName: e.target.value,
                     })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  placeholder="e.g., John Doe..."
+                  autoCapitalize="words"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word text-gray-900 placeholder-gray-400 focus:outline-none ${
                     errors.personName
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 />
                 {errors.personName && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.personName}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Mobile Number *
+              {/* Mobile Number Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Mobile Number
                 </label>
-                <input
-                  type="tel"
-                  value={editFormData.mobileNumber}
-                  onChange={(e) =>
-                    setEditFormData({
-                      ...editFormData,
-                      mobileNumber: e.target.value,
-                    })
-                  }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.mobileNumber
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
-                />
-                {errors.mobileNumber && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.mobileNumber}
-                  </p>
-                )}
+                <div className="relative">
+                  <Phone className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
+                  <input
+                    type="tel"
+                    value={editFormData.mobileNumber}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        mobileNumber: e.target.value,
+                      })
+                    }
+                    placeholder="Enter mobile number"
+                    className="w-full pl-12 pr-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Email *
+              {/* Email Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Email Address
                 </label>
-                <input
-                  type="email"
-                  value={editFormData.email}
-                  onChange={(e) =>
-                    setEditFormData({ ...editFormData, email: e.target.value })
-                  }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.email
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
-                />
+                <div className="relative">
+                  <Mail className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
+                  <input
+                    type="email"
+                    value={editFormData.email}
+                    onChange={(e) =>
+                      setEditFormData({ ...editFormData, email: e.target.value })
+                    }
+                    placeholder="Enter email address"
+                    className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white border transition-all text-gray-900 placeholder-gray-400 focus:outline-none ${
+                      errors.email
+                        ? "border-red-500 ring-1 ring-red-500"
+                        : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    }`}
+                  />
+                </div>
                 {errors.email && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.email}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Location *
+              {/* Location Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Location <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="text"
-                  value={editFormData.location}
-                  onChange={(e) =>
-                    setEditFormData({
-                      ...editFormData,
-                      location: e.target.value,
-                    })
-                  }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.location
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
-                />
+                <div className="relative">
+                  <MapPin className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
+                  <input
+                    type="text"
+                    value={editFormData.location}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        location: e.target.value,
+                      })
+                    }
+                    placeholder="Enter full address"
+                    autoCapitalize="words"
+                    className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word text-gray-900 placeholder-gray-400 focus:outline-none ${
+                      errors.location
+                        ? "border-red-500 ring-1 ring-red-500"
+                        : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    }`}
+                  />
+                </div>
                 {errors.location && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.location}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  GST Number (Optional)
+              {/* GST Number Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  GST Number <span className="text-gray-400 font-normal">(Optional)</span>
                 </label>
                 <input
                   type="text"
@@ -522,25 +553,18 @@ export default function VendorDetail() {
                       gstNumber: e.target.value,
                     })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.gstNumber
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  placeholder="Enter GST number"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                 />
-                {errors.gstNumber && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.gstNumber}
-                  </p>
-                )}
               </div>
 
-              <div className="flex gap-3 pt-4">
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-6 border-t border-gray-200 mt-8">
                 <button
                   type="button"
                   onClick={handleSave}
                   disabled={saveLoading}
-                  className="flex-1 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
                 >
                   {saveLoading ? (
                     <>
@@ -557,7 +581,7 @@ export default function VendorDetail() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                  className="px-8 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg transition-all"
                 >
                   Cancel
                 </button>

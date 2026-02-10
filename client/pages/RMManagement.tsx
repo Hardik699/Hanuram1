@@ -1009,113 +1009,105 @@ export default function RMManagement() {
           actions={headerActions}
         />
 
-        {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 animate-fade-in-up">
+        {/* Statistics Cards - Modern SaaS Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8 animate-fade-in-up">
           {/* Total Raw Materials Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          <div className="stat-card group">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <p className="stat-label mb-2">
                   Total Materials
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                <h3 className="stat-value text-3xl">
                   {totalRawMaterials}
                 </h3>
               </div>
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
-                <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <Package className="w-6 h-6 text-blue-600" />
               </div>
-            </div>
-            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
           {/* With Prices Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          <div className="stat-card group">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <p className="stat-label mb-2">
                   With Prices
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                <h3 className="stat-value text-3xl">
                   {materialsWithPrices}
                 </h3>
+                <p className="text-xs text-gray-500 mt-2">
+                  {totalRawMaterials > 0 ? Math.round((materialsWithPrices / totalRawMaterials) * 100) : 0}% complete
+                </p>
               </div>
-              <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-xl">
-                <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
+              <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-6 h-6 text-green-600" />
               </div>
-            </div>
-            <div className="h-1 w-full bg-green-200 dark:bg-green-900/30 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all"
-                style={{
-                  width: `${materialsWithPrices > 0 ? (materialsWithPrices / totalRawMaterials) * 100 : 0}%`,
-                }}
-              ></div>
             </div>
           </div>
 
-          {/* Without Prices Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          {/* Pending Prices Card */}
+          <div className="stat-card group">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <p className="stat-label mb-2">
                   Pending Prices
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                <h3 className="stat-value text-3xl">
                   {materialsWithoutPrices}
                 </h3>
+                <p className="text-xs text-gray-500 mt-2">
+                  Awaiting vendor data
+                </p>
               </div>
-              <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-xl">
-                <AlertCircle className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+              <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <AlertCircle className="w-6 h-6 text-amber-600" />
               </div>
-            </div>
-            <div className="h-1 w-full bg-amber-200 dark:bg-amber-900/30 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-amber-500 to-orange-600 rounded-full transition-all"
-                style={{
-                  width: `${materialsWithoutPrices > 0 ? (materialsWithoutPrices / totalRawMaterials) * 100 : 0}%`,
-                }}
-              ></div>
             </div>
           </div>
 
           {/* Total Categories Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          <div className="stat-card group">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <p className="stat-label mb-2">
                   Categories
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <h3 className="stat-value text-3xl">
                   {categories.length}
                 </h3>
+                <p className="text-xs text-gray-500 mt-2">
+                  Total classifications
+                </p>
               </div>
-              <div className="bg-purple-100 dark:bg-purple-900/30 p-4 rounded-xl">
-                <LayoutGrid className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <LayoutGrid className="w-6 h-6 text-purple-600" />
               </div>
-            </div>
-            <div className="h-1 w-full bg-purple-200 dark:bg-purple-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-purple-500 to-pink-600 rounded-full"></div>
             </div>
           </div>
         </div>
 
         <div className="space-y-4">
-          {/* Message Alert with Progress */}
+          {/* Message Alert - Modern Notification */}
           {message && (
             <div
-              className={`p-4 rounded-2xl flex items-start gap-3 border animate-slide-in-down shadow-elevation-2 ${
+              className={`p-4 rounded-lg flex items-start gap-3 border animate-slide-in-down ${
                 messageType === "success"
-                  ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50"
-                  : "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800/50"
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                  : "bg-red-50 border-red-200 text-red-900"
               }`}
+              style={{
+                boxShadow: messageType === "success"
+                  ? "0 4px 12px rgba(16, 185, 129, 0.1)"
+                  : "0 4px 12px rgba(239, 68, 68, 0.1)"
+              }}
             >
               {messageType === "success" ? (
-                <Check className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5 animate-bounce-gentle" />
+                <Check className={`w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5`} />
               ) : (
-                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle className={`w-5 h-5 text-red-600 flex-shrink-0 mt-0.5`} />
               )}
               <div className="flex-1">
                 <span
