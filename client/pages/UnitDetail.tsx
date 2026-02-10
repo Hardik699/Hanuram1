@@ -209,14 +209,14 @@ export default function UnitDetail() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowEditForm(true)}
-                  className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md"
                 >
                   <Trash2 className="w-4 h-4" />
                   Delete
@@ -228,79 +228,119 @@ export default function UnitDetail() {
 
         {message && (
           <div
-            className={`p-4 rounded-lg flex items-start gap-3 border ${
+            className={`p-4 rounded-lg flex items-start gap-3 border animate-slide-in-down ${
               messageType === "success"
-                ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/50"
-                : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/50"
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                : "bg-red-50 border-red-200 text-red-900"
             }`}
           >
             {messageType === "success" ? (
-              <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+              <Check className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             )}
-            <span
-              className={
-                messageType === "success"
-                  ? "text-green-800 dark:text-green-300 font-medium text-sm"
-                  : "text-red-800 dark:text-red-300 font-medium text-sm"
-              }
-            >
+            <span className="font-medium text-sm">
               {message}
             </span>
           </div>
         )}
 
         {!showEditForm ? (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Unit Name
+                </label>
+                <p className="text-2xl font-bold text-gray-900 capitalize-each-word">
+                  {unit.name}
+                </p>
+              </div>
+
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Short Code
                 </label>
-                <p className="text-slate-600 dark:text-slate-400 text-lg font-mono bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded">
+                <p className="text-2xl font-bold text-gray-900 font-mono tracking-widest">
                   {unit.shortCode}
                 </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Created By
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-gray-900 font-semibold capitalize-each-word">
                   {unit.createdBy}
                 </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                  Created Date
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
+                  Created On
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {new Date(unit.createdAt).toLocaleString()}
+                <p className="text-gray-900 font-semibold">
+                  {new Date(unit.createdAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              <div className="p-6 rounded-lg bg-gray-50 border border-gray-200">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
                   Last Updated
                 </label>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {new Date(unit.updatedAt).toLocaleString()}
+                <p className="text-gray-900 font-semibold">
+                  {new Date(unit.updatedAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
                 </p>
               </div>
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent mb-6">
-              Edit Unit Details
-            </h2>
+          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8 animate-fade-in">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                Edit Unit
+              </h2>
+              <p className="text-gray-600">
+                Update unit information
+              </p>
+            </div>
 
-            <form className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Unit Name *
+            {message && (
+              <div
+                className={`mb-6 p-4 rounded-lg flex items-center gap-3 border animate-slide-in-down ${
+                  messageType === "success"
+                    ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                    : "bg-red-50 border-red-200 text-red-900"
+                }`}
+              >
+                {messageType === "success" ? (
+                  <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                ) : (
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                )}
+                <span className="font-medium text-sm">
+                  {message}
+                </span>
+              </div>
+            )}
+
+            <form className="space-y-7">
+              {/* Unit Name Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Unit Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -308,22 +348,26 @@ export default function UnitDetail() {
                   onChange={(e) =>
                     setEditFormData({ ...editFormData, name: e.target.value })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  placeholder="e.g., Kilogram"
+                  autoCapitalize="words"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word text-gray-900 placeholder-gray-400 focus:outline-none ${
                     errors.name
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 />
                 {errors.name && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.name}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Short Code *
+              {/* Short Code Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Short Code <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -331,28 +375,31 @@ export default function UnitDetail() {
                   onChange={(e) =>
                     setEditFormData({
                       ...editFormData,
-                      shortCode: e.target.value,
+                      shortCode: e.target.value.toUpperCase(),
                     })
                   }
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  placeholder="e.g., KG"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all text-gray-900 placeholder-gray-400 focus:outline-none font-semibold text-center tracking-widest ${
                     errors.shortCode
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 />
                 {errors.shortCode && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.shortCode}
                   </p>
                 )}
               </div>
 
-              <div className="flex gap-3 pt-4">
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-6 border-t border-gray-200 mt-8">
                 <button
                   type="button"
                   onClick={handleSave}
                   disabled={saveLoading}
-                  className="flex-1 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-400 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
                 >
                   {saveLoading ? (
                     <>
@@ -369,7 +416,7 @@ export default function UnitDetail() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                  className="px-8 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg transition-all"
                 >
                   Cancel
                 </button>

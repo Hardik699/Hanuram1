@@ -298,39 +298,39 @@ export default function CreateUnit() {
           </button>
 
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              {editingId ? "Edit Unit" : "Add New Unit"}
-            </h2>
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                {editingId ? "Edit Unit" : "Add New Unit"}
+              </h2>
+              <p className="text-gray-600">
+                {editingId ? "Update unit information" : "Create a new measurement unit"}
+              </p>
+            </div>
 
             {message && (
               <div
-                className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+                className={`mb-6 p-4 rounded-lg flex items-center gap-3 border animate-slide-in-down ${
                   messageType === "success"
-                    ? "bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800"
-                    : "bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800"
+                    ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                    : "bg-red-50 border-red-200 text-red-900"
                 }`}
               >
                 {messageType === "success" ? (
-                  <Check className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                  <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                 ) : (
-                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
                 )}
-                <span
-                  className={
-                    messageType === "success"
-                      ? "text-green-700 dark:text-green-300"
-                      : "text-red-700 dark:text-red-300"
-                  }
-                >
+                <span className="font-medium text-sm">
                   {message}
                 </span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Unit Name (e.g., kg, gm, liter) *
+            <form onSubmit={handleSubmit} className="space-y-7">
+              {/* Unit Name Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Unit Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -338,23 +338,26 @@ export default function CreateUnit() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  placeholder="Enter unit name"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  placeholder="e.g., Kilogram, Liter, Piece"
+                  autoCapitalize="words"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word text-gray-900 placeholder-gray-400 focus:outline-none ${
                     errors.name
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 />
                 {errors.name && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.name}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Unit Short Code *
+              {/* Short Code Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Short Code <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -365,25 +368,27 @@ export default function CreateUnit() {
                       shortCode: e.target.value.toUpperCase(),
                     })
                   }
-                  placeholder="e.g., KG, GM, LTR"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  placeholder="e.g., KG, LTR, PCS"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all text-gray-900 placeholder-gray-400 focus:outline-none font-semibold text-center ${
                     errors.shortCode
-                      ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                      ? "border-red-500 ring-1 ring-red-500"
+                      : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  }`}
                 />
                 {errors.shortCode && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.shortCode}
                   </p>
                 )}
               </div>
 
-              <div className="flex gap-3 pt-4">
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-6 border-t border-gray-200 mt-8">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:bg-slate-400 text-white font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -392,7 +397,7 @@ export default function CreateUnit() {
                     </>
                   ) : (
                     <>
-                      <Plus className="w-4 h-4" />
+                      <Check className="w-4 h-4" />
                       <span>{editingId ? "Update Unit" : "Create Unit"}</span>
                     </>
                   )}
@@ -400,7 +405,7 @@ export default function CreateUnit() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                  className="px-8 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg transition-all"
                 >
                   Cancel
                 </button>
@@ -435,171 +440,142 @@ export default function CreateUnit() {
             </div>
           )}
 
-          {/* Statistics Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
+          {/* Statistics Card - Modern Design */}
+          <div className="stat-card group mb-6">
             <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+              <div className="flex-1">
+                <p className="stat-label">
                   Total Units
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                <h3 className="stat-value text-3xl mt-2">
                   {filteredUnits.length}
                 </h3>
               </div>
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
-                <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <Settings className="w-6 h-6 text-blue-600" />
               </div>
-            </div>
-            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden mt-4">
-              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          {/* Filter Section */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              Search Units
+          {/* Search Section - Modern Design */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-5 flex items-center gap-2">
+              <Search className="w-5 h-5 text-blue-600" />
+              Search & Filter
             </h3>
-            <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-blue-700 dark:text-blue-400">
-                Search Unit Name
-              </label>
-              <div className="relative">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-blue-500 dark:text-blue-400" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  placeholder="Search units..."
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all shadow-sm font-medium"
-                />
-              </div>
+            <div className="relative">
+              <Search className="absolute left-4 top-3 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+                placeholder="Find units by name..."
+                className="w-full pl-11 pr-4 py-2.5 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+              />
             </div>
           </div>
 
-          {/* Units List Header */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-5 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
+          {/* Units Summary Card */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6 mb-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  Units List
+                <h2 className="text-lg font-bold text-gray-900 mb-1 flex items-center gap-2">
+                  <Settings className="w-5 h-5 text-blue-600" />
+                  Units
                 </h2>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Showing{" "}
-                  <span className="font-bold text-slate-900 dark:text-white">
+                <p className="text-sm text-gray-600">
+                  <span className="font-semibold text-gray-900">
                     {filteredUnits.length}
                   </span>{" "}
-                  unit{filteredUnits.length !== 1 ? "s" : ""}
+                  unit{filteredUnits.length !== 1 ? "s" : ""} found
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Units Table */}
-          <div className="unified-table-container">
-            <div className="overflow-x-auto w-full">
-              <table className="w-full min-w-full">
-                <thead className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 border-b-2 border-blue-700 dark:border-blue-800 sticky top-0">
-                  <tr>
-                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Name
-                    </th>
-                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Short Code
-                    </th>
-                    <th className="hidden md:table-cell px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-left text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Created By
-                    </th>
-                    <th className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 text-center text-xs md:text-sm font-bold text-white uppercase tracking-wider whitespace-nowrap">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                  {tableLoading ? (
-                    <tr>
-                      <td colSpan={4} className="px-6 py-8 text-center">
-                        <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                        <p className="text-slate-600 dark:text-slate-400 mt-2">
-                          Loading units...
-                        </p>
-                      </td>
-                    </tr>
-                  ) : paginatedUnits.length === 0 ? (
-                    <tr>
-                      <td
-                        colSpan={4}
-                        className="px-6 py-8 text-center text-slate-600 dark:text-slate-400"
-                      >
-                        No units found
-                      </td>
-                    </tr>
-                  ) : (
-                    paginatedUnits.map((unit, idx) => (
-                      <tr
-                        key={unit._id}
-                        className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 h-16 ${
-                          idx % 2 === 0
-                            ? "hover:bg-blue-50 dark:hover:bg-blue-900/10"
-                            : "bg-slate-50/50 dark:bg-slate-800/30 hover:bg-blue-50 dark:hover:bg-blue-900/10"
-                        }`}
-                      >
-                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white whitespace-nowrap">
-                          <div className="flex flex-col gap-1">
-                            <span>{unit.name}</span>
-                            <span className="md:hidden text-xs text-slate-500 dark:text-slate-400">
-                              By: {unit.createdBy}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-bold whitespace-nowrap">
-                          <span className="px-2 sm:px-2.5 py-1 sm:py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
-                            {unit.shortCode}
-                          </span>
-                        </td>
-                        <td className="hidden md:table-cell px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                          {unit.createdBy}
-                        </td>
-                        <td className="px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 text-center whitespace-nowrap">
-                          <div className="flex items-center justify-center gap-2">
-                            <button
-                              onClick={() => handleEdit(unit)}
-                              className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors transform hover:scale-110"
-                              title="Edit unit"
-                            >
-                              <Edit2 className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => handleDelete(unit._id)}
-                              className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors transform hover:scale-110"
-                              title="Delete unit"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
+          {/* Units Grid - Light & Modern Design */}
+          <div className="space-y-3">
+            {tableLoading ? (
+              <div className="flex flex-col items-center justify-center py-16">
+                <div className="inline-block w-8 h-8 border-3 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
+                <p className="text-gray-600 mt-3 font-medium text-sm">Loading units...</p>
+              </div>
+            ) : paginatedUnits.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                <Settings className="w-14 h-14 text-blue-300 mb-3" />
+                <p className="font-bold text-gray-900 text-base">No units yet</p>
+                <p className="text-sm text-gray-500 mt-1">Create your first unit to get started</p>
+              </div>
+            ) : (
+              paginatedUnits.map((unit) => (
+                <div
+                  key={unit._id}
+                  className="group bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 border border-gray-200 hover:border-blue-300 rounded-xl px-5 py-4 transition-all duration-200 hover:shadow-lg hover:scale-102 cursor-pointer flex items-center justify-between"
+                  onClick={() => navigate(`/unit/${unit._id}`)}
+                >
+                  {/* Left Content */}
+                  <div className="flex items-center gap-4 flex-1 min-w-0">
+                    {/* Avatar */}
+                    <div className="flex-shrink-0">
+                      <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-105 group-hover:from-blue-600 group-hover:to-blue-700 shadow-sm">
+                        {unit.name.substring(0, 1).toUpperCase()}
+                      </div>
+                    </div>
+
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word">
+                          {unit.name}
+                        </h3>
+                        <span className="hidden sm:inline text-xs bg-blue-100 group-hover:bg-blue-200 text-blue-700 px-2.5 py-1 rounded-md transition-colors font-medium uppercase">
+                          {unit.shortCode}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">by <span className="font-medium text-gray-700 capitalize-each-word">{unit.createdBy}</span></p>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 flex-shrink-0">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit(unit);
+                      }}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
+                      title="Edit"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(unit._id);
+                      }}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
+                      title="Delete"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
 
             {/* Pagination Controls */}
-            <div className="px-6 py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-between flex-wrap gap-4">
+            <div className="mt-6 flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-3">
-                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
-                  Items per page:
+                <span className="text-sm font-medium text-gray-700">
+                  Show:
                 </span>
                 <select
                   value={itemsPerPage}
                   onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-700/50 border-2 border-blue-200 dark:border-blue-900/50 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-300 dark:focus:border-blue-700 transition-all font-semibold hover:border-blue-300 dark:hover:border-blue-800"
+                  className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-sm text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all hover:border-blue-400"
                 >
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -607,39 +583,32 @@ export default function CreateUnit() {
                 </select>
               </div>
 
-              <div className="flex items-center gap-6">
-                <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                  <span className="font-bold text-blue-600 dark:text-blue-400">
-                    {startIndex + 1}-{Math.min(endIndex, filteredUnits.length)}
+              <div className="flex items-center gap-4">
+                <span className="text-xs font-medium text-gray-600">
+                  <span className="font-semibold text-blue-600">
+                    {startIndex + 1}–{Math.min(endIndex, filteredUnits.length)}
                   </span>{" "}
                   of{" "}
-                  <span className="font-bold text-slate-900 dark:text-slate-200">
+                  <span className="font-semibold text-gray-900">
                     {filteredUnits.length}
                   </span>
                 </span>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-400 transition-all hover:border-blue-400"
                     title="Previous Page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[100px] text-center">
-                    Page{" "}
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
-                      {currentPage}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
-                      {totalPages || 1}
-                    </span>
+                  <span className="text-xs font-medium text-gray-700 min-w-[70px] text-center">
+                    <span className="font-bold text-blue-600">{currentPage}</span>/<span className="font-bold text-gray-900">{totalPages || 1}</span>
                   </span>
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-400 transition-all hover:border-blue-400"
                     title="Next Page"
                   >
                     <ChevronRight className="w-4 h-4" />
