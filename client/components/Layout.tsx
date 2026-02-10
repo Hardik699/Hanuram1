@@ -16,30 +16,35 @@ export function Layout({
   headerActions,
 }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-50">
       {/* Sidebar */}
       <Sidebar />
 
-      {/* Top Navbar */}
+      {/* Top Navbar - Modern SaaS Style */}
       {!hideHeader && (
-        <header className="fixed top-0 left-0 right-0 z-20 bg-white border-b border-gray-200 md:ml-64">
-          <div className="h-16 px-6 flex items-center justify-between gap-4">
-            {/* Search Bar */}
-            <div className="flex-1 max-w-md">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <header className="fixed top-0 left-0 right-0 z-20 bg-white md:ml-64 border-b transition-all duration-200"
+          style={{ borderColor: "#e2e8f0" }}
+        >
+          <div className="h-16 px-6 flex items-center justify-between gap-6">
+            {/* Search Bar - Centered with Icon */}
+            <div className="flex-1 max-w-lg">
+              <div className="relative group">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                 <input
                   type="text"
-                  placeholder="Search or type command..."
-                  className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-100 border border-gray-200 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+                  placeholder="Search materials, vendors..."
+                  className="w-full pl-11 pr-4 py-2.5 rounded-lg bg-slate-50 border text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all"
+                  style={{ borderColor: "#e2e8f0" }}
                 />
               </div>
             </div>
 
-            {/* Right Actions */}
-            <div className="flex items-center gap-4 ml-auto">
+            {/* Right Actions - Organized */}
+            <div className="flex items-center gap-3 ml-auto">
               {headerActions && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 border-r pr-3"
+                  style={{ borderColor: "#e2e8f0" }}
+                >
                   {headerActions}
                 </div>
               )}
@@ -49,12 +54,13 @@ export function Layout({
         </header>
       )}
 
-      {/* Main Content */}
-      <main className="md:ml-64 pt-24 pb-12 px-6">
+      {/* Main Content - Improved Spacing */}
+      <main className="md:ml-64 pt-20 pb-12 px-6">
         <div className="max-w-7xl mx-auto">
           {title && (
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
+              <p className="text-gray-600 mt-1">Manage and track all your raw materials and pricing</p>
             </div>
           )}
           {children}
