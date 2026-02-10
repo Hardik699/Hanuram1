@@ -960,12 +960,24 @@ export default function RMCManagement() {
       {isProductionUser && (
         <div className="space-y-6">
           <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl shadow-md p-6 border border-orange-200 dark:border-slate-700">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-              Production Labour Costs
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">
-              Click on a recipe to view and manage its production labour costs
-            </p>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Production Labour Costs
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">
+                  Click on a recipe to view and manage its production labour costs
+                </p>
+              </div>
+              <button
+                onClick={() => navigate("/recipe/new")}
+                className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap h-fit"
+              >
+                <Plus className="w-5 h-5" />
+                <span className="hidden sm:inline">Add Recipe</span>
+                <span className="sm:hidden">Add</span>
+              </button>
+            </div>
 
             {recipes.length === 0 ? (
               <div className="p-8 text-center text-slate-600 dark:text-slate-400">
