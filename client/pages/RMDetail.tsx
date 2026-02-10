@@ -970,12 +970,10 @@ export default function RMDetail() {
                 <div className="flex gap-2">
                   <select
                     value={selectedBrandForAdd}
-                    onChange={(e) =>
-                      setSelectedBrandForAdd(e.target.value)
-                    }
-                    onDoubleClick={() => {
-                      if (selectedBrandForAdd) {
-                        const brand = brands.find(b => b._id === selectedBrandForAdd);
+                    onChange={(e) => {
+                      const brandId = e.target.value;
+                      if (brandId) {
+                        const brand = brands.find(b => b._id === brandId);
                         if (brand) {
                           setSelectedBrands([...selectedBrands, brand]);
                           setSelectedBrandForAdd("");
@@ -993,27 +991,12 @@ export default function RMDetail() {
                   </select>
                   <button
                     type="button"
-                    onClick={() => {
-                      if (selectedBrandForAdd) {
-                        const brand = brands.find(b => b._id === selectedBrandForAdd);
-                        if (brand) {
-                          setSelectedBrands([...selectedBrands, brand]);
-                          setSelectedBrandForAdd("");
-                        }
-                      }
-                    }}
-                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
-                    title="Add brand"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
                     onClick={() => setShowNewBrandInput(true)}
-                    className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                    className="px-3 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-1.5 text-sm whitespace-nowrap"
                     title="Create new brand"
                   >
                     <Plus className="w-4 h-4" />
+                    New
                   </button>
                 </div>
               ) : (
