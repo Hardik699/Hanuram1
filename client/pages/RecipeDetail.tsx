@@ -66,6 +66,7 @@ interface Recipe {
   _id: string;
   code: string;
   name: string;
+  recipeType?: "master" | "sub"; // "master" or "sub"
   batchSize: number;
   unitId: string;
   unitName: string;
@@ -1035,6 +1036,18 @@ export default function RecipeDetail() {
                 <div>
                   <p className="text-sm text-muted-foreground">Recipe Code</p>
                   <p className="font-semibold">{recipe.code}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Recipe Type</p>
+                  <p className="font-semibold">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      recipe.recipeType === "sub"
+                        ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                        : "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
+                    }`}>
+                      {recipe.recipeType === "sub" ? "Sub Recipe" : "Master Recipe"}
+                    </span>
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Batch Size</p>

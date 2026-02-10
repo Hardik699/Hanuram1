@@ -67,6 +67,7 @@ interface Recipe {
   _id: string;
   code: string;
   name: string;
+  recipeType?: "master" | "sub"; // "master" or "sub"
   batchSize: number;
   unitId: string;
   unitName: string;
@@ -107,6 +108,7 @@ export default function CreateRecipe() {
 
   const [formData, setFormData] = useState({
     name: "",
+    recipeType: "master", // "master" or "sub"
     batchSize: "",
     unitId: "",
     yield: "",
@@ -296,6 +298,7 @@ export default function CreateRecipe() {
         if (recipe) {
           setFormData({
             name: recipe.name,
+            recipeType: recipe.recipeType || "master",
             batchSize: recipe.batchSize.toString(),
             unitId: recipe.unitId,
             yield: recipe.yield?.toString() || "",
@@ -561,6 +564,7 @@ export default function CreateRecipe() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
+          recipeType: formData.recipeType || "master",
           batchSize: Number(formData.batchSize),
           unitId: formData.unitId,
           unitName: selectedUnit?.name,
@@ -697,6 +701,23 @@ export default function CreateRecipe() {
                   {errors.name}
                 </p>
               )}
+            </div>
+
+            {/* Recipe Type */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Recipe Type *
+              </label>
+              <select
+                value={formData.recipeType || "master"}
+                onChange={(e) =>
+                  setFormData({ ...formData, recipeType: e.target.value as "master" | "sub" })
+                }
+                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              >
+                <option value="master">Master Recipe</option>
+                <option value="sub">Sub Recipe</option>
+              </select>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
