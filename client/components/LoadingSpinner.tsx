@@ -9,25 +9,91 @@ export function LoadingSpinner({
   fullScreen = false,
   size = "md",
 }: LoadingSpinnerProps) {
-  const sizeClasses = {
-    sm: "w-6 h-6",
-    md: "w-10 h-10",
-    lg: "w-12 h-12",
-  };
-
   const container = fullScreen
-    ? "flex items-center justify-center min-h-screen"
+    ? "flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800"
     : "flex items-center justify-center py-8 sm:py-12";
 
   return (
     <div className={container}>
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes pulse-ring {
+          0% {
+            transform: scale(0.8);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(2.2);
+            opacity: 0;
+          }
+        }
+        @keyframes shimmer {
+          0%, 100% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
+        }
+        @keyframes dot-bounce {
+          0%, 80%, 100% { opacity: 0.4; transform: scale(0.8); }
+          40% { opacity: 1; transform: scale(1); }
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        .animate-pulse-ring {
+          animation: pulse-ring 2s ease-out infinite;
+        }
+        .animate-dot-1 {
+          animation: dot-bounce 1.4s infinite;
+        }
+        .animate-dot-2 {
+          animation: dot-bounce 1.4s infinite;
+          animation-delay: 0.2s;
+        }
+        .animate-dot-3 {
+          animation: dot-bounce 1.4s infinite;
+          animation-delay: 0.4s;
+        }
+      `}</style>
+      
       <div className="text-center">
-        <div
-          className={`${sizeClasses[size]} border-4 border-teal-200 dark:border-teal-800 border-t-teal-500 dark:border-t-teal-400 rounded-full animate-spin mx-auto mb-4`}
-        />
-        <p className="text-slate-600 dark:text-slate-400 font-medium">
-          {message}
-        </p>
+        {/* Animated Loader - Elegant Pulsing Circles */}
+        <div className="relative w-24 h-24 mx-auto mb-8">
+          {/* Outer pulsing ring */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 opacity-20 animate-pulse-ring"></div>
+          
+          {/* Main animated circle */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative w-16 h-16">
+              {/* Center glowing core */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 animate-pulse shadow-lg shadow-teal-400/50 dark:shadow-teal-500/30"></div>
+              
+              {/* Rotating gradient ring */}
+              <div 
+                className="absolute inset-1 rounded-full border-2 border-transparent border-t-teal-400 border-r-cyan-400 animate-spin"
+                style={{ animationDuration: '2s' }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Floating animation wrapper */}
+          <div className="absolute inset-0 animate-float"></div>
+        </div>
+
+        {/* Message with animated dots */}
+        <div className="space-y-3">
+          <p className="text-slate-700 dark:text-slate-300 font-semibold text-lg">
+            {message}
+          </p>
+          
+          {/* Animated loading dots */}
+          <div className="flex justify-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-teal-500 dark:bg-teal-400 animate-dot-1"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-teal-500 dark:bg-teal-400 animate-dot-2"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-teal-500 dark:bg-teal-400 animate-dot-3"></div>
+          </div>
+        </div>
       </div>
     </div>
   );
