@@ -1115,31 +1115,31 @@ export default function RecipeDetail() {
                     <tr>
                       <th className="text-left py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
                           Raw Material
                         </span>
                       </th>
                       <th className="text-left py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
                           Qty
                         </span>
                       </th>
                       <th className="text-left py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
                         <span className="flex items-center gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
                           Unit
                         </span>
                       </th>
                       <th className="text-right py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
                         <span className="flex items-center justify-end gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
                           Unit Price
                         </span>
                       </th>
                       <th className="text-right py-3 px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
                         <span className="flex items-center justify-end gap-2">
-                          <span className="inline-block w-1.5 h-1.5 bg-rose-500 rounded-full"></span>
+                          <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
                           Total
                         </span>
                       </th>

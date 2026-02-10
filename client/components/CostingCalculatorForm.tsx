@@ -266,7 +266,7 @@ export function CostingCalculatorForm({
         {/* 2. Hygiene Cost */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">2</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">2</span>
             Hygiene Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -294,8 +294,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-green-50 dark:bg-green-950 p-3 rounded border border-green-200 dark:border-green-800">
-              <p className="font-medium text-green-900 dark:text-green-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Hygiene Cost / Kg = {inputs.hygieneCostPerUnit} × {inputs.hygieneQtyPerKg} = <span className="font-bold">₹{results.hygieneCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -305,7 +305,7 @@ export function CostingCalculatorForm({
         {/* 3. Scavenger Cost */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">3</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">3</span>
             Scavenger Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -333,8 +333,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-purple-50 dark:bg-purple-950 p-3 rounded border border-purple-200 dark:border-purple-800">
-              <p className="font-medium text-purple-900 dark:text-purple-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Scavenger Cost / Kg = {inputs.scavengerCostPerUnit} × {inputs.scavengerQtyPerKg} = <span className="font-bold">₹{results.scavengerCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -344,7 +344,7 @@ export function CostingCalculatorForm({
         {/* 4. MAP Cost */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">4</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">4</span>
             MAP Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -361,8 +361,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-orange-50 dark:bg-orange-950 p-3 rounded border border-orange-200 dark:border-orange-800">
-              <p className="font-medium text-orange-900 dark:text-orange-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ MAP Cost / Kg = <span className="font-bold">₹{results.mapCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -372,7 +372,7 @@ export function CostingCalculatorForm({
         {/* 5. Smaller Size Packaging */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">5</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">5</span>
             Smaller Size Packaging Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -389,8 +389,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-pink-50 dark:bg-pink-950 p-3 rounded border border-pink-200 dark:border-pink-800">
-              <p className="font-medium text-pink-900 dark:text-pink-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Smaller Size Packaging Cost / Kg = <span className="font-bold">₹{results.smallerSizePackagingCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -400,7 +400,7 @@ export function CostingCalculatorForm({
         {/* 6. Mono Carton Cost */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">6</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">6</span>
             Mono Carton Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -428,8 +428,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-red-50 dark:bg-red-950 p-3 rounded border border-red-200 dark:border-red-800">
-              <p className="font-medium text-red-900 dark:text-red-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Mono Carton Cost / Kg = {inputs.monoCartonCostPerUnit} × {inputs.monoCartonQtyPerKg} = <span className="font-bold">₹{results.monoCartonCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -439,7 +439,7 @@ export function CostingCalculatorForm({
         {/* 7. Sticker Cost */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">7</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">7</span>
             Sticker Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -467,8 +467,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-indigo-50 dark:bg-indigo-950 p-3 rounded border border-indigo-200 dark:border-indigo-800">
-              <p className="font-medium text-indigo-900 dark:text-indigo-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Sticker Cost / Kg = {inputs.stickerCostPerUnit} × {inputs.stickerQtyPerKg} = <span className="font-bold">₹{results.stickerCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -478,7 +478,7 @@ export function CostingCalculatorForm({
         {/* 8. Butter Paper Cost */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">8</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">8</span>
             Butter Paper Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -506,8 +506,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-yellow-50 dark:bg-yellow-950 p-3 rounded border border-yellow-200 dark:border-yellow-800">
-              <p className="font-medium text-yellow-900 dark:text-yellow-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Butter Paper Cost / Kg = {inputs.butterPaperCostPerKg} × {inputs.butterPaperQtyPerKg} = <span className="font-bold">₹{results.butterPaperCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -517,7 +517,7 @@ export function CostingCalculatorForm({
         {/* 9. Excess Stock Cost */}
         <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
           <h3 className="text-base font-semibold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="bg-cyan-100 dark:bg-cyan-900 text-cyan-700 dark:text-cyan-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">9</span>
+            <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">9</span>
             Excess Stock Cost
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -545,8 +545,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-cyan-50 dark:bg-cyan-950 p-3 rounded border border-cyan-200 dark:border-cyan-800">
-              <p className="font-medium text-cyan-900 dark:text-cyan-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Excess Stock Cost / Kg = {inputs.excessWeightPerKg} × {inputs.rmcCostPerKg} = <span className="font-bold">₹{results.excessStockCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -573,8 +573,8 @@ export function CostingCalculatorForm({
             </div>
           </div>
           {results && (
-            <div className="bg-amber-50 dark:bg-amber-950 p-3 rounded border border-amber-200 dark:border-amber-800">
-              <p className="font-medium text-amber-900 dark:text-amber-200">
+            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <p className="font-medium text-blue-900 dark:text-blue-200">
                 ✓ Material Wastage Cost / Kg ({inputs.wastagePercentage}%) = <span className="font-bold">₹{results.materialWastageCostPerKg.toFixed(2)}/Kg</span>
               </p>
             </div>
@@ -630,13 +630,13 @@ export function CostingCalculatorForm({
                   <td className="px-4 py-3 text-slate-700 dark:text-slate-300">Excess Stock Cost</td>
                   <td className="px-4 py-3 text-right font-medium text-slate-900 dark:text-white">₹{results.excessStockCostPerKg.toFixed(2)}</td>
                 </tr>
-                <tr className="border-b border-slate-200 dark:border-slate-700 bg-amber-50 dark:bg-amber-950">
+                <tr className="border-b border-slate-200 dark:border-slate-700 bg-blue-50 dark:bg-blue-950">
                   <td className="px-4 py-3 font-medium text-slate-900 dark:text-white">Material Wastage Cost</td>
-                  <td className="px-4 py-3 text-right font-medium text-amber-900 dark:text-amber-200">₹{results.materialWastageCostPerKg.toFixed(2)}</td>
+                  <td className="px-4 py-3 text-right font-medium text-blue-900 dark:text-blue-200">₹{results.materialWastageCostPerKg.toFixed(2)}</td>
                 </tr>
-                <tr className="bg-green-100 dark:bg-green-900 border-t-2 border-green-300 dark:border-green-700">
-                  <td className="px-4 py-4 font-bold text-lg text-green-900 dark:text-green-200">👉 TOTAL PACKAGING & HANDLING COST / KG</td>
-                  <td className="px-4 py-4 text-right font-bold text-lg text-green-900 dark:text-green-200">₹{results.totalPackagingHandlingCost.toFixed(2)}</td>
+                <tr className="bg-blue-100 dark:bg-blue-900 border-t-2 border-blue-300 dark:border-blue-700">
+                  <td className="px-4 py-4 font-bold text-lg text-blue-900 dark:text-blue-200">👉 TOTAL PACKAGING & HANDLING COST / KG</td>
+                  <td className="px-4 py-4 text-right font-bold text-lg text-blue-900 dark:text-blue-200">₹{results.totalPackagingHandlingCost.toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
@@ -644,7 +644,7 @@ export function CostingCalculatorForm({
 
           {/* Grand Total Summary */}
           <div className="mt-6 border-t-2 border-slate-300 dark:border-slate-600 pt-6">
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 rounded-lg p-6 border-2 border-blue-300 dark:border-blue-700">
+            <div className="bg-blue-50 dark:bg-blue-950 rounded-lg p-6 border-2 border-blue-300 dark:border-blue-700">
               <h3 className="text-lg font-bold text-blue-900 dark:text-blue-200 mb-4">
                 📊 Complete Cost Breakdown (Per Kg)
               </h3>
@@ -704,11 +704,11 @@ export function CostingCalculatorForm({
                   </span>
                 </div>
                 {batchSize > 0 && (
-                  <div className="flex justify-between items-center pt-4 mt-4 border-t-2 border-green-400 dark:border-green-600 bg-green-100 dark:bg-green-900 p-4 rounded">
-                    <span className="text-base font-bold text-green-900 dark:text-green-100">
+                  <div className="flex justify-between items-center pt-4 mt-4 border-t-2 border-blue-400 dark:border-blue-600 bg-blue-100 dark:bg-blue-900 p-4 rounded">
+                    <span className="text-base font-bold text-blue-900 dark:text-blue-200">
                       📈 TOTAL BATCH COST
                     </span>
-                    <span className="text-2xl font-bold text-green-900 dark:text-green-100">
+                    <span className="text-2xl font-bold text-blue-900 dark:text-blue-200">
                       ₹{((rmCostPerKg * yieldPercentage) + (productionLabourCostPerKg * yieldPercentage)).toFixed(2)}
                     </span>
                   </div>
