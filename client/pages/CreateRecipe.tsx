@@ -14,6 +14,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { LabourCostSection } from "@/components/LabourCostSection";
 import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
+import { SearchableRMSelect } from "@/components/SearchableRMSelect";
 import { useAuth } from "@/hooks/useAuth";
 import { PageHeader } from "@/components/PageHeader";
 
@@ -703,30 +704,16 @@ export default function CreateRecipe() {
                         ))}
                       </select>
                     </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                        Search RM
-                      </label>
-                      <input
-                        type="text"
-                        value={filterSearchRM}
-                        onChange={(e) => setFilterSearchRM(e.target.value)}
-                        placeholder="Search by name..."
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-                      />
-                    </div>
                   </div>
 
-                  {/* Raw Material Selection - Full Width */}
+                  {/* Raw Material Selection - Full Width with Integrated Search */}
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                       Raw Material *
                     </label>
-                    <select
+                    <SearchableRMSelect
                       value={selectedRMForItem}
-                      onChange={(e) => {
-                        const rmId = e.target.value;
+                      onChange={(rmId) => {
                         setSelectedRMForItem(rmId);
                         // Auto-fill unit and price
                         if (rmId) {
@@ -750,19 +737,12 @@ export default function CreateRecipe() {
                           }));
                         }
                       }}
-                      className={`w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
-                        itemErrors.rawMaterial
-                          ? "border-red-500 dark:border-red-400"
-                          : "border-slate-200 dark:border-slate-600"
-                      } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
-                    >
-                      <option value="">-- Choose Raw Material --</option>
-                      {getFilteredRawMaterials().map((rm) => (
-                        <option key={rm._id} value={rm._id}>
-                          {rm.name} ({rm.code})
-                        </option>
-                      ))}
-                    </select>
+                      options={getFilteredRawMaterials()}
+                      placeholder="Choose Raw Material"
+                      searchValue={filterSearchRM}
+                      onSearchChange={setFilterSearchRM}
+                      error={!!itemErrors.rawMaterial}
+                    />
                     {itemErrors.rawMaterial && (
                       <p className="text-red-600 dark:text-red-400 text-xs mt-1">
                         {itemErrors.rawMaterial}
