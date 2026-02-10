@@ -329,16 +329,19 @@ export default function CategoryDetail() {
           </div>
         ) : (
           <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8 animate-fade-in">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Edit Category
-            </h2>
-            <p className="text-gray-600 mb-8">
-              Update category details below
-            </p>
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                Edit Category
+              </h2>
+              <p className="text-gray-600">
+                Update the category information below
+              </p>
+            </div>
 
-            <form className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2.5">
+            <form className="space-y-7">
+              {/* Category Name Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
                   Category Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -348,23 +351,25 @@ export default function CategoryDetail() {
                     setEditFormData({ ...editFormData, name: e.target.value })
                   }
                   autoCapitalize="words"
-                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word ${
+                  placeholder="Enter category name"
+                  className={`w-full px-4 py-3 rounded-lg bg-white border transition-all capitalize-each-word text-gray-900 placeholder-gray-400 focus:outline-none ${
                     errors.name
                       ? "border-red-500 ring-1 ring-red-500"
                       : "border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  } text-gray-900 focus:outline-none`}
+                  }`}
                 />
                 {errors.name && (
-                  <p className="text-red-600 text-sm mt-2 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
+                  <p className="text-red-600 text-sm mt-3 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     {errors.name}
                   </p>
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2.5">
-                  Description <span className="text-gray-400 font-normal">(Optional)</span>
+              {/* Description Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
+                  Description <span className="text-gray-400 font-normal text-xs">(Optional)</span>
                 </label>
                 <textarea
                   value={editFormData.description}
@@ -374,14 +379,16 @@ export default function CategoryDetail() {
                       description: e.target.value,
                     })
                   }
+                  placeholder="Add details about this category..."
                   rows={4}
                   autoCapitalize="words"
-                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none capitalize-each-word"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none capitalize-each-word"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2.5">
+              {/* Status Field */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">
                   Status <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -392,19 +399,20 @@ export default function CategoryDetail() {
                       status: e.target.value as "active" | "inactive",
                     })
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-medium"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                 </select>
               </div>
 
-              <div className="flex gap-3 pt-6 border-t border-gray-200">
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-6 border-t border-gray-200 mt-8">
                 <button
                   type="button"
                   onClick={handleSave}
                   disabled={saveLoading}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-all active:scale-95 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
                 >
                   {saveLoading ? (
                     <>
@@ -421,7 +429,7 @@ export default function CategoryDetail() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg transition-all"
+                  className="px-8 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-lg transition-all"
                 >
                   Cancel
                 </button>
