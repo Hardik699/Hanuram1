@@ -148,7 +148,7 @@ export default function LabourManagement() {
         title="Labour Management"
         description="Manage factory labour and track salary costs"
         breadcrumbs={[{ label: "Labour Management" }]}
-        icon={<Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+        icon={<Users className="w-6 h-6 text-white" />}
         actions={
           <button
             onClick={() => navigate("/labour/new")}

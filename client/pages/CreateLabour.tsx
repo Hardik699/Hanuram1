@@ -170,7 +170,7 @@ export default function CreateLabour() {
           { label: "Labour", href: "/labour" },
           { label: id ? "Edit" : "Add Labour" },
         ]}
-        icon={<Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+        icon={<Users className="w-6 h-6 text-white" />}
       />
 
       <div className="space-y-6">
