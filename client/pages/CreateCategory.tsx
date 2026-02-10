@@ -30,24 +30,6 @@ interface Category {
   createdBy: string;
 }
 
-// Color palette for avatars
-const colorPalettes = [
-  { bg: "from-blue-500 to-blue-600", light: "from-blue-100 to-blue-200" },
-  { bg: "from-purple-500 to-purple-600", light: "from-purple-100 to-purple-200" },
-  { bg: "from-pink-500 to-pink-600", light: "from-pink-100 to-pink-200" },
-  { bg: "from-orange-500 to-orange-600", light: "from-orange-100 to-orange-200" },
-  { bg: "from-green-500 to-green-600", light: "from-green-100 to-green-200" },
-  { bg: "from-cyan-500 to-cyan-600", light: "from-cyan-100 to-cyan-200" },
-  { bg: "from-amber-500 to-amber-600", light: "from-amber-100 to-amber-200" },
-  { bg: "from-rose-500 to-rose-600", light: "from-rose-100 to-rose-200" },
-];
-
-const getColorByName = (name: string) => {
-  const hash = name.split("").reduce((acc, char) => {
-    return char.charCodeAt(0) + ((acc << 5) - acc);
-  }, 0);
-  return colorPalettes[Math.abs(hash) % colorPalettes.length];
-};
 
 export default function CreateCategory() {
   const navigate = useNavigate();
@@ -565,9 +547,9 @@ export default function CreateCategory() {
                 >
                   {/* Left Content */}
                   <div className="flex items-center gap-4 flex-1 min-w-0">
-                    {/* Avatar - Colorful & Dynamic */}
-                    <div className="flex-shrink-0 relative">
-                      <div className={`w-11 h-11 rounded-lg bg-gradient-to-br ${getColorByName(category.name).bg} text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-105 shadow-sm`}>
+                    {/* Avatar - Theme Color */}
+                    <div className="flex-shrink-0">
+                      <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-base flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-105 group-hover:from-blue-600 group-hover:to-blue-700 shadow-sm">
                         {category.name.substring(0, 1).toUpperCase()}
                       </div>
                     </div>
