@@ -7,11 +7,9 @@ import {
   Menu,
   X,
   Users,
-  LayoutGrid,
   Calculator,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { ManagementNav } from "./ManagementNav";
 
 export function Sidebar() {
   const location = useLocation();
@@ -41,6 +39,13 @@ export function Sidebar() {
 
   const isProductionUser = user?.role_id === 7;
 
+  const managementItems = [
+    { label: "Category", path: "/create-category" },
+    { label: "Unit", path: "/create-unit" },
+    { label: "Sub Category", path: "/create-subcategory" },
+    { label: "Vendor", path: "/create-vendor" },
+  ];
+
   const menuItems = isProductionUser
     ? [
         {
@@ -56,9 +61,10 @@ export function Sidebar() {
       ]
     : [
         {
-          label: "Dashboard",
-          path: "/dashboard",
-          icon: LayoutGrid,
+          label: "Master Data Management",
+          path: null,
+          icon: Package,
+          submenu: managementItems,
         },
         {
           label: "Raw Material",
@@ -81,71 +87,6 @@ export function Sidebar() {
           icon: Calculator,
         },
       ];
-
-  const renderSubmenu = (submenu: any[], parentLabel?: string) => {
-    const filteredSubmenu = submenu.filter((item) => checkAccess(item));
-
-    if (filteredSubmenu.length === 0) return null;
-
-    return (
-      <div className="space-y-0">
-        {filteredSubmenu.map((subitem, subindex) => {
-          const hasNested =
-            Array.isArray(subitem.submenu) && subitem.submenu.length;
-          
-          if (hasNested) {
-            const open = expandedMenu === subitem.label;
-            const isSubActive = isActive(subitem.submenu[0]?.path || "");
-            
-            return (
-              <div key={subindex}>
-                <button
-                  onClick={() => toggleMenu(subitem.label)}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium transition-all ${
-                    isSubActive
-                      ? "text-blue-600 bg-blue-50 rounded-lg"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                  }`}
-                >
-                  <span>{subitem.label}</span>
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
-                      open ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {open && (
-                  <div className="ml-2 pl-4 border-l-2 border-gray-200 space-y-0">
-                    {renderSubmenu(subitem.submenu, subitem.label)}
-                  </div>
-                )}
-              </div>
-            );
-          }
-
-          const isItemActive = isActive(subitem.path);
-
-          return (
-            <Link
-              key={subindex}
-              to={subitem.path}
-              onClick={() => {
-                setIsOpen(false);
-                if (parentLabel) setExpandedMenu(parentLabel);
-              }}
-              className={`block px-4 py-2.5 text-sm font-medium transition-all ${
-                isItemActive
-                  ? "text-blue-600 bg-blue-50 rounded-lg"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-              }`}
-            >
-              {subitem.label}
-            </Link>
-          );
-        })}
-      </div>
-    );
-  };
 
   return (
     <>
@@ -185,11 +126,6 @@ export function Sidebar() {
           </div>
         </div>
 
-        {/* Master Data Management Nav */}
-        <div className="px-4 py-4 border-b border-gray-200">
-          <ManagementNav />
-        </div>
-
         {/* MENU Label */}
         <div className="px-4 py-3">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
@@ -210,9 +146,9 @@ export function Sidebar() {
                     <div>
                       <button
                         onClick={() => toggleMenu(item.label)}
-                        className={`w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-all ${
-                          isActive(item.submenu[0]?.path || "")
-                            ? "text-blue-600 bg-blue-50 rounded-lg"
+                        className={`w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-all rounded-lg ${
+                          expandedMenu === item.label
+                            ? "text-blue-600 bg-blue-50"
                             : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                         }`}
                       >
@@ -220,13 +156,22 @@ export function Sidebar() {
                           {item.icon && (
                             <item.icon
                               className={`w-5 h-5 transition-colors ${
-                                isActive(item.submenu[0]?.path || "")
+                                expandedMenu === item.label
                                   ? "text-blue-600"
-                                  : "text-gray-500 group-hover:text-gray-700"
+                                  : "text-gray-500"
                               }`}
                             />
                           )}
-                          <span>{item.label}</span>
+                          <div className="text-left">
+                            {item.label === "Master Data Management" && (
+                              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                Master Data
+                              </p>
+                            )}
+                            <span className={item.label === "Master Data Management" ? "text-sm font-bold text-gray-900" : ""}>
+                              {item.label === "Master Data Management" ? "Management" : item.label}
+                            </span>
+                          </div>
                         </div>
                         <ChevronDown
                           className={`w-4 h-4 transition-transform ${
@@ -237,7 +182,20 @@ export function Sidebar() {
 
                       {expandedMenu === item.label && (
                         <div className="mt-0 ml-2 pl-4 border-l-2 border-gray-200 space-y-0">
-                          {renderSubmenu(item.submenu)}
+                          {item.submenu.map((subitem: any, subindex: number) => (
+                            <Link
+                              key={subindex}
+                              to={subitem.path}
+                              onClick={() => setIsOpen(false)}
+                              className={`block px-4 py-2.5 text-sm font-medium transition-all rounded-lg ${
+                                isActive(subitem.path)
+                                  ? "text-blue-600 bg-blue-50"
+                                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                              }`}
+                            >
+                              {subitem.label}
+                            </Link>
+                          ))}
                         </div>
                       )}
                     </div>
