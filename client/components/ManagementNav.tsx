@@ -52,7 +52,7 @@ export function ManagementNav() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white rounded-2xl border-2 border-blue-200 px-4 py-3 flex items-center justify-between gap-3 hover:bg-blue-50 transition-all"
+        className="w-full bg-white rounded-2xl border-2 border-gray-200 px-4 py-3 flex items-center justify-between gap-3 hover:border-blue-200 hover:bg-blue-50 transition-all"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white">
@@ -77,17 +77,17 @@ export function ManagementNav() {
       {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 min-w-[280px]">
-          <div className="p-2 space-y-1">
+          <div className="p-3 space-y-2">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
                 <button
                   key={item.path}
                   onClick={() => handleNavigate(item.path)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-left ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all text-left border-2 ${
                     isActive
-                      ? "bg-blue-50 text-blue-600"
-                      : "text-gray-700 hover:bg-blue-50"
+                      ? "bg-blue-50 text-blue-600 border-blue-200"
+                      : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
                   }`}
                 >
                   <div

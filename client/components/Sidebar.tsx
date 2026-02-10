@@ -88,7 +88,7 @@ export function Sidebar() {
     if (filteredSubmenu.length === 0) return null;
 
     return (
-      <div className="space-y-1">
+      <div className="space-y-2">
         {filteredSubmenu.map((subitem, subindex) => {
           const hasNested =
             Array.isArray(subitem.submenu) && subitem.submenu.length;
@@ -99,10 +99,10 @@ export function Sidebar() {
               <div key={subindex}>
                 <button
                   onClick={() => toggleMenu(subitem.label)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
                     isActive(subitem.submenu[0]?.path || "")
-                      ? "text-blue-600 bg-blue-100"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "text-blue-600 bg-blue-50 border-blue-200"
+                      : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
                   }`}
                 >
                   <span>{subitem.label}</span>
@@ -113,7 +113,7 @@ export function Sidebar() {
                   />
                 </button>
                 {open && (
-                  <div className="ml-3 pl-3 border-l border-gray-300 space-y-1">
+                  <div className="ml-4 pl-3 border-l border-gray-300 space-y-2">
                     {renderSubmenu(subitem.submenu, subitem.label)}
                   </div>
                 )}
@@ -129,10 +129,10 @@ export function Sidebar() {
                 setIsOpen(false);
                 if (parentLabel) setExpandedMenu(parentLabel);
               }}
-              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`block px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
                 isActive(subitem.path)
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-blue-50 text-blue-600 border-blue-200"
+                  : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
               }`}
             >
               {subitem.label}
@@ -200,10 +200,10 @@ export function Sidebar() {
                   <div>
                     <button
                       onClick={() => toggleMenu(item.label)}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
                         isActive(item.submenu[0]?.path || "")
-                          ? "text-blue-600 bg-blue-100"
-                          : "text-gray-700 hover:bg-gray-100"
+                          ? "text-blue-600 bg-blue-50 border-blue-200"
+                          : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -220,7 +220,7 @@ export function Sidebar() {
                     </button>
 
                     {expandedMenu === item.label && (
-                      <div className="mt-1 ml-3 pl-3 border-l border-gray-300 space-y-1">
+                      <div className="mt-2 ml-4 pl-3 border-l border-gray-300 space-y-2">
                         {renderSubmenu(item.submenu)}
                       </div>
                     )}
@@ -229,10 +229,10 @@ export function Sidebar() {
                   <Link
                     to={item.path!}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
                       isActive(item.path!)
-                        ? "text-blue-600 bg-blue-100"
-                        : "text-gray-700 hover:bg-gray-100"
+                        ? "text-blue-600 bg-blue-50 border-blue-200"
+                        : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
                     }`}
                   >
                     {item.icon && (
