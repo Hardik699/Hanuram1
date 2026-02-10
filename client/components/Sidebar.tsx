@@ -30,19 +30,15 @@ export function Sidebar() {
   };
 
   const checkAccess = (item: any) => {
-    // If item has a module field, check module access
     if (item.module) {
       return canAccess(item.module);
     }
-    // Otherwise check permission
     if (item.permission) {
       return hasPermission(item.permission);
     }
-    // No restriction
     return true;
   };
 
-  // Production user (role_id: 7) sees only these items
   const isProductionUser = user?.role_id === 7;
 
   const menuItems = isProductionUser
@@ -86,37 +82,39 @@ export function Sidebar() {
         },
       ];
 
-  const renderSubmenu = (submenu: any[], level = 0, parentLabel?: string) => {
-    // Filter items by permission/module
+  const renderSubmenu = (submenu: any[], parentLabel?: string) => {
     const filteredSubmenu = submenu.filter((item) => checkAccess(item));
 
     if (filteredSubmenu.length === 0) return null;
 
     return (
-      <div className={`space-y-1.5`}>
+      <div className="space-y-1">
         {filteredSubmenu.map((subitem, subindex) => {
           const hasNested =
             Array.isArray(subitem.submenu) && subitem.submenu.length;
+          
           if (hasNested) {
             const open = expandedMenu === subitem.label;
             return (
               <div key={subindex}>
                 <button
                   onClick={() => toggleMenu(subitem.label)}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 group ${
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                     isActive(subitem.submenu[0]?.path || "")
-                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/30"
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-700 hover:bg-blue-50"
                   }`}
                 >
                   <span>{subitem.label}</span>
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 group-hover:scale-110 ${open ? "rotate-180" : ""}`}
+                    className={`w-4 h-4 transition-transform ${
+                      open ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {open && (
-                  <div className="ml-4 border-l-2 border-blue-300 dark:border-blue-900/40 pl-4 space-y-1.5 animate-slide-in-left">
-                    {renderSubmenu(subitem.submenu, level + 1, subitem.label)}
+                  <div className="ml-3 pl-3 border-l border-gray-300 space-y-1">
+                    {renderSubmenu(subitem.submenu, subitem.label)}
                   </div>
                 )}
               </div>
@@ -128,14 +126,13 @@ export function Sidebar() {
               key={subindex}
               to={subitem.path}
               onClick={() => {
-                // Close mobile sidebar, but keep the parent submenu expanded so it remains open when returning
                 setIsOpen(false);
                 if (parentLabel) setExpandedMenu(parentLabel);
               }}
-              className={`block px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 group ${
+              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                 isActive(subitem.path)
-                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-l-3 border-blue-600 pl-5"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/30 hover:translate-x-0.5"
+                  ? "bg-blue-50 text-blue-600"
+                  : "text-gray-700 hover:bg-blue-50"
               }`}
             >
               {subitem.label}
@@ -148,10 +145,10 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile menu button - Professional Design */}
+      {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 sm:top-5 left-4 z-50 md:hidden bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 p-3 rounded-xl shadow-elevation-4 dark:shadow-elevation-8 hover:shadow-elevation-8 dark:hover:shadow-elevation-12 transition-all text-white hover:scale-110 transform hover:-translate-y-0.5"
+        className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2 rounded-lg"
       >
         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
@@ -159,44 +156,42 @@ export function Sidebar() {
       {/* Sidebar overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/30 z-30 md:hidden backdrop-blur-md animate-fade-in-up"
+          className="fixed inset-0 bg-black/20 z-30 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Sidebar - Professional Design */}
+      {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 overflow-y-auto z-40 transition-transform duration-300 md:translate-x-0 shadow-elevation-4 dark:shadow-elevation-8 ${
+        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 overflow-y-auto z-40 transition-transform duration-300 md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
+        style={{ width: "260px" }}
       >
         {/* Logo/Brand */}
-        <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-700 flex items-center gap-3 mb-4 bg-gradient-to-r from-blue-50 to-blue-100/50 dark:from-slate-800 dark:to-slate-700/50">
-          <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-elevation-2 transform hover:scale-110 transition-transform">
+        <div className="px-4 py-4 border-b border-gray-200 flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">HF</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-slate-900 dark:text-white font-bold text-base">
-              Hanuram
-            </span>
-            <span className="text-blue-600 dark:text-blue-400 text-xs font-semibold">
-              Foods
-            </span>
+            <span className="text-gray-900 font-bold text-sm">Hanuram</span>
+            <span className="text-blue-600 text-xs font-semibold">Foods</span>
           </div>
           <button
             onClick={() => setIsOpen(false)}
             className="ml-auto md:hidden"
           >
-            <ChevronDown className="w-5 h-5 text-slate-400 dark:text-slate-500 rotate-90 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" />
+            <ChevronDown className="w-5 h-5 text-gray-400 rotate-90" />
           </button>
         </div>
 
         {/* Management Navigation */}
-        <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
+        <div className="px-3 py-3 border-b border-gray-200">
           <ManagementNav />
         </div>
 
-        <nav className="p-4 space-y-1.5">
+        {/* Menu Items */}
+        <nav className="p-4 space-y-1">
           {menuItems
             .filter((item) => checkAccess(item))
             .map((item, index) => (
@@ -205,35 +200,27 @@ export function Sidebar() {
                   <div>
                     <button
                       onClick={() => toggleMenu(item.label)}
-                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group border-2 ${
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                         isActive(item.submenu[0]?.path || "")
-                          ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800 border-blue-600 dark:border-blue-700"
-                          : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-700/50 hover:border-blue-200 dark:hover:border-blue-900/50 hover:shadow-md"
+                          ? "text-blue-600 bg-blue-50"
+                          : "text-gray-700 hover:bg-blue-50"
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         {item.icon && (
-                          <item.icon
-                            className={`w-5 h-5 transition-transform group-hover:scale-110 ${
-                              isActive(item.submenu[0]?.path || "")
-                                ? "text-white"
-                                : "text-blue-600 dark:text-blue-400"
-                            }`}
-                          />
+                          <item.icon className="w-5 h-5" />
                         )}
                         <span>{item.label}</span>
                       </div>
                       <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
-                          isActive(item.submenu[0]?.path || "")
-                            ? "text-white"
-                            : "text-blue-600 dark:text-blue-400"
-                        } ${expandedMenu === item.label ? "rotate-180" : ""}`}
+                        className={`w-4 h-4 transition-transform ${
+                          expandedMenu === item.label ? "rotate-180" : ""
+                        }`}
                       />
                     </button>
 
                     {expandedMenu === item.label && (
-                      <div className="mt-2 ml-4 border-l-2 border-blue-300 dark:border-blue-900/50 pl-4 space-y-1.5 animate-slide-in-left">
+                      <div className="mt-1 ml-3 pl-3 border-l border-gray-300 space-y-1">
                         {renderSubmenu(item.submenu)}
                       </div>
                     )}
@@ -242,20 +229,14 @@ export function Sidebar() {
                   <Link
                     to={item.path!}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 group border-2 ${
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                       isActive(item.path!)
-                        ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-elevation-3 dark:from-blue-700 dark:to-blue-800 border-blue-600 dark:border-blue-700"
-                        : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-700/50 hover:border-blue-200 dark:hover:border-blue-900/50 hover:shadow-md"
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:bg-blue-50"
                     }`}
                   >
                     {item.icon && (
-                      <item.icon
-                        className={`w-5 h-5 transition-transform group-hover:scale-110 ${
-                          isActive(item.path!)
-                            ? "text-white"
-                            : "text-blue-600 dark:text-blue-400"
-                        }`}
-                      />
+                      <item.icon className="w-5 h-5" />
                     )}
                     <span>{item.label}</span>
                   </Link>
