@@ -114,14 +114,16 @@ export function Sidebar() {
         style={{ width: "260px" }}
       >
         {/* Logo/Brand Section */}
-        <div className="px-4 py-6 border-b border-gray-200">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+        <div className="px-4 py-4 border-b border-gray-200">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
               HF
             </div>
-            <div className="flex flex-col">
-              <h2 className="text-sm font-bold text-gray-900">Hanuram</h2>
-              <p className="text-xs font-medium text-blue-600">Foods</p>
+            <div className="text-left">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Company
+              </p>
+              <h2 className="text-sm font-bold text-gray-900">Hanuram Foods</h2>
             </div>
           </div>
         </div>
