@@ -535,7 +535,6 @@ export default function CreateUnit() {
                           {unit.shortCode}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">by <span className="font-medium text-gray-700 capitalize-each-word">{unit.createdBy}</span></p>
                     </div>
                   </div>
 
