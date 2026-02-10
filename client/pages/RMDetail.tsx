@@ -971,6 +971,15 @@ export default function RMDetail() {
                     onChange={(e) =>
                       setSelectedBrandForAdd(e.target.value)
                     }
+                    onDoubleClick={() => {
+                      if (selectedBrandForAdd) {
+                        const brand = brands.find(b => b._id === selectedBrandForAdd);
+                        if (brand) {
+                          setSelectedBrands([...selectedBrands, brand]);
+                          setSelectedBrandForAdd("");
+                        }
+                      }
+                    }}
                     className="flex-1 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
                   >
                     <option value="">Select Brand</option>
@@ -1056,7 +1065,8 @@ export default function RMDetail() {
                     {selectedBrands.map((brand) => (
                       <div
                         key={brand._id}
-                        className="flex items-center justify-between bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800/30 rounded-lg px-4 py-2.5"
+                        onDoubleClick={() => setSelectedBrands(selectedBrands.filter(b => b._id !== brand._id))}
+                        className="flex items-center justify-between bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800/30 rounded-lg px-4 py-2.5 cursor-pointer hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
                       >
                         <span className="text-sm font-medium text-slate-900 dark:text-white">
                           {brand.name}
