@@ -2446,8 +2446,8 @@ export default function RMCManagement() {
                 </div>
 
                 {/* Differences */}
-                <div className="bg-teal-50 dark:bg-teal-950 border border-teal-200 dark:border-blue-800 rounded-lg p-6">
-                  <h4 className="font-bold text-teal-900 dark:text-teal-200 mb-4">
+                <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+                  <h4 className="font-bold text-blue-900 dark:text-blue-200 mb-4">
                     Difference Summary
                   </h4>
                   <div className="space-y-2 text-sm">
@@ -2460,7 +2460,7 @@ export default function RMCManagement() {
                           comparisonData.new.totalRawMaterialCost >
                           comparisonData.old.totalRawMaterialCost
                             ? "text-red-600 dark:text-red-400"
-                            : "text-green-600 dark:text-green-400"
+                            : "text-blue-600 dark:text-blue-400"
                         }`}
                       >
                         ₹
@@ -2479,7 +2479,7 @@ export default function RMCManagement() {
                           comparisonData.new.pricePerUnit >
                           comparisonData.old.pricePerUnit
                             ? "text-red-600 dark:text-red-400"
-                            : "text-green-600 dark:text-green-400"
+                            : "text-blue-600 dark:text-blue-400"
                         }`}
                       >
                         ₹

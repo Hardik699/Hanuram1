@@ -184,7 +184,7 @@ export default function UnitDetail() {
           <p className="text-slate-600 dark:text-slate-400">Unit not found</p>
           <button
             onClick={() => navigate("/create-unit")}
-            className="mt-4 text-teal-600 hover:text-teal-700 dark:text-teal-400 font-medium"
+            className="mt-4 text-blue-600 hover:text-blue-700 dark:text-blue-400 font-medium"
           >
             Back to Units
           </button>

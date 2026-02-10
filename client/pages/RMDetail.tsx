@@ -680,7 +680,7 @@ export default function RMDetail() {
           </p>
           <button
             onClick={() => navigate("/raw-materials")}
-            className="mt-4 px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700"
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Back to Raw Materials
           </button>
@@ -1241,7 +1241,7 @@ export default function RMDetail() {
                 onClick={() => setActiveTab("overview")}
                 className={`flex-shrink-0 px-6 py-4 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === "overview"
-                    ? "border-teal-600 text-teal-600 dark:text-teal-400"
+                    ? "border-blue-600 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
@@ -1252,7 +1252,7 @@ export default function RMDetail() {
                 onClick={() => setActiveTab("vendor")}
                 className={`flex-shrink-0 px-6 py-4 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === "vendor"
-                    ? "border-teal-600 text-teal-600 dark:text-teal-400"
+                    ? "border-blue-600 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
@@ -1262,7 +1262,7 @@ export default function RMDetail() {
                 onClick={() => setActiveTab("recipe")}
                 className={`flex-shrink-0 px-6 py-4 text-sm font-medium transition-colors border-b-2 ${
                   activeTab === "recipe"
-                    ? "border-teal-600 text-teal-600 dark:text-teal-400"
+                    ? "border-blue-600 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
@@ -1317,7 +1317,7 @@ export default function RMDetail() {
                             </span>
                           ))
                         : (
-                            <span className="px-3 py-1.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">
+                            <span className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
                               {rawMaterial.brandName}
                             </span>
                           )
@@ -1340,7 +1340,7 @@ export default function RMDetail() {
                     <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                       Last Price
                     </label>
-                    <p className="text-sm text-teal-600 dark:text-teal-400 font-semibold">
+                    <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
                       ₹{rawMaterial.lastAddedPrice.toFixed(2)}
                       {formatUnit(rawMaterial.unitName)
                         ? ` / ${formatUnit(rawMaterial.unitName)}`
@@ -1393,7 +1393,7 @@ export default function RMDetail() {
                       });
                     }
                   }}
-                  className="px-4 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
+                  className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
                 >
                   {showAddPriceForm ? "Cancel" : "+ Add Price"}
                 </button>
@@ -1599,7 +1599,7 @@ export default function RMDetail() {
                               <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300">
                                 {price.vendorName}
                               </td>
-                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300 font-semibold text-teal-600">
+                              <td className="px-6 py-3 text-sm text-slate-700 dark:text-slate-300 font-semibold text-blue-600">
                                 ₹{price.price}
                               </td>
                               <td className="px-6 py-3 text-sm text-slate-600 dark:text-slate-400">
@@ -1642,7 +1642,7 @@ export default function RMDetail() {
                           <tr
                             key={vendor._id}
                             onClick={() => handleVendorClick(vendor)}
-                            className="hover:bg-teal-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
+                            className="hover:bg-blue-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
                           >
                             <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
                               {vendor.name}
@@ -1651,7 +1651,7 @@ export default function RMDetail() {
                               <Phone className="w-4 h-4" />
                               {vendor.mobileNumber}
                             </td>
-                            <td className="px-6 py-4 text-sm font-semibold text-teal-600 dark:text-teal-400">
+                            <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
                               {vendor.lastPrice
                                 ? `₹${vendor.lastPrice.toFixed(2)}/${formatUnit(rawMaterial.unitName)}`
                                 : "-"}

@@ -1176,7 +1176,7 @@ export default function RecipeDetail() {
                   <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
                     Total RM Cost
                   </p>
-                  <p className="text-xl font-bold text-green-600 dark:text-green-400">
+                  <p className="text-xl font-bold text-blue-600 dark:text-blue-400">
                     ₹{totalRMCost.toFixed(2)}
                   </p>
                 </div>
@@ -1184,7 +1184,7 @@ export default function RecipeDetail() {
                   <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
                     Per Unit Price
                   </p>
-                  <p className="text-xl font-bold text-green-600 dark:text-green-400">
+                  <p className="text-xl font-bold text-blue-600 dark:text-blue-400">
                     ₹{pricePerUnit.toFixed(2)}/{recipe.unitName}
                   </p>
                 </div>
@@ -1715,7 +1715,7 @@ export default function RecipeDetail() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
                       Total Recipe Cost
                     </p>
-                    <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                       ₹{quotationSummary.totalRecipeCost.toFixed(2)}
                     </p>
                   </div>
@@ -1723,7 +1723,7 @@ export default function RecipeDetail() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
                       Per Unit Cost
                     </p>
-                    <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                       ₹{quotationSummary.perUnitCost.toFixed(2)}/
                       {recipe.unitName}
                     </p>
@@ -2029,7 +2029,7 @@ export default function RecipeDetail() {
                     <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
                       Current Price
                     </p>
-                    <p className="font-bold text-teal-600 dark:text-teal-400 text-lg">
+                    <p className="font-bold text-blue-600 dark:text-blue-400 text-lg">
                       ₹{selectedItemForVendor.price.toFixed(2)}
                     </p>
                   </div>
@@ -2130,7 +2130,7 @@ export default function RecipeDetail() {
                           );
                           return (
                             <div key={vendorPrice._id} className="space-y-4">
-                              <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border-2 border-green-300 dark:border-green-700 mb-4">
+                              <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border-2 border-blue-300 dark:border-blue-700 mb-4">
                                 <p className="text-xs text-green-700 dark:text-green-400 font-bold mb-2 uppercase tracking-wide">
                                   Selected Vendor
                                 </p>
@@ -2434,7 +2434,7 @@ export default function RecipeDetail() {
                     <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
                       Total RM Cost
                     </p>
-                    <p className="font-bold text-teal-600 dark:text-teal-400 text-lg">
+                    <p className="font-bold text-blue-600 dark:text-blue-400 text-lg">
                       ₹{selectedHistorySnapshot.totalRawMaterialCost.toFixed(2)}
                     </p>
                   </div>
