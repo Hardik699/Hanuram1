@@ -331,37 +331,27 @@ export default function CreateRecipe() {
     setItemErrors({});
   };
 
-  const handleAddRecipe = async (selectedRecipe: Recipe) => {
+  const handleAddRecipe = (selectedRecipe: Recipe) => {
     try {
-      // Fetch recipe items if not already available
-      let itemsToAdd = selectedRecipe.items || [];
-      if (!selectedRecipe.items) {
-        const response = await fetch(
-          `/api/recipes/${selectedRecipe._id}/items`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch recipe items");
-        }
-        const data = await response.json();
-        itemsToAdd = data.success ? data.data : [];
-      }
+      // Add the entire recipe as a single item
+      const recipeAsItem: RecipeItem = {
+        rawMaterialId: selectedRecipe._id,
+        rawMaterialName: selectedRecipe.name,
+        rawMaterialCode: selectedRecipe.code,
+        quantity: 1,
+        unitId: formData.unitId || selectedRecipe.unitId,
+        unitName: formData.unitId
+          ? units.find((u) => u._id === formData.unitId)?.name ||
+            selectedRecipe.unitName
+          : selectedRecipe.unitName,
+        price: selectedRecipe.pricePerUnit,
+        vendorId: selectedRecipe._id,
+        vendorName: selectedRecipe.name,
+        totalPrice: parseFloat(selectedRecipe.pricePerUnit.toFixed(2)),
+      };
 
-      if (itemsToAdd.length === 0) {
-        setMessage("This recipe has no items to add");
-        setMessageType("error");
-        return;
-      }
-
-      // Ensure all items have proper totalPrice calculation
-      const processedItems = itemsToAdd.map((item) => ({
-        ...item,
-        totalPrice: parseFloat(
-          (item.quantity * item.price).toFixed(2)
-        ),
-      }));
-
-      // Add all items from the selected recipe to current recipe
-      const newItems = [...recipeItems, ...processedItems];
+      // Add recipe as a single item
+      const newItems = [...recipeItems, recipeAsItem];
       setRecipeItems(newItems);
 
       // Close modal and reset search
@@ -370,7 +360,7 @@ export default function CreateRecipe() {
 
       // Show success message
       setMessage(
-        `Added ${itemsToAdd.length} item(s) from recipe "${selectedRecipe.name}"`
+        `Added recipe "${selectedRecipe.name}" with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`
       );
       setMessageType("success");
       setTimeout(() => {
@@ -378,8 +368,8 @@ export default function CreateRecipe() {
         setMessageType("");
       }, 3000);
     } catch (error) {
-      console.error("Error adding recipe items:", error);
-      setMessage("Failed to add recipe items");
+      console.error("Error adding recipe:", error);
+      setMessage("Failed to add recipe");
       setMessageType("error");
     }
   };
