@@ -3,7 +3,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+const envPath = path.resolve(__dirname, "../.env");
+console.log(`Loading .env from: ${envPath}`);
+const result = dotenv.config({ path: envPath, debug: true });
+console.log(`Dotenv config result:`, result);
 import express from "express";
 import cors from "cors";
 import multer from "multer";
