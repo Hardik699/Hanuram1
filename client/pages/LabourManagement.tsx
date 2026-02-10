@@ -148,67 +148,69 @@ export default function LabourManagement() {
       <div className="space-y-4 sm:space-y-6">
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-fade-in-up">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          {/* Total Labour Card - Blue */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Total Labour
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                <h3 className="text-5xl font-bold text-blue-600 dark:text-blue-400">
                   {totalLabour}
                 </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Workers on Staff</p>
               </div>
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-xl">
-                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
+                <Users className="w-7 h-7 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <div className="h-1 w-full bg-blue-200 dark:bg-blue-900/30 rounded-full overflow-hidden mt-4">
-              <div className="h-full w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          {/* Total Daily Cost Card - Emerald */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-emerald-200/50 dark:border-emerald-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Total Daily Cost
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-                  ₹
-                  {totalDailyCost.toLocaleString("en-IN", {
-                    maximumFractionDigits: 0,
-                  })}
+                <h3 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">
+                  ₹{totalDailyCost.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
                 </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Daily expenses</p>
               </div>
-              <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-xl">
-                <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
+              <div className="bg-gradient-to-br from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-900/20 p-4 rounded-2xl">
+                <DollarSign className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
               </div>
             </div>
-            <div className="h-1 w-full bg-green-200 dark:bg-green-900/30 rounded-full overflow-hidden mt-4">
-              <div className="h-full w-full bg-gradient-to-r from-green-500 to-green-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-emerald-100 dark:bg-emerald-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 rounded-full"></div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-elevation-2 border border-slate-200 dark:border-slate-700 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-1">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">
+          {/* Avg Salary Card - Indigo */}
+          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-indigo-200/50 dark:border-indigo-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex-1">
+                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
                   Avg Salary/Day
                 </p>
-                <h3 className="text-4xl font-bold mt-3 text-slate-900 dark:text-white bg-gradient-to-r from-amber-600 to-amber-700 bg-clip-text text-transparent">
-                  ₹
-                  {avgSalaryPerDay.toLocaleString("en-IN", {
+                <h3 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+                  ₹{avgSalaryPerDay.toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Per worker</p>
               </div>
-              <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-xl">
-                <TrendingUp className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+              <div className="bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/40 dark:to-indigo-900/20 p-4 rounded-2xl">
+                <TrendingUp className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
               </div>
             </div>
-            <div className="h-1 w-full bg-amber-200 dark:bg-amber-900/30 rounded-full overflow-hidden mt-4">
-              <div className="h-full w-full bg-gradient-to-r from-amber-500 to-amber-600 rounded-full"></div>
+            <div className="h-1.5 w-full bg-indigo-100 dark:bg-indigo-900/30 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600 rounded-full"></div>
             </div>
           </div>
         </div>
