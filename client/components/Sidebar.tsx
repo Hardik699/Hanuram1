@@ -88,21 +88,23 @@ export function Sidebar() {
     if (filteredSubmenu.length === 0) return null;
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-0">
         {filteredSubmenu.map((subitem, subindex) => {
           const hasNested =
             Array.isArray(subitem.submenu) && subitem.submenu.length;
-
+          
           if (hasNested) {
             const open = expandedMenu === subitem.label;
+            const isSubActive = isActive(subitem.submenu[0]?.path || "");
+            
             return (
               <div key={subindex}>
                 <button
                   onClick={() => toggleMenu(subitem.label)}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
-                    isActive(subitem.submenu[0]?.path || "")
-                      ? "text-blue-600 bg-blue-50 border-blue-200"
-                      : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
+                  className={`w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium transition-all ${
+                    isSubActive
+                      ? "text-blue-600 bg-blue-50 rounded-lg"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   }`}
                 >
                   <span>{subitem.label}</span>
@@ -113,13 +115,15 @@ export function Sidebar() {
                   />
                 </button>
                 {open && (
-                  <div className="ml-4 pl-3 border-l border-gray-300 space-y-2">
+                  <div className="ml-2 pl-4 border-l-2 border-gray-200 space-y-0">
                     {renderSubmenu(subitem.submenu, subitem.label)}
                   </div>
                 )}
               </div>
             );
           }
+
+          const isItemActive = isActive(subitem.path);
 
           return (
             <Link
@@ -129,10 +133,10 @@ export function Sidebar() {
                 setIsOpen(false);
                 if (parentLabel) setExpandedMenu(parentLabel);
               }}
-              className={`block px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
-                isActive(subitem.path)
-                  ? "bg-blue-50 text-blue-600 border-blue-200"
-                  : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
+              className={`block px-4 py-2.5 text-sm font-medium transition-all ${
+                isItemActive
+                  ? "text-blue-600 bg-blue-50 rounded-lg"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
               {subitem.label}
@@ -148,7 +152,7 @@ export function Sidebar() {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2 rounded-lg"
+        className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
       >
         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
@@ -168,81 +172,100 @@ export function Sidebar() {
         }`}
         style={{ width: "260px" }}
       >
-        {/* Logo/Brand */}
-        <div className="px-4 py-4 border-b border-gray-200 flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">HF</span>
+        {/* Logo/Brand Section */}
+        <div className="px-4 py-6 border-b border-gray-200">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+              HF
+            </div>
+            <div className="flex flex-col">
+              <h2 className="text-sm font-bold text-gray-900">Hanuram</h2>
+              <p className="text-xs font-medium text-blue-600">Foods</p>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-gray-900 font-bold text-sm">Hanuram</span>
-            <span className="text-blue-600 text-xs font-semibold">Foods</span>
-          </div>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="ml-auto md:hidden"
-          >
-            <ChevronDown className="w-5 h-5 text-gray-400 rotate-90" />
-          </button>
         </div>
 
-        {/* Management Navigation */}
-        <div className="px-3 py-3 border-b border-gray-200">
+        {/* Master Data Management Nav */}
+        <div className="px-4 py-4 border-b border-gray-200">
           <ManagementNav />
         </div>
 
+        {/* MENU Label */}
+        <div className="px-4 py-3">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+            Menu
+          </p>
+        </div>
+
         {/* Menu Items */}
-        <nav className="p-4 space-y-2">
+        <nav className="px-4 space-y-0">
           {menuItems
             .filter((item) => checkAccess(item))
-            .map((item, index) => (
-              <div key={index}>
-                {item.submenu ? (
-                  <div>
-                    <button
-                      onClick={() => toggleMenu(item.label)}
-                      className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
-                        isActive(item.submenu[0]?.path || "")
-                          ? "text-blue-600 bg-blue-50 border-blue-200"
-                          : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
+            .map((item, index) => {
+              const itemActive = isActive(item.path || "");
+              
+              return (
+                <div key={index}>
+                  {item.submenu ? (
+                    <div>
+                      <button
+                        onClick={() => toggleMenu(item.label)}
+                        className={`w-full flex items-center justify-between px-4 py-3 text-sm font-medium transition-all ${
+                          isActive(item.submenu[0]?.path || "")
+                            ? "text-blue-600 bg-blue-50 rounded-lg"
+                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          {item.icon && (
+                            <item.icon
+                              className={`w-5 h-5 transition-colors ${
+                                isActive(item.submenu[0]?.path || "")
+                                  ? "text-blue-600"
+                                  : "text-gray-500 group-hover:text-gray-700"
+                              }`}
+                            />
+                          )}
+                          <span>{item.label}</span>
+                        </div>
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform ${
+                            expandedMenu === item.label ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+
+                      {expandedMenu === item.label && (
+                        <div className="mt-0 ml-2 pl-4 border-l-2 border-gray-200 space-y-0">
+                          {renderSubmenu(item.submenu)}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      to={item.path!}
+                      onClick={() => setIsOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all rounded-lg ${
+                        itemActive
+                          ? "text-blue-600 bg-blue-50"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        {item.icon && (
-                          <item.icon className="w-5 h-5" />
-                        )}
-                        <span>{item.label}</span>
-                      </div>
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform ${
-                          expandedMenu === item.label ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-
-                    {expandedMenu === item.label && (
-                      <div className="mt-2 ml-4 pl-3 border-l border-gray-300 space-y-2">
-                        {renderSubmenu(item.submenu)}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    to={item.path!}
-                    onClick={() => setIsOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all border-2 ${
-                      isActive(item.path!)
-                        ? "text-blue-600 bg-blue-50 border-blue-200"
-                        : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
-                    }`}
-                  >
-                    {item.icon && (
-                      <item.icon className="w-5 h-5" />
-                    )}
-                    <span>{item.label}</span>
-                  </Link>
-                )}
-              </div>
-            ))}
+                      {item.icon && (
+                        <item.icon
+                          className={`w-5 h-5 transition-colors ${
+                            itemActive
+                              ? "text-blue-600"
+                              : "text-gray-500"
+                          }`}
+                        />
+                      )}
+                      <span>{item.label}</span>
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
         </nav>
       </aside>
 

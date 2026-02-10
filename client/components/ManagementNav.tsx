@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, Package, Layers, Boxes, Users } from "lucide-react";
+import { ChevronDown, Package } from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -22,17 +22,17 @@ export function ManagementNav() {
     {
       label: "Unit",
       path: "/create-unit",
-      icon: <Boxes className="w-5 h-5" />,
+      icon: <Package className="w-5 h-5" />,
     },
     {
       label: "Sub Category",
       path: "/create-subcategory",
-      icon: <Layers className="w-5 h-5" />,
+      icon: <Package className="w-5 h-5" />,
     },
     {
       label: "Vendor",
       path: "/create-vendor",
-      icon: <Users className="w-5 h-5" />,
+      icon: <Package className="w-5 h-5" />,
     },
   ];
 
@@ -52,14 +52,14 @@ export function ManagementNav() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white rounded-2xl border-2 border-gray-200 px-4 py-3 flex items-center justify-between gap-3 hover:border-blue-200 hover:bg-blue-50 transition-all"
+        className="w-full bg-blue-50 rounded-lg px-4 py-3 flex items-center justify-between gap-3 hover:bg-blue-100 transition-colors border border-blue-200"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+          <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
             <Package className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
               Master Data
             </p>
             <p className="text-sm font-bold text-gray-900">
@@ -68,7 +68,7 @@ export function ManagementNav() {
           </div>
         </div>
         <ChevronDown
-          className={`w-5 h-5 text-gray-900 transition-transform ${
+          className={`w-5 h-5 text-blue-600 transition-transform flex-shrink-0 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
@@ -76,31 +76,29 @@ export function ManagementNav() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50 min-w-[280px]">
-          <div className="p-3 space-y-2">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50 min-w-[280px]">
+          <div className="p-2 space-y-1">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
                 <button
                   key={item.path}
                   onClick={() => handleNavigate(item.path)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all text-left border-2 ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-left text-sm font-medium ${
                     isActive
-                      ? "bg-blue-50 text-blue-600 border-blue-200"
-                      : "text-gray-700 bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50"
+                      ? "bg-blue-50 text-blue-600"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   }`}
                 >
                   <div
                     className={`flex-shrink-0 ${
-                      isActive
-                        ? "text-blue-600"
-                        : "text-gray-700"
+                      isActive ? "text-blue-600" : "text-gray-500"
                     }`}
                   >
                     {item.icon}
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-medium">{item.label}</p>
+                    <p>{item.label}</p>
                   </div>
                 </button>
               );
