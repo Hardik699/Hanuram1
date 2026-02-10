@@ -589,7 +589,6 @@ export default function CreateVendor() {
                       <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Contact Person</th>
                       <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Mobile</th>
                       <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Email</th>
-                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Location</th>
                       {paginatedVendors.some(v => v.gstNumber) && (
                         <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">GST</th>
                       )}
@@ -655,13 +654,6 @@ export default function CreateVendor() {
                           ) : (
                             <span className="text-gray-400">—</span>
                           )}
-                        </td>
-
-                        {/* Location */}
-                        <td className="px-6 py-4">
-                          <span className="font-semibold text-gray-900 capitalize-each-word">
-                            {vendor.location || "—"}
-                          </span>
                         </td>
 
                         {/* GST */}
