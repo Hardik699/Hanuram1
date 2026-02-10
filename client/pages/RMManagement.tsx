@@ -1258,106 +1258,130 @@ export default function RMManagement() {
           </div>
 
           {/* Raw Materials Table */}
-          <div className="unified-table-container">
-            <div className="prof-table-responsive">
-              <table className="w-full">
-                <thead className="prof-table-head">
-                  <tr>
-                    <th className="prof-table-head-cell">Code</th>
-                    <th className="prof-table-head-cell">Name</th>
-                    <th className="prof-table-head-cell hidden sm:table-cell">
-                      Category
-                    </th>
-                    <th className="prof-table-head-cell hidden lg:table-cell">
-                      Sub Category
-                    </th>
-                    <th className="prof-table-head-cell">Unit</th>
-                    <th className="prof-table-head-cell hidden md:table-cell">
-                      Last Price
-                    </th>
-                    <th className="prof-table-head-cell hidden lg:table-cell">
-                      Last Purchase
-                    </th>
-                    <th className="prof-table-head-cell text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                  {paginatedRawMaterials.map((rm, idx) => (
-                    <tr
-                      key={rm._id}
-                      className={cn(
-                        "prof-table-row prof-table-row-hover",
-                        idx % 2 === 0 && "prof-table-row-even",
-                      )}
-                    >
-                      <td
-                        className="prof-table-cell cursor-pointer"
-                        onClick={() => navigate(`/raw-materials/${rm._id}`)}
-                      >
-                        <span className="prof-badge-blue">{rm.code}</span>
-                      </td>
-                      <td
-                        className="prof-table-cell cursor-pointer group-hover:text-blue-600 dark:group-hover:text-blue-400 font-bold"
-                        onClick={() => navigate(`/raw-materials/${rm._id}`)}
-                        title={rm.name}
-                      >
-                        {rm.name}
-                      </td>
-                      <td className="prof-table-cell hidden sm:table-cell">
-                        <span className="prof-badge-blue">
-                          {rm.categoryName}
-                        </span>
-                      </td>
-                      <td className="prof-table-cell hidden lg:table-cell">
-                        <span className="prof-badge-green">
-                          {rm.subCategoryName}
-                        </span>
-                      </td>
-                      <td className="prof-table-cell">
-                        {rm.unitName ? (
-                          <span className="prof-badge-orange">
-                            {rm.unitName}
-                          </span>
-                        ) : (
-                          <span className="text-slate-400">-</span>
-                        )}
-                      </td>
-                      <td className="prof-table-cell hidden md:table-cell">
-                        {rm.lastAddedPrice ? (
-                          <span className="prof-badge-green">
-                            ₹{rm.lastAddedPrice.toFixed(2)}/
-                            {formatUnit(rm.unitName)}
-                          </span>
-                        ) : (
-                          <span className="prof-badge-orange">Pending</span>
-                        )}
-                      </td>
-                      <td className="prof-table-cell hidden lg:table-cell">
-                        {rm.lastPriceDate ? (
-                          <span className="font-medium text-slate-600 dark:text-slate-400 text-xs">
-                            {new Date(rm.lastPriceDate).toLocaleDateString(
-                              "en-IN",
-                            )}
-                          </span>
-                        ) : (
-                          <span className="text-slate-400">-</span>
-                        )}
-                      </td>
-                      <td className="prof-table-cell text-center whitespace-nowrap">
-                        <button
-                          onClick={() => handleViewRMPriceHistory(rm)}
-                          className="prof-btn-sm"
-                          title="View price history"
-                        >
-                          <History size={14} />
-                          <span className="hidden sm:inline">History</span>
-                        </button>
-                      </td>
+          {/* Raw Materials Table - Clean Vendor Style */}
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-16">
+                <div className="inline-block w-8 h-8 border-3 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
+                <p className="text-gray-600 mt-3 font-medium text-sm">Loading raw materials...</p>
+              </div>
+            ) : paginatedRawMaterials.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 px-6">
+                <Package className="w-14 h-14 text-gray-300 mb-3" />
+                <p className="font-bold text-gray-900 text-base">No raw materials yet</p>
+                <p className="text-sm text-gray-500 mt-1">Create your first raw material to get started</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  {/* Table Header */}
+                  <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Code</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Name</th>
+                      <th className="hidden sm:table-cell px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Category</th>
+                      <th className="hidden lg:table-cell px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Sub Category</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Unit</th>
+                      <th className="hidden md:table-cell px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Last Price</th>
+                      <th className="hidden lg:table-cell px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Last Purchase</th>
+                      <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+
+                  {/* Table Body */}
+                  <tbody className="divide-y divide-gray-200">
+                    {paginatedRawMaterials.map((rm, idx) => (
+                      <tr
+                        key={rm._id}
+                        className={`hover:bg-blue-50 transition-colors duration-200 ${
+                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        } cursor-pointer group`}
+                        onClick={() => navigate(`/raw-materials/${rm._id}`)}
+                      >
+                        {/* Code */}
+                        <td className="px-6 py-4">
+                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
+                            {rm.code}
+                          </span>
+                        </td>
+
+                        {/* Name */}
+                        <td className="px-6 py-4">
+                          <div className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate capitalize-each-word">
+                            {rm.name}
+                          </div>
+                        </td>
+
+                        {/* Category */}
+                        <td className="hidden sm:table-cell px-6 py-4">
+                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+                            {rm.categoryName}
+                          </span>
+                        </td>
+
+                        {/* Sub Category */}
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">
+                            {rm.subCategoryName || "—"}
+                          </span>
+                        </td>
+
+                        {/* Unit */}
+                        <td className="px-6 py-4">
+                          {rm.unitName ? (
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-orange-100 text-orange-700">
+                              {rm.unitName}
+                            </span>
+                          ) : (
+                            <span className="text-gray-400">—</span>
+                          )}
+                        </td>
+
+                        {/* Last Price */}
+                        <td className="hidden md:table-cell px-6 py-4">
+                          {rm.lastAddedPrice ? (
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">
+                              ₹{rm.lastAddedPrice.toFixed(2)}/{formatUnit(rm.unitName)}
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-orange-100 text-orange-700">
+                              Pending
+                            </span>
+                          )}
+                        </td>
+
+                        {/* Last Purchase */}
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          {rm.lastPriceDate ? (
+                            <span className="font-medium text-gray-600 text-xs">
+                              {new Date(rm.lastPriceDate).toLocaleDateString("en-IN")}
+                            </span>
+                          ) : (
+                            <span className="text-gray-400">—</span>
+                          )}
+                        </td>
+
+                        {/* Action */}
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleViewRMPriceHistory(rm);
+                              }}
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
+                              title="View price history"
+                            >
+                              <History className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             {/* Pagination Controls */}
             <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
