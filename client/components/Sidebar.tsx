@@ -92,7 +92,7 @@ export function Sidebar() {
         {filteredSubmenu.map((subitem, subindex) => {
           const hasNested =
             Array.isArray(subitem.submenu) && subitem.submenu.length;
-          
+
           if (hasNested) {
             const open = expandedMenu === subitem.label;
             return (
@@ -101,8 +101,8 @@ export function Sidebar() {
                   onClick={() => toggleMenu(subitem.label)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                     isActive(subitem.submenu[0]?.path || "")
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:bg-blue-50"
+                      ? "text-blue-600 bg-blue-100"
+                      : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   <span>{subitem.label}</span>
@@ -131,8 +131,8 @@ export function Sidebar() {
               }}
               className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                 isActive(subitem.path)
-                  ? "bg-blue-50 text-blue-600"
-                  : "text-gray-700 hover:bg-blue-50"
+                  ? "bg-blue-100 text-blue-600"
+                  : "text-gray-700 hover:bg-gray-100"
               }`}
             >
               {subitem.label}
@@ -191,7 +191,7 @@ export function Sidebar() {
         </div>
 
         {/* Menu Items */}
-        <nav className="p-4 space-y-1">
+        <nav className="p-4 space-y-2">
           {menuItems
             .filter((item) => checkAccess(item))
             .map((item, index) => (
@@ -202,8 +202,8 @@ export function Sidebar() {
                       onClick={() => toggleMenu(item.label)}
                       className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                         isActive(item.submenu[0]?.path || "")
-                          ? "text-blue-600 bg-blue-50"
-                          : "text-gray-700 hover:bg-blue-50"
+                          ? "text-blue-600 bg-blue-100"
+                          : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -231,8 +231,8 @@ export function Sidebar() {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                       isActive(item.path!)
-                        ? "text-blue-600 bg-blue-50"
-                        : "text-gray-700 hover:bg-blue-50"
+                        ? "text-blue-600 bg-blue-100"
+                        : "text-gray-700 hover:bg-gray-100"
                     }`}
                   >
                     {item.icon && (
