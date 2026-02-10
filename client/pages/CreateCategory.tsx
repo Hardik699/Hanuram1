@@ -568,7 +568,6 @@ export default function CreateCategory() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">by <span className="font-medium text-gray-700 capitalize-each-word">{category.createdBy}</span></p>
                     </div>
                   </div>
 
