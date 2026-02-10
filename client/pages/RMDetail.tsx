@@ -879,88 +879,118 @@ export default function RMDetail() {
             </div>
           )}
 
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-6 space-y-6">
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Raw Material Name
-              </label>
-              <input
-                type="text"
-                value={editFormData.name}
-                onChange={(e) =>
-                  setEditFormData({ ...editFormData, name: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              />
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-8 space-y-8">
+            {/* Basic Information Section */}
+            <div className="space-y-5">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                Basic Information
+              </h3>
+
+              <div className="bg-gradient-to-br from-blue-50/40 to-blue-50/20 dark:from-blue-900/10 dark:to-blue-900/5 rounded-lg p-5 border border-blue-100/50 dark:border-blue-800/20">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs">⚙</span>
+                  Raw Material Name
+                </label>
+                <input
+                  type="text"
+                  value={editFormData.name}
+                  onChange={(e) =>
+                    setEditFormData({ ...editFormData, name: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Category
-              </label>
-              <select
-                value={editFormData.categoryId}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    categoryId: e.target.value,
-                    subCategoryId: "",
-                  })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                <option value="">Select Category</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
+            {/* Classification Section */}
+            <div className="space-y-5">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <div className="w-1 h-4 bg-indigo-600 rounded-full"></div>
+                Classification
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="bg-gradient-to-br from-indigo-50/40 to-indigo-50/20 dark:from-indigo-900/10 dark:to-indigo-900/5 rounded-lg p-5 border border-indigo-100/50 dark:border-indigo-800/20">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
+                    <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 text-xs">📁</span>
+                    Category
+                  </label>
+                  <select
+                    value={editFormData.categoryId}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        categoryId: e.target.value,
+                        subCategoryId: "",
+                      })
+                    }
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-sm"
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                      <option key={cat._id} value={cat._id}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="bg-gradient-to-br from-indigo-50/40 to-indigo-50/20 dark:from-indigo-900/10 dark:to-indigo-900/5 rounded-lg p-5 border border-indigo-100/50 dark:border-indigo-800/20">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
+                    <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 text-xs">🏷</span>
+                    Sub Category
+                  </label>
+                  <select
+                    value={editFormData.subCategoryId}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        subCategoryId: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-sm"
+                  >
+                    <option value="">Select Sub Category</option>
+                    {subCategories
+                      .filter((sc) => sc.categoryId === editFormData.categoryId)
+                      .map((subcat) => (
+                        <option key={subcat._id} value={subcat._id}>
+                          {subcat.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Sub Category
-              </label>
-              <select
-                value={editFormData.subCategoryId}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    subCategoryId: e.target.value,
-                  })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                <option value="">Select Sub Category</option>
-                {subCategories
-                  .filter((sc) => sc.categoryId === editFormData.categoryId)
-                  .map((subcat) => (
-                    <option key={subcat._id} value={subcat._id}>
-                      {subcat.name}
+            {/* Unit Section */}
+            <div className="space-y-5">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <div className="w-1 h-4 bg-purple-600 rounded-full"></div>
+                Unit of Measurement
+              </h3>
+
+              <div className="bg-gradient-to-br from-purple-50/40 to-purple-50/20 dark:from-purple-900/10 dark:to-purple-900/5 rounded-lg p-5 border border-purple-100/50 dark:border-purple-800/20">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 text-xs">⚖</span>
+                  Unit
+                </label>
+                <select
+                  value={editFormData.unitId}
+                  onChange={(e) =>
+                    setEditFormData({ ...editFormData, unitId: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-sm"
+                >
+                  <option value="">Select Unit</option>
+                  {units.map((unit) => (
+                    <option key={unit._id} value={unit._id}>
+                      {unit.name}
                     </option>
                   ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                Unit
-              </label>
-              <select
-                value={editFormData.unitId}
-                onChange={(e) =>
-                  setEditFormData({ ...editFormData, unitId: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                <option value="">Select Unit</option>
-                {units.map((unit) => (
-                  <option key={unit._id} value={unit._id}>
-                    {unit.name}
-                  </option>
-                ))}
-              </select>
+                </select>
+              </div>
             </div>
 
             <div>
@@ -1276,91 +1306,139 @@ export default function RMDetail() {
           <div className="p-6">
             {/* Overview Tab */}
             {activeTab === "overview" && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Category
-                  </label>
-                  <p className="text-sm text-slate-900 dark:text-white font-medium">
-                    {rawMaterial.categoryName}
-                  </p>
+              <div className="space-y-8">
+                {/* Classification Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <div className="w-1 h-4 bg-indigo-600 rounded-full"></div>
+                    Classification
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-br from-indigo-50/40 to-indigo-50/20 dark:from-indigo-900/10 dark:to-indigo-900/5 rounded-lg p-4 border border-indigo-100/50 dark:border-indigo-800/20">
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 text-xs">📁</span>
+                        Category
+                      </label>
+                      <p className="text-base font-semibold text-slate-900 dark:text-white">
+                        {rawMaterial.categoryName}
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-br from-indigo-50/40 to-indigo-50/20 dark:from-indigo-900/10 dark:to-indigo-900/5 rounded-lg p-4 border border-indigo-100/50 dark:border-indigo-800/20">
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 text-xs">🏷</span>
+                        Sub Category
+                      </label>
+                      <p className="text-base font-semibold text-slate-900 dark:text-white">
+                        {rawMaterial.subCategoryName}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Sub Category
-                  </label>
-                  <p className="text-sm text-slate-900 dark:text-white font-medium">
-                    {rawMaterial.subCategoryName}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                    Unit
-                  </label>
-                  <p className="text-sm text-slate-900 dark:text-white font-medium">
-                    {rawMaterial.unitName || "-"}
-                  </p>
-                </div>
-                {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0) || rawMaterial.brandName ? (
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Brands
+
+                {/* Unit & Measurement Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <div className="w-1 h-4 bg-purple-600 rounded-full"></div>
+                    Unit of Measurement
+                  </h3>
+                  <div className="bg-gradient-to-br from-purple-50/40 to-purple-50/20 dark:from-purple-900/10 dark:to-purple-900/5 rounded-lg p-4 border border-purple-100/50 dark:border-purple-800/20">
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 text-xs">⚖</span>
+                      Unit
                     </label>
-                    <div className="flex flex-wrap gap-2">
-                      {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0)
-                        ? rawMaterial.brandNames.map((brand, index) => (
-                            <span
-                              key={index}
-                              className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
-                            >
-                              {brand}
-                            </span>
-                          ))
-                        : (
-                            <span className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
-                              {rawMaterial.brandName}
-                            </span>
-                          )
-                      }
+                    <p className="text-base font-semibold text-slate-900 dark:text-white">
+                      {rawMaterial.unitName || "-"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Brands Section */}
+                {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0) || rawMaterial.brandName ? (
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-rose-600 rounded-full"></div>
+                      Brands
+                    </h3>
+                    <div className="bg-gradient-to-br from-rose-50/40 to-rose-50/20 dark:from-rose-900/10 dark:to-rose-900/5 rounded-lg p-4 border border-rose-100/50 dark:border-rose-800/20">
+                      <div className="flex flex-wrap gap-2">
+                        {(rawMaterial.brandNames && rawMaterial.brandNames.length > 0)
+                          ? rawMaterial.brandNames.map((brand, index) => (
+                              <span
+                                key={index}
+                                className="px-4 py-2 bg-gradient-to-r from-rose-500 to-rose-600 text-white rounded-full text-sm font-semibold shadow-sm"
+                              >
+                                {brand}
+                              </span>
+                            ))
+                          : (
+                              <span className="px-4 py-2 bg-gradient-to-r from-rose-500 to-rose-600 text-white rounded-full text-sm font-semibold shadow-sm">
+                                {rawMaterial.brandName}
+                              </span>
+                            )
+                        }
+                      </div>
                     </div>
                   </div>
                 ) : null}
+
+                {/* Tax & Code Section */}
                 {rawMaterial.hsnCode && (
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      HSN Code
-                    </label>
-                    <p className="text-sm text-slate-900 dark:text-white font-medium">
-                      {rawMaterial.hsnCode}
-                    </p>
-                  </div>
-                )}
-                {typeof rawMaterial.lastAddedPrice === "number" && (
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Last Price
-                    </label>
-                    <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
-                      ₹{rawMaterial.lastAddedPrice.toFixed(2)}
-                      {formatUnit(rawMaterial.unitName)
-                        ? ` / ${formatUnit(rawMaterial.unitName)}`
-                        : ""}
-                    </p>
-                    {rawMaterial.lastVendorName && (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                        from {rawMaterial.lastVendorName}
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-amber-600 rounded-full"></div>
+                      Tax Information
+                    </h3>
+                    <div className="bg-gradient-to-br from-amber-50/40 to-amber-50/20 dark:from-amber-900/10 dark:to-amber-900/5 rounded-lg p-4 border border-amber-100/50 dark:border-amber-800/20">
+                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 text-xs">📋</span>
+                        HSN Code
+                      </label>
+                      <p className="text-base font-semibold text-slate-900 dark:text-white font-mono">
+                        {rawMaterial.hsnCode}
                       </p>
-                    )}
+                    </div>
                   </div>
                 )}
-                {rawMaterial.lastPriceDate && (
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Last Purchase Date
-                    </label>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      {formatDate(rawMaterial.lastPriceDate)}
-                    </p>
+
+                {/* Pricing Section */}
+                {(typeof rawMaterial.lastAddedPrice === "number" || rawMaterial.lastPriceDate) && (
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                      <div className="w-1 h-4 bg-emerald-600 rounded-full"></div>
+                      Pricing Information
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {typeof rawMaterial.lastAddedPrice === "number" && (
+                        <div className="bg-gradient-to-br from-emerald-50/40 to-emerald-50/20 dark:from-emerald-900/10 dark:to-emerald-900/5 rounded-lg p-4 border border-emerald-100/50 dark:border-emerald-800/20">
+                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs">💰</span>
+                            Last Price
+                          </label>
+                          <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                            ₹{rawMaterial.lastAddedPrice.toFixed(2)}
+                            {formatUnit(rawMaterial.unitName)
+                              ? ` / ${formatUnit(rawMaterial.unitName)}`
+                              : ""}
+                          </p>
+                          {rawMaterial.lastVendorName && (
+                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 font-medium">
+                              From: <span className="text-slate-900 dark:text-white">{rawMaterial.lastVendorName}</span>
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {rawMaterial.lastPriceDate && (
+                        <div className="bg-gradient-to-br from-emerald-50/40 to-emerald-50/20 dark:from-emerald-900/10 dark:to-emerald-900/5 rounded-lg p-4 border border-emerald-100/50 dark:border-emerald-800/20">
+                          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs">📅</span>
+                            Last Purchase Date
+                          </label>
+                          <p className="text-base font-semibold text-slate-900 dark:text-white">
+                            {formatDate(rawMaterial.lastPriceDate)}
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
