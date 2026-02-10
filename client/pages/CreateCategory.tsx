@@ -524,134 +524,95 @@ export default function CreateCategory() {
             </div>
           </div>
 
-          {/* Categories Table - BEAST Modern Design */}
-          <div className="rounded-xl shadow-md border border-gray-200 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gradient-to-r from-gray-900 to-gray-800 border-b-2 border-gray-700 sticky top-0">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
-                      #
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
-                      Category
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest hidden sm:table-cell">
-                      Description
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest">
-                      Status
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-widest hidden md:table-cell">
-                      Created By
-                    </th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-white uppercase tracking-widest">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {tableLoading ? (
-                    <tr>
-                      <td colSpan={6} className="px-6 py-16 text-center">
-                        <div className="inline-block w-8 h-8 border-4 border-blue-400 border-t-blue-600 rounded-full animate-spin" />
-                        <p className="text-gray-600 mt-3 font-medium">Loading categories...</p>
-                      </td>
-                    </tr>
-                  ) : paginatedCategories.length === 0 ? (
-                    <tr>
-                      <td colSpan={6} className="px-6 py-16 text-center">
-                        <div className="flex flex-col items-center justify-center">
-                          <Folder className="w-12 h-12 text-gray-300 mb-3" />
-                          <p className="font-bold text-gray-900 text-lg">No categories yet</p>
-                          <p className="text-sm text-gray-500 mt-1">Create your first category to get started</p>
-                        </div>
-                      </td>
-                    </tr>
-                  ) : (
-                    paginatedCategories.map((category, idx) => (
-                      <tr
-                        key={category._id}
-                        className={`transition-all duration-200 group hover:shadow-lg hover:scale-105 transform origin-center ${
-                          idx % 2 === 0 ? "bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50" : "bg-gray-50 hover:bg-gradient-to-r hover:from-blue-100/30 hover:to-indigo-100/30"
-                        }`}
-                      >
-                        <td className="px-6 py-5">
-                          <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white text-sm font-bold group-hover:from-blue-700 group-hover:to-blue-800 group-hover:shadow-lg transition-all">
-                            {category.name.substring(0, 1).toUpperCase()}
-                          </span>
-                        </td>
-                        <td className="px-6 py-5">
-                          <p className="text-sm font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
-                            {category.name}
-                          </p>
-                        </td>
-                        <td className="px-6 py-5 hidden sm:table-cell">
-                          <p className="text-sm text-gray-600 truncate group-hover:text-gray-900 transition-colors" title={category.description}>
-                            {category.description ? (
-                              <span className="inline-flex items-center px-2 py-1 rounded-md bg-gray-200 text-gray-700 text-xs font-medium">
-                                {category.description}
-                              </span>
-                            ) : (
-                              <span className="text-gray-400 italic">—</span>
-                            )}
-                          </p>
-                        </td>
-                        <td className="px-6 py-5">
-                          <span
-                            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                              category.status === "active"
-                                ? "bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-700 group-hover:from-emerald-200 group-hover:to-emerald-100"
-                                : "bg-gradient-to-r from-red-100 to-red-50 text-red-700 group-hover:from-red-200 group-hover:to-red-100"
-                            }`}
-                          >
-                            <span className={`w-2 h-2 rounded-full ${category.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
-                            {category.status
-                              ? category.status.charAt(0).toUpperCase() +
-                                category.status.slice(1)
-                              : "—"}
-                          </span>
-                        </td>
-                        <td className="px-6 py-5 hidden md:table-cell">
-                          <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
-                            {category.createdBy}
-                          </p>
-                        </td>
-                        <td className="px-6 py-5 text-right">
-                          <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleEdit(category);
-                              }}
-                              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all active:scale-95 shadow-sm hover:shadow-md"
-                              title="Edit Category"
-                            >
-                              <Edit2 className="w-4 h-4" />
-                              <span className="hidden sm:inline">Edit</span>
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDelete(category._id);
-                              }}
-                              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all active:scale-95 shadow-sm hover:shadow-md"
-                              title="Delete Category"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                              <span className="hidden sm:inline">Delete</span>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
+          {/* Categories Grid - Light & Modern Design */}
+          <div className="space-y-3">
+            {tableLoading ? (
+              <div className="flex flex-col items-center justify-center py-16">
+                <div className="inline-block w-8 h-8 border-3 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
+                <p className="text-gray-600 mt-3 font-medium text-sm">Loading categories...</p>
+              </div>
+            ) : paginatedCategories.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                <Folder className="w-14 h-14 text-blue-300 mb-3" />
+                <p className="font-bold text-gray-900 text-base">No categories yet</p>
+                <p className="text-sm text-gray-500 mt-1">Create your first category to get started</p>
+              </div>
+            ) : (
+              paginatedCategories.map((category, idx) => (
+                <div
+                  key={category._id}
+                  className="group bg-white hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 border border-gray-200 hover:border-blue-300 rounded-xl px-5 py-4 transition-all duration-200 hover:shadow-lg hover:scale-102 cursor-pointer flex items-center justify-between"
+                  onClick={() => navigate(`/category/${category._id}`)}
+                >
+                  {/* Left Content */}
+                  <div className="flex items-center gap-4 flex-1 min-w-0">
+                    {/* Avatar */}
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-lg flex items-center justify-center group-hover:from-blue-600 group-hover:to-blue-700 group-hover:shadow-md transition-all">
+                        {category.name.substring(0, 1).toUpperCase()}
+                      </div>
+                    </div>
 
-            {/* Pagination Controls */}
-            <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between flex-wrap gap-4">
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate">
+                          {category.name}
+                        </h3>
+                        {category.description && (
+                          <span className="hidden sm:inline text-xs bg-gray-100 group-hover:bg-gray-200 text-gray-700 px-2.5 py-1 rounded-md transition-colors truncate max-w-xs">
+                            {category.description}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">by <span className="font-medium text-gray-700">{category.createdBy}</span></p>
+                    </div>
+                  </div>
+
+                  {/* Right Content */}
+                  <div className="flex items-center gap-3 ml-4 flex-shrink-0">
+                    {/* Status */}
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                        category.status === "active"
+                          ? "bg-emerald-100 text-emerald-700 group-hover:bg-emerald-200"
+                          : "bg-red-100 text-red-700 group-hover:bg-red-200"
+                      }`}
+                    >
+                      <span className={`w-2 h-2 rounded-full ${category.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
+                      {category.status ? category.status.charAt(0).toUpperCase() + category.status.slice(1) : "—"}
+                    </span>
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200 flex-shrink-0">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEdit(category);
+                        }}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
+                        title="Edit"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(category._id);
+                        }}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-600 text-red-600 hover:text-white text-xs font-semibold transition-all active:scale-95"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+
+            {/* Pagination Controls - Light Style */}
+            <div className="mt-6 flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium text-gray-700">
                   Show:
@@ -659,7 +620,7 @@ export default function CreateCategory() {
                 <select
                   value={itemsPerPage}
                   onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-sm text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-sm text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all hover:border-blue-400"
                 >
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -667,8 +628,8 @@ export default function CreateCategory() {
                 </select>
               </div>
 
-              <div className="flex items-center gap-6">
-                <span className="text-sm font-medium text-gray-700">
+              <div className="flex items-center gap-4">
+                <span className="text-xs font-medium text-gray-600">
                   <span className="font-semibold text-blue-600">
                     {startIndex + 1}–{Math.min(endIndex, filteredCategories.length)}
                   </span>{" "}
@@ -681,18 +642,18 @@ export default function CreateCategory() {
                   <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="inline-flex items-center justify-center p-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-400 transition-all hover:border-blue-400"
                     title="Previous Page"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="text-sm font-medium text-gray-700 min-w-[80px] text-center">
-                    Page <span className="font-semibold text-blue-600">{currentPage}</span> of <span className="font-semibold">{totalPages || 1}</span>
+                  <span className="text-xs font-medium text-gray-700 min-w-[70px] text-center">
+                    <span className="font-bold text-blue-600">{currentPage}</span>/<span className="font-bold text-gray-900">{totalPages || 1}</span>
                   </span>
                   <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
-                    className="inline-flex items-center justify-center p-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-400 transition-all hover:border-blue-400"
                     title="Next Page"
                   >
                     <ChevronRight className="w-4 h-4" />
