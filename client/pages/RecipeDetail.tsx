@@ -467,13 +467,28 @@ export default function RecipeDetail() {
 
       const data = await response.json();
       if (data.success) {
-        toast.success("Recipe deleted successfully");
-        navigate("/rmc");
+        toast.success("Recipe Deleted!", {
+          description: `Recipe has been permanently removed from your database`,
+          duration: 3000,
+        });
+        setTimeout(() => {
+          navigate("/rmc");
+        }, 1000);
       } else {
-        setDeleteError(data.message || "Failed to delete");
+        const errMsg = data.message || "Failed to delete recipe";
+        setDeleteError(errMsg);
+        toast.error("Delete Failed", {
+          description: errMsg,
+          duration: 3000,
+        });
       }
     } catch (error) {
-      setDeleteError("Failed to delete recipe");
+      const errMsg = "Failed to delete recipe";
+      setDeleteError(errMsg);
+      toast.error("Error Deleting Recipe", {
+        description: errMsg,
+        duration: 3000,
+      });
     }
   };
 
@@ -598,7 +613,10 @@ export default function RecipeDetail() {
 
       const data = await response.json();
       if (data.success) {
-        toast.success("Quotation created successfully");
+        toast.success("Quotation Created!", {
+          description: `Quotation for ${quotationForm.companyName} has been created successfully`,
+          duration: 3000,
+        });
         setShowQuotationForm(false);
         setQuotationForm({
           companyName: "",
@@ -620,10 +638,16 @@ export default function RecipeDetail() {
         setQuotationItemOverrides({});
         fetchQuotations();
       } else {
-        toast.error(data.message || "Failed to create quotation");
+        toast.error("Failed to Create Quotation", {
+          description: data.message || "Something went wrong",
+          duration: 3000,
+        });
       }
     } catch (error) {
-      toast.error("Failed to create quotation");
+      toast.error("Error Creating Quotation", {
+        description: "An unexpected error occurred",
+        duration: 3000,
+      });
     } finally {
       setQuotationCreating(false);
     }

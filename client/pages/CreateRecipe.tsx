@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   Check,
@@ -417,6 +418,11 @@ export default function CreateRecipe() {
     setSelectedBrandForItem("");
     setItemForm({ quantity: "", unitId: "", price: "", vendorId: "" });
     setItemErrors({});
+
+    toast.success("Item Added!", {
+      description: `${newItem.rawMaterialName} added to recipe with quantity ${newItem.quantity}`,
+      duration: 2500,
+    });
   };
 
   const handleAddRecipe = (selectedRecipe: Recipe) => {
@@ -447,23 +453,27 @@ export default function CreateRecipe() {
       setRecipeSearchQuery("");
 
       // Show success message
-      setMessage(
-        `Added recipe "${selectedRecipe.name}" with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`,
-      );
-      setMessageType("success");
-      setTimeout(() => {
-        setMessage("");
-        setMessageType("");
-      }, 3000);
+      toast.success("Recipe Added!", {
+        description: `"${selectedRecipe.name}" added with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`,
+        duration: 2500,
+      });
     } catch (error) {
       console.error("Error adding recipe:", error);
-      setMessage("Failed to add recipe");
-      setMessageType("error");
+      toast.error("Failed to Add Recipe", {
+        description: "Something went wrong while adding the recipe",
+        duration: 3000,
+      });
     }
   };
 
   const handleRemoveItem = (index: number) => {
+    const removedItem = recipeItems[index];
     setRecipeItems(recipeItems.filter((_, i) => i !== index));
+
+    toast.success("Item Removed", {
+      description: `${removedItem.rawMaterialName} has been removed from the recipe`,
+      duration: 2000,
+    });
   };
 
   const handleStartEditItem = (index: number) => {
@@ -584,22 +594,30 @@ export default function CreateRecipe() {
       console.log("Recipe save response:", { status: response.status, data });
 
       if (response.ok && data.success) {
-        setMessageType("success");
-        setMessage(
-          id ? "Recipe updated successfully" : "Recipe created successfully",
-        );
+        const successMsg = id ? "Recipe updated successfully!" : "Recipe created successfully!";
+        toast.success(successMsg, {
+          description: id
+            ? "Your recipe has been updated with all changes."
+            : "Your new recipe is ready to use.",
+          duration: 3000,
+        });
         setTimeout(() => {
           navigate("/rmc");
         }, 1500);
       } else {
-        setMessageType("error");
         const errorMsg = data.message || `Operation failed (Status: ${response.status})`;
-        setMessage(errorMsg);
+        toast.error("Operation Failed", {
+          description: errorMsg,
+          duration: 4000,
+        });
         console.error("Recipe save failed:", errorMsg);
       }
     } catch (error) {
-      setMessageType("error");
-      setMessage("Error saving recipe: " + (error instanceof Error ? error.message : "Unknown error"));
+      const errorDesc = error instanceof Error ? error.message : "Unknown error occurred";
+      toast.error("Error Saving Recipe", {
+        description: errorDesc,
+        duration: 4000,
+      });
       console.error("Recipe save error:", error);
     } finally {
       setLoading(false);
