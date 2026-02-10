@@ -210,6 +210,8 @@ export const handleUpdateRawMaterial: RequestHandler = async (req, res) => {
       unitName,
       brandId,
       brandName,
+      brandIds,
+      brandNames,
       hsnCode,
     } = req.body;
 
@@ -237,6 +239,8 @@ export const handleUpdateRawMaterial: RequestHandler = async (req, res) => {
     if (unitName) updateData.unitName = unitName;
     if (brandId) updateData.brandId = brandId;
     if (brandName) updateData.brandName = brandName;
+    if (brandIds && Array.isArray(brandIds)) updateData.brandIds = brandIds;
+    if (brandNames && Array.isArray(brandNames)) updateData.brandNames = brandNames;
     if (hsnCode !== undefined) updateData.hsnCode = hsnCode;
 
     const result = await db
