@@ -44,6 +44,8 @@ interface RawMaterial {
   unitName?: string;
   lastAddedPrice?: number;
   lastVendorName?: string;
+  brandIds?: string[];
+  brandNames?: string[];
 }
 
 interface RecipeItem {
@@ -57,6 +59,8 @@ interface RecipeItem {
   vendorId?: string;
   vendorName?: string;
   totalPrice: number;
+  brandId?: string;
+  brandName?: string;
 }
 
 interface Recipe {
@@ -115,6 +119,8 @@ export default function CreateRecipe() {
     price: "",
     vendorId: "",
   });
+  const [selectedBrandForItem, setSelectedBrandForItem] = useState("");
+  const [vendorPricesByRM, setVendorPricesByRM] = useState<Record<string, any[]>>({});
 
   // Recipe selection modal state
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -230,6 +236,38 @@ export default function CreateRecipe() {
     }
   };
 
+  const fetchVendorPricesForRM = async (rmId: string) => {
+    try {
+      const response = await fetch(`/api/raw-materials/${rmId}/vendor-prices`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        setVendorPricesByRM((prev) => ({
+          ...prev,
+          [rmId]: data.data,
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching vendor prices:", error);
+    }
+  };
+
+  // Helper function to get price for a specific brand
+  const getPriceForBrand = (rmId: string, brandId?: string): number => {
+    if (!brandId) {
+      // No brand selected, return the overall last purchase price
+      const rm = rawMaterials.find((r) => r._id === rmId);
+      return rm?.lastAddedPrice || 0;
+    }
+
+    // Find price for specific brand
+    const prices = vendorPricesByRM[rmId] || [];
+    const brandPrice = prices.find((p: any) => p.brandId === brandId);
+    return brandPrice?.price || 0;
+  };
+
   const fetchRecipe = async (recipeId: string) => {
     try {
       const response = await fetch("/api/recipes");
@@ -325,6 +363,15 @@ export default function CreateRecipe() {
 
     const totalPrice = Number(itemForm.quantity) * Number(itemForm.price);
 
+    // Get brand name if brand is selected
+    let brandName = "";
+    if (selectedBrandForItem && selectedRM.brandIds && selectedRM.brandNames) {
+      const brandIndex = selectedRM.brandIds.indexOf(selectedBrandForItem);
+      if (brandIndex !== -1) {
+        brandName = selectedRM.brandNames[brandIndex];
+      }
+    }
+
     const newItem: RecipeItem = {
       rawMaterialId: selectedRM._id,
       rawMaterialName: selectedRM.name,
@@ -341,11 +388,14 @@ export default function CreateRecipe() {
         ? selectedRM.lastVendorName
         : selectedRM.lastVendorName,
       totalPrice: parseFloat(totalPrice.toFixed(2)),
+      brandId: selectedBrandForItem || undefined,
+      brandName: brandName || undefined,
     };
 
     setRecipeItems([...recipeItems, newItem]);
     setShowAddItemForm(false);
     setSelectedRMForItem("");
+    setSelectedBrandForItem("");
     setItemForm({ quantity: "", unitId: "", price: "", vendorId: "" });
     setItemErrors({});
   };
@@ -842,6 +892,7 @@ export default function CreateRecipe() {
                       value={selectedRMForItem}
                       onChange={(rmId) => {
                         setSelectedRMForItem(rmId);
+                        setSelectedBrandForItem(""); // Reset brand selection
                         // Auto-fill unit and price
                         if (rmId) {
                           const selectedRM = rawMaterials.find(
@@ -851,10 +902,10 @@ export default function CreateRecipe() {
                             setItemForm((prev) => ({
                               ...prev,
                               unitId: selectedRM.unitId || "",
-                              price: selectedRM.lastAddedPrice
-                                ? selectedRM.lastAddedPrice.toString()
-                                : "0",
+                              price: (selectedRM.lastAddedPrice || 0).toString(),
                             }));
+                            // Fetch vendor prices for brand-aware pricing
+                            fetchVendorPricesForRM(rmId);
                           }
                         } else {
                           setItemForm((prev) => ({
@@ -876,6 +927,44 @@ export default function CreateRecipe() {
                       </p>
                     )}
                   </div>
+
+                  {/* Brand Selection - Optional if RM has brands */}
+                  {selectedRMForItem && (() => {
+                    const selectedRM = rawMaterials.find(
+                      (rm) => rm._id === selectedRMForItem,
+                    );
+                    return selectedRM?.brandNames && selectedRM.brandNames.length > 0 ? (
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                          Brand (Optional)
+                        </label>
+                        <select
+                          value={selectedBrandForItem}
+                          onChange={(e) => {
+                            const brandId = e.target.value;
+                            setSelectedBrandForItem(brandId);
+                            // Update price based on selected brand
+                            const price = getPriceForBrand(selectedRMForItem, brandId || undefined);
+                            setItemForm((prev) => ({
+                              ...prev,
+                              price: price.toString(),
+                            }));
+                          }}
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                        >
+                          <option value="">-- Select Brand --</option>
+                          {selectedRM.brandNames.map((brand, index) => {
+                            const brandId = selectedRM.brandIds?.[index];
+                            return (
+                              <option key={index} value={brandId || ""}>
+                                {brand}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    ) : null;
+                  })()}
 
                   {/* Quantity, Price, Unit - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
