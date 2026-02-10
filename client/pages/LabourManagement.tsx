@@ -290,31 +290,29 @@ export default function LabourManagement() {
             </div>
           ) : (
             <>
-              <div className="prof-table-responsive">
-                <table className="w-full">
-                  <thead className="bg-gradient-to-r from-blue-50 via-blue-50/80 to-blue-50/60 dark:from-blue-900/20 dark:via-blue-900/15 dark:to-blue-900/10 border-b-2 border-blue-200 dark:border-blue-800/30 sticky top-0">
+              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+                <table className="w-full min-w-[500px]">
+                  <thead className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10 border-b border-slate-200 dark:border-slate-700">
                     <tr>
-                      <th className="prof-table-head-cell text-blue-700 dark:text-blue-300 font-bold">Labour ID</th>
-                      <th className="prof-table-head-cell text-blue-700 dark:text-blue-300 font-bold">Name</th>
-                      <th className="hidden md:table-cell prof-table-head-cell text-blue-700 dark:text-blue-300 font-bold">Department</th>
-                      <th className="prof-table-head-cell text-right text-blue-700 dark:text-blue-300 font-bold">Salary/Day</th>
-                      <th className="prof-table-head-cell text-center text-blue-700 dark:text-blue-300 font-bold">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Labour ID</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Name</th>
+                      <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Department</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Salary/Day</th>
+                      <th className="px-6 py-3 text-center text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                    {paginatedLabour.map((item, idx) => (
+                    {paginatedLabour.map((item) => (
                       <tr
                         key={item._id}
-                        className={`prof-table-row prof-table-row-hover transition-all ${
-                          idx % 2 === 0 ? "prof-table-row-even" : ""
-                        }`}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
                       >
-                        <td className="prof-table-cell-bold text-blue-600 dark:text-blue-400">
+                        <td className="px-6 py-3 text-sm font-medium text-blue-600 dark:text-blue-400">
                           <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {item.code}
                           </span>
                         </td>
-                        <td className="prof-table-cell text-slate-900 dark:text-white font-semibold">
+                        <td className="px-6 py-3 text-sm font-medium text-slate-900 dark:text-white">
                           <div className="flex flex-col gap-1">
                             <span>{item.name}</span>
                             <span className="md:hidden text-xs text-slate-500 dark:text-slate-400 font-normal">
@@ -322,18 +320,18 @@ export default function LabourManagement() {
                             </span>
                           </div>
                         </td>
-                        <td className="hidden md:table-cell prof-table-cell">
+                        <td className="hidden md:table-cell px-6 py-3 text-sm text-slate-700 dark:text-slate-300">
                           <span className="px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-bold border border-blue-200/50 dark:border-blue-800/50">
                             {item.department}
                           </span>
                         </td>
-                        <td className="prof-table-cell text-blue-700 dark:text-blue-400 font-bold text-right">
+                        <td className="px-6 py-3 text-sm font-semibold text-blue-600 dark:text-blue-400">
                           ₹{item.salaryPerDay.toLocaleString("en-IN", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}
                         </td>
-                        <td className="prof-table-cell text-center">
+                        <td className="px-6 py-3 text-center">
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => navigate(`/labour/${item._id}/edit`)}
@@ -358,15 +356,14 @@ export default function LabourManagement() {
               </div>
 
               {/* Pagination Controls */}
-              <div className="px-3 sm:px-6 py-4 sm:py-5 border-t-2 border-blue-200 dark:border-blue-800/20 bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-900/5 dark:to-slate-800">
-                <div className="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
-                  <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
+              <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
                       {startIdx + 1}-{Math.min(startIdx + itemsPerPage, filteredLabour.length)}
                     </span>
-                    <span className="hidden sm:inline"> of {" "}
-                    </span>
-                    <span className="hidden sm:inline font-bold text-slate-900 dark:text-slate-200">
+                    {" "}of{" "}
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
                       {filteredLabour.length}
                     </span>
                   </span>
@@ -374,24 +371,18 @@ export default function LabourManagement() {
                     <button
                       onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                      className="inline-flex items-center justify-center p-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                       title="Previous Page"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
-                    <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[50px] sm:min-w-[100px] text-center">
-                      <span className="text-blue-600 dark:text-blue-400">
-                        {currentPage}
-                      </span>
-                      <span className="hidden sm:inline">/</span>
-                      <span className="hidden sm:inline text-slate-900 dark:text-slate-200">
-                        {totalPages || 1}
-                      </span>
+                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
+                      {currentPage}/{totalPages || 1}
                     </span>
                     <button
                       onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages || totalPages === 0}
-                      className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg border-2 border-blue-300 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 transition-all hover:border-blue-500 dark:hover:border-blue-800"
+                      className="inline-flex items-center justify-center p-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                       title="Next Page"
                     >
                       <ChevronRight className="w-4 h-4" />
