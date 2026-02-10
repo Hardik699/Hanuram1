@@ -1256,7 +1256,7 @@ export default function RMDetail() {
                     : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
                 }`}
               >
-                Vendor ⭐
+                Vendor
               </button>
               <button
                 onClick={() => setActiveTab("recipe")}
