@@ -38,7 +38,12 @@ export default function CreateLabour() {
 
   const fetchLabourData = async () => {
     try {
-      const response = await fetch(`/api/labour/${id}`);
+      const token = localStorage.getItem("auth_token");
+      const response = await fetch(`/api/labour/${id}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
 
       if (data.success && data.data) {
@@ -92,10 +97,14 @@ export default function CreateLabour() {
     try {
       const method = id ? "PUT" : "POST";
       const url = id ? `/api/labour/${id}` : "/api/labour";
+      const token = localStorage.getItem("auth_token");
 
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
         body: JSON.stringify({
           name: formData.name,
           department: formData.department,
