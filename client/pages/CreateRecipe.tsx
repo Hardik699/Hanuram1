@@ -952,6 +952,109 @@ export default function CreateRecipe() {
                 </div>
               )}
 
+              {/* Add Recipe Modal */}
+              {showAddRecipeModal && (
+                <div className="bg-gradient-to-br from-orange-50 dark:from-slate-700/50 to-amber-50 dark:to-slate-800/50 rounded-xl border border-orange-200 dark:border-orange-800/30 p-6 mb-6 space-y-4 shadow-sm">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-md font-bold text-slate-900 dark:text-white">
+                      Select Recipe to Add Items
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowAddRecipeModal(false);
+                        setRecipeSearchQuery("");
+                      }}
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Search Input */}
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Search recipes by name or code..."
+                      value={recipeSearchQuery}
+                      onChange={(e) => setRecipeSearchQuery(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                  </div>
+
+                  {/* Recipes List */}
+                  <div className="max-h-72 overflow-y-auto space-y-2 border border-slate-200 dark:border-slate-600 rounded-lg p-3 bg-white dark:bg-slate-800">
+                    {recipes
+                      .filter(
+                        (recipe) =>
+                          recipe._id !== id && // Exclude current recipe
+                          (recipe.name
+                            .toLowerCase()
+                            .includes(recipeSearchQuery.toLowerCase()) ||
+                            recipe.code
+                              .toLowerCase()
+                              .includes(recipeSearchQuery.toLowerCase()))
+                      )
+                      .map((recipe) => (
+                        <button
+                          key={recipe._id}
+                          type="button"
+                          onClick={() => handleAddRecipe(recipe)}
+                          className="w-full text-left p-3 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:border-orange-400 dark:hover:border-orange-600 transition-all"
+                        >
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <p className="font-semibold text-slate-900 dark:text-white">
+                                {recipe.name}
+                              </p>
+                              <p className="text-xs text-slate-600 dark:text-slate-400">
+                                Code: {recipe.code} | Items:{" "}
+                                {recipe.items?.length || 0}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                                ₹{recipe.totalRawMaterialCost.toFixed(2)}
+                              </p>
+                              <p className="text-xs text-slate-600 dark:text-slate-400">
+                                Total RM Cost
+                              </p>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+
+                    {recipes.filter(
+                      (recipe) =>
+                        recipe._id !== id &&
+                        (recipe.name
+                          .toLowerCase()
+                          .includes(recipeSearchQuery.toLowerCase()) ||
+                          recipe.code
+                            .toLowerCase()
+                            .includes(recipeSearchQuery.toLowerCase()))
+                    ).length === 0 && (
+                      <p className="text-center text-slate-600 dark:text-slate-400 py-4">
+                        {recipes.length === 0
+                          ? "No recipes available"
+                          : "No recipes match your search"}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAddRecipeModal(false);
+                      setRecipeSearchQuery("");
+                    }}
+                    className="w-full px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors font-medium text-sm"
+                  >
+                    Close
+                  </button>
+                </div>
+              )}
+
               {/* Items Table */}
               {errors.items && (
                 <p className="text-red-600 dark:text-red-400 text-sm mb-4">
