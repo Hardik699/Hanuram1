@@ -1091,36 +1091,27 @@ export default function RMDetail() {
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                 Recipes (Optional - Add Multiple)
               </label>
-              <div className="space-y-3">
-                <select
-                  value={selectedRecipeForAdd}
-                  onChange={(e) => setSelectedRecipeForAdd(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
-                >
-                  <option value="">Select Recipe</option>
-                  {recipes.filter(r => !selectedRecipes.find(sr => sr._id === r._id)).map((recipe) => (
-                    <option key={recipe._id} value={recipe._id}>
-                      {recipe.code} - {recipe.name}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (selectedRecipeForAdd) {
-                      const recipe = recipes.find(r => r._id === selectedRecipeForAdd);
-                      if (recipe) {
-                        setSelectedRecipes([...selectedRecipes, recipe]);
-                        setSelectedRecipeForAdd("");
-                      }
+              <select
+                value={selectedRecipeForAdd}
+                onChange={(e) => {
+                  const recipeId = e.target.value;
+                  if (recipeId) {
+                    const recipe = recipes.find(r => r._id === recipeId);
+                    if (recipe && !selectedRecipes.find(sr => sr._id === recipeId)) {
+                      setSelectedRecipes([...selectedRecipes, recipe]);
+                      setSelectedRecipeForAdd("");
                     }
-                  }}
-                  className="w-full px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
-                >
-                  <Plus className="w-4 h-4" />
-                  Add Recipe
-                </button>
-              </div>
+                  }
+                }}
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors"
+              >
+                <option value="">Select Recipe</option>
+                {recipes.filter(r => !selectedRecipes.find(sr => sr._id === r._id)).map((recipe) => (
+                  <option key={recipe._id} value={recipe._id}>
+                    {recipe.code} - {recipe.name}
+                  </option>
+                ))}
+              </select>
 
               {/* Selected Recipes List */}
               {selectedRecipes.length > 0 && (
