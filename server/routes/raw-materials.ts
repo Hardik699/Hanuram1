@@ -136,15 +136,17 @@ export const handleCreateRawMaterial: RequestHandler = async (req, res) => {
       subCategoryName,
       unitId,
       unitName,
+      brandId,
+      brandName,
       hsnCode,
       createdBy,
     } = req.body;
 
     // Validate required fields
-    if (!name || !categoryId || !subCategoryId) {
+    if (!name || !categoryId) {
       return res.status(400).json({
         success: false,
-        message: "Name, category, and sub-category are required",
+        message: "Name and category are required",
       });
     }
 
@@ -159,6 +161,8 @@ export const handleCreateRawMaterial: RequestHandler = async (req, res) => {
       subCategoryName,
       unitId,
       unitName,
+      brandId,
+      brandName,
       hsnCode,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -202,6 +206,8 @@ export const handleUpdateRawMaterial: RequestHandler = async (req, res) => {
       subCategoryName,
       unitId,
       unitName,
+      brandId,
+      brandName,
       hsnCode,
     } = req.body;
 
@@ -227,6 +233,8 @@ export const handleUpdateRawMaterial: RequestHandler = async (req, res) => {
     if (subCategoryName) updateData.subCategoryName = subCategoryName;
     if (unitId) updateData.unitId = unitId;
     if (unitName) updateData.unitName = unitName;
+    if (brandId) updateData.brandId = brandId;
+    if (brandName) updateData.brandName = brandName;
     if (hsnCode !== undefined) updateData.hsnCode = hsnCode;
 
     const result = await db
