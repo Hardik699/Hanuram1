@@ -30,6 +30,25 @@ interface Category {
   createdBy: string;
 }
 
+// Color palette for avatars
+const colorPalettes = [
+  { bg: "from-blue-500 to-blue-600", light: "from-blue-100 to-blue-200" },
+  { bg: "from-purple-500 to-purple-600", light: "from-purple-100 to-purple-200" },
+  { bg: "from-pink-500 to-pink-600", light: "from-pink-100 to-pink-200" },
+  { bg: "from-orange-500 to-orange-600", light: "from-orange-100 to-orange-200" },
+  { bg: "from-green-500 to-green-600", light: "from-green-100 to-green-200" },
+  { bg: "from-cyan-500 to-cyan-600", light: "from-cyan-100 to-cyan-200" },
+  { bg: "from-amber-500 to-amber-600", light: "from-amber-100 to-amber-200" },
+  { bg: "from-rose-500 to-rose-600", light: "from-rose-100 to-rose-200" },
+];
+
+const getColorByName = (name: string) => {
+  const hash = name.split("").reduce((acc, char) => {
+    return char.charCodeAt(0) + ((acc << 5) - acc);
+  }, 0);
+  return colorPalettes[Math.abs(hash) % colorPalettes.length];
+};
+
 export default function CreateCategory() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<{
@@ -546,11 +565,13 @@ export default function CreateCategory() {
                 >
                   {/* Left Content */}
                   <div className="flex items-center gap-4 flex-1 min-w-0">
-                    {/* Avatar */}
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-lg flex items-center justify-center group-hover:from-blue-600 group-hover:to-blue-700 group-hover:shadow-md transition-all">
+                    {/* Avatar - Colorful & Dynamic */}
+                    <div className="flex-shrink-0 relative">
+                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${getColorByName(category.name).bg} text-white font-bold text-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:scale-110 group-hover:-translate-y-1 shadow-md`}>
                         {category.name.substring(0, 1).toUpperCase()}
                       </div>
+                      {/* Subtle glow effect */}
+                      <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${getColorByName(category.name).bg} opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300`}></div>
                     </div>
 
                     {/* Info */}
