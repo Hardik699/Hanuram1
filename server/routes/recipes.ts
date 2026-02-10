@@ -23,6 +23,7 @@ export interface Recipe {
   _id?: ObjectId;
   code: string;
   name: string;
+  recipeType?: "master" | "sub"; // "master" or "sub"
   batchSize: number;
   unitId: string;
   unitName: string;
@@ -142,6 +143,7 @@ export const handleCreateRecipe: RequestHandler = async (req, res) => {
 
     const {
       name,
+      recipeType,
       batchSize,
       unitId,
       unitName,
@@ -184,6 +186,7 @@ export const handleCreateRecipe: RequestHandler = async (req, res) => {
     const newRecipe: Recipe = {
       code,
       name,
+      recipeType: recipeType || "master",
       batchSize,
       unitId,
       unitName,
@@ -256,6 +259,7 @@ export const handleUpdateRecipe: RequestHandler = async (req, res) => {
     const { id } = req.params;
     const {
       name,
+      recipeType,
       batchSize,
       unitId,
       unitName,
@@ -422,6 +426,7 @@ export const handleUpdateRecipe: RequestHandler = async (req, res) => {
     // Update recipe
     const updateData = {
       name,
+      recipeType: recipeType || "master",
       batchSize,
       unitId,
       unitName,
