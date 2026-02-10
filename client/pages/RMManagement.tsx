@@ -1295,12 +1295,9 @@ export default function RMManagement() {
                       >
                         {/* Code */}
                         <td className="px-6 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-sm flex items-center justify-center flex-shrink-0">
-                              {rm.code.substring(0, 1).toUpperCase()}
-                            </div>
-                            <span className="text-sm font-bold text-gray-700 hidden sm:inline">{rm.code}</span>
-                          </div>
+                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700 whitespace-nowrap">
+                            {rm.code}
+                          </span>
                         </td>
 
                         {/* Name */}
