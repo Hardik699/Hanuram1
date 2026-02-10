@@ -1105,15 +1105,15 @@ export default function RMCManagement() {
                   </h2>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
                     Showing{" "}
-                    <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
                       {recipes.length}
                     </span>{" "}
                     recipe{recipes.length !== 1 ? "s" : ""}
                   </p>
                 </div>
-                <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-indigo-50 to-cyan-50 dark:from-indigo-900/20 dark:to-cyan-900/20 rounded-xl border-2 border-indigo-200 dark:border-indigo-800 shadow-sm">
-                  <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                  <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300">
+                <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-slate-100 dark:bg-slate-700/50 rounded-xl border-2 border-slate-300 dark:border-slate-600 shadow-sm">
+                  <TrendingUp className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                  <span className="text-sm font-bold text-slate-900 dark:text-slate-200">
                     {recipes.length} recipes
                   </span>
                 </div>
@@ -1176,18 +1176,18 @@ export default function RMCManagement() {
                             !isProductionUser &&
                             navigate(`/recipe/${recipe._id}`)
                           }
-                          className="hover:bg-indigo-50/50 dark:hover:bg-slate-700/50 transition-all duration-150 cursor-pointer"
+                          className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-all duration-150 cursor-pointer"
                         >
-                          <td className="px-6 py-4 text-sm font-bold text-indigo-700 dark:text-indigo-300">
+                          <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-200">
                             {recipe.code}
                           </td>
-                          <td className="px-6 py-4 text-sm font-semibold text-cyan-700 dark:text-cyan-300">
+                          <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-slate-200">
                             {recipe.name}
                           </td>
-                          <td className="px-6 py-4 text-sm font-bold text-purple-700 dark:text-purple-300">
+                          <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-200">
                             ₹{recipe.totalRawMaterialCost.toFixed(2)}
                           </td>
-                          <td className="px-6 py-4 text-sm font-bold text-emerald-700 dark:text-emerald-300">
+                          <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-200">
                             ₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}
                           </td>
                         </tr>
@@ -1216,11 +1216,11 @@ export default function RMCManagement() {
 
                     <div className="flex items-center gap-6">
                       <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                        <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                        <span className="font-bold text-slate-900 dark:text-slate-200">
                           {startIndex + 1}-{Math.min(endIndex, recipes.length)}
                         </span>{" "}
                         of{" "}
-                        <span className="font-bold text-slate-900 dark:text-slate-200">
+                        <span className="font-bold text-slate-600 dark:text-slate-400">
                           {recipes.length}
                         </span>
                       </span>
@@ -1235,11 +1235,11 @@ export default function RMCManagement() {
                         </button>
                         <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
                           Page{" "}
-                          <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                          <span className="font-bold text-slate-900 dark:text-slate-200">
                             {currentPage}
                           </span>{" "}
                           of{" "}
-                          <span className="font-bold text-slate-900 dark:text-slate-200">
+                          <span className="font-bold text-slate-600 dark:text-slate-400">
                             {totalPages || 1}
                           </span>
                         </span>

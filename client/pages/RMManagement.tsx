@@ -1064,14 +1064,14 @@ export default function RMManagement() {
           {/* Filter Section */}
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevation-2 p-6 mb-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <Search className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <Search className="w-5 h-5 text-slate-600 dark:text-slate-400" />
               Filter & Search
             </h3>
 
             {/* Search Box */}
             <div className="mb-5">
               <div className="relative group">
-                <Search className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 transition-colors" />
+                <Search className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-slate-600 transition-colors" />
                 <input
                   type="text"
                   placeholder="Search by code, name, category, or sub-category..."
@@ -1087,7 +1087,7 @@ export default function RMManagement() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-purple-700 dark:text-purple-400">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                   Category
                 </label>
                 <select
@@ -1109,7 +1109,7 @@ export default function RMManagement() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-emerald-700 dark:text-emerald-400">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                   Sub Category
                 </label>
                 <select
@@ -1130,7 +1130,7 @@ export default function RMManagement() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2 text-pink-700 dark:text-pink-400">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                   Vendor
                 </label>
                 <select
@@ -1164,15 +1164,15 @@ export default function RMManagement() {
                 </h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
                   Showing{" "}
-                  <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                  <span className="font-bold text-slate-900 dark:text-slate-200">
                     {filteredRawMaterials.length}
                   </span>{" "}
                   material{filteredRawMaterials.length !== 1 ? "s" : ""}
                 </p>
               </div>
-              <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-indigo-50 to-cyan-50 dark:from-indigo-900/20 dark:to-cyan-900/20 rounded-xl border-2 border-indigo-200 dark:border-indigo-800 shadow-sm">
-                <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300">
+              <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-slate-100 dark:bg-slate-700/50 rounded-xl border-2 border-slate-300 dark:border-slate-600 shadow-sm">
+                <TrendingUp className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                <span className="text-sm font-bold text-slate-900 dark:text-slate-200">
                   {materialsWithPrices} with prices
                 </span>
               </div>
@@ -1257,28 +1257,28 @@ export default function RMManagement() {
                       >
                         {/* Code */}
                         <td className="px-6 py-4">
-                          <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300 whitespace-nowrap">
+                          <span className="text-sm font-bold text-slate-900 dark:text-slate-200 whitespace-nowrap">
                             {rm.code}
                           </span>
                         </td>
 
                         {/* Name */}
                         <td className="px-6 py-4">
-                          <div className="font-bold text-cyan-700 dark:text-cyan-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors truncate capitalize-each-word max-w-sm">
+                          <div className="font-bold text-slate-900 dark:text-slate-200 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors truncate capitalize-each-word max-w-sm">
                             {rm.name}
                           </div>
                         </td>
 
                         {/* Category */}
                         <td className="hidden sm:table-cell px-6 py-4">
-                          <span className="text-sm font-semibold text-purple-700 dark:text-purple-300 whitespace-nowrap">
+                          <span className="text-sm font-semibold text-slate-700 dark:text-slate-400 whitespace-nowrap">
                             {rm.categoryName}
                           </span>
                         </td>
 
                         {/* Sub Category */}
                         <td className="hidden lg:table-cell px-6 py-4">
-                          <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300 whitespace-nowrap">
+                          <span className="text-sm font-semibold text-slate-700 dark:text-slate-400 whitespace-nowrap">
                             {rm.subCategoryName || "—"}
                           </span>
                         </td>
@@ -1286,7 +1286,7 @@ export default function RMManagement() {
                         {/* Unit */}
                         <td className="px-6 py-4">
                           {rm.unitName ? (
-                            <span className="text-sm font-semibold text-pink-700 dark:text-pink-300 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-400 whitespace-nowrap">
                               {rm.unitName}
                             </span>
                           ) : (
@@ -1297,7 +1297,7 @@ export default function RMManagement() {
                         {/* Last Price */}
                         <td className="hidden md:table-cell px-6 py-4">
                           {rm.lastAddedPrice ? (
-                            <span className="text-sm font-semibold text-rose-700 dark:text-rose-300 whitespace-nowrap">
+                            <span className="text-sm font-semibold text-slate-900 dark:text-slate-200 whitespace-nowrap">
                               ₹{rm.lastAddedPrice.toFixed(2)}/{formatUnit(rm.unitName)}
                             </span>
                           ) : (
@@ -1310,7 +1310,7 @@ export default function RMManagement() {
                         {/* Last Purchase */}
                         <td className="hidden lg:table-cell px-6 py-4">
                           {rm.lastPriceDate ? (
-                            <span className="font-semibold text-amber-700 dark:text-amber-300 text-xs">
+                            <span className="font-semibold text-slate-700 dark:text-slate-400 text-xs">
                               {new Date(rm.lastPriceDate).toLocaleDateString("en-IN")}
                             </span>
                           ) : (
@@ -1359,11 +1359,11 @@ export default function RMManagement() {
 
               <div className="flex items-center gap-4">
                 <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
-                  <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+                  <span className="font-semibold text-slate-900 dark:text-slate-200">
                     {startIndex + 1}–{Math.min(endIndex, filteredRawMaterials.length)}
                   </span>{" "}
                   of{" "}
-                  <span className="font-semibold text-slate-900 dark:text-slate-100">
+                  <span className="font-semibold text-slate-600 dark:text-slate-400">
                     {filteredRawMaterials.length}
                   </span>
                 </span>
@@ -1377,7 +1377,7 @@ export default function RMManagement() {
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <span className="text-xs font-medium text-slate-700 dark:text-slate-300 min-w-[70px] text-center">
-                    <span className="font-bold text-indigo-600 dark:text-indigo-400">{currentPage}</span>/<span className="font-bold text-slate-900 dark:text-slate-100">{totalPages || 1}</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-200">{currentPage}</span>/<span className="font-bold text-slate-600 dark:text-slate-400">{totalPages || 1}</span>
                   </span>
                   <button
                     onClick={handleNextPage}
