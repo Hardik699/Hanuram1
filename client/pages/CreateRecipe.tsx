@@ -14,6 +14,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { LabourCostSection } from "@/components/LabourCostSection";
 import { CostingCalculatorForm } from "@/components/CostingCalculatorForm";
+import { SearchableRMSelect } from "@/components/SearchableRMSelect";
 import { useAuth } from "@/hooks/useAuth";
 import { PageHeader } from "@/components/PageHeader";
 
