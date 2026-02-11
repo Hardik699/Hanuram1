@@ -12,6 +12,11 @@
     --primary-hover: #2563eb;
     --primary-dark: #1e40af;
 
+    /* Purple accent for headers */
+    --purple: #8b5cf6;
+    --purple-light: #ede9fe;
+    --purple-dark: #6d28d9;
+
     --text-dark: #0f172a;
     --text-secondary: #64748b;
     --text-muted: #94a3b8;

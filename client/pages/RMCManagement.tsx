@@ -1032,8 +1032,8 @@ export default function RMCManagement() {
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg border border-indigo-200 dark:border-indigo-800">
-                        <p className="text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase">
+                      <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg border border-purple-200 dark:border-purple-800">
+                        <p className="text-purple-600 dark:text-purple-400 text-xs font-semibold uppercase">
                           Batch Size
                         </p>
                         <p className="font-bold text-slate-900 dark:text-white">
@@ -1098,7 +1098,7 @@ export default function RMCManagement() {
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
-                    <div className="p-2.5 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg shadow-md">
+                    <div className="p-2.5 bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg shadow-md">
                       <BookOpen className="w-5 h-5 text-white" />
                     </div>
                     All Recipes

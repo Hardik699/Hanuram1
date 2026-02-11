@@ -695,7 +695,7 @@ export default function CreateRecipe() {
 
         {/* Recipe Basic Info */}
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <div className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 px-8 py-6 border-b-2 border-indigo-700 dark:border-indigo-800">
+          <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 px-8 py-6 border-b-2 border-purple-700 dark:border-purple-800">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               Recipe Information
             </h2>
@@ -718,7 +718,7 @@ export default function CreateRecipe() {
                   errors.name
                     ? "border-red-500 dark:border-red-400"
                     : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
               />
               {errors.name && (
                 <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -737,7 +737,7 @@ export default function CreateRecipe() {
                 onChange={(e) =>
                   setFormData({ ...formData, recipeType: e.target.value })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               >
                 <option value="master">Master Recipe</option>
                 <option value="sub">Sub Recipe</option>
@@ -762,7 +762,7 @@ export default function CreateRecipe() {
                     errors.batchSize
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
                 />
                 {errors.batchSize && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -802,7 +802,7 @@ export default function CreateRecipe() {
                       errors.unitId
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                    } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500`}
                   />
                   {openUnitDropdown && (
                     <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
@@ -847,7 +847,7 @@ export default function CreateRecipe() {
                     setFormData({ ...formData, yield: e.target.value })
                   }
                   placeholder="Enter yield"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               </div>
 
@@ -866,7 +866,7 @@ export default function CreateRecipe() {
                     })
                   }
                   placeholder="Enter moisture percentage"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               </div>
             </div>
@@ -912,7 +912,7 @@ export default function CreateRecipe() {
                           setFilterCategoryForRM(e.target.value);
                           setFilterSubCategoryForRM("");
                         }}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                       >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -933,7 +933,7 @@ export default function CreateRecipe() {
                           setFilterSubCategoryForRM(e.target.value)
                         }
                         disabled={!filterCategoryForRM}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm disabled:opacity-50"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm disabled:opacity-50"
                       >
                         <option value="">All Sub Categories</option>
                         {getFilteredSubCategories().map((sc) => (
@@ -1012,7 +1012,7 @@ export default function CreateRecipe() {
                               price: price.toString(),
                             }));
                           }}
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                         >
                           <option value="">-- Select Brand --</option>
                           {selectedRM.brandNames.map((brand, index) => {
@@ -1071,7 +1071,7 @@ export default function CreateRecipe() {
                           itemErrors.quantity
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm`}
                       />
                       {itemErrors.quantity && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1101,7 +1101,7 @@ export default function CreateRecipe() {
                           itemErrors.price
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm`}
                       />
                       {itemErrors.price && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1180,7 +1180,7 @@ export default function CreateRecipe() {
                           onBlur={() => {
                             setTimeout(() => setOpenItemUnitDropdown(false), 200);
                           }}
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                         />
                         {openItemUnitDropdown && (
                           <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
@@ -1369,7 +1369,7 @@ export default function CreateRecipe() {
               ) : (
                 <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                   <table className="w-full min-w-[900px]">
-                    <thead className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 dark:from-indigo-900 dark:via-indigo-900 dark:to-indigo-950 border-b-2 border-indigo-700 dark:border-indigo-800 sticky top-0">
+                    <thead className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 border-b-2 border-purple-700 dark:border-purple-800 sticky top-0">
                       <tr>
                         <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
                           Raw Material
@@ -1395,10 +1395,10 @@ export default function CreateRecipe() {
                       {recipeItems.map((item, index) => (
                         <tr
                           key={index}
-                          className={`transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 cursor-pointer ${
+                          className={`transition-all group border-l-4 border-l-transparent hover:border-l-purple-500 cursor-pointer ${
                             editingItemIndex === index
-                              ? "bg-indigo-50 dark:bg-indigo-900/20 border-l-indigo-500"
-                              : `${index % 2 === 0 ? "hover:bg-indigo-50 dark:hover:bg-slate-700/50" : "bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50 dark:hover:bg-slate-700/50"}`
+                              ? "bg-purple-50 dark:bg-purple-900/20 border-l-purple-500"
+                              : `${index % 2 === 0 ? "hover:bg-purple-50 dark:hover:bg-slate-700/50" : "bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-slate-700/50"}`
                           }`}
                         >
                           <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
@@ -1449,7 +1449,7 @@ export default function CreateRecipe() {
                                   onBlur={() => {
                                     setTimeout(() => setOpenEditUnitDropdown(false), 200);
                                   }}
-                                  className="w-full px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                  className="w-full px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 />
                                 {openEditUnitDropdown && (
                                   <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded shadow-lg z-20 max-h-40 overflow-y-auto">
@@ -1584,11 +1584,11 @@ export default function CreateRecipe() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-gradient-to-br from-indigo-50 dark:from-indigo-900/20 to-indigo-100/50 dark:to-indigo-900/10 rounded-lg p-4 border border-indigo-200 dark:border-indigo-800/30">
-                        <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide mb-2">
+                      <div className="bg-gradient-to-br from-purple-50 dark:from-purple-900/20 to-purple-100/50 dark:to-purple-900/10 rounded-lg p-4 border border-purple-200 dark:border-purple-800/30">
+                        <p className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wide mb-2">
                           Total Raw Material Cost
                         </p>
-                        <p className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">
+                        <p className="text-2xl font-bold text-purple-700 dark:text-purple-300">
                           ₹{totals.totalCost.toFixed(2)}
                         </p>
                       </div>

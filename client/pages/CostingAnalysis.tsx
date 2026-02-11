@@ -503,8 +503,8 @@ export default function CostingAnalysis() {
               </div>
             </div>
             {results && (
-              <div className="bg-indigo-50 dark:bg-indigo-950 p-3 rounded border border-indigo-200 dark:border-indigo-800">
-                <p className="font-medium text-indigo-900 dark:text-indigo-200">
+              <div className="bg-purple-50 dark:bg-purple-950 p-3 rounded border border-purple-200 dark:border-purple-800">
+                <p className="font-medium text-purple-900 dark:text-purple-200">
                   ✓ Sticker Cost / Kg = {inputs.stickerCostPerUnit} ×{" "}
                   {inputs.stickerQtyPerKg} ={" "}
                   <span className="font-bold">
