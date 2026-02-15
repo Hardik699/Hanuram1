@@ -977,80 +977,103 @@ export default function RMCManagement() {
       {/* Content for Production Users */}
       {isProductionUser && (
         <div className="space-y-4">
-          <div className="bg-white dark:bg-slate-800 rounded-lg p-6 border-b-2 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-white dark:bg-slate-800 rounded-lg p-6 mb-4 border-b-2 border-transparent animate-fade-in-up" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #a855f7, #10b981) 1', borderImageSlice: '1'}}>
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
-                <h3 className="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
+                  <div className="p-2.5 bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg shadow-md">
+                    <BookOpen className="w-5 h-5 text-white" />
+                  </div>
                   Production Labour Costs
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Click on a recipe to view and manage its production labour
-                  costs
+                </h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  Showing{" "}
+                  <span className="font-bold text-slate-900 dark:text-slate-200">
+                    {recipes.length}
+                  </span>{" "}
+                  recipe{recipes.length !== 1 ? "s" : ""}
                 </p>
               </div>
-              <button
-                onClick={() => navigate("/recipe/new")}
-                className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 hover:from-indigo-700 hover:via-cyan-700 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap h-fit active:scale-95"
-              >
-                <Plus className="w-5 h-5" />
-                <span className="hidden sm:inline">Add Recipe</span>
-                <span className="sm:hidden">Add</span>
-              </button>
+              <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-slate-100 dark:bg-slate-700/50 rounded-xl border-2 border-slate-300 dark:border-slate-600 shadow-sm">
+                <TrendingUp className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                <span className="text-sm font-bold text-slate-900 dark:text-slate-200">
+                  {recipes.length} recipes
+                </span>
+              </div>
             </div>
+          </div>
 
-            {recipes.length === 0 ? (
-              <div className="p-8 text-center text-slate-600 dark:text-slate-400">
-                <p>
-                  No recipes available to display raw materials and labour
-                  costs.
+          {/* Production Recipes Table */}
+          <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden animate-fade-in-up">
+            {tableLoading ? (
+              <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
+                <div className="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                <p className="text-slate-600 dark:text-slate-400 mt-2">
+                  Loading recipes...
                 </p>
+              </div>
+            ) : recipes.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
+                <div className="rounded-full bg-blue-100 dark:bg-blue-900/30 p-4 mb-4">
+                  <BookOpen className="w-12 h-12 text-blue-600 dark:text-blue-400" />
+                </div>
+                <p className="font-bold text-slate-900 dark:text-white text-lg">No recipes yet</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">Create your first recipe to get started</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-4">
-                {recipes.map((recipe) => (
-                  <div
-                    key={recipe._id}
-                    onClick={() => navigate(`/recipe/${recipe._id}/edit`)}
-                    className="bg-white dark:bg-slate-700 rounded-xl p-5 border-l-4 border-indigo-500 cursor-pointer hover:shadow-lg transition-all hover:scale-102 transform group"
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h4 className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                          {recipe.name}
-                        </h4>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">
-                          Recipe Code: <span className="font-semibold text-indigo-600 dark:text-indigo-400">{recipe.code}</span>
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-purple-600 dark:text-purple-400">
-                          ₹{recipe.totalRawMaterialCost.toFixed(2)}
-                        </p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[700px]">
+                  <thead className="bg-white dark:bg-slate-800 border-b-2 border-slate-300 dark:border-slate-600 sticky top-0">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <span className="flex items-center gap-2">
+                          <span className="inline-block w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+                          Recipe Code
+                        </span>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <span className="flex items-center gap-2">
+                          <span className="inline-block w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>
+                          Recipe Name
+                        </span>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <span className="flex items-center gap-2">
+                          <span className="inline-block w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
                           Total RM Cost
-                        </p>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg border border-purple-200 dark:border-purple-800">
-                        <p className="text-purple-600 dark:text-purple-400 text-xs font-semibold uppercase">
-                          Batch Size
-                        </p>
-                        <p className="font-bold text-slate-900 dark:text-white">
-                          {recipe.batchSize} {recipe.unitName}
-                        </p>
-                      </div>
-                      <div className="bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded-lg border border-emerald-200 dark:border-emerald-800">
-                        <p className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase">
+                        </span>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                        <span className="flex items-center gap-2">
+                          <span className="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
                           Price per Unit
-                        </p>
-                        <p className="font-bold text-emerald-600 dark:text-emerald-400">
-                          ₹{recipe.pricePerUnit.toFixed(2)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                        </span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                    {recipes.map((recipe) => (
+                      <tr
+                        key={recipe._id}
+                        onClick={() => navigate(`/recipe/${recipe._id}/edit`)}
+                        className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-all duration-150 cursor-pointer"
+                      >
+                        <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-200">
+                          {recipe.code}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-semibold text-slate-900 dark:text-slate-200">
+                          {recipe.name}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-200">
+                          ₹{recipe.totalRawMaterialCost.toFixed(2)}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-200">
+                          ₹{recipe.pricePerUnit.toFixed(2)}/{recipe.unitName}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             )}
           </div>
