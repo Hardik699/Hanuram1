@@ -586,13 +586,13 @@ export default function CreateCategory() {
                         <td className="px-6 py-4">
                           <span
                             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
-                              category.status === "active"
+                              (category.status || "inactive") === "active"
                                 ? "bg-emerald-100 text-emerald-700"
                                 : "bg-red-100 text-red-700"
                             }`}
                           >
-                            <span className={`w-2 h-2 rounded-full ${category.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
-                            {category.status.charAt(0).toUpperCase() + category.status.slice(1)}
+                            <span className={`w-2 h-2 rounded-full ${(category.status || "inactive") === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
+                            {((category.status || "inactive").charAt(0).toUpperCase() + (category.status || "inactive").slice(1))}
                           </span>
                         </td>
 
