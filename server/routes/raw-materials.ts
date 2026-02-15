@@ -3,6 +3,16 @@ import { RequestHandler } from "express";
 import { getDB, getConnectionStatus } from "../db";
 import { ObjectId } from "mongodb";
 
+export interface UnitConversion {
+  fromUnitId: string;
+  fromUnitName: string;
+  toUnitId: string;
+  toUnitName: string;
+  conversionFactor: number; // multiplier: fromUnit * factor = toUnit
+  addedAt: Date;
+  addedBy: string;
+}
+
 export interface RawMaterial {
   _id?: ObjectId;
   code: string;
@@ -16,6 +26,7 @@ export interface RawMaterial {
   brandId?: string;
   brandName?: string;
   hsnCode?: string;
+  unitConversions?: UnitConversion[];
   createdAt: Date;
   updatedAt: Date;
   createdBy: string;
@@ -1837,6 +1848,134 @@ export const handleUploadRMPrices: RequestHandler = async (req, res) => {
     res.status(500).json({
       success: false,
       message: error instanceof Error ? error.message : "Server error during upload",
+    });
+  }
+};
+
+// Add unit conversion
+export const handleAddUnitConversion: RequestHandler = async (req, res) => {
+  if (getConnectionStatus() !== "connected") {
+    return res
+      .status(503)
+      .json({ success: false, message: "Database not connected" });
+  }
+
+  try {
+    const { rawMaterialId, fromUnitId, fromUnitName, toUnitId, toUnitName, conversionFactor } = req.body;
+    const username = (req as any).username || "system";
+
+    if (!rawMaterialId || !fromUnitId || !toUnitId || conversionFactor <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields or invalid conversion factor",
+      });
+    }
+
+    const db = getDB();
+    if (!db) return res.status(503).json({ success: false, message: "Database error" });
+
+    const conversion: UnitConversion = {
+      fromUnitId,
+      fromUnitName,
+      toUnitId,
+      toUnitName,
+      conversionFactor,
+      addedAt: new Date(),
+      addedBy: username,
+    };
+
+    const result = await db.collection("raw_materials").updateOne(
+      { _id: new ObjectId(rawMaterialId) },
+      {
+        $push: { unitConversions: conversion },
+        $set: { updatedAt: new Date() },
+      },
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Raw material not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Unit conversion added successfully",
+      data: conversion,
+    });
+  } catch (error) {
+    console.error("Error adding unit conversion:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Server error",
+    });
+  }
+};
+
+// Delete unit conversion
+export const handleDeleteUnitConversion: RequestHandler = async (req, res) => {
+  if (getConnectionStatus() !== "connected") {
+    return res
+      .status(503)
+      .json({ success: false, message: "Database not connected" });
+  }
+
+  try {
+    const { rawMaterialId, conversionIndex } = req.body;
+
+    if (!rawMaterialId || conversionIndex === undefined) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields",
+      });
+    }
+
+    const db = getDB();
+    if (!db) return res.status(503).json({ success: false, message: "Database error" });
+
+    // Get the conversion to delete
+    const rm = await db.collection("raw_materials").findOne({ _id: new ObjectId(rawMaterialId) });
+    if (!rm || !rm.unitConversions || !rm.unitConversions[conversionIndex]) {
+      return res.status(404).json({
+        success: false,
+        message: "Conversion not found",
+      });
+    }
+
+    // Remove the conversion from the array
+    const result = await db.collection("raw_materials").updateOne(
+      { _id: new ObjectId(rawMaterialId) },
+      {
+        $unset: { [`unitConversions.${conversionIndex}`]: 1 },
+        $set: { updatedAt: new Date() },
+      },
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Raw material not found",
+      });
+    }
+
+    // Clean up the array by removing null values
+    await db.collection("raw_materials").updateOne(
+      { _id: new ObjectId(rawMaterialId) },
+      {
+        $pull: { unitConversions: null },
+      },
+    );
+
+    res.json({
+      success: true,
+      message: "Unit conversion deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting unit conversion:", error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Server error",
     });
   }
 };

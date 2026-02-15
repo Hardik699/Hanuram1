@@ -64,6 +64,8 @@ import {
   handleResetRMCounter,
   handleUploadRMPrices,
   handleDeleteRMByCodeRange,
+  handleAddUnitConversion,
+  handleDeleteUnitConversion,
 } from "./routes/raw-materials";
 import {
   handleGetRecipes,
@@ -307,6 +309,10 @@ export async function createServer() {
     "/api/raw-materials/:rawMaterialId/sync-latest-price",
     handleSyncLatestRMPrice,
   );
+
+  // Unit conversion routes
+  app.post("/api/raw-materials/unit-conversion/add", handleAddUnitConversion);
+  app.post("/api/raw-materials/unit-conversion/delete", handleDeleteUnitConversion);
 
   // Parameterized routes last
   app.put("/api/raw-materials/:id", handleUpdateRawMaterial);
