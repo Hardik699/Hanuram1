@@ -695,188 +695,223 @@ export default function CreateRecipe() {
 
         {/* Recipe Basic Info */}
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <div className="bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 dark:from-indigo-700 dark:via-cyan-700 dark:to-emerald-700 px-8 py-6 border-b-2 border-transparent" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #10b981) 1'}}>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              📋 Recipe Information
-            </h2>
+          <div className="px-8 py-8 border-b border-slate-200 dark:border-slate-700">
+            <div className="flex items-start justify-between gap-6 mb-6">
+              <div className="flex-1">
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                  {id ? "Edit Recipe" : "Create Recipe"}
+                </h2>
+                <p className="text-slate-600 dark:text-slate-400">
+                  {id ? "Update your recipe details and materials" : "Add a new recipe with materials and costing"}
+                </p>
+              </div>
+              <div className="flex gap-2">
+                {id && (
+                  <>
+                    <button className="px-4 py-2.5 rounded-lg border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 font-medium transition-all">
+                      Logs
+                    </button>
+                    <button className="px-4 py-2.5 rounded-lg border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium transition-all">
+                      Delete
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6 p-8">
-            {/* Recipe Name */}
-            <div>
-              <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                Recipe Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                placeholder="Enter recipe name"
-                className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                  errors.name
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
-                } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
-              />
-              {errors.name && (
-                <p className="text-red-600 dark:text-red-400 text-xs mt-2 font-medium">
-                  {errors.name}
-                </p>
-              )}
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-8 p-8">
+            {/* RECIPE DETAILS Section */}
+            <div className="border-l-4 border-indigo-500 pl-6">
+              <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-6">
+                Recipe Details
+              </h3>
 
-            {/* Recipe Type */}
-            <div>
-              <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                Recipe Type <span className="text-red-500">*</span>
-              </label>
-              <select
-                value={formData.recipeType}
-                onChange={(e) =>
-                  setFormData({ ...formData, recipeType: e.target.value })
-                }
-                className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-medium"
-              >
-                <option value="master">Master Recipe</option>
-                <option value="sub">Sub Recipe</option>
-              </select>
-            </div>
-
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Batch Size */}
-              <div>
+              {/* Recipe Name */}
+              <div className="mb-6">
                 <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  Batch Size <span className="text-red-500">*</span>
+                  Recipe Name <span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="number"
-                  value={formData.batchSize}
+                  type="text"
+                  value={formData.name}
                   onChange={(e) =>
-                    setFormData({ ...formData, batchSize: e.target.value })
+                    setFormData({ ...formData, name: e.target.value })
                   }
-                  placeholder="Enter batch size"
+                  placeholder="Enter recipe name"
                   className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.batchSize
+                    errors.name
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
                   } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
                 />
-                {errors.batchSize && (
+                {errors.name && (
                   <p className="text-red-600 dark:text-red-400 text-xs mt-2 font-medium">
-                    {errors.batchSize}
+                    {errors.name}
                   </p>
                 )}
               </div>
 
-              {/* Unit */}
+              {/* Recipe Type */}
               <div>
                 <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  Unit <span className="text-red-500">*</span>
+                  Recipe Type <span className="text-red-500">*</span>
                 </label>
-                <div className="relative">
+                <select
+                  value={formData.recipeType}
+                  onChange={(e) =>
+                    setFormData({ ...formData, recipeType: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-medium"
+                >
+                  <option value="master">Master Recipe</option>
+                  <option value="sub">Sub Recipe</option>
+                </select>
+              </div>
+            </div>
+
+
+            {/* CONFIGURATION Section */}
+            <div className="border-l-4 border-blue-500 pl-6">
+              <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-6">
+                Configuration
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Batch Size */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Batch Size <span className="text-red-500">*</span>
+                  </label>
                   <input
-                    type="text"
-                    placeholder="Search or select unit..."
-                    value={
-                      openUnitDropdown
-                        ? unitSearchInput
-                        : formData.unitId
-                          ? units.find((u) => u._id === formData.unitId)?.name || ""
-                          : ""
+                    type="number"
+                    value={formData.batchSize}
+                    onChange={(e) =>
+                      setFormData({ ...formData, batchSize: e.target.value })
                     }
-                    onChange={(e) => {
-                      setOpenUnitDropdown(true);
-                      setUnitSearchInput(e.target.value);
-                    }}
-                    onFocus={() => {
-                      setOpenUnitDropdown(true);
-                      setUnitSearchInput("");
-                    }}
-                    onBlur={() => {
-                      setTimeout(() => setOpenUnitDropdown(false), 200);
-                    }}
+                    placeholder="Enter batch size"
                     className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                      errors.unitId
+                      errors.batchSize
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
                     } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
                   />
-                  {openUnitDropdown && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
-                      {getFilteredUnits().length > 0 ? (
-                        getFilteredUnits().map((unit) => (
-                          <div
-                            key={unit._id}
-                            onClick={() => {
-                              setFormData({ ...formData, unitId: unit._id });
-                              setOpenUnitDropdown(false);
-                              setUnitSearchInput("");
-                            }}
-                            className="px-4 py-3 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0 text-slate-900 dark:text-white"
-                          >
-                            {unit.name}
-                          </div>
-                        ))
-                      ) : (
-                        <div className="px-4 py-3 text-center text-slate-500 dark:text-slate-400">
-                          No units found
-                        </div>
-                      )}
-                    </div>
+                  {errors.batchSize && (
+                    <p className="text-red-600 dark:text-red-400 text-xs mt-2 font-medium">
+                      {errors.batchSize}
+                    </p>
                   )}
                 </div>
-                {errors.unitId && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.unitId}
-                  </p>
-                )}
-              </div>
 
-              {/* Yield */}
-              <div>
-                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  Yield (Optional)
-                </label>
-                <input
-                  type="number"
-                  value={formData.yield}
-                  onChange={(e) =>
-                    setFormData({ ...formData, yield: e.target.value })
-                  }
-                  placeholder="Enter yield"
-                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
-                />
-              </div>
+                {/* Unit */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Unit <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search or select unit..."
+                      value={
+                        openUnitDropdown
+                          ? unitSearchInput
+                          : formData.unitId
+                            ? units.find((u) => u._id === formData.unitId)?.name || ""
+                            : ""
+                      }
+                      onChange={(e) => {
+                        setOpenUnitDropdown(true);
+                        setUnitSearchInput(e.target.value);
+                      }}
+                      onFocus={() => {
+                        setOpenUnitDropdown(true);
+                        setUnitSearchInput("");
+                      }}
+                      onBlur={() => {
+                        setTimeout(() => setOpenUnitDropdown(false), 200);
+                      }}
+                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                        errors.unitId
+                          ? "border-red-500 dark:border-red-400"
+                          : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+                      } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
+                    />
+                    {openUnitDropdown && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                        {getFilteredUnits().length > 0 ? (
+                          getFilteredUnits().map((unit) => (
+                            <div
+                              key={unit._id}
+                              onClick={() => {
+                                setFormData({ ...formData, unitId: unit._id });
+                                setOpenUnitDropdown(false);
+                                setUnitSearchInput("");
+                              }}
+                              className="px-4 py-3 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0 text-slate-900 dark:text-white"
+                            >
+                              {unit.name}
+                            </div>
+                          ))
+                        ) : (
+                          <div className="px-4 py-3 text-center text-slate-500 dark:text-slate-400">
+                            No units found
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {errors.unitId && (
+                    <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                      {errors.unitId}
+                    </p>
+                  )}
+                </div>
 
-              {/* Moisture Percentage */}
-              <div>
-                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  Moisture Percentage (Optional)
-                </label>
-                <input
-                  type="number"
-                  value={formData.moisturePercentage}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      moisturePercentage: e.target.value,
-                    })
-                  }
-                  placeholder="Enter moisture percentage"
-                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
-                />
+                {/* Yield */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Yield (Optional)
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.yield}
+                    onChange={(e) =>
+                      setFormData({ ...formData, yield: e.target.value })
+                    }
+                    placeholder="Enter yield"
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
+                  />
+                </div>
+
+                {/* Moisture Percentage */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Moisture Percentage (Optional)
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.moisturePercentage}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        moisturePercentage: e.target.value,
+                      })
+                    }
+                    placeholder="Enter moisture percentage"
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Recipe Items Section */}
-            <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
+            <div className="border-l-4 border-blue-500 pl-6">
+              <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-6">
+                Recipe Items
+              </h3>
+
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                  📦 Recipe Items
-                </h3>
+                <div></div>
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
