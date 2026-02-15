@@ -18,6 +18,16 @@ import {
   Check,
 } from "lucide-react";
 
+interface UnitConversion {
+  fromUnitId: string;
+  fromUnitName: string;
+  toUnitId: string;
+  toUnitName: string;
+  conversionFactor: number;
+  addedAt: string;
+  addedBy: string;
+}
+
 interface RawMaterial {
   _id: string;
   code: string;
@@ -33,6 +43,7 @@ interface RawMaterial {
   brandIds?: string[];
   brandNames?: string[];
   hsnCode?: string;
+  unitConversions?: UnitConversion[];
   createdAt: string;
   lastAddedPrice?: number;
   lastVendorName?: string;
@@ -94,7 +105,7 @@ interface VendorWithLastPurchase extends Vendor {
   lastPurchaseDate?: string;
 }
 
-type TabType = "overview" | "vendor" | "recipe";
+type TabType = "overview" | "vendor" | "recipe" | "conversions";
 
 export default function RMDetail() {
   const navigate = useNavigate();
@@ -147,6 +158,12 @@ export default function RMDetail() {
   const [addingPrice, setAddingPrice] = useState(false);
   const [selectedBrandForAdd, setSelectedBrandForAdd] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<Array<{ _id: string; name: string }>>([]);
+  const [showAddConversionForm, setShowAddConversionForm] = useState(false);
+  const [conversionFormData, setConversionFormData] = useState({
+    toUnitId: "",
+    conversionFactor: "",
+  });
+  const [addingConversion, setAddingConversion] = useState(false);
 
   // Calculate total price whenever quantity or price changes
   const totalPrice =
@@ -642,6 +659,91 @@ export default function RMDetail() {
       console.error("Error adding price:", error);
       setAddingPrice(false);
       setMessage("Error adding price");
+      setMessageType("error");
+    }
+  };
+
+  const handleAddConversion = async () => {
+    if (!id || !conversionFormData.toUnitId || !conversionFormData.conversionFactor) {
+      setMessage("Please fill all conversion fields");
+      setMessageType("error");
+      return;
+    }
+
+    setAddingConversion(true);
+    try {
+      const toUnit = units.find((u) => u._id === conversionFormData.toUnitId);
+      const response = await fetch("/api/raw-materials/unit-conversion/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          rawMaterialId: id,
+          fromUnitId: rawMaterial?.unitId,
+          fromUnitName: rawMaterial?.unitName,
+          toUnitId: conversionFormData.toUnitId,
+          toUnitName: toUnit?.name,
+          conversionFactor: parseFloat(conversionFormData.conversionFactor),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Add conversion failed: HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setMessage("Unit conversion added successfully");
+        setMessageType("success");
+        setShowAddConversionForm(false);
+        setConversionFormData({ toUnitId: "", conversionFactor: "" });
+        setAddingConversion(false);
+        await fetchAllData();
+      } else {
+        setAddingConversion(false);
+        setMessage(data.message || "Failed to add conversion");
+        setMessageType("error");
+      }
+    } catch (error) {
+      console.error("Error adding conversion:", error);
+      setAddingConversion(false);
+      setMessage("Error adding unit conversion");
+      setMessageType("error");
+    }
+  };
+
+  const handleDeleteConversion = async (index: number) => {
+    if (!id) return;
+
+    if (!window.confirm("Are you sure you want to delete this conversion?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/raw-materials/unit-conversion/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          rawMaterialId: id,
+          conversionIndex: index,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Delete conversion failed: HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setMessage("Unit conversion deleted successfully");
+        setMessageType("success");
+        await fetchAllData();
+      } else {
+        setMessage(data.message || "Failed to delete conversion");
+        setMessageType("error");
+      }
+    } catch (error) {
+      console.error("Error deleting conversion:", error);
+      setMessage("Error deleting unit conversion");
       setMessageType("error");
     }
   };
@@ -1297,6 +1399,16 @@ export default function RMDetail() {
                 <ChefHat className="w-4 h-4 inline mr-2" />
                 Recipe
               </button>
+              <button
+                onClick={() => setActiveTab("conversions")}
+                className={`flex-shrink-0 px-6 py-4 text-sm font-medium transition-colors border-b-2 ${
+                  activeTab === "conversions"
+                    ? "border-blue-600 text-blue-600 dark:text-blue-400"
+                    : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300"
+                }`}
+              >
+                ⚖️ Unit Conversions
+              </button>
             </div>
           </div>
 
@@ -1812,6 +1924,155 @@ export default function RMDetail() {
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Unit Conversions Tab */}
+            {activeTab === "conversions" && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    Unit Conversions for {rawMaterial.unitName}
+                  </h3>
+                  <button
+                    onClick={() => setShowAddConversionForm(!showAddConversionForm)}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Conversion
+                  </button>
+                </div>
+
+                {showAddConversionForm && (
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-4">
+                      Add Unit Conversion
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                          Convert to Unit
+                        </label>
+                        <select
+                          value={conversionFormData.toUnitId}
+                          onChange={(e) =>
+                            setConversionFormData({
+                              ...conversionFormData,
+                              toUnitId: e.target.value,
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                          <option value="">Select Unit</option>
+                          {units
+                            .filter((u) => u._id !== rawMaterial.unitId)
+                            .map((unit) => (
+                              <option key={unit._id} value={unit._id}>
+                                {unit.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                          Conversion Factor (1 {rawMaterial.unitName} = ? {units.find(u => u._id === conversionFormData.toUnitId)?.name})
+                        </label>
+                        <input
+                          type="number"
+                          step="0.001"
+                          min="0"
+                          value={conversionFormData.conversionFactor}
+                          onChange={(e) =>
+                            setConversionFormData({
+                              ...conversionFormData,
+                              conversionFactor: e.target.value,
+                            })
+                          }
+                          placeholder="e.g., 1000 for L to ML"
+                          className="w-full px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div className="flex gap-2 pt-2">
+                        <button
+                          onClick={handleAddConversion}
+                          disabled={addingConversion || !conversionFormData.toUnitId || !conversionFormData.conversionFactor}
+                          className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-semibold rounded-lg transition-colors"
+                        >
+                          {addingConversion ? "Adding..." : "Add Conversion"}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setShowAddConversionForm(false);
+                            setConversionFormData({ toUnitId: "", conversionFactor: "" });
+                          }}
+                          className="flex-1 px-4 py-2 bg-slate-300 hover:bg-slate-400 dark:bg-slate-600 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold rounded-lg transition-colors"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {rawMaterial.unitConversions && rawMaterial.unitConversions.length > 0 ? (
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[700px]">
+                      <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                            From Unit
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                            To Unit
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                            Conversion Factor
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                            Added By
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                        {rawMaterial.unitConversions.map((conversion, idx) => (
+                          <tr
+                            key={idx}
+                            className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors"
+                          >
+                            <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                              {conversion.fromUnitName}
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                              {conversion.toUnitName}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 font-semibold">
+                              1 {conversion.fromUnitName} = {conversion.conversionFactor} {conversion.toUnitName}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                              {conversion.addedBy}
+                            </td>
+                            <td className="px-6 py-4 text-sm">
+                              <button
+                                onClick={() => handleDeleteConversion(idx)}
+                                className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 rounded transition-colors"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+                    <p>No unit conversions added yet. Click "Add Conversion" to get started.</p>
                   </div>
                 )}
               </div>

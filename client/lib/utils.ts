@@ -6,6 +6,52 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
+ * Interface for unit conversions
+ */
+export interface UnitConversion {
+  fromUnitId: string;
+  fromUnitName: string;
+  toUnitId: string;
+  toUnitName: string;
+  conversionFactor: number;
+  addedAt?: string;
+  addedBy?: string;
+}
+
+/**
+ * Convert quantity from one unit to another
+ * @param quantity - The quantity to convert
+ * @param fromUnitId - The source unit ID
+ * @param toUnitId - The target unit ID
+ * @param conversions - Array of available unit conversions
+ * @returns The converted quantity, or the original quantity if no conversion found
+ */
+export function convertUnits(
+  quantity: number,
+  fromUnitId: string,
+  toUnitId: string,
+  conversions: UnitConversion[] = []
+): number {
+  // If converting to the same unit, return as is
+  if (fromUnitId === toUnitId) {
+    return quantity;
+  }
+
+  // Find the conversion from source unit to target unit
+  const directConversion = conversions.find(
+    (c) => c.fromUnitId === fromUnitId && c.toUnitId === toUnitId
+  );
+
+  if (directConversion) {
+    return quantity * directConversion.conversionFactor;
+  }
+
+  // If no direct conversion found, return the original quantity
+  // In a production app, you might want to log a warning here
+  return quantity;
+}
+
+/**
  * Enhanced fetch wrapper with better error handling and logging
  * Provides more detailed error messages for debugging network issues
  */
