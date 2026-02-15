@@ -49,6 +49,12 @@ export function Sidebar() {
   const menuItems = isProductionUser
     ? [
         {
+          label: "Management",
+          path: null,
+          icon: Package,
+          submenu: managementItems,
+        },
+        {
           label: "Raw Material",
           path: "/raw-materials",
           icon: Package,
@@ -165,7 +171,7 @@ export function Sidebar() {
                               }`}
                             />
                           )}
-                          <span>{item.label === "Master Data Management" ? "Management" : item.label}</span>
+                          <span>{item.label}</span>
                         </div>
                         <ChevronDown
                           className={`w-4 h-4 transition-transform ${
