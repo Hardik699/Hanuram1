@@ -704,8 +704,8 @@ export default function CreateRecipe() {
           <form onSubmit={handleSubmit} className="space-y-6 p-8">
             {/* Recipe Name */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Recipe Name *
+              <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                Recipe Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -714,14 +714,14 @@ export default function CreateRecipe() {
                   setFormData({ ...formData, name: e.target.value })
                 }
                 placeholder="Enter recipe name"
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
                   errors.name
                     ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                    : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+                } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
               />
               {errors.name && (
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p className="text-red-600 dark:text-red-400 text-xs mt-2 font-medium">
                   {errors.name}
                 </p>
               )}
@@ -729,15 +729,15 @@ export default function CreateRecipe() {
 
             {/* Recipe Type */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Recipe Type *
+              <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                Recipe Type <span className="text-red-500">*</span>
               </label>
               <select
                 value={formData.recipeType}
                 onChange={(e) =>
                   setFormData({ ...formData, recipeType: e.target.value })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-medium"
               >
                 <option value="master">Master Recipe</option>
                 <option value="sub">Sub Recipe</option>
@@ -748,8 +748,8 @@ export default function CreateRecipe() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Batch Size */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Batch Size *
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  Batch Size <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -758,14 +758,14 @@ export default function CreateRecipe() {
                     setFormData({ ...formData, batchSize: e.target.value })
                   }
                   placeholder="Enter batch size"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                  className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
                     errors.batchSize
                       ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                      : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+                  } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
                 />
                 {errors.batchSize && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p className="text-red-600 dark:text-red-400 text-xs mt-2 font-medium">
                     {errors.batchSize}
                   </p>
                 )}
@@ -773,8 +773,8 @@ export default function CreateRecipe() {
 
               {/* Unit */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Unit *
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  Unit <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -798,11 +798,11 @@ export default function CreateRecipe() {
                     onBlur={() => {
                       setTimeout(() => setOpenUnitDropdown(false), 200);
                     }}
-                    className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                    className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
                       errors.unitId
                         ? "border-red-500 dark:border-red-400"
-                        : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                        : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+                    } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
                   />
                   {openUnitDropdown && (
                     <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
@@ -837,7 +837,7 @@ export default function CreateRecipe() {
 
               {/* Yield */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
                   Yield (Optional)
                 </label>
                 <input
@@ -847,13 +847,13 @@ export default function CreateRecipe() {
                     setFormData({ ...formData, yield: e.target.value })
                   }
                   placeholder="Enter yield"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
                 />
               </div>
 
               {/* Moisture Percentage */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
                   Moisture Percentage (Optional)
                 </label>
                 <input
@@ -866,7 +866,7 @@ export default function CreateRecipe() {
                     })
                   }
                   placeholder="Enter moisture percentage"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
                 />
               </div>
             </div>
@@ -903,7 +903,7 @@ export default function CreateRecipe() {
                   {/* Filters Row - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                         Category
                       </label>
                       <select
@@ -912,7 +912,7 @@ export default function CreateRecipe() {
                           setFilterCategoryForRM(e.target.value);
                           setFilterSubCategoryForRM("");
                         }}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all"
                       >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -924,7 +924,7 @@ export default function CreateRecipe() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                         Sub Category
                       </label>
                       <select
@@ -933,7 +933,7 @@ export default function CreateRecipe() {
                           setFilterSubCategoryForRM(e.target.value)
                         }
                         disabled={!filterCategoryForRM}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm disabled:opacity-50"
+                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all disabled:opacity-50"
                       >
                         <option value="">All Sub Categories</option>
                         {getFilteredSubCategories().map((sc) => (
@@ -947,8 +947,8 @@ export default function CreateRecipe() {
 
                   {/* Raw Material Selection - Full Width with Integrated Search */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Raw Material *
+                    <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+                      Raw Material <span className="text-red-500">*</span>
                     </label>
                     <SearchableRMSelect
                       value={selectedRMForItem}
@@ -997,7 +997,7 @@ export default function CreateRecipe() {
                     );
                     return selectedRM?.brandNames && selectedRM.brandNames.length > 0 ? (
                       <div>
-                        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                        <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                           Brand (Optional)
                         </label>
                         <select
@@ -1057,8 +1057,8 @@ export default function CreateRecipe() {
                   {/* Quantity, Price, Unit - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                        Quantity *
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+                        Quantity <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="number"
@@ -1067,11 +1067,11 @@ export default function CreateRecipe() {
                           setItemForm({ ...itemForm, quantity: e.target.value })
                         }
                         placeholder="Enter quantity"
-                        className={`w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
+                        className={`w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
                           itemErrors.quantity
                             ? "border-red-500 dark:border-red-400"
-                            : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
+                            : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
+                        } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium`}
                       />
                       {itemErrors.quantity && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1081,8 +1081,8 @@ export default function CreateRecipe() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                        Price (₹) *{" "}
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+                        Price (₹) <span className="text-red-500">*</span>{" "}
                         {selectedRMForItem && itemForm.price !== "" && (
                           <span className="text-xs font-normal text-green-600 dark:text-green-400">
                             (Auto-filled)
@@ -1097,11 +1097,11 @@ export default function CreateRecipe() {
                           setItemForm({ ...itemForm, price: e.target.value })
                         }
                         placeholder="Enter price"
-                        className={`w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
+                        className={`w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
                           itemErrors.price
                             ? "border-red-500 dark:border-red-400"
-                            : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
+                            : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
+                        } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium`}
                       />
                       {itemErrors.price && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1150,7 +1150,7 @@ export default function CreateRecipe() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                         Unit{" "}
                         {selectedRMForItem && itemForm.unitId !== "" && (
                           <span className="text-xs font-normal text-green-600 dark:text-green-400">
@@ -1180,7 +1180,7 @@ export default function CreateRecipe() {
                           onBlur={() => {
                             setTimeout(() => setOpenItemUnitDropdown(false), 200);
                           }}
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                          className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all"
                         />
                         {openItemUnitDropdown && (
                           <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
