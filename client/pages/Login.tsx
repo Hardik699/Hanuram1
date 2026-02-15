@@ -19,51 +19,19 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [dbConnected, setDbConnected] = useState(false);
 
   useEffect(() => {
     // Check if user is already logged in
     if (isAuthenticated && !authLoading) {
       navigate("/raw-materials");
     }
-
-    // Check DB status on mount
-    checkDBStatus();
-    const interval = setInterval(checkDBStatus, 5000);
-    return () => clearInterval(interval);
   }, [isAuthenticated, authLoading, navigate]);
 
-  const checkDBStatus = async () => {
-    try {
-      const response = await fetch("/api/db-status", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        console.warn(`DB Status check failed with status: ${response.status}`);
-        setDbConnected(false);
-        return;
-      }
-      const data = await response.json();
-      setDbConnected(data.status === "connected");
-    } catch (error) {
-      console.warn("DB Status check error:", error);
-      // Don't block login if DB status check fails
-      setDbConnected(true);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess(false);
-
-    if (!dbConnected) {
-      setError("Database not connected. Please try again later.");
-      return;
-    }
 
     if (!username.trim() || !password) {
       setError("Please enter both username and password");
@@ -197,7 +165,7 @@ export default function Login() {
             {/* Login button */}
             <button
               type="submit"
-              disabled={loading || !dbConnected}
+              disabled={loading}
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 hover:-translate-y-0.5 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-elevation-3 hover:shadow-elevation-5 flex items-center justify-center gap-2"
             >
               {loading ? (
