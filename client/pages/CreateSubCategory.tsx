@@ -611,13 +611,13 @@ export default function CreateSubCategory() {
                         <td className="px-6 py-4">
                           <span
                             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
-                              subcategory.status === "active"
+                              (subcategory.status || "inactive") === "active"
                                 ? "bg-emerald-100 text-emerald-700"
                                 : "bg-red-100 text-red-700"
                             }`}
                           >
-                            <span className={`w-2 h-2 rounded-full ${subcategory.status === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
-                            {subcategory.status.charAt(0).toUpperCase() + subcategory.status.slice(1)}
+                            <span className={`w-2 h-2 rounded-full ${(subcategory.status || "inactive") === "active" ? "bg-emerald-600" : "bg-red-600"}`}></span>
+                            {((subcategory.status || "inactive").charAt(0).toUpperCase() + (subcategory.status || "inactive").slice(1))}
                           </span>
                         </td>
 
