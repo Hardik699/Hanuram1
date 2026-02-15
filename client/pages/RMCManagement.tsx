@@ -1232,6 +1232,7 @@ export default function RMCManagement() {
                         className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-medium hover:border-indigo-400 dark:hover:border-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500"
                       >
                         <option value="10">10</option>
+                        <option value="15">15</option>
                         <option value="20">20</option>
                         <option value="30">30</option>
                       </select>

@@ -695,9 +695,9 @@ export default function CreateRecipe() {
 
         {/* Recipe Basic Info */}
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 px-8 py-6 border-b-2 border-purple-700 dark:border-purple-800">
+          <div className="bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 dark:from-indigo-700 dark:via-cyan-700 dark:to-emerald-700 px-8 py-6 border-b-2 border-transparent" style={{borderImage: 'linear-gradient(to right, #4f46e5, #06b6d4, #10b981) 1'}}>
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              Recipe Information
+              📋 Recipe Information
             </h2>
           </div>
 
@@ -718,7 +718,7 @@ export default function CreateRecipe() {
                   errors.name
                     ? "border-red-500 dark:border-red-400"
                     : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
               />
               {errors.name && (
                 <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -737,7 +737,7 @@ export default function CreateRecipe() {
                 onChange={(e) =>
                   setFormData({ ...formData, recipeType: e.target.value })
                 }
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
               >
                 <option value="master">Master Recipe</option>
                 <option value="sub">Sub Recipe</option>
@@ -762,7 +762,7 @@ export default function CreateRecipe() {
                     errors.batchSize
                       ? "border-red-500 dark:border-red-400"
                       : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 />
                 {errors.batchSize && (
                   <p className="text-red-600 dark:text-red-400 text-sm mt-1">
@@ -802,7 +802,7 @@ export default function CreateRecipe() {
                       errors.unitId
                         ? "border-red-500 dark:border-red-400"
                         : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                    } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                   />
                   {openUnitDropdown && (
                     <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
@@ -847,7 +847,7 @@ export default function CreateRecipe() {
                     setFormData({ ...formData, yield: e.target.value })
                   }
                   placeholder="Enter yield"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -866,7 +866,7 @@ export default function CreateRecipe() {
                     })
                   }
                   placeholder="Enter moisture percentage"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
             </div>
@@ -881,7 +881,7 @@ export default function CreateRecipe() {
                   <button
                     type="button"
                     onClick={() => setShowAddRecipeModal(!showAddRecipeModal)}
-                    className="px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                    className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-emerald-600 text-white rounded-lg hover:from-cyan-700 hover:to-emerald-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                   >
                     <Plus className="w-4 h-4" />
                     Add Recipe
@@ -889,7 +889,7 @@ export default function CreateRecipe() {
                   <button
                     type="button"
                     onClick={() => setShowAddItemForm(!showAddItemForm)}
-                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 text-white rounded-lg hover:from-indigo-700 hover:via-cyan-700 hover:to-emerald-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                   >
                     <Plus className="w-4 h-4" />
                     Add Item
@@ -899,7 +899,7 @@ export default function CreateRecipe() {
 
               {/* Add Item Form */}
               {showAddItemForm && (
-                <div className="bg-gradient-to-br from-indigo-50 dark:from-slate-700/50 to-purple-50 dark:to-slate-800/50 rounded-xl border border-indigo-200 dark:border-indigo-800/30 p-6 mb-6 space-y-4 shadow-sm">
+                <div className="bg-gradient-to-br from-indigo-50 via-cyan-50 to-emerald-50 dark:from-slate-700/50 dark:via-slate-800/50 dark:to-slate-800/50 rounded-xl border border-indigo-200 dark:border-slate-700/50 p-6 mb-6 space-y-4 shadow-sm">
                   {/* Filters Row - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
@@ -912,7 +912,7 @@ export default function CreateRecipe() {
                           setFilterCategoryForRM(e.target.value);
                           setFilterSubCategoryForRM("");
                         }}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                       >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -933,7 +933,7 @@ export default function CreateRecipe() {
                           setFilterSubCategoryForRM(e.target.value)
                         }
                         disabled={!filterCategoryForRM}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm disabled:opacity-50"
+                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm disabled:opacity-50"
                       >
                         <option value="">All Sub Categories</option>
                         {getFilteredSubCategories().map((sc) => (
@@ -1012,7 +1012,7 @@ export default function CreateRecipe() {
                               price: price.toString(),
                             }));
                           }}
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                         >
                           <option value="">-- Select Brand --</option>
                           {selectedRM.brandNames.map((brand, index) => {
@@ -1071,7 +1071,7 @@ export default function CreateRecipe() {
                           itemErrors.quantity
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                       />
                       {itemErrors.quantity && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1101,7 +1101,7 @@ export default function CreateRecipe() {
                           itemErrors.price
                             ? "border-red-500 dark:border-red-400"
                             : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm`}
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm`}
                       />
                       {itemErrors.price && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1180,7 +1180,7 @@ export default function CreateRecipe() {
                           onBlur={() => {
                             setTimeout(() => setOpenItemUnitDropdown(false), 200);
                           }}
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                         />
                         {openItemUnitDropdown && (
                           <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
