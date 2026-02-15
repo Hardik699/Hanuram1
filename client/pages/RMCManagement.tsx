@@ -1052,7 +1052,7 @@ export default function RMCManagement() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                    {recipes.map((recipe) => (
+                    {paginatedRecipes.map((recipe) => (
                       <tr
                         key={recipe._id}
                         onClick={() => navigate(`/recipe/${recipe._id}/edit`)}
@@ -1074,6 +1074,69 @@ export default function RMCManagement() {
                     ))}
                   </tbody>
                 </table>
+
+                {/* Pagination Controls */}
+                <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                      Items per page:
+                    </span>
+                    <select
+                      value={itemsPerPage}
+                      onChange={(e) =>
+                        handleItemsPerPageChange(e.target.value)
+                      }
+                      className="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-medium hover:border-indigo-400 dark:hover:border-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+
+                  <div className="flex items-center gap-6">
+                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                      <span className="font-bold text-slate-900 dark:text-slate-200">
+                        {startIndex + 1}-{Math.min(endIndex, recipes.length)}
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-bold text-slate-600 dark:text-slate-400">
+                        {recipes.length}
+                      </span>
+                    </span>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={handlePreviousPage}
+                        disabled={currentPage === 1}
+                        className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:border-indigo-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                        title="Previous Page"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <span className="text-sm font-bold text-slate-700 dark:text-slate-300 min-w-[100px] text-center">
+                        Page{" "}
+                        <span className="font-bold text-slate-900 dark:text-slate-200">
+                          {currentPage}
+                        </span>{" "}
+                        of{" "}
+                        <span className="font-bold text-slate-600 dark:text-slate-400">
+                          {totalPages || 1}
+                        </span>
+                      </span>
+                      <button
+                        onClick={handleNextPage}
+                        disabled={
+                          currentPage === totalPages || totalPages === 0
+                        }
+                        className="inline-flex items-center justify-center p-2 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                        title="Next Page"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
