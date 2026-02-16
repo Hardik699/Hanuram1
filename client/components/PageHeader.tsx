@@ -60,7 +60,7 @@ export function PageHeader({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-4">
           {icon && (
-            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 shadow-elevation-2 transform hover:scale-110 transition-transform">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-brand to-brand-dark dark:from-brand-dark dark:to-brand shadow-elevation-2 transform hover:scale-110 transition-transform">
               <div className="text-white">{icon}</div>
             </div>
           )}

@@ -72,10 +72,10 @@ export default function Login() {
       <div className="w-full max-w-sm sm:max-w-md">
         {/* Logo/Brand area */}
         <div className="text-center mb-8 animate-scale-in">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white mb-4 shadow-elevation-4 transform hover:scale-110 transition-transform">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-brand to-brand-dark dark:from-brand-dark dark:to-brand text-white mb-4 shadow-elevation-4 transform hover:scale-110 transition-transform">
             <Lock className="w-8 h-8" />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-brand to-brand-dark dark:from-brand dark:to-brand-dark bg-clip-text text-transparent mb-2">
             Hanuram Foods
           </h1>
           <p className="text-slate-600 dark:text-slate-400 font-medium">
@@ -166,7 +166,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 hover:-translate-y-0.5 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-elevation-3 hover:shadow-elevation-5 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-brand to-brand-dark hover:from-brand-dark hover:to-brand disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 hover:-translate-y-0.5 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-elevation-3 hover:shadow-elevation-5 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

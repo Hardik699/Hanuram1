@@ -123,7 +123,7 @@ export function Sidebar() {
         {/* Logo/Brand Section */}
         <div className="px-4 py-6 border-b" style={{ borderColor: "#e2e8f0" }}>
           <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md">
               HF
             </div>
             <div className="text-left">
