@@ -45,6 +45,7 @@ import {
 } from "./routes/vendors";
 import {
   handleGetRawMaterials,
+  handleGetRawMaterialById,
   handleCreateRawMaterial,
   handleUpdateRawMaterial,
   handleDeleteRawMaterial,
@@ -313,6 +314,9 @@ export async function createServer() {
   // Unit conversion routes
   app.post("/api/raw-materials/unit-conversion/add", handleAddUnitConversion);
   app.post("/api/raw-materials/unit-conversion/delete", handleDeleteUnitConversion);
+
+  // Get single raw material by ID (must be before parameterized PUT/DELETE)
+  app.get("/api/raw-materials/:id", handleGetRawMaterialById);
 
   // Parameterized routes last
   app.put("/api/raw-materials/:id", handleUpdateRawMaterial);

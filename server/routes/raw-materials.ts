@@ -1913,6 +1913,46 @@ export const handleAddUnitConversion: RequestHandler = async (req, res) => {
   }
 };
 
+// GET single raw material by ID
+export const handleGetRawMaterialById: RequestHandler = async (req, res) => {
+  if (getConnectionStatus() !== "connected") {
+    return res
+      .status(503)
+      .json({ success: false, message: "Database not connected" });
+  }
+
+  try {
+    const { id } = req.params;
+    const db = getDB();
+    if (!db)
+      return res
+        .status(503)
+        .json({ success: false, message: "Database error" });
+
+    // Validate ObjectId
+    if (!id || !id.match(/^[0-9a-f]{24}$/i)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid raw material ID" });
+    }
+
+    const rawMaterial = await db
+      .collection("raw_materials")
+      .findOne({ _id: new ObjectId(id as string), is_deleted: { $ne: true } });
+
+    if (!rawMaterial) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Raw material not found" });
+    }
+
+    res.json({ success: true, data: rawMaterial });
+  } catch (error) {
+    console.error("Error fetching raw material:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 // Delete unit conversion
 export const handleDeleteUnitConversion: RequestHandler = async (req, res) => {
   if (getConnectionStatus() !== "connected") {
