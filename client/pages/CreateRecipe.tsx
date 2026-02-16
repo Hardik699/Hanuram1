@@ -695,193 +695,228 @@ export default function CreateRecipe() {
 
         {/* Recipe Basic Info */}
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 px-8 py-6 border-b-2 border-purple-700 dark:border-purple-800">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              Recipe Information
-            </h2>
+          <div className="px-8 py-8 border-b border-slate-200 dark:border-slate-700">
+            <div className="flex items-start justify-between gap-6 mb-6">
+              <div className="flex-1">
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                  {id ? "Edit Recipe" : "Create Recipe"}
+                </h2>
+                <p className="text-slate-600 dark:text-slate-400">
+                  {id ? "Update your recipe details and materials" : "Add a new recipe with materials and costing"}
+                </p>
+              </div>
+              <div className="flex gap-2">
+                {id && (
+                  <>
+                    <button className="px-4 py-2.5 rounded-lg border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 font-medium transition-all">
+                      Logs
+                    </button>
+                    <button className="px-4 py-2.5 rounded-lg border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-medium transition-all">
+                      Delete
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6 p-8">
-            {/* Recipe Name */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Recipe Name *
-              </label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                placeholder="Enter recipe name"
-                className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                  errors.name
-                    ? "border-red-500 dark:border-red-400"
-                    : "border-slate-300 dark:border-slate-600"
-                } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
-              />
-              {errors.name && (
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                  {errors.name}
-                </p>
-              )}
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-8 p-8">
+            {/* RECIPE DETAILS Section */}
+            <div className="border-l-4 border-indigo-500 pl-6">
+              <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-6">
+                Recipe Details
+              </h3>
 
-            {/* Recipe Type */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                Recipe Type *
-              </label>
-              <select
-                value={formData.recipeType}
-                onChange={(e) =>
-                  setFormData({ ...formData, recipeType: e.target.value })
-                }
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-              >
-                <option value="master">Master Recipe</option>
-                <option value="sub">Sub Recipe</option>
-              </select>
-            </div>
-
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Batch Size */}
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Batch Size *
+              {/* Recipe Name */}
+              <div className="mb-6">
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  Recipe Name <span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="number"
-                  value={formData.batchSize}
+                  type="text"
+                  value={formData.name}
                   onChange={(e) =>
-                    setFormData({ ...formData, batchSize: e.target.value })
+                    setFormData({ ...formData, name: e.target.value })
                   }
-                  placeholder="Enter batch size"
-                  className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                    errors.batchSize
+                  placeholder="Enter recipe name"
+                  className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                    errors.name
                       ? "border-red-500 dark:border-red-400"
-                      : "border-slate-300 dark:border-slate-600"
-                  } text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                      : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+                  } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
                 />
-                {errors.batchSize && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.batchSize}
+                {errors.name && (
+                  <p className="text-red-600 dark:text-red-400 text-xs mt-2 font-medium">
+                    {errors.name}
                   </p>
                 )}
               </div>
 
-              {/* Unit */}
+              {/* Recipe Type */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Unit *
+                <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  Recipe Type <span className="text-red-500">*</span>
                 </label>
-                <div className="relative">
+                <select
+                  value={formData.recipeType}
+                  onChange={(e) =>
+                    setFormData({ ...formData, recipeType: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all font-medium"
+                >
+                  <option value="master">Master Recipe</option>
+                  <option value="sub">Sub Recipe</option>
+                </select>
+              </div>
+            </div>
+
+
+            {/* CONFIGURATION Section */}
+            <div className="border-l-4 border-blue-500 pl-6">
+              <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-6">
+                Configuration
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Batch Size */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Batch Size <span className="text-red-500">*</span>
+                  </label>
                   <input
-                    type="text"
-                    placeholder="Search or select unit..."
-                    value={
-                      openUnitDropdown
-                        ? unitSearchInput
-                        : formData.unitId
-                          ? units.find((u) => u._id === formData.unitId)?.name || ""
-                          : ""
+                    type="number"
+                    value={formData.batchSize}
+                    onChange={(e) =>
+                      setFormData({ ...formData, batchSize: e.target.value })
                     }
-                    onChange={(e) => {
-                      setOpenUnitDropdown(true);
-                      setUnitSearchInput(e.target.value);
-                    }}
-                    onFocus={() => {
-                      setOpenUnitDropdown(true);
-                      setUnitSearchInput("");
-                    }}
-                    onBlur={() => {
-                      setTimeout(() => setOpenUnitDropdown(false), 200);
-                    }}
-                    className={`w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
-                      errors.unitId
+                    placeholder="Enter batch size"
+                    className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                      errors.batchSize
                         ? "border-red-500 dark:border-red-400"
-                        : "border-slate-300 dark:border-slate-600"
-                    } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                        : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+                    } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
                   />
-                  {openUnitDropdown && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
-                      {getFilteredUnits().length > 0 ? (
-                        getFilteredUnits().map((unit) => (
-                          <div
-                            key={unit._id}
-                            onClick={() => {
-                              setFormData({ ...formData, unitId: unit._id });
-                              setOpenUnitDropdown(false);
-                              setUnitSearchInput("");
-                            }}
-                            className="px-4 py-3 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0 text-slate-900 dark:text-white"
-                          >
-                            {unit.name}
-                          </div>
-                        ))
-                      ) : (
-                        <div className="px-4 py-3 text-center text-slate-500 dark:text-slate-400">
-                          No units found
-                        </div>
-                      )}
-                    </div>
+                  {errors.batchSize && (
+                    <p className="text-red-600 dark:text-red-400 text-xs mt-2 font-medium">
+                      {errors.batchSize}
+                    </p>
                   )}
                 </div>
-                {errors.unitId && (
-                  <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                    {errors.unitId}
-                  </p>
-                )}
-              </div>
 
-              {/* Yield */}
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Yield (Optional)
-                </label>
-                <input
-                  type="number"
-                  value={formData.yield}
-                  onChange={(e) =>
-                    setFormData({ ...formData, yield: e.target.value })
-                  }
-                  placeholder="Enter yield"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
+                {/* Unit */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Unit <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search or select unit..."
+                      value={
+                        openUnitDropdown
+                          ? unitSearchInput
+                          : formData.unitId
+                            ? units.find((u) => u._id === formData.unitId)?.name || ""
+                            : ""
+                      }
+                      onChange={(e) => {
+                        setOpenUnitDropdown(true);
+                        setUnitSearchInput(e.target.value);
+                      }}
+                      onFocus={() => {
+                        setOpenUnitDropdown(true);
+                        setUnitSearchInput("");
+                      }}
+                      onBlur={() => {
+                        setTimeout(() => setOpenUnitDropdown(false), 200);
+                      }}
+                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border transition-all ${
+                        errors.unitId
+                          ? "border-red-500 dark:border-red-400"
+                          : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+                      } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium`}
+                    />
+                    {openUnitDropdown && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                        {getFilteredUnits().length > 0 ? (
+                          getFilteredUnits().map((unit) => (
+                            <div
+                              key={unit._id}
+                              onClick={() => {
+                                setFormData({ ...formData, unitId: unit._id });
+                                setOpenUnitDropdown(false);
+                                setUnitSearchInput("");
+                              }}
+                              className="px-4 py-3 hover:bg-indigo-50 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-100 dark:border-slate-600 last:border-b-0 text-slate-900 dark:text-white"
+                            >
+                              {unit.name}
+                            </div>
+                          ))
+                        ) : (
+                          <div className="px-4 py-3 text-center text-slate-500 dark:text-slate-400">
+                            No units found
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {errors.unitId && (
+                    <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                      {errors.unitId}
+                    </p>
+                  )}
+                </div>
 
-              {/* Moisture Percentage */}
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Moisture Percentage (Optional)
-                </label>
-                <input
-                  type="number"
-                  value={formData.moisturePercentage}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      moisturePercentage: e.target.value,
-                    })
-                  }
-                  placeholder="Enter moisture percentage"
-                  className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
+                {/* Yield */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Yield (Optional)
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.yield}
+                    onChange={(e) =>
+                      setFormData({ ...formData, yield: e.target.value })
+                    }
+                    placeholder="Enter yield"
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
+                  />
+                </div>
+
+                {/* Moisture Percentage */}
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                    Moisture Percentage (Optional)
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.moisturePercentage}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        moisturePercentage: e.target.value,
+                      })
+                    }
+                    placeholder="Enter moisture percentage"
+                    className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-medium transition-all"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Recipe Items Section */}
-            <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
+            <div className="border-l-4 border-blue-500 pl-6">
+              <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-6">
+                Recipe Items
+              </h3>
+
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                  📦 Recipe Items
-                </h3>
+                <div></div>
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => setShowAddRecipeModal(!showAddRecipeModal)}
-                    className="px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-lg hover:from-orange-700 hover:to-orange-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                    className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-emerald-600 text-white rounded-lg hover:from-cyan-700 hover:to-emerald-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                   >
                     <Plus className="w-4 h-4" />
                     Add Recipe
@@ -889,7 +924,7 @@ export default function CreateRecipe() {
                   <button
                     type="button"
                     onClick={() => setShowAddItemForm(!showAddItemForm)}
-                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 text-white rounded-lg hover:from-indigo-700 hover:via-cyan-700 hover:to-emerald-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                   >
                     <Plus className="w-4 h-4" />
                     Add Item
@@ -899,11 +934,11 @@ export default function CreateRecipe() {
 
               {/* Add Item Form */}
               {showAddItemForm && (
-                <div className="bg-gradient-to-br from-indigo-50 dark:from-slate-700/50 to-purple-50 dark:to-slate-800/50 rounded-xl border border-indigo-200 dark:border-indigo-800/30 p-6 mb-6 space-y-4 shadow-sm">
+                <div className="bg-gradient-to-br from-indigo-50 via-cyan-50 to-emerald-50 dark:from-slate-700/50 dark:via-slate-800/50 dark:to-slate-800/50 rounded-xl border border-indigo-200 dark:border-slate-700/50 p-6 mb-6 space-y-4 shadow-sm">
                   {/* Filters Row - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                         Category
                       </label>
                       <select
@@ -912,7 +947,7 @@ export default function CreateRecipe() {
                           setFilterCategoryForRM(e.target.value);
                           setFilterSubCategoryForRM("");
                         }}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all"
                       >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -924,7 +959,7 @@ export default function CreateRecipe() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                         Sub Category
                       </label>
                       <select
@@ -933,7 +968,7 @@ export default function CreateRecipe() {
                           setFilterSubCategoryForRM(e.target.value)
                         }
                         disabled={!filterCategoryForRM}
-                        className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm disabled:opacity-50"
+                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all disabled:opacity-50"
                       >
                         <option value="">All Sub Categories</option>
                         {getFilteredSubCategories().map((sc) => (
@@ -947,8 +982,8 @@ export default function CreateRecipe() {
 
                   {/* Raw Material Selection - Full Width with Integrated Search */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                      Raw Material *
+                    <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+                      Raw Material <span className="text-red-500">*</span>
                     </label>
                     <SearchableRMSelect
                       value={selectedRMForItem}
@@ -997,7 +1032,7 @@ export default function CreateRecipe() {
                     );
                     return selectedRM?.brandNames && selectedRM.brandNames.length > 0 ? (
                       <div>
-                        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                        <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                           Brand (Optional)
                         </label>
                         <select
@@ -1012,7 +1047,7 @@ export default function CreateRecipe() {
                               price: price.toString(),
                             }));
                           }}
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                         >
                           <option value="">-- Select Brand --</option>
                           {selectedRM.brandNames.map((brand, index) => {
@@ -1057,8 +1092,8 @@ export default function CreateRecipe() {
                   {/* Quantity, Price, Unit - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                        Quantity *
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+                        Quantity <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="number"
@@ -1067,11 +1102,11 @@ export default function CreateRecipe() {
                           setItemForm({ ...itemForm, quantity: e.target.value })
                         }
                         placeholder="Enter quantity"
-                        className={`w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
+                        className={`w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
                           itemErrors.quantity
                             ? "border-red-500 dark:border-red-400"
-                            : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm`}
+                            : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
+                        } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium`}
                       />
                       {itemErrors.quantity && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1081,8 +1116,8 @@ export default function CreateRecipe() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
-                        Price (₹) *{" "}
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+                        Price (₹) <span className="text-red-500">*</span>{" "}
                         {selectedRMForItem && itemForm.price !== "" && (
                           <span className="text-xs font-normal text-green-600 dark:text-green-400">
                             (Auto-filled)
@@ -1097,11 +1132,11 @@ export default function CreateRecipe() {
                           setItemForm({ ...itemForm, price: e.target.value })
                         }
                         placeholder="Enter price"
-                        className={`w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
+                        className={`w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border transition-all ${
                           itemErrors.price
                             ? "border-red-500 dark:border-red-400"
-                            : "border-slate-200 dark:border-slate-600"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm`}
+                            : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
+                        } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium`}
                       />
                       {itemErrors.price && (
                         <p className="text-red-600 dark:text-red-400 text-xs mt-1">
@@ -1150,7 +1185,7 @@ export default function CreateRecipe() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
+                      <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                         Unit{" "}
                         {selectedRMForItem && itemForm.unitId !== "" && (
                           <span className="text-xs font-normal text-green-600 dark:text-green-400">
@@ -1180,7 +1215,7 @@ export default function CreateRecipe() {
                           onBlur={() => {
                             setTimeout(() => setOpenItemUnitDropdown(false), 200);
                           }}
-                          className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                          className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all"
                         />
                         {openItemUnitDropdown && (
                           <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
