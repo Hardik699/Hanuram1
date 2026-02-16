@@ -168,8 +168,9 @@ export async function createServer() {
 
   // Security Middleware - Apply first for maximum protection
   app.use(securityHeaders); // Add security headers
-  app.use(simpleRateLimit); // Rate limiting
-  app.use(validateInput); // Input validation
+  // Temporarily disabled to diagnose 404 issue
+  // app.use(simpleRateLimit); // Rate limiting
+  // app.use(validateInput); // Input validation
 
   // CORS Middleware
   app.use(
