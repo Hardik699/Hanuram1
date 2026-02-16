@@ -14,126 +14,120 @@ export function LoadingSpinner({
     return (
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
         <style>{`
-          @keyframes shimmer-flash {
-            0%, 100% { 
-              box-shadow: 0 0 0px rgba(59, 130, 246, 0), 
-                          0 0 0px rgba(99, 102, 241, 0),
-                          0 0 0px rgba(139, 92, 246, 0);
+          @keyframes spin-smooth {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          @keyframes pulse-glow {
+            0%, 100% {
+              box-shadow: 0 0 20px rgba(37, 99, 235, 0.5),
+                          inset 0 0 20px rgba(37, 99, 235, 0.2);
               transform: scale(1);
             }
-            25% { 
-              box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
-                          0 0 40px rgba(99, 102, 241, 0.4),
-                          0 0 60px rgba(139, 92, 246, 0.2);
-              transform: scale(1.05);
-            }
-            50% { 
-              box-shadow: 0 0 30px rgba(59, 130, 246, 0.8),
-                          0 0 50px rgba(99, 102, 241, 0.6),
-                          0 0 70px rgba(139, 92, 246, 0.3);
-              transform: scale(1.1);
-            }
-            75% { 
-              box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
-                          0 0 40px rgba(99, 102, 241, 0.4),
-                          0 0 60px rgba(139, 92, 246, 0.2);
+            50% {
+              box-shadow: 0 0 40px rgba(37, 99, 235, 0.8),
+                          inset 0 0 30px rgba(37, 99, 235, 0.3),
+                          0 0 60px rgba(59, 130, 246, 0.4);
               transform: scale(1.05);
             }
           }
-          
-          @keyframes orbit-spin {
-            0% { transform: rotate(0deg) }
-            100% { transform: rotate(360deg) }
+
+          @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(45px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(45px) rotate(-360deg); }
           }
-          
-          @keyframes particle-float {
-            0%, 100% { 
+
+          @keyframes float-up {
+            0% {
               opacity: 0;
-              transform: translateY(0px) scale(0);
+              transform: translateY(20px);
             }
-            50% { 
+            50% {
               opacity: 1;
-              transform: translateY(-30px) scale(1);
+            }
+            100% {
+              opacity: 0;
+              transform: translateY(-40px);
             }
           }
-          
-          @keyframes pulse-intense {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
+
+          @keyframes dot-bounce {
+            0%, 80%, 100% { opacity: 0.4; transform: scale(1); }
+            40% { opacity: 1; transform: scale(1.2); }
           }
-          
-          .shimmer-core {
-            animation: shimmer-flash 2s ease-in-out infinite;
+
+          .spinner-core {
+            animation: pulse-glow 2.5s ease-in-out infinite;
           }
-          
-          .orbit-ring {
-            animation: orbit-spin 3s linear infinite;
+
+          .spinner-ring {
+            animation: spin-smooth 2s linear infinite;
           }
-          
-          .particle-1 {
-            animation: particle-float 2s ease-in-out infinite;
-            animation-delay: 0s;
+
+          .orbit-dot {
+            animation: orbit 3s linear infinite;
           }
-          
-          .particle-2 {
-            animation: particle-float 2s ease-in-out infinite;
-            animation-delay: 0.3s;
+
+          .dot-1 { animation-delay: 0s; }
+          .dot-2 { animation-delay: -1s; }
+          .dot-3 { animation-delay: -2s; }
+
+          .float-particle {
+            animation: float-up 2s ease-in infinite;
           }
-          
-          .particle-3 {
-            animation: particle-float 2s ease-in-out infinite;
-            animation-delay: 0.6s;
-          }
-          
-          .particle-4 {
-            animation: particle-float 2s ease-in-out infinite;
-            animation-delay: 0.9s;
-          }
-          
-          .pulse-dot {
-            animation: pulse-intense 1.5s ease-in-out infinite;
+
+          .particle-1 { animation-delay: 0s; }
+          .particle-2 { animation-delay: 0.4s; }
+          .particle-3 { animation-delay: 0.8s; }
+          .particle-4 { animation-delay: 1.2s; }
+
+          .bounce-dot {
+            animation: dot-bounce 1.4s infinite;
           }
         `}</style>
 
         {/* Modal Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-12 max-w-sm mx-4">
+        <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-12 max-w-sm mx-4 border border-blue-100 dark:border-blue-900/30">
           <div className="text-center">
-            {/* Dynamic Tadakta Fadakta Loading Animation */}
-            <div className="relative w-32 h-32 mx-auto mb-8">
-              {/* Main Shimmering Core */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-24 h-24">
-                  {/* Sparkling Core */}
-                  <div className="shimmer-core absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-indigo-500 shadow-lg"></div>
-                  
-                  {/* Orbiting Ring */}
-                  <div className="orbit-ring absolute inset-0">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '0 8px 0 rgba(59, 130, 246, 0.8)' }}></div>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-indigo-300 rounded-full" style={{ boxShadow: '0 -8px 0 rgba(99, 102, 241, 0.8)' }}></div>
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-purple-300 rounded-full" style={{ boxShadow: '8px 0 0 rgba(139, 92, 246, 0.8)' }}></div>
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '-8px 0 0 rgba(59, 130, 246, 0.8)' }}></div>
-                  </div>
-                </div>
+            {/* Premium Loading Animation */}
+            <div className="relative w-40 h-40 mx-auto mb-8">
+              {/* Outer Glow Ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/10 to-blue-500/10 blur-xl"></div>
+
+              {/* Main Spinner Core */}
+              <div className="absolute inset-2 flex items-center justify-center">
+                <div className="spinner-core w-28 h-28 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 shadow-lg"></div>
+              </div>
+
+              {/* Rotating Ring */}
+              <div className="spinner-ring absolute inset-0 rounded-full border-4 border-transparent border-t-blue-500 border-r-blue-400"></div>
+
+              {/* Orbiting Dots */}
+              <div className="absolute inset-0">
+                <div className="orbit-dot dot-1 absolute w-2 h-2 bg-blue-500 rounded-full" style={{ top: '10%', left: '50%' }}></div>
+                <div className="orbit-dot dot-2 absolute w-2 h-2 bg-blue-400 rounded-full" style={{ top: '50%', right: '10%' }}></div>
+                <div className="orbit-dot dot-3 absolute w-2 h-2 bg-blue-600 rounded-full" style={{ bottom: '10%', left: '50%' }}></div>
               </div>
 
               {/* Floating Particles */}
-              <div className="particle-1 absolute top-0 left-1/4 w-2 h-2 bg-blue-400 rounded-full blur-sm"></div>
-              <div className="particle-2 absolute top-1/4 right-1/4 w-2 h-2 bg-indigo-400 rounded-full blur-sm"></div>
-              <div className="particle-3 absolute bottom-1/4 left-1/3 w-2 h-2 bg-purple-400 rounded-full blur-sm"></div>
-              <div className="particle-4 absolute top-1/2 right-1/3 w-2 h-2 bg-blue-300 rounded-full blur-sm"></div>
+              <div className="float-particle particle-1 absolute top-4 left-6 w-2 h-2 bg-blue-400 rounded-full blur-sm"></div>
+              <div className="float-particle particle-2 absolute top-8 right-8 w-1.5 h-1.5 bg-blue-500 rounded-full blur-sm"></div>
+              <div className="float-particle particle-3 absolute bottom-8 left-10 w-1.5 h-1.5 bg-blue-300 rounded-full blur-sm"></div>
+              <div className="float-particle particle-4 absolute bottom-4 right-6 w-2 h-2 bg-blue-600 rounded-full blur-sm"></div>
             </div>
 
-            {/* Message with Pulsing Dots */}
+            {/* Message */}
             <div className="space-y-4">
               <p className="text-blue-700 dark:text-blue-300 font-bold text-lg">
                 {message}
               </p>
-              
-              {/* Pulsing Indicator Dots */}
-              <div className="flex justify-center gap-2">
-                <div className="pulse-dot w-3 h-3 rounded-full bg-blue-500"></div>
-                <div className="pulse-dot w-3 h-3 rounded-full bg-indigo-500" style={{ animationDelay: '0.3s' }}></div>
-                <div className="pulse-dot w-3 h-3 rounded-full bg-purple-500" style={{ animationDelay: '0.6s' }}></div>
+
+              {/* Bouncing Dots */}
+              <div className="flex justify-center items-center gap-3 h-8">
+                <div className="bounce-dot w-2.5 h-2.5 rounded-full bg-blue-500"></div>
+                <div className="bounce-dot w-2.5 h-2.5 rounded-full bg-blue-500" style={{ animationDelay: '0.2s' }}></div>
+                <div className="bounce-dot w-2.5 h-2.5 rounded-full bg-blue-500" style={{ animationDelay: '0.4s' }}></div>
               </div>
             </div>
           </div>
@@ -146,124 +140,118 @@ export function LoadingSpinner({
   return (
     <div className="flex items-center justify-center py-8 sm:py-12">
       <style>{`
-        @keyframes shimmer-flash {
-          0%, 100% { 
-            box-shadow: 0 0 0px rgba(59, 130, 246, 0), 
-                        0 0 0px rgba(99, 102, 241, 0),
-                        0 0 0px rgba(139, 92, 246, 0);
+        @keyframes spin-smooth {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse-glow {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.5),
+                        inset 0 0 20px rgba(37, 99, 235, 0.2);
             transform: scale(1);
           }
-          25% { 
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
-                        0 0 40px rgba(99, 102, 241, 0.4),
-                        0 0 60px rgba(139, 92, 246, 0.2);
-            transform: scale(1.05);
-          }
-          50% { 
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8),
-                        0 0 50px rgba(99, 102, 241, 0.6),
-                        0 0 70px rgba(139, 92, 246, 0.3);
-            transform: scale(1.1);
-          }
-          75% { 
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
-                        0 0 40px rgba(99, 102, 241, 0.4),
-                        0 0 60px rgba(139, 92, 246, 0.2);
+          50% {
+            box-shadow: 0 0 40px rgba(37, 99, 235, 0.8),
+                        inset 0 0 30px rgba(37, 99, 235, 0.3),
+                        0 0 60px rgba(59, 130, 246, 0.4);
             transform: scale(1.05);
           }
         }
-        
-        @keyframes orbit-spin {
-          0% { transform: rotate(0deg) }
-          100% { transform: rotate(360deg) }
+
+        @keyframes orbit {
+          0% { transform: rotate(0deg) translateX(45px) rotate(0deg); }
+          100% { transform: rotate(360deg) translateX(45px) rotate(-360deg); }
         }
-        
-        @keyframes particle-float {
-          0%, 100% { 
+
+        @keyframes float-up {
+          0% {
             opacity: 0;
-            transform: translateY(0px) scale(0);
+            transform: translateY(20px);
           }
-          50% { 
+          50% {
             opacity: 1;
-            transform: translateY(-30px) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-40px);
           }
         }
-        
-        @keyframes pulse-intense {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 1; }
+
+        @keyframes dot-bounce {
+          0%, 80%, 100% { opacity: 0.4; transform: scale(1); }
+          40% { opacity: 1; transform: scale(1.2); }
         }
-        
-        .shimmer-core {
-          animation: shimmer-flash 2s ease-in-out infinite;
+
+        .spinner-core {
+          animation: pulse-glow 2.5s ease-in-out infinite;
         }
-        
-        .orbit-ring {
-          animation: orbit-spin 3s linear infinite;
+
+        .spinner-ring {
+          animation: spin-smooth 2s linear infinite;
         }
-        
-        .particle-1 {
-          animation: particle-float 2s ease-in-out infinite;
-          animation-delay: 0s;
+
+        .orbit-dot {
+          animation: orbit 3s linear infinite;
         }
-        
-        .particle-2 {
-          animation: particle-float 2s ease-in-out infinite;
-          animation-delay: 0.3s;
+
+        .dot-1 { animation-delay: 0s; }
+        .dot-2 { animation-delay: -1s; }
+        .dot-3 { animation-delay: -2s; }
+
+        .float-particle {
+          animation: float-up 2s ease-in infinite;
         }
-        
-        .particle-3 {
-          animation: particle-float 2s ease-in-out infinite;
-          animation-delay: 0.6s;
-        }
-        
-        .particle-4 {
-          animation: particle-float 2s ease-in-out infinite;
-          animation-delay: 0.9s;
-        }
-        
-        .pulse-dot {
-          animation: pulse-intense 1.5s ease-in-out infinite;
+
+        .particle-1 { animation-delay: 0s; }
+        .particle-2 { animation-delay: 0.4s; }
+        .particle-3 { animation-delay: 0.8s; }
+        .particle-4 { animation-delay: 1.2s; }
+
+        .bounce-dot {
+          animation: dot-bounce 1.4s infinite;
         }
       `}</style>
-      
+
       <div className="text-center">
-        {/* Dynamic Tadakta Fadakta Loading Animation */}
-        <div className="relative w-32 h-32 mx-auto mb-8">
-          {/* Main Shimmering Core */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-24 h-24">
-              {/* Sparkling Core */}
-              <div className="shimmer-core absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-indigo-500 shadow-lg"></div>
-              
-              {/* Orbiting Ring */}
-              <div className="orbit-ring absolute inset-0">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '0 8px 0 rgba(59, 130, 246, 0.8)' }}></div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-indigo-300 rounded-full" style={{ boxShadow: '0 -8px 0 rgba(99, 102, 241, 0.8)' }}></div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-purple-300 rounded-full" style={{ boxShadow: '8px 0 0 rgba(139, 92, 246, 0.8)' }}></div>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-blue-300 rounded-full" style={{ boxShadow: '-8px 0 0 rgba(59, 130, 246, 0.8)' }}></div>
-              </div>
-            </div>
+        {/* Premium Loading Animation */}
+        <div className="relative w-32 h-32 mx-auto mb-6">
+          {/* Outer Glow Ring */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/10 to-blue-500/10 blur-xl"></div>
+
+          {/* Main Spinner Core */}
+          <div className="absolute inset-2 flex items-center justify-center">
+            <div className="spinner-core w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 shadow-lg"></div>
+          </div>
+
+          {/* Rotating Ring */}
+          <div className="spinner-ring absolute inset-0 rounded-full border-4 border-transparent border-t-blue-500 border-r-blue-400"></div>
+
+          {/* Orbiting Dots */}
+          <div className="absolute inset-0">
+            <div className="orbit-dot dot-1 absolute w-1.5 h-1.5 bg-blue-500 rounded-full" style={{ top: '10%', left: '50%' }}></div>
+            <div className="orbit-dot dot-2 absolute w-1.5 h-1.5 bg-blue-400 rounded-full" style={{ top: '50%', right: '10%' }}></div>
+            <div className="orbit-dot dot-3 absolute w-1.5 h-1.5 bg-blue-600 rounded-full" style={{ bottom: '10%', left: '50%' }}></div>
           </div>
 
           {/* Floating Particles */}
-          <div className="particle-1 absolute top-0 left-1/4 w-2 h-2 bg-blue-400 rounded-full blur-sm"></div>
-          <div className="particle-2 absolute top-1/4 right-1/4 w-2 h-2 bg-indigo-400 rounded-full blur-sm"></div>
-          <div className="particle-3 absolute bottom-1/4 left-1/3 w-2 h-2 bg-purple-400 rounded-full blur-sm"></div>
-          <div className="particle-4 absolute top-1/2 right-1/3 w-2 h-2 bg-blue-300 rounded-full blur-sm"></div>
+          <div className="float-particle particle-1 absolute top-2 left-4 w-1.5 h-1.5 bg-blue-400 rounded-full blur-sm"></div>
+          <div className="float-particle particle-2 absolute top-6 right-6 w-1 h-1 bg-blue-500 rounded-full blur-sm"></div>
+          <div className="float-particle particle-3 absolute bottom-6 left-8 w-1 h-1 bg-blue-300 rounded-full blur-sm"></div>
+          <div className="float-particle particle-4 absolute bottom-2 right-4 w-1.5 h-1.5 bg-blue-600 rounded-full blur-sm"></div>
         </div>
 
-        {/* Message with Pulsing Dots */}
-        <div className="space-y-4">
-          <p className="text-blue-700 dark:text-blue-300 font-bold text-lg">
+        {/* Message */}
+        <div className="space-y-3">
+          <p className="text-blue-700 dark:text-blue-300 font-semibold text-sm">
             {message}
           </p>
-          
-          {/* Pulsing Indicator Dots */}
-          <div className="flex justify-center gap-2">
-            <div className="pulse-dot w-3 h-3 rounded-full bg-blue-500"></div>
-            <div className="pulse-dot w-3 h-3 rounded-full bg-indigo-500" style={{ animationDelay: '0.3s' }}></div>
-            <div className="pulse-dot w-3 h-3 rounded-full bg-purple-500" style={{ animationDelay: '0.6s' }}></div>
+
+          {/* Bouncing Dots */}
+          <div className="flex justify-center items-center gap-2 h-6">
+            <div className="bounce-dot w-2 h-2 rounded-full bg-blue-500"></div>
+            <div className="bounce-dot w-2 h-2 rounded-full bg-blue-500" style={{ animationDelay: '0.2s' }}></div>
+            <div className="bounce-dot w-2 h-2 rounded-full bg-blue-500" style={{ animationDelay: '0.4s' }}></div>
           </div>
         </div>
       </div>
