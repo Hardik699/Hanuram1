@@ -981,7 +981,7 @@ export default function RMCManagement() {
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
-                  <div className="p-2.5 bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg shadow-md">
+                  <div className="p-2.5 bg-gradient-to-br from-brand to-brand-dark rounded-lg shadow-md">
                     <BookOpen className="w-5 h-5 text-white" />
                   </div>
                   Production Labour Costs
@@ -1184,7 +1184,7 @@ export default function RMCManagement() {
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
-                    <div className="p-2.5 bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg shadow-md">
+                    <div className="p-2.5 bg-gradient-to-br from-brand to-brand-dark rounded-lg shadow-md">
                       <BookOpen className="w-5 h-5 text-white" />
                     </div>
                     All Recipes
