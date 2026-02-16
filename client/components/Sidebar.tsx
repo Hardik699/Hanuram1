@@ -99,7 +99,7 @@ export function Sidebar() {
       {/* Mobile menu button - Modern Design */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 md:hidden bg-blue-600 text-white p-2.5 rounded-lg hover:bg-blue-700 active:scale-95 transition-all shadow-lg"
+        className="fixed top-4 left-4 z-50 md:hidden bg-brand text-white p-2.5 rounded-lg hover:bg-brand-dark active:scale-95 transition-all shadow-lg"
       >
         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
@@ -123,7 +123,7 @@ export function Sidebar() {
         {/* Logo/Brand Section */}
         <div className="px-4 py-6 border-b" style={{ borderColor: "#e2e8f0" }}>
           <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md">
               HF
             </div>
             <div className="text-left">
@@ -157,7 +157,7 @@ export function Sidebar() {
                         onClick={() => toggleMenu(item.label)}
                         className={`w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium transition-all rounded-lg mb-1 ${
                           expandedMenu === item.label
-                            ? "text-blue-600 bg-blue-100"
+                            ? "text-brand bg-blue-100"
                             : "text-gray-700 hover:text-gray-900"
                         }`}
                       >
@@ -166,7 +166,7 @@ export function Sidebar() {
                             <item.icon
                               className={`w-5 h-5 transition-colors ${
                                 expandedMenu === item.label
-                                  ? "text-blue-600"
+                                  ? "text-brand"
                                   : "text-gray-600"
                               }`}
                             />
@@ -189,7 +189,7 @@ export function Sidebar() {
                               onClick={() => setIsOpen(false)}
                               className={`block px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                                 isActive(subitem.path)
-                                  ? "text-white bg-blue-600 font-semibold"
+                                  ? "text-white bg-brand font-semibold"
                                   : "text-gray-700 hover:text-gray-900 hover:bg-gray-200"
                               }`}
                             >
@@ -205,7 +205,7 @@ export function Sidebar() {
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all rounded-lg mb-1 ${
                         itemActive
-                          ? "text-white bg-blue-600 shadow-md"
+                          ? "text-white bg-brand shadow-md"
                           : "text-gray-700 hover:text-gray-900 hover:bg-gray-200"
                       }`}
                     >

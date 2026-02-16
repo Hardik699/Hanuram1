@@ -14,6 +14,11 @@ export default {
     },
     extend: {
       colors: {
+        /* Brand Logo Color */
+        brand: {
+          DEFAULT: "#2563eb",
+          dark: "#1e40af",
+        },
         /* Material Design Color System */
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

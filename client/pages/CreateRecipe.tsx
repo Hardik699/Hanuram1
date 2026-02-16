@@ -916,7 +916,7 @@ export default function CreateRecipe() {
                   <button
                     type="button"
                     onClick={() => setShowAddRecipeModal(!showAddRecipeModal)}
-                    className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-emerald-600 text-white rounded-lg hover:from-cyan-700 hover:to-emerald-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                   >
                     <Plus className="w-4 h-4" />
                     Add Recipe
@@ -924,7 +924,7 @@ export default function CreateRecipe() {
                   <button
                     type="button"
                     onClick={() => setShowAddItemForm(!showAddItemForm)}
-                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 text-white rounded-lg hover:from-indigo-700 hover:via-cyan-700 hover:to-emerald-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium text-sm flex items-center gap-2 shadow-md"
                   >
                     <Plus className="w-4 h-4" />
                     Add Item
@@ -934,7 +934,7 @@ export default function CreateRecipe() {
 
               {/* Add Item Form */}
               {showAddItemForm && (
-                <div className="bg-gradient-to-br from-indigo-50 via-cyan-50 to-emerald-50 dark:from-slate-700/50 dark:via-slate-800/50 dark:to-slate-800/50 rounded-xl border border-indigo-200 dark:border-slate-700/50 p-6 mb-6 space-y-4 shadow-sm">
+                <div className="bg-gradient-to-br from-blue-50 via-slate-50 to-blue-50 dark:from-slate-700/50 dark:via-slate-800/50 dark:to-slate-800/50 rounded-xl border border-blue-200 dark:border-slate-700/50 p-6 mb-6 space-y-4 shadow-sm">
                   {/* Filters Row - 3 columns */}
                   <div className="grid grid-cols-3 gap-4">
                     <div>
@@ -947,7 +947,7 @@ export default function CreateRecipe() {
                           setFilterCategoryForRM(e.target.value);
                           setFilterSubCategoryForRM("");
                         }}
-                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all"
+                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-medium transition-all"
                       >
                         <option value="">All Categories</option>
                         {categories.map((cat) => (
@@ -968,7 +968,7 @@ export default function CreateRecipe() {
                           setFilterSubCategoryForRM(e.target.value)
                         }
                         disabled={!filterCategoryForRM}
-                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm font-medium transition-all disabled:opacity-50"
+                        className="w-full px-3 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-medium transition-all disabled:opacity-50"
                       >
                         <option value="">All Sub Categories</option>
                         {getFilteredSubCategories().map((sc) => (
@@ -1404,24 +1404,27 @@ export default function CreateRecipe() {
               ) : (
                 <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                   <table className="w-full min-w-[900px]">
-                    <thead className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 border-b-2 border-purple-700 dark:border-purple-800 sticky top-0">
+                    <thead className="bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-900/50 sticky top-0">
                       <tr>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
-                          Raw Material
+                        <th className="px-6 py-4 text-left text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                          <span className="flex items-center gap-2">
+                            <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                            Raw Material
+                          </span>
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                           Qty
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                           Unit
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                           Price
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                           Total
                         </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                        <th className="px-6 py-4 text-left text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
@@ -1430,10 +1433,10 @@ export default function CreateRecipe() {
                       {recipeItems.map((item, index) => (
                         <tr
                           key={index}
-                          className={`transition-all group border-l-4 border-l-transparent hover:border-l-purple-500 cursor-pointer ${
+                          className={`transition-all group border-l-4 border-l-transparent hover:border-l-blue-500 cursor-pointer ${
                             editingItemIndex === index
-                              ? "bg-purple-50 dark:bg-purple-900/20 border-l-purple-500"
-                              : `${index % 2 === 0 ? "hover:bg-purple-50 dark:hover:bg-slate-700/50" : "bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-slate-700/50"}`
+                              ? "bg-blue-50 dark:bg-blue-900/20 border-l-blue-500"
+                              : `${index % 2 === 0 ? "hover:bg-blue-50 dark:hover:bg-slate-700/50" : "bg-slate-50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-slate-700/50"}`
                           }`}
                         >
                           <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
@@ -1522,7 +1525,7 @@ export default function CreateRecipe() {
                               item.unitName || "-"
                             )}
                           </td>
-                          <td className="px-6 py-4 text-sm text-indigo-600 dark:text-indigo-400 font-semibold">
+                          <td className="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 font-semibold">
                             {editingItemIndex === index ? (
                               <input
                                 type="number"
@@ -1599,7 +1602,7 @@ export default function CreateRecipe() {
 
               {/* Totals */}
               {id || recipeItems.length > 0 ? (
-                <div className="mt-8 pt-8 border-t-2 border-indigo-200 dark:border-indigo-800">
+                <div className="mt-8 pt-8 border-t-2 border-blue-200 dark:border-blue-800">
                   {recipeItems.length === 0 && id ? (
                     <div className="space-y-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg p-4">
                       <div className="flex justify-between items-center animate-pulse">
@@ -1619,11 +1622,11 @@ export default function CreateRecipe() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-gradient-to-br from-purple-50 dark:from-purple-900/20 to-purple-100/50 dark:to-purple-900/10 rounded-lg p-4 border border-purple-200 dark:border-purple-800/30">
-                        <p className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wide mb-2">
+                      <div className="bg-gradient-to-br from-blue-50 dark:from-blue-900/20 to-blue-100/50 dark:to-blue-900/10 rounded-lg p-4 border border-blue-200 dark:border-blue-800/30">
+                        <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">
                           Total Raw Material Cost
                         </p>
-                        <p className="text-2xl font-bold text-purple-700 dark:text-purple-300">
+                        <p className="text-2xl font-bold text-blue-700 dark:text-blue-300">
                           ₹{totals.totalCost.toFixed(2)}
                         </p>
                       </div>
@@ -1646,10 +1649,10 @@ export default function CreateRecipe() {
             {/* Form Buttons */}
             <div className="flex gap-3 pt-6 border-t border-slate-200 dark:border-slate-700">
               <button
-                type="submit"
-                disabled={loading}
-                className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-              >
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+            >
                 {loading ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -1678,7 +1681,7 @@ export default function CreateRecipe() {
           <>
             {/* Labour Section Header Card */}
             <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-              <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 dark:from-purple-900 dark:via-purple-900 dark:to-purple-950 px-8 py-6 border-b-2 border-purple-700 dark:border-purple-800">
+              <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 dark:from-blue-900 dark:via-blue-900 dark:to-blue-950 px-8 py-6 border-b-2 border-blue-700 dark:border-blue-800">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
                   👥 Labour & Packaging Costs
                 </h2>

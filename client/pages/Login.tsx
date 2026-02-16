@@ -72,10 +72,10 @@ export default function Login() {
       <div className="w-full max-w-sm sm:max-w-md">
         {/* Logo/Brand area */}
         <div className="text-center mb-8 animate-scale-in">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white mb-4 shadow-elevation-4 transform hover:scale-110 transition-transform">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-brand to-brand-dark dark:from-brand-dark dark:to-brand text-white mb-4 shadow-elevation-4 transform hover:scale-110 transition-transform">
             <Lock className="w-8 h-8" />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-brand to-brand-dark dark:from-brand dark:to-brand-dark bg-clip-text text-transparent mb-2">
             Hanuram Foods
           </h1>
           <p className="text-slate-600 dark:text-slate-400 font-medium">
@@ -110,12 +110,12 @@ export default function Login() {
             <div className="space-y-2.5">
               <label
                 htmlFor="username"
-                className="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest text-blue-700 dark:text-blue-400"
+                className="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest text-brand dark:text-brand"
               >
                 Username
               </label>
               <div className="relative group">
-                <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors pointer-events-none" />
+                <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-brand dark:group-focus-within:text-brand transition-colors pointer-events-none" />
                 <input
                   id="username"
                   type="text"
@@ -123,7 +123,7 @@ export default function Login() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   disabled={loading}
-                  className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 dark:focus:border-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                  className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand dark:focus:border-brand disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
                 />
               </div>
             </div>
@@ -132,12 +132,12 @@ export default function Login() {
             <div className="space-y-2.5">
               <label
                 htmlFor="password"
-                className="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest text-blue-700 dark:text-blue-400"
+                className="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest text-brand dark:text-brand"
               >
                 Password
               </label>
               <div className="relative group">
-                <Lock className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors pointer-events-none" />
+                <Lock className="absolute left-4 top-3.5 w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-brand dark:group-focus-within:text-brand transition-colors pointer-events-none" />
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
@@ -145,7 +145,7 @@ export default function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
-                  className="w-full pl-12 pr-12 py-3 bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 dark:focus:border-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                  className="w-full pl-12 pr-12 py-3 bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand dark:focus:border-brand disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
                 />
                 <button
                   type="button"
@@ -166,7 +166,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 hover:-translate-y-0.5 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-elevation-3 hover:shadow-elevation-5 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-brand to-brand-dark hover:from-brand-dark hover:to-brand disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 hover:-translate-y-0.5 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-elevation-3 hover:shadow-elevation-5 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
