@@ -1916,18 +1916,26 @@ export default function RecipeDetail() {
               <p className="text-muted-foreground">No logs found</p>
             ) : (
               <div className="space-y-3">
-                {logs.map((log) => (
-                  <div key={log._id} className="border rounded-lg p-3 text-sm">
-                    <p className="font-semibold">{log.fieldChanged}</p>
-                    <p className="text-muted-foreground">
-                      {log.oldValue} → {log.newValue}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {new Date(log.changeDate).toLocaleString()} by{" "}
-                      {log.changedBy}
-                    </p>
-                  </div>
-                ))}
+                {logs.map((log) => {
+                  const formatValue = (val: any) => {
+                    if (val === null || val === undefined) return "-";
+                    if (typeof val === "object") return JSON.stringify(val);
+                    return String(val);
+                  };
+
+                  return (
+                    <div key={log._id} className="border rounded-lg p-3 text-sm">
+                      <p className="font-semibold">{log.fieldChanged}</p>
+                      <p className="text-muted-foreground">
+                        {formatValue(log.oldValue)} → {formatValue(log.newValue)}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(log.changeDate).toLocaleString()} by{" "}
+                        {log.changedBy}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
