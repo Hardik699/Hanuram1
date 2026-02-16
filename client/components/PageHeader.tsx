@@ -71,7 +71,7 @@ export function PageHeader({
             </button>
           )}
           {icon && (
-            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-brand to-brand-dark dark:from-brand-dark dark:to-brand shadow-elevation-2 transform hover:scale-110 transition-transform">
+            <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 shadow-lg transform hover:scale-105 transition-all hover:shadow-xl">
               <div className="text-white">{icon}</div>
             </div>
           )}

@@ -11,7 +11,7 @@ import {
   Upload,
   ChevronLeft,
   ChevronRight,
-  Package,
+  Box,
   History,
   TrendingUp,
   Trash2,
@@ -1005,7 +1005,7 @@ export default function RMManagement() {
           title="Raw Material Management"
           description="Manage all raw materials and track vendor prices"
           breadcrumbs={[{ label: "Raw Material Management" }]}
-          icon={<Package className="w-6 h-6 text-white" />}
+          icon={<Box className="w-6 h-6 text-white" />}
           actions={headerActions}
         />
 
