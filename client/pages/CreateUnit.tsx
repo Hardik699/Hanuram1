@@ -510,34 +510,32 @@ export default function CreateUnit() {
                 <p className="text-sm text-gray-500 mt-1">Create your first unit to get started</p>
               </div>
             ) : (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                 <table className="w-full">
                   {/* Table Header */}
-                  <thead className="bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 text-white sticky top-0 border-b-4 border-blue-500">
+                  <thead className="bg-gradient-to-r from-blue-50 to-slate-50 dark:from-blue-900/30 dark:to-slate-900/30 border-b-2 border-blue-200 dark:border-blue-800 sticky top-0">
                     <tr>
-                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Unit Name</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-blue-100">Short Code</th>
-                      <th className="px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-blue-100">Actions</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Unit Name</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Short Code</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Actions</th>
                     </tr>
                   </thead>
 
                   {/* Table Body */}
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                     {paginatedUnits.map((unit, idx) => (
                       <tr
                         key={unit._id}
-                        className={`hover:bg-blue-50 transition-colors duration-200 ${
-                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                        } cursor-pointer group`}
+                        className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-150 cursor-pointer group border-l-4 border-l-transparent hover:border-l-blue-500"
                         onClick={() => navigate(`/unit/${unit._id}`)}
                       >
                         {/* Unit Name */}
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:scale-110 flex-shrink-0">
+                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:scale-105 flex-shrink-0">
                               {unit.name.substring(0, 1).toUpperCase()}
                             </div>
-                            <div className="font-bold text-gray-900 capitalize-each-word group-hover:text-blue-600 transition-colors">
+                            <div className="font-semibold text-slate-900 dark:text-white capitalize-each-word group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                               {unit.name}
                             </div>
                           </div>
@@ -545,7 +543,7 @@ export default function CreateUnit() {
 
                         {/* Short Code */}
                         <td className="px-6 py-4">
-                          <span className="font-semibold text-gray-900 uppercase text-sm">
+                          <span className="font-semibold text-slate-700 dark:text-slate-300 uppercase text-sm bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
                             {unit.shortCode}
                           </span>
                         </td>
@@ -558,7 +556,7 @@ export default function CreateUnit() {
                                 e.stopPropagation();
                                 handleEdit(unit);
                               }}
-                              className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 hover:bg-blue-600 text-blue-600 hover:text-white transition-all active:scale-95"
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-600 text-blue-600 dark:text-blue-400 hover:text-white transition-all active:scale-95 shadow-sm hover:shadow-md"
                               title="Edit"
                             >
                               <Edit2 className="w-4 h-4" />
@@ -568,7 +566,7 @@ export default function CreateUnit() {
                                 e.stopPropagation();
                                 handleDelete(unit._id);
                               }}
-                              className="inline-flex items-center justify-center p-2 rounded-lg bg-gray-200 hover:bg-red-600 text-gray-600 hover:text-white transition-all active:scale-95"
+                              className="inline-flex items-center justify-center p-2 rounded-lg bg-red-100 dark:bg-red-900/30 hover:bg-red-600 text-red-600 dark:text-red-400 hover:text-white transition-all active:scale-95 shadow-sm hover:shadow-md"
                               title="Delete"
                             >
                               <Trash2 className="w-4 h-4" />
