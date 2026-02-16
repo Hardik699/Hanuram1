@@ -168,9 +168,8 @@ export async function createServer() {
 
   // Security Middleware - Apply first for maximum protection
   app.use(securityHeaders); // Add security headers
-  // Temporarily disabled to diagnose 404 issue
-  // app.use(simpleRateLimit); // Rate limiting
-  // app.use(validateInput); // Input validation
+  app.use(simpleRateLimit); // Rate limiting
+  app.use(validateInput); // Input validation
 
   // CORS Middleware
   app.use(
@@ -218,21 +217,21 @@ export async function createServer() {
     console.log("✅ Database connection successful");
   }
 
-  // API routes
+  // Health check and API routes
   console.log("🔧 Registering API routes...");
 
-  app.get("/api/ping", (_req, res) => {
-    const ping = process.env.PING_MESSAGE ?? "ping";
-    res.json({ message: ping });
-  });
-
-  // Health check endpoint
+  // Health check endpoint - not behind API path
   app.get("/health", (_req, res) => {
     res.json({
       status: "ok",
       timestamp: new Date().toISOString(),
       database: getConnectionStatus(),
     });
+  });
+
+  app.get("/api/ping", (_req, res) => {
+    const ping = process.env.PING_MESSAGE ?? "ping";
+    res.json({ message: ping });
   });
 
   app.get("/api/demo", handleDemo);
@@ -384,13 +383,23 @@ export async function createServer() {
 
   console.log("✅ All API routes registered successfully");
 
-  // 404 handler - must be before error handler
-  app.use((_req, res) => {
-    res.status(404).json({
-      success: false,
-      message: "Route not found",
-      timestamp: new Date().toISOString(),
-    });
+  // SPA fallback - return 404 only for API routes
+  // Non-API routes will be handled by Vite dev server
+  app.use((req, res, next) => {
+    // Only handle API and health routes
+    if (req.path.startsWith("/api/") || req.path === "/health") {
+      // This is an unmatched API route
+      return res.status(404).json({
+        success: false,
+        message: "API endpoint not found",
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    // For all other routes, let Vite handle them (SPA routes)
+    // Don't send any response - just pass to next middleware
+    // This allows Vite's dev server to serve the routes
+    next();
   });
 
   // Global error handling middleware (must be last)
