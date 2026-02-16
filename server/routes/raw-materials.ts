@@ -415,7 +415,8 @@ export const handleUploadRawMaterials: RequestHandler = async (req, res) => {
       });
     });
 
-    if (!req.file) {
+    const file = (req as any).file;
+    if (!file) {
       return res
         .status(400)
         .json({ success: false, message: "No file provided" });
@@ -427,7 +428,7 @@ export const handleUploadRawMaterials: RequestHandler = async (req, res) => {
         .status(503)
         .json({ success: false, message: "Database error" });
 
-    const text = req.file.buffer.toString("utf-8");
+    const text = file.buffer.toString("utf-8");
     const records: any[] = parse(text, {
       columns: true,
       skip_empty_lines: true,
@@ -1671,7 +1672,8 @@ export const handleUploadRMPrices: RequestHandler = async (req, res) => {
       });
     });
 
-    if (!req.file) {
+    const file = (req as any).file;
+    if (!file) {
       return res
         .status(400)
         .json({ success: false, message: "No file provided" });
@@ -1683,7 +1685,7 @@ export const handleUploadRMPrices: RequestHandler = async (req, res) => {
         .status(503)
         .json({ success: false, message: "Database error" });
 
-    const text = req.file.buffer.toString("utf-8");
+    const text = file.buffer.toString("utf-8");
     const records: any[] = parse(text, {
       columns: true,
       skip_empty_lines: true,
@@ -1884,7 +1886,7 @@ export const handleAddUnitConversion: RequestHandler = async (req, res) => {
       addedBy: username,
     };
 
-    const result = await db.collection("raw_materials").updateOne(
+    const result = await (db.collection("raw_materials") as any).updateOne(
       { _id: new ObjectId(rawMaterialId) },
       {
         $push: { unitConversions: conversion },
@@ -1987,7 +1989,7 @@ export const handleDeleteUnitConversion: RequestHandler = async (req, res) => {
     const result = await db.collection("raw_materials").updateOne(
       { _id: new ObjectId(rawMaterialId) },
       {
-        $unset: { [`unitConversions.${conversionIndex}`]: 1 },
+        $unset: { [`unitConversions.${conversionIndex}`]: 1 as any },
         $set: { updatedAt: new Date() },
       },
     );
@@ -2000,7 +2002,7 @@ export const handleDeleteUnitConversion: RequestHandler = async (req, res) => {
     }
 
     // Clean up the array by removing null values
-    await db.collection("raw_materials").updateOne(
+    await (db.collection("raw_materials") as any).updateOne(
       { _id: new ObjectId(rawMaterialId) },
       {
         $pull: { unitConversions: null },

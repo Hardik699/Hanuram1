@@ -45,9 +45,9 @@ export const handleCreateOpCost: RequestHandler = async (req, res) => {
     }
 
     // Calculate auto OP cost per Kg
-    const totalCost = Object.values(costs).reduce((sum: number, val: any) => sum + (Number(val) || 0), 0);
+    const totalCost = (Object.values(costs) as any[]).reduce((sum: number, val: any) => sum + (Number(val) || 0), 0);
     const totalKgs = (Number(production.mithaiProduction) || 0) + (Number(production.namkeenProduction) || 0);
-    const autoOpCostPerKg = totalKgs > 0 ? totalCost / totalKgs : 0;
+    const autoOpCostPerKg = totalKgs > 0 ? (totalCost as number) / totalKgs : 0;
 
     const opCostData = {
       month,
@@ -89,9 +89,9 @@ export const handleUpdateOpCost: RequestHandler = async (req, res) => {
     }
 
     // Calculate auto OP cost per Kg
-    const totalCost = Object.values(costs).reduce((sum: number, val: any) => sum + (Number(val) || 0), 0);
+    const totalCost = (Object.values(costs) as any[]).reduce((sum: number, val: any) => sum + (Number(val) || 0), 0);
     const totalKgs = (Number(production.mithaiProduction) || 0) + (Number(production.namkeenProduction) || 0);
-    const autoOpCostPerKg = totalKgs > 0 ? totalCost / totalKgs : 0;
+    const autoOpCostPerKg = totalKgs > 0 ? (totalCost as number) / totalKgs : 0;
 
     const updateData = {
       month,

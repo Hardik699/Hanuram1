@@ -10,6 +10,8 @@ if (result.parsed) {
 }
 import express from "express";
 import cors from "cors";
+import { securityHeaders, simpleRateLimit, validateInput } from "./middleware/securityMiddleware";
+import { errorHandler, Logger } from "./middleware/errorHandler";
 import multer from "multer";
 import { handleDemo, handlePopulateSampleData } from "./routes/demo";
 import { handleLogin } from "./routes/login";
@@ -121,15 +123,14 @@ export async function createServer() {
   const app = express();
 
   // Wrap route registration methods to log failures and identify problematic paths
-  const _wrap = (method: keyof ReturnType<typeof express>) => {
-    // @ts-expect-error dynamic
+  const _wrap = (method: string) => {
     const orig = (app as any)[method];
     (app as any)[method] = function (path: any, ...handlers: any[]) {
       try {
         return orig.call(this, path, ...handlers);
       } catch (err) {
         console.error(
-          `Route registration failed for method=${method} path=${String(path)}`,
+          `Route registration failed for method=${String(method)} path=${String(path)}`,
         );
         console.error(err);
         throw err;
@@ -137,7 +138,7 @@ export async function createServer() {
     };
   };
 
-  ["get", "post", "put", "delete", "use"].forEach((m) => _wrap(m as any));
+  ["get", "post", "put", "delete", "use"].forEach((m) => _wrap(m));
 
   // Request logging middleware
   app.use((req, res, next) => {
@@ -165,17 +166,25 @@ export async function createServer() {
     next();
   });
 
-  // Middleware
+  // Security Middleware - Apply first for maximum protection
+  app.use(securityHeaders); // Add security headers
+  app.use(simpleRateLimit); // Rate limiting
+  app.use(validateInput); // Input validation
+
+  // CORS Middleware
   app.use(
     cors({
-      origin: "*",
+      origin: process.env.ALLOWED_ORIGINS?.split(",") || "*",
       credentials: false,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
+      maxAge: 86400, // 24 hours
     }),
   );
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+
+  // Body Parsing Middleware
+  app.use(express.json({ limit: "10mb" })); // Limit JSON payload to 10MB
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
   // Multer configuration for file uploads
   const upload = multer({
@@ -374,21 +383,17 @@ export async function createServer() {
 
   console.log("✅ All API routes registered successfully");
 
-  // Error handling middleware (must be last)
-  app.use((err: any, _req: any, res: any, _next: any) => {
-    console.error("❌ Unhandled Error:", {
-      message: err.message,
-      stack: err.stack,
-      path: _req.path,
-      method: _req.method,
-    });
-
-    res.status(err.status || 500).json({
+  // 404 handler - must be before error handler
+  app.use((_req, res) => {
+    res.status(404).json({
       success: false,
-      message: err.message || "Internal server error",
-      error: process.env.NODE_ENV === "development" ? err.stack : undefined,
+      message: "Route not found",
+      timestamp: new Date().toISOString(),
     });
   });
+
+  // Global error handling middleware (must be last)
+  app.use(errorHandler);
 
   return app;
 }
