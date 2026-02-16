@@ -125,9 +125,8 @@ export function LabourCostSection({
             type={type}
             onLabourAdded={() => setRefreshTrigger((prev) => prev + 1)}
             selectedLabour={labourList.map((item) => {
-              // Get labour ID from the labour object (_id field from MongoDB)
-              // Convert to string if it's an object
-              const labourId = String(item.labour?._id || item.labour?.id || "");
+              // Get labour ID from the labour object (id field)
+              const labourId = item.labour?.id || item.id || "";
 
               return {
                 id: labourId,

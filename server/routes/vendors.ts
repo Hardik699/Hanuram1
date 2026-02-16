@@ -312,14 +312,15 @@ export const handleUploadVendorsExcel: RequestHandler = async (req, res) => {
         .json({ success: false, message: "Database error" });
     }
 
-    if (!req.file) {
+    const file = (req as any).file;
+    if (!file) {
       return res
         .status(400)
         .json({ success: false, message: "No file uploaded" });
     }
 
     // Parse Excel file
-    const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
+    const workbook = XLSX.read(file.buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const rows = XLSX.utils.sheet_to_json(sheet) as Record<string, any>[];

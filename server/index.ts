@@ -10,6 +10,8 @@ if (result.parsed) {
 }
 import express from "express";
 import cors from "cors";
+import { securityHeaders, simpleRateLimit, validateInput } from "./middleware/securityMiddleware";
+import { errorHandler, Logger } from "./middleware/errorHandler";
 import multer from "multer";
 import { handleDemo, handlePopulateSampleData } from "./routes/demo";
 import { handleLogin } from "./routes/login";
@@ -45,6 +47,7 @@ import {
 } from "./routes/vendors";
 import {
   handleGetRawMaterials,
+  handleGetRawMaterialById,
   handleCreateRawMaterial,
   handleUpdateRawMaterial,
   handleDeleteRawMaterial,
@@ -120,15 +123,14 @@ export async function createServer() {
   const app = express();
 
   // Wrap route registration methods to log failures and identify problematic paths
-  const _wrap = (method: keyof ReturnType<typeof express>) => {
-    // @ts-expect-error dynamic
+  const _wrap = (method: string) => {
     const orig = (app as any)[method];
     (app as any)[method] = function (path: any, ...handlers: any[]) {
       try {
         return orig.call(this, path, ...handlers);
       } catch (err) {
         console.error(
-          `Route registration failed for method=${method} path=${String(path)}`,
+          `Route registration failed for method=${String(method)} path=${String(path)}`,
         );
         console.error(err);
         throw err;
@@ -136,7 +138,7 @@ export async function createServer() {
     };
   };
 
-  ["get", "post", "put", "delete", "use"].forEach((m) => _wrap(m as any));
+  ["get", "post", "put", "delete", "use"].forEach((m) => _wrap(m));
 
   // Request logging middleware
   app.use((req, res, next) => {
@@ -164,17 +166,25 @@ export async function createServer() {
     next();
   });
 
-  // Middleware
+  // Security Middleware - Apply first for maximum protection
+  app.use(securityHeaders); // Add security headers
+  app.use(simpleRateLimit); // Rate limiting
+  app.use(validateInput); // Input validation
+
+  // CORS Middleware
   app.use(
     cors({
-      origin: "*",
+      origin: process.env.ALLOWED_ORIGINS?.split(",") || "*",
       credentials: false,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
+      maxAge: 86400, // 24 hours
     }),
   );
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+
+  // Body Parsing Middleware
+  app.use(express.json({ limit: "10mb" })); // Limit JSON payload to 10MB
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
   // Multer configuration for file uploads
   const upload = multer({
@@ -207,21 +217,21 @@ export async function createServer() {
     console.log("✅ Database connection successful");
   }
 
-  // API routes
+  // Health check and API routes
   console.log("🔧 Registering API routes...");
 
-  app.get("/api/ping", (_req, res) => {
-    const ping = process.env.PING_MESSAGE ?? "ping";
-    res.json({ message: ping });
-  });
-
-  // Health check endpoint
+  // Health check endpoint - not behind API path
   app.get("/health", (_req, res) => {
     res.json({
       status: "ok",
       timestamp: new Date().toISOString(),
       database: getConnectionStatus(),
     });
+  });
+
+  app.get("/api/ping", (_req, res) => {
+    const ping = process.env.PING_MESSAGE ?? "ping";
+    res.json({ message: ping });
   });
 
   app.get("/api/demo", handleDemo);
@@ -314,6 +324,9 @@ export async function createServer() {
   app.post("/api/raw-materials/unit-conversion/add", handleAddUnitConversion);
   app.post("/api/raw-materials/unit-conversion/delete", handleDeleteUnitConversion);
 
+  // Get single raw material by ID (must be before parameterized PUT/DELETE)
+  app.get("/api/raw-materials/:id", handleGetRawMaterialById);
+
   // Parameterized routes last
   app.put("/api/raw-materials/:id", handleUpdateRawMaterial);
   app.delete("/api/raw-materials/:id", handleDeleteRawMaterial);
@@ -370,21 +383,27 @@ export async function createServer() {
 
   console.log("✅ All API routes registered successfully");
 
-  // Error handling middleware (must be last)
-  app.use((err: any, _req: any, res: any, _next: any) => {
-    console.error("❌ Unhandled Error:", {
-      message: err.message,
-      stack: err.stack,
-      path: _req.path,
-      method: _req.method,
-    });
+  // SPA fallback - return 404 only for API routes
+  // Non-API routes will be handled by Vite dev server
+  app.use((req, res, next) => {
+    // Only handle API and health routes
+    if (req.path.startsWith("/api/") || req.path === "/health") {
+      // This is an unmatched API route
+      return res.status(404).json({
+        success: false,
+        message: "API endpoint not found",
+        timestamp: new Date().toISOString(),
+      });
+    }
 
-    res.status(err.status || 500).json({
-      success: false,
-      message: err.message || "Internal server error",
-      error: process.env.NODE_ENV === "development" ? err.stack : undefined,
-    });
+    // For all other routes, let Vite handle them (SPA routes)
+    // Don't send any response - just pass to next middleware
+    // This allows Vite's dev server to serve the routes
+    next();
   });
+
+  // Global error handling middleware (must be last)
+  app.use(errorHandler);
 
   return app;
 }

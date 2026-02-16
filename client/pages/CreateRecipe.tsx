@@ -438,7 +438,7 @@ export default function CreateRecipe() {
           ? units.find((u) => u._id === formData.unitId)?.name ||
             selectedRecipe.unitName
           : selectedRecipe.unitName,
-        price: selectedRecipe.pricePerUnit,
+        price: (selectedRecipe as any).pricePerUnit || 0,
         vendorId: selectedRecipe._id,
         vendorName: selectedRecipe.name,
         totalPrice: 0,
@@ -453,8 +453,9 @@ export default function CreateRecipe() {
       setRecipeSearchQuery("");
 
       // Show success message
+      const pricePerUnit = (selectedRecipe as any).pricePerUnit || 0;
       toast.success("Recipe Added!", {
-        description: `"${selectedRecipe.name}" added with price ₹${selectedRecipe.pricePerUnit.toFixed(2)}/unit`,
+        description: `"${selectedRecipe.name}" added with price ₹${pricePerUnit.toFixed(2)}/unit`,
         duration: 2500,
       });
     } catch (error) {
@@ -1350,7 +1351,7 @@ export default function CreateRecipe() {
                             </div>
                             <div className="text-right ml-4">
                               <p className="text-sm font-bold text-orange-600 dark:text-orange-400">
-                                ₹{recipe.pricePerUnit.toFixed(2)}
+                                ₹{((recipe as any).pricePerUnit || 0).toFixed(2)}
                               </p>
                               <p className="text-xs text-slate-600 dark:text-slate-400">
                                 Price Per Unit

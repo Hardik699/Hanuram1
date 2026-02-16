@@ -11,7 +11,7 @@ import {
   Upload,
   ChevronLeft,
   ChevronRight,
-  Package,
+  Box,
   History,
   TrendingUp,
   Trash2,
@@ -1005,7 +1005,7 @@ export default function RMManagement() {
           title="Raw Material Management"
           description="Manage all raw materials and track vendor prices"
           breadcrumbs={[{ label: "Raw Material Management" }]}
-          icon={<Package className="w-6 h-6 text-white" />}
+          icon={<Box className="w-6 h-6 text-white" />}
           actions={headerActions}
         />
 
@@ -1158,7 +1158,7 @@ export default function RMManagement() {
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-3">
                   <div className="p-2.5 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg shadow-md">
-                    <Package className="w-5 h-5 text-white" />
+                    <Box className="w-5 h-5 text-white" />
                   </div>
                   Raw Materials List
                 </h2>
@@ -1185,7 +1185,7 @@ export default function RMManagement() {
             {paginatedRawMaterials.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
                 <div className="rounded-full bg-gradient-to-br from-indigo-100 to-cyan-100 dark:from-indigo-900/30 dark:to-cyan-900/30 p-4 mb-4">
-                  <Package className="w-12 h-12 text-indigo-600 dark:text-indigo-400" />
+                  <Box className="w-12 h-12 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <p className="font-bold text-slate-900 dark:text-white text-lg">No raw materials yet</p>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">Create your first raw material to get started</p>

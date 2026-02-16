@@ -62,8 +62,10 @@ export function FormActions({
   onSubmit,
   onCancel,
   loading = false,
-  submitLabel = 'Save',
+  submitLabel,
 }: FormActionsProps) {
+  const label = submitLabel || onSubmit;
+
   return (
     <div className="flex gap-4 pt-6 border-t border-slate-200 dark:border-slate-700">
       <button
@@ -71,7 +73,7 @@ export function FormActions({
         disabled={loading}
         className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 disabled:cursor-not-allowed text-white font-bold py-3 px-6 rounded-xl transition-all shadow-elevation-3 hover:shadow-elevation-5 transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap"
       >
-        {loading ? 'Saving...' : submitLabel}
+        {loading ? 'Saving...' : label}
       </button>
       {onCancel && (
         <button

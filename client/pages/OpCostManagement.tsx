@@ -309,12 +309,7 @@ export default function OpCostManagement() {
         {showForm ? (
           <div className="max-w-4xl mx-auto">
             <ProfessionalForm
-              title={editingId ? "Update OP Cost Entry" : "New OP Cost Entry"}
               onSubmit={handleSave}
-              onCancel={() => {
-                setShowForm(false);
-                setEditingId(null);
-              }}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormGroup label="Month">
@@ -541,21 +536,13 @@ export default function OpCostManagement() {
                 </div>
               </div>
 
-              <FormActions>
-                <button type="submit" className="prof-btn-primary">
-                  {editingId ? "Update Entry" : "Save Entry"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowForm(false);
-                    setEditingId(null);
-                  }}
-                  className="prof-btn-secondary"
-                >
-                  Cancel
-                </button>
-              </FormActions>
+              <FormActions
+                onSubmit={editingId ? "Update Entry" : "Save Entry"}
+                onCancel={() => {
+                  setShowForm(false);
+                  setEditingId(null);
+                }}
+              />
             </ProfessionalForm>
           </div>
         ) : (
@@ -599,8 +586,8 @@ export default function OpCostManagement() {
                       render: (costs) => (
                         <span className="font-bold">
                           ₹
-                          {Object.values(costs as any)
-                            .reduce((a: any, b: any) => a + b, 0)
+                          {(Object.values(costs as any)
+                            .reduce((a: any, b: any) => a + b, 0) as number)
                             .toLocaleString("en-IN", {
                               minimumFractionDigits: 2,
                             })}
