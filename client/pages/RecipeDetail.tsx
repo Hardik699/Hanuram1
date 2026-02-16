@@ -1907,39 +1907,89 @@ export default function RecipeDetail() {
         )}
       </ProfessionalPage>
 
-      {/* Logs Modal */}
+      {/* Logs Modal - Full Screen */}
       {showLogsModal && (
-        <Modal onClose={() => setShowLogsModal(false)}>
-          <div className="bg-card rounded-lg p-6 max-w-2xl max-h-96 overflow-y-auto">
-            <h2 className="text-xl font-semibold mb-4">Recipe Logs</h2>
-            {logs.length === 0 ? (
-              <p className="text-muted-foreground">No logs found</p>
-            ) : (
-              <div className="space-y-3">
-                {logs.map((log) => {
-                  const formatValue = (val: any) => {
-                    if (val === null || val === undefined) return "-";
-                    if (typeof val === "object") return JSON.stringify(val);
-                    return String(val);
-                  };
-
-                  return (
-                    <div key={log._id} className="border rounded-lg p-3 text-sm">
-                      <p className="font-semibold">{log.fieldChanged}</p>
-                      <p className="text-muted-foreground">
-                        {formatValue(log.oldValue)} → {formatValue(log.newValue)}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(log.changeDate).toLocaleString()} by{" "}
-                        {log.changedBy}
-                      </p>
-                    </div>
-                  );
-                })}
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden border border-slate-200/50 dark:border-slate-700/50 flex flex-col animate-scale-in">
+            {/* Header */}
+            <div className="sticky top-0 p-6 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-50 to-slate-50 dark:from-slate-800 dark:to-slate-800 flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                  Recipe Logs
+                </h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                  {logs.length} {logs.length === 1 ? "log entry" : "log entries"}
+                </p>
               </div>
-            )}
+              <button
+                onClick={() => setShowLogsModal(false)}
+                className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+                title="Close"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="overflow-y-auto flex-1 p-6">
+              {logs.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12">
+                  <svg className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <p className="text-slate-500 dark:text-slate-400 text-center">No logs found for this recipe</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {logs.map((log, idx) => {
+                    const formatValue = (val: any) => {
+                      if (val === null || val === undefined) return "-";
+                      if (typeof val === "object") return JSON.stringify(val);
+                      return String(val);
+                    };
+
+                    return (
+                      <div key={log._id} className="p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800/50 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1">
+                            <p className="font-semibold text-slate-900 dark:text-white text-sm uppercase tracking-wide text-blue-600 dark:text-blue-400">
+                              {log.fieldChanged}
+                            </p>
+                          </div>
+                          <span className="text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-1 rounded-full">
+                            #{idx + 1}
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                            <p className="text-xs font-semibold text-red-700 dark:text-red-400 mb-1">OLD VALUE</p>
+                            <p className="text-sm font-mono text-slate-900 dark:text-white break-words">
+                              {formatValue(log.oldValue)}
+                            </p>
+                          </div>
+                          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3">
+                            <p className="text-xs font-semibold text-green-700 dark:text-green-400 mb-1">NEW VALUE</p>
+                            <p className="text-sm font-mono text-slate-900 dark:text-white break-words">
+                              {formatValue(log.newValue)}
+                            </p>
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                          <span className="font-semibold">Changed:</span> {new Date(log.changeDate).toLocaleString()}
+                          {" "}<span className="font-semibold">by</span> {log.changedBy}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
-        </Modal>
+        </div>
       )}
 
       {/* Delete Modal */}
