@@ -1061,42 +1061,42 @@ export default function RecipeDetail() {
           <div className="space-y-4">
             {/* Recipe Info Section */}
             <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-5">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Recipe Information</h2>
+              <h2 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-3">Recipe Information</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
                 <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Recipe Code</label>
+                  <label className="block text-xs font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-wide mb-0.5">Recipe Code</label>
                   <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.code}</p>
                 </div>
 
-                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Recipe Type</label>
+                <div className="p-3 rounded bg-purple-50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/30">
+                  <label className="block text-xs font-semibold text-purple-700 dark:text-purple-300 uppercase tracking-wide mb-0.5">Recipe Type</label>
                   <p className="text-sm font-bold text-slate-900 dark:text-white">
                     {recipe.recipeType === "sub" ? "Sub Recipe" : "Master Recipe"}
                   </p>
                 </div>
 
-                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Batch Size</label>
+                <div className="p-3 rounded bg-pink-50 dark:bg-pink-900/10 border border-pink-100 dark:border-pink-900/30">
+                  <label className="block text-xs font-semibold text-pink-700 dark:text-pink-300 uppercase tracking-wide mb-0.5">Batch Size</label>
                   <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.batchSize} {recipe.unitName}</p>
                 </div>
 
-                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Yield</label>
+                <div className="p-3 rounded bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/30">
+                  <label className="block text-xs font-semibold text-emerald-700 dark:text-emerald-300 uppercase tracking-wide mb-0.5">Yield</label>
                   <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.yield || "-"}</p>
                 </div>
 
-                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Moisture %</label>
+                <div className="p-3 rounded bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30">
+                  <label className="block text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase tracking-wide mb-0.5">Moisture %</label>
                   <p className="text-sm font-bold text-slate-900 dark:text-white">{recipe.moisturePercentage || "-"}%</p>
                 </div>
 
-                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Total RM Cost</label>
+                <div className="p-3 rounded bg-cyan-50 dark:bg-cyan-900/10 border border-cyan-100 dark:border-cyan-900/30">
+                  <label className="block text-xs font-semibold text-cyan-700 dark:text-cyan-300 uppercase tracking-wide mb-0.5">Total RM Cost</label>
                   <p className="text-sm font-bold text-slate-900 dark:text-white">₹{totalRMCost.toFixed(2)}</p>
                 </div>
 
-                <div className="p-3 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-0.5">Price per Unit</label>
+                <div className="p-3 rounded bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30">
+                  <label className="block text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase tracking-wide mb-0.5">Price per Unit</label>
                   <p className="text-sm font-bold text-slate-900 dark:text-white">₹{pricePerUnit.toFixed(2)}/{recipe.unitName}</p>
                 </div>
               </div>
@@ -1104,7 +1104,7 @@ export default function RecipeDetail() {
 
             {/* RM Table */}
             <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-5">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Recipe Making RM</h2>
+              <h2 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent mb-3">Recipe Making RM</h2>
               <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                 <table className="w-full">
                   <thead className="bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-900/50">
@@ -1175,16 +1175,16 @@ export default function RecipeDetail() {
 
               {/* Summary */}
               <div className="flex justify-end gap-6 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                <div className="text-right p-4 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-1">
+                <div className="text-right p-4 rounded bg-green-50 dark:bg-green-900/10 border border-green-100 dark:border-green-900/30">
+                  <p className="text-xs font-semibold text-green-700 dark:text-green-300 uppercase tracking-wide mb-1">
                     Total RM Cost
                   </p>
                   <p className="text-lg font-bold text-slate-900 dark:text-white">
                     ₹{totalRMCost.toFixed(2)}
                   </p>
                 </div>
-                <div className="text-right p-4 rounded bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
-                  <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-1">
+                <div className="text-right p-4 rounded bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30">
+                  <p className="text-xs font-semibold text-yellow-700 dark:text-yellow-300 uppercase tracking-wide mb-1">
                     Per Unit Price
                   </p>
                   <p className="text-lg font-bold text-slate-900 dark:text-white">
@@ -1398,7 +1398,7 @@ export default function RecipeDetail() {
           <div className="space-y-6">
             {/* Add Quotation Button */}
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold">Quotation History</h2>
+              <h2 className="text-xl font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">Quotation History</h2>
               <Button
                 onClick={() => setShowQuotationForm(!showQuotationForm)}
                 size="sm"
@@ -1413,7 +1413,7 @@ export default function RecipeDetail() {
               <div className="bg-card rounded-lg p-6 border">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium">
+                    <label className="text-sm font-medium text-blue-700 dark:text-blue-300">
                       Company Name *
                     </label>
                     <input
@@ -1430,7 +1430,7 @@ export default function RecipeDetail() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Reason *</label>
+                    <label className="text-sm font-medium text-purple-700 dark:text-purple-300">Reason *</label>
                     <input
                       type="text"
                       value={quotationForm.reason}
@@ -1445,7 +1445,7 @@ export default function RecipeDetail() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Quantity *</label>
+                    <label className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Quantity *</label>
                     <input
                       type="number"
                       value={quotationForm.quantity}
@@ -1474,7 +1474,7 @@ export default function RecipeDetail() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Unit *</label>
+                    <label className="text-sm font-medium text-orange-700 dark:text-orange-300">Unit *</label>
                     <select
                       value={quotationForm.unitId}
                       onChange={(e) =>
@@ -1494,7 +1494,7 @@ export default function RecipeDetail() {
                     </select>
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Date *</label>
+                    <label className="text-sm font-medium text-pink-700 dark:text-pink-300">Date *</label>
                     <input
                       type="date"
                       value={quotationForm.date}
@@ -1508,7 +1508,7 @@ export default function RecipeDetail() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">
+                    <label className="text-sm font-medium text-cyan-700 dark:text-cyan-300">
                       Phone Number *
                     </label>
                     <input
@@ -1525,7 +1525,7 @@ export default function RecipeDetail() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Email *</label>
+                    <label className="text-sm font-medium text-indigo-700 dark:text-indigo-300">Email *</label>
                     <input
                       type="email"
                       value={quotationForm.email}
@@ -1911,7 +1911,7 @@ export default function RecipeDetail() {
       {showLogsModal && (
         <Modal onClose={() => setShowLogsModal(false)}>
           <div className="bg-card rounded-lg p-6 max-w-2xl max-h-96 overflow-y-auto">
-            <h2 className="text-xl font-semibold mb-4">Recipe Logs</h2>
+            <h2 className="text-xl font-semibold mb-4 bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400 bg-clip-text text-transparent">Recipe Logs</h2>
             {logs.length === 0 ? (
               <p className="text-muted-foreground">No logs found</p>
             ) : (
@@ -1938,7 +1938,7 @@ export default function RecipeDetail() {
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
           <div className="bg-card rounded-lg p-6 max-w-sm">
-            <h2 className="text-xl font-semibold mb-4">Delete Recipe</h2>
+            <h2 className="text-xl font-semibold mb-4 bg-gradient-to-r from-rose-600 to-red-600 dark:from-rose-400 dark:to-red-400 bg-clip-text text-transparent">Delete Recipe</h2>
             <p className="text-muted-foreground mb-4">
               This action cannot be undone. Please enter your password to
               confirm.
@@ -2288,7 +2288,7 @@ export default function RecipeDetail() {
             {/* Modal Header */}
             <div className="p-6 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between sticky top-0 bg-card z-10">
               <div>
-                <h2 className="text-2xl font-bold">Recipe History Snapshot</h2>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">Recipe History Snapshot</h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
                   {new Date(
                     selectedHistorySnapshot.snapshotDate,
@@ -2564,7 +2564,7 @@ export default function RecipeDetail() {
       {showDeleteQuotationModal && (
         <Modal onClose={() => setShowDeleteQuotationModal(false)}>
           <div className="bg-card rounded-lg p-6 max-w-sm">
-            <h2 className="text-xl font-semibold mb-4">Delete Quotation</h2>
+            <h2 className="text-xl font-semibold mb-4 bg-gradient-to-r from-red-600 to-pink-600 dark:from-red-400 dark:to-pink-400 bg-clip-text text-transparent">Delete Quotation</h2>
             <p className="text-muted-foreground mb-4">
               Are you sure you want to delete this quotation? This action cannot
               be undone.
