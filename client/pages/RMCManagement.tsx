@@ -964,7 +964,7 @@ export default function RMCManagement() {
           !isProductionUser && (
             <button
               onClick={() => navigate("/recipe/new")}
-              className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-600 hover:from-indigo-700 hover:via-cyan-700 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap active:scale-95"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap active:scale-95"
             >
               <Plus className="w-5 h-5" />
               <span className="hidden sm:inline">Add Recipe</span>
