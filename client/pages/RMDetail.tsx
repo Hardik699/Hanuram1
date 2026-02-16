@@ -181,13 +181,18 @@ export default function RMDetail() {
       )
     : allVendors;
 
+  // Load static data once on mount
   useEffect(() => {
     const token = localStorage.getItem("auth_token");
     if (!token) {
       navigate("/");
       return;
     }
+    loadStaticData();
+  }, [navigate]);
 
+  // Fetch specific raw material data when id changes
+  useEffect(() => {
     if (id) {
       fetchAllData();
     }
@@ -198,38 +203,72 @@ export default function RMDetail() {
 
     try {
       setLoading(true);
-      const response = await fetch("/api/raw-materials");
+
+      // Fetch specific raw material directly (not all)
+      const response = await fetch(`/api/raw-materials/${id}`);
 
       if (!response.ok) {
         throw new Error(
-          `Failed to fetch raw materials: ${response.status} ${response.statusText}`,
+          `Failed to fetch raw material: ${response.status} ${response.statusText}`,
         );
       }
 
       const data = await response.json();
 
-      if (data.success && Array.isArray(data.data)) {
-        const rm = data.data.find((m: RawMaterial) => m._id === id);
-        if (rm) {
-          setRawMaterial(rm);
-          await Promise.all([
-            fetchVendorPrices(id),
-            fetchVendorsData(id),
-            fetchRecipesUsingRM(id),
-            fetchCategoriesData(),
-            fetchSubCategoriesData(),
-            fetchUnitsData(),
-            fetchBrandsData(),
-          ]);
-        } else {
-          navigate("/raw-materials");
-        }
+      if (data.success && data.data) {
+        setRawMaterial(data.data);
+        // Only fetch essential data, not static lookup data
+        await Promise.all([
+          fetchVendorPrices(id),
+          fetchVendorsData(id),
+          fetchRecipesUsingRM(id),
+        ]);
+      } else {
+        navigate("/raw-materials");
       }
     } catch (error) {
       console.error("Error fetching raw material:", error);
       navigate("/raw-materials");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Optimized: Load static data only once
+  const loadStaticData = async () => {
+    try {
+      await Promise.all([
+        fetchCategoriesData(),
+        fetchSubCategoriesData(),
+        fetchUnitsData(),
+        fetchBrandsData(),
+      ]);
+    } catch (error) {
+      console.error("Error loading static data:", error);
+    }
+  };
+
+  // Partial updates instead of full refetch
+  const updateRawMaterialOnly = async () => {
+    if (!id) return;
+    try {
+      const response = await fetch(`/api/raw-materials/${id}`);
+      if (!response.ok) return;
+      const data = await response.json();
+      if (data.success && data.data) {
+        setRawMaterial(data.data);
+      }
+    } catch (error) {
+      console.error("Error updating raw material:", error);
+    }
+  };
+
+  const updateVendorPricesOnly = async () => {
+    if (!id) return;
+    try {
+      await fetchVendorPrices(id);
+    } catch (error) {
+      console.error("Error updating vendor prices:", error);
     }
   };
 
@@ -372,38 +411,45 @@ export default function RMDetail() {
       if (data.success && Array.isArray(data.data)) {
         const allRecipes = data.data;
 
-        // Find recipes that use this raw material
-        const recipesWithRM: RecipeWithItems[] = [];
-
-        for (const recipe of allRecipes) {
-          try {
-            const itemsRes = await fetch(`/api/recipes/${recipe._id}/items`);
-            if (!itemsRes.ok) throw new Error(`HTTP ${itemsRes.status}`);
-            const itemsData = await itemsRes.json();
-
-            if (itemsData.success && Array.isArray(itemsData.data)) {
-              const rmItem = itemsData.data.find(
-                (item: any) => item.rawMaterialId === rmId,
+        // Parallelize all recipe item fetches (instead of sequential loop)
+        const itemsPromises = allRecipes.map((recipe) =>
+          fetch(`/api/recipes/${recipe._id}/items`)
+            .then((res) => res.json())
+            .catch((err) => {
+              console.error(
+                `Error fetching items for recipe ${recipe._id}:`,
+                err,
               );
-              if (rmItem) {
-                recipesWithRM.push({
-                  _id: recipe._id,
-                  code: recipe.code,
-                  name: recipe.name,
-                  unitName: recipe.unitName,
-                  updatedAt: recipe.updatedAt,
-                  rawMaterialQuantity: rmItem.quantity,
-                  rawMaterialUnit: rmItem.unitName,
-                });
-              }
-            }
-          } catch (error) {
-            console.error(
-              `Error fetching items for recipe ${recipe._id}:`,
-              error,
+              return { success: false, data: [] };
+            })
+            .then((itemsData) => ({
+              recipe,
+              items: itemsData.success ? itemsData.data : [],
+            }))
+        );
+
+        const results = await Promise.all(itemsPromises);
+
+        // Find recipes that use this raw material
+        const recipesWithRM: RecipeWithItems[] = results
+          .filter(({ items }) => items.length > 0)
+          .reduce((acc: RecipeWithItems[], { recipe, items }) => {
+            const rmItem = items.find(
+              (item: any) => item.rawMaterialId === rmId,
             );
-          }
-        }
+            if (rmItem) {
+              acc.push({
+                _id: recipe._id,
+                code: recipe.code,
+                name: recipe.name,
+                unitName: recipe.unitName,
+                updatedAt: recipe.updatedAt,
+                rawMaterialQuantity: rmItem.quantity,
+                rawMaterialUnit: rmItem.unitName,
+              });
+            }
+            return acc;
+          }, []);
 
         setRecipes(recipesWithRM);
       }
@@ -480,8 +526,9 @@ export default function RMDetail() {
         setMessageType("success");
         setShowEditForm(false);
         setSelectedBrands([]);
+        // Only update the raw material, not everything
         setTimeout(() => {
-          fetchAllData();
+          updateRawMaterialOnly();
         }, 500);
       } else {
         setMessage(data.message || "Update failed");
@@ -648,8 +695,8 @@ export default function RMDetail() {
         });
         setVendorSearchInput("");
         setAddingPrice(false);
-        // Fetch updated data
-        await fetchAllData();
+        // Only update vendor prices, not everything
+        await updateVendorPricesOnly();
       } else {
         setAddingPrice(false);
         setMessage(data.message || "Failed to add price");
@@ -697,7 +744,8 @@ export default function RMDetail() {
         setShowAddConversionForm(false);
         setConversionFormData({ toUnitId: "", conversionFactor: "" });
         setAddingConversion(false);
-        await fetchAllData();
+        // Only update raw material (has unit conversions)
+        await updateRawMaterialOnly();
       } else {
         setAddingConversion(false);
         setMessage(data.message || "Failed to add conversion");
@@ -736,7 +784,8 @@ export default function RMDetail() {
       if (data.success) {
         setMessage("Unit conversion deleted successfully");
         setMessageType("success");
-        await fetchAllData();
+        // Only update raw material
+        await updateRawMaterialOnly();
       } else {
         setMessage(data.message || "Failed to delete conversion");
         setMessageType("error");

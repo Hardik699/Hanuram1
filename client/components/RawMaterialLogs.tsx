@@ -97,6 +97,12 @@ export default function RawMaterialLogs({
     return fieldMap[fieldName || ""] || fieldName || "";
   };
 
+  const formatValue = (val: any) => {
+    if (val === null || val === undefined) return "-";
+    if (typeof val === "object") return JSON.stringify(val);
+    return String(val);
+  };
+
   const sortedLogs = sortOrder === "desc" ? logs : [...logs].reverse();
 
   if (!isOpen) return null;
@@ -213,7 +219,7 @@ export default function RawMaterialLogs({
                           <td className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
                             {log.oldValue ? (
                               <span className="px-2 py-1 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded text-xs font-medium">
-                                {String(log.oldValue)}
+                                {formatValue(log.oldValue)}
                               </span>
                             ) : (
                               <span className="text-slate-400">-</span>
@@ -222,7 +228,7 @@ export default function RawMaterialLogs({
                           <td className="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
                             {log.newValue ? (
                               <span className="px-2 py-1 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded text-xs font-medium">
-                                {String(log.newValue)}
+                                {formatValue(log.newValue)}
                               </span>
                             ) : (
                               <span className="text-slate-400">-</span>

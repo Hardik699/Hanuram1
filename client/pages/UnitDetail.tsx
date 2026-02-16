@@ -204,6 +204,7 @@ export default function UnitDetail() {
             { label: unit?.name ? unit.name.charAt(0).toUpperCase() + unit.name.slice(1) : "Details" },
           ]}
           icon={<Settings className="w-6 h-6 text-white" />}
+          showBackButton={true}
           actions={
             !showEditForm ? (
               <div className="flex gap-3">

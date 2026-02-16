@@ -670,6 +670,7 @@ export default function CreateRecipe() {
             { label: id ? "Edit Recipe" : "Create Recipe" },
           ]}
           icon={<ChefHat className="w-6 h-6 text-white" />}
+          showBackButton={true}
         />
 
         {/* Message Alert */}

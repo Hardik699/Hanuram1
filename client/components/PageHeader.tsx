@@ -1,4 +1,4 @@
-import { ChevronRight, Home } from "lucide-react";
+import { ChevronRight, Home, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface Breadcrumb {
@@ -13,6 +13,7 @@ interface PageHeaderProps {
   breadcrumbs?: Breadcrumb[];
   actions?: React.ReactNode;
   icon?: React.ReactNode;
+  showBackButton?: boolean;
 }
 
 export function PageHeader({
@@ -21,6 +22,7 @@ export function PageHeader({
   breadcrumbs,
   actions,
   icon,
+  showBackButton,
 }: PageHeaderProps) {
   const navigate = useNavigate();
 
@@ -59,6 +61,15 @@ export function PageHeader({
       {/* Header Content - Material Design */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-4">
+          {showBackButton && (
+            <button
+              onClick={() => navigate(-1)}
+              className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:shadow-md flex-shrink-0"
+              title="Go back"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+          )}
           {icon && (
             <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-brand to-brand-dark dark:from-brand-dark dark:to-brand shadow-elevation-2 transform hover:scale-110 transition-transform">
               <div className="text-white">{icon}</div>

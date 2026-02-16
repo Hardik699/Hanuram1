@@ -123,7 +123,7 @@ export function Sidebar() {
         {/* Logo/Brand Section */}
         <div className="px-4 py-6 border-b" style={{ borderColor: "#e2e8f0" }}>
           <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md">
               HF
             </div>
             <div className="text-left">
@@ -155,26 +155,26 @@ export function Sidebar() {
                     <div>
                       <button
                         onClick={() => toggleMenu(item.label)}
-                        className={`w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium transition-all rounded-lg mb-1 ${
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium transition-all rounded-lg mb-1 gap-2 ${
                           expandedMenu === item.label
                             ? "text-brand bg-blue-100"
                             : "text-gray-700 hover:text-gray-900"
                         }`}
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
                           {item.icon && (
                             <item.icon
-                              className={`w-5 h-5 transition-colors ${
+                              className={`w-5 h-5 flex-shrink-0 transition-colors ${
                                 expandedMenu === item.label
                                   ? "text-brand"
                                   : "text-gray-600"
                               }`}
                             />
                           )}
-                          <span>{item.label}</span>
+                          <span className="truncate">{item.label}</span>
                         </div>
                         <ChevronDown
-                          className={`w-4 h-4 transition-transform ${
+                          className={`w-4 h-4 flex-shrink-0 transition-transform ${
                             expandedMenu === item.label ? "rotate-180" : ""
                           }`}
                         />

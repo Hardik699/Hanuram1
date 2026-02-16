@@ -360,36 +360,36 @@ export default function LabourManagement() {
               </div>
 
               {/* Pagination Controls */}
-              <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
-                      {startIdx + 1}-{Math.min(startIdx + itemsPerPage, filteredLabour.length)}
+              <div className="mt-8 p-6 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900/50 dark:to-blue-900/20 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div className="flex items-center justify-between flex-wrap gap-6">
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-blue-600 dark:text-blue-400">
+                      {startIdx + 1}–{Math.min(startIdx + itemsPerPage, filteredLabour.length)}
                     </span>
                     {" "}of{" "}
-                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                    <span className="text-slate-900 dark:text-white">
                       {filteredLabour.length}
                     </span>
                   </span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1">
                     <button
                       onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                       disabled={currentPage === 1}
-                      className="inline-flex items-center justify-center p-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all"
                       title="Previous Page"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-5 h-5" />
                     </button>
-                    <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 min-w-[60px] text-center">
-                      {currentPage}/{totalPages || 1}
+                    <span className="text-sm font-bold text-slate-900 dark:text-white min-w-[50px] text-center px-2 py-1 bg-slate-100 dark:bg-slate-700/50 rounded">
+                      {currentPage} / {totalPages || 1}
                     </span>
                     <button
                       onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                       disabled={currentPage === totalPages || totalPages === 0}
-                      className="inline-flex items-center justify-center p-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all"
                       title="Next Page"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-5 h-5" />
                     </button>
                   </div>
                 </div>

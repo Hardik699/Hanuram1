@@ -209,6 +209,7 @@ export default function CategoryDetail() {
             { label: category?.name || "Details" },
           ]}
           icon={<Folder className="w-6 h-6 text-white" />}
+          showBackButton={true}
           actions={
             !showEditForm ? (
               <div className="flex gap-3">
