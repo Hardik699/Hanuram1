@@ -230,6 +230,7 @@ export default function VendorDetail() {
             { label: vendor?.name ? vendor.name.charAt(0).toUpperCase() + vendor.name.slice(1) : "Details" },
           ]}
           icon={<Building2 className="w-6 h-6 text-white" />}
+          showBackButton={true}
           actions={
             !showEditForm ? (
               <div className="flex gap-3">

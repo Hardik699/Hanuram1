@@ -227,6 +227,7 @@ export default function SubCategoryDetail() {
             { label: subCategory?.name ? subCategory.name.charAt(0).toUpperCase() + subCategory.name.slice(1) : "Details" },
           ]}
           icon={<FolderOpen className="w-6 h-6 text-white" />}
+          showBackButton={true}
           actions={
             !showEditForm ? (
               <div className="flex gap-3">

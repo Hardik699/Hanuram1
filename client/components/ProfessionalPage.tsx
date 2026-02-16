@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 interface ProfessionalPageProps {
   title: string;
@@ -6,6 +8,7 @@ interface ProfessionalPageProps {
   children: React.ReactNode;
   headerAction?: React.ReactNode;
   className?: string;
+  showBackButton?: boolean;
 }
 
 export function ProfessionalPage({
@@ -14,20 +17,34 @@ export function ProfessionalPage({
   children,
   headerAction,
   className = '',
+  showBackButton,
 }: ProfessionalPageProps) {
+  const navigate = useNavigate();
+
   return (
     <div className={`space-y-6 animate-fade-in-up ${className}`}>
       {/* Page Header */}
       <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent">
-            {title}
-          </h1>
-          {description && (
-            <p className="text-slate-600 dark:text-slate-400 mt-2 font-medium">
-              {description}
-            </p>
+        <div className="flex items-center gap-4">
+          {showBackButton && (
+            <button
+              onClick={() => navigate(-1)}
+              className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:shadow-md flex-shrink-0"
+              title="Go back"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
           )}
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent">
+              {title}
+            </h1>
+            {description && (
+              <p className="text-slate-600 dark:text-slate-400 mt-2 font-medium">
+                {description}
+              </p>
+            )}
+          </div>
         </div>
         {headerAction && <div className="flex items-center gap-3">{headerAction}</div>}
       </div>

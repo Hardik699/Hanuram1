@@ -976,6 +976,7 @@ export default function RecipeDetail() {
       <ProfessionalPage
         title={recipe.name}
         description={`View and manage recipe details, history, and quotations for ${recipe.code}.`}
+        showBackButton={true}
         headerAction={
           <div className="flex items-center gap-3">
             {!isProductionUser && (
