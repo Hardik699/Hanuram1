@@ -197,6 +197,7 @@ export default function RMCManagement() {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Vendor prices modal
   const [showVendorPricesModal, setShowVendorPricesModal] = useState(false);
@@ -333,11 +334,17 @@ export default function RMCManagement() {
     });
   };
 
+  // Filter recipes based on search query
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    recipe.code.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   // Pagination calculations
-  const totalPages = Math.ceil(recipes.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredRecipes.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedRecipes = recipes.slice(startIndex, endIndex);
+  const paginatedRecipes = filteredRecipes.slice(startIndex, endIndex);
 
   const handleItemsPerPageChange = (value: string) => {
     setItemsPerPage(parseInt(value));
@@ -1127,17 +1134,55 @@ export default function RMCManagement() {
                   <p className="text-sm text-slate-600 dark:text-slate-400">
                     Showing{" "}
                     <span className="font-bold text-slate-900 dark:text-slate-200">
-                      {recipes.length}
+                      {filteredRecipes.length}
                     </span>{" "}
-                    recipe{recipes.length !== 1 ? "s" : ""}
+                    recipe{filteredRecipes.length !== 1 ? "s" : ""}{searchQuery && (
+                      <>
+                        {" "}(of {recipes.length})
+                      </>
+                    )}
                   </p>
                 </div>
                 <div className="hidden sm:flex items-center gap-3 px-5 py-3 bg-slate-100 dark:bg-slate-700/50 rounded-xl border-2 border-slate-300 dark:border-slate-600 shadow-sm">
                   <TrendingUp className="w-5 h-5 text-slate-600 dark:text-slate-400" />
                   <span className="text-sm font-bold text-slate-900 dark:text-slate-200">
-                    {recipes.length} recipes
+                    {filteredRecipes.length} recipe{filteredRecipes.length !== 1 ? "s" : ""}
                   </span>
                 </div>
+              </div>
+            </div>
+
+            {/* Search Bar */}
+            <div className="mb-4 animate-fade-in-up">
+              <div className="relative">
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search by recipe name or code..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setCurrentPage(1);
+                    }}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -1157,6 +1202,16 @@ export default function RMCManagement() {
                   </div>
                   <p className="font-bold text-slate-900 dark:text-white text-lg">No recipes yet</p>
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">Create your first recipe to get started</p>
+                </div>
+              ) : filteredRecipes.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-24 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
+                  <div className="rounded-full bg-amber-100 dark:bg-amber-900/30 p-4 mb-4">
+                    <svg className="w-12 h-12 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4v2m0 4v2M6.38 4.38a9 9 0 0 1 12.73 0M6.38 19.62a9 9 0 0 0 12.73 0" />
+                    </svg>
+                  </div>
+                  <p className="font-bold text-slate-900 dark:text-white text-lg">No recipes found</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">Try adjusting your search query</p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
@@ -1239,11 +1294,11 @@ export default function RMCManagement() {
                     <div className="flex items-center gap-6">
                       <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                         <span className="text-blue-600 dark:text-blue-400">
-                          {startIndex + 1}–{Math.min(endIndex, recipes.length)}
+                          {startIndex + 1}–{Math.min(endIndex, filteredRecipes.length)}
                         </span>
                         {" "}of{" "}
                         <span className="text-slate-900 dark:text-white">
-                          {recipes.length}
+                          {filteredRecipes.length}
                         </span>
                       </span>
                       <div className="flex items-center gap-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1">
