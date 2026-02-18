@@ -261,8 +261,8 @@ export default function RMManagement() {
         !searchTerm ||
         rm.code.toLowerCase().includes(searchLower) ||
         rm.name.toLowerCase().includes(searchLower) ||
-        rm.categoryName.toLowerCase().includes(searchLower) ||
-        rm.subCategoryName.toLowerCase().includes(searchLower);
+        (rm.categoryName && rm.categoryName.toLowerCase().includes(searchLower)) ||
+        (rm.subCategoryName && rm.subCategoryName.toLowerCase().includes(searchLower));
 
       return (
         matchesCategory && matchesSubCategory && matchesVendor && matchesSearch
