@@ -910,7 +910,7 @@ export default function RMCManagement() {
         ]}
         icon={<BookOpen className="w-6 h-6 text-white" />}
         actions={
-          !isProductionUser && (
+          (
             <button
               onClick={() => navigate("/recipe/new")}
               className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap active:scale-95"
