@@ -52,31 +52,37 @@ export function securityHeaders(_req: Request, res: Response, next: NextFunction
 // Rate limiting - simple implementation
 const requestCounts = new Map<string, Array<number>>();
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 100; // requests per window
+const RATE_LIMIT_MAX_REQUESTS = 1000; // requests per window (increased for development)
 
 export function simpleRateLimit(req: Request, res: Response, next: NextFunction) {
   const ip = req.ip || "unknown";
+
+  // Skip rate limiting for localhost (development environment)
+  if (ip === "127.0.0.1" || ip === "localhost" || ip?.startsWith("::1")) {
+    return next();
+  }
+
   const now = Date.now();
-  
+
   if (!requestCounts.has(ip)) {
     requestCounts.set(ip, []);
   }
-  
+
   const timestamps = requestCounts.get(ip)!;
-  
+
   // Remove old timestamps outside the window
   const recentTimestamps = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW);
-  
+
   if (recentTimestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
     return res.status(429).json({
       success: false,
       message: "Too many requests. Please try again later.",
     });
   }
-  
+
   recentTimestamps.push(now);
   requestCounts.set(ip, recentTimestamps);
-  
+
   next();
 }
 
