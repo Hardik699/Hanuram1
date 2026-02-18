@@ -1657,7 +1657,7 @@ export default function RMDetail() {
                         <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">
                           Select Vendor
                         </label>
-                        <div className="space-y-2">
+                        <div className="relative space-y-2">
                           <input
                             type="text"
                             placeholder="🔍 Search vendor..."
@@ -1667,33 +1667,53 @@ export default function RMDetail() {
                             }
                             className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm placeholder-slate-400"
                           />
-                          <select
-                            value={addPriceFormData.vendorId}
-                            onChange={(e) => {
-                              setAddPriceFormData({
-                                ...addPriceFormData,
-                                vendorId: e.target.value,
-                              });
-                              setVendorSearchInput("");
-                            }}
-                            className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm"
-                          >
-                            <option value="">-- Choose Vendor --</option>
-                            {filteredVendors.length > 0 ? (
-                              filteredVendors.map((vendor) => (
-                                <option key={vendor._id} value={vendor._id}>
+
+                          {/* Auto-suggestions dropdown */}
+                          {vendorSearchInput && filteredVendors.length > 0 && (
+                            <div className="absolute left-0 right-0 top-[100%] mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                              {filteredVendors.map((vendor) => (
+                                <button
+                                  key={vendor._id}
+                                  type="button"
+                                  onClick={() => {
+                                    setAddPriceFormData({
+                                      ...addPriceFormData,
+                                      vendorId: vendor._id,
+                                    });
+                                    setVendorSearchInput("");
+                                  }}
+                                  className="w-full text-left px-4 py-3 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors border-b border-slate-100 dark:border-slate-700 last:border-b-0 text-sm text-slate-900 dark:text-white font-medium"
+                                >
                                   {vendor.name}
-                                </option>
-                              ))
-                            ) : (
-                              <option disabled>No vendors found</option>
-                            )}
-                          </select>
-                          {filteredVendors.length > 0 && vendorSearchInput && (
-                            <p className="text-xs text-slate-500 dark:text-slate-400">
-                              {filteredVendors.length} vendor
-                              {filteredVendors.length !== 1 ? "s" : ""} found
-                            </p>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* No results message */}
+                          {vendorSearchInput && filteredVendors.length === 0 && (
+                            <div className="absolute left-0 right-0 top-[100%] mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-lg z-10 px-4 py-3">
+                              <p className="text-sm text-slate-500 dark:text-slate-400 text-center">No vendors found</p>
+                            </div>
+                          )}
+
+                          {/* Selected vendor display */}
+                          {addPriceFormData.vendorId && (
+                            <div className="px-3 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                              <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                                Selected: {allVendors.find(v => v._id === addPriceFormData.vendorId)?.name}
+                              </p>
+                              <button
+                                type="button"
+                                onClick={() => setAddPriceFormData({
+                                  ...addPriceFormData,
+                                  vendorId: "",
+                                })}
+                                className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-1 underline"
+                              >
+                                Change vendor
+                              </button>
+                            </div>
                           )}
                         </div>
                       </div>
