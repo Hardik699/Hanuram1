@@ -56,7 +56,7 @@ export default function SubCategoryDetail() {
     if (id) {
       fetchAllData();
     }
-  }, [id, navigate]);
+  }, [id]);
 
   const fetchAllData = async () => {
     try {

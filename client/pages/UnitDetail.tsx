@@ -47,7 +47,7 @@ export default function UnitDetail() {
     if (id) {
       fetchUnit();
     }
-  }, [id, navigate]);
+  }, [id]);
 
   const fetchUnit = async () => {
     try {

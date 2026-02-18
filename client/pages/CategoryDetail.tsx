@@ -50,7 +50,7 @@ export default function CategoryDetail() {
     if (id) {
       fetchCategory();
     }
-  }, [id, navigate]);
+  }, [id]);
 
   const fetchCategory = async () => {
     try {

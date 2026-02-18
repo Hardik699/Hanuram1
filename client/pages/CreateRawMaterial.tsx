@@ -90,7 +90,7 @@ export default function CreateRawMaterial() {
         setPageLoading(false);
       }
     });
-  }, [navigate, id]);
+  }, [id]);
 
   const fetchCategories = async () => {
     try {

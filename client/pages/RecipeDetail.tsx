@@ -212,7 +212,7 @@ export default function RecipeDetail() {
       setQuotationForm((prev) => ({ ...prev, createdBy: username }));
     }
     fetchAllData();
-  }, [recipeId, navigate]);
+  }, [recipeId]);
 
   useEffect(() => {
     if (recipe) {

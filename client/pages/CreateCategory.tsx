@@ -73,7 +73,7 @@ export default function CreateCategory() {
       return;
     }
     fetchCategories();
-  }, [navigate]);
+  }, []);
 
   const fetchCategories = async () => {
     try {

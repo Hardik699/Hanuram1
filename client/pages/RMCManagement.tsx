@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { cn } from "@/lib/utils";
+import { cn, apiFetch } from "@/lib/utils";
 import {
   Plus,
   X,
@@ -223,7 +223,7 @@ export default function RMCManagement() {
       return;
     }
     fetchAllData();
-  }, [navigate]);
+  }, []);
 
   const fetchAllData = async () => {
     try {
@@ -244,111 +244,53 @@ export default function RMCManagement() {
 
   const fetchUnits = async () => {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
-      const response = await fetch("/api/units", { signal: controller.signal });
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/units");
       const data = await response.json();
-      if (data.success) setUnits(data.data);
+      if (data.success && Array.isArray(data.data)) setUnits(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === "AbortError")) {
-        console.error("Error fetching units:", error);
-      }
+      console.error("Error fetching units:", error);
     }
   };
 
   const fetchCategories = async () => {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
-      const response = await fetch("/api/categories", {
-        signal: controller.signal,
-      });
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/categories");
       const data = await response.json();
-      if (data.success) setCategories(data.data);
+      if (data.success && Array.isArray(data.data)) setCategories(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === "AbortError")) {
-        console.error("Error fetching categories:", error);
-      }
+      console.error("Error fetching categories:", error);
     }
   };
 
   const fetchSubCategories = async () => {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
-      const response = await fetch("/api/subcategories", {
-        signal: controller.signal,
-      });
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/subcategories");
       const data = await response.json();
-      if (data.success) setSubCategories(data.data);
+      if (data.success && Array.isArray(data.data)) setSubCategories(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === "AbortError")) {
-        console.error("Error fetching subcategories:", error);
-      }
+      console.error("Error fetching subcategories:", error);
     }
   };
 
   const fetchRawMaterials = async () => {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
-
-      const response = await fetch("/api/raw-materials", {
-        signal: controller.signal,
-      });
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/raw-materials");
       const data = await response.json();
-      if (data.success) setRawMaterials(data.data);
-    } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        console.error("Raw materials fetch timed out");
-      } else {
-        console.error("Error fetching raw materials:", error);
+      if (data.success && Array.isArray(data.data)) {
+        setRawMaterials(data.data);
       }
+    } catch (error) {
+      console.error("Error fetching raw materials:", error);
     }
   };
 
   const fetchRecipes = async () => {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
-      const response = await fetch("/api/recipes", {
-        signal: controller.signal,
-      });
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await apiFetch("/api/recipes");
       const data = await response.json();
-      if (data.success) setRecipes(data.data);
+      if (data.success && Array.isArray(data.data)) setRecipes(data.data);
     } catch (error) {
-      if (!(error instanceof Error && error.name === "AbortError")) {
-        console.error("Error fetching recipes:", error);
-      }
+      console.error("Error fetching recipes:", error);
     }
   };
 

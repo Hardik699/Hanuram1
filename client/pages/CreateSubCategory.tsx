@@ -68,7 +68,7 @@ export default function CreateSubCategory() {
     }
     fetchCategories();
     fetchSubcategories();
-  }, [navigate]);
+  }, []);
 
   const fetchCategories = async () => {
     try {

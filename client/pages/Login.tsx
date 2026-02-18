@@ -25,7 +25,7 @@ export default function Login() {
     if (isAuthenticated && !authLoading) {
       navigate("/raw-materials");
     }
-  }, [isAuthenticated, authLoading, navigate]);
+  }, [isAuthenticated, authLoading]);
 
 
   const handleSubmit = async (e: React.FormEvent) => {
