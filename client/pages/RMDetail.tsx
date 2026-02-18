@@ -505,11 +505,17 @@ export default function RMDetail() {
     }
 
     try {
+      // Find the unit name if unitId is provided
+      const unitName = editFormData.unitId
+        ? units.find(u => u._id === editFormData.unitId)?.name || ""
+        : "";
+
       const response = await fetch(`/api/raw-materials/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...editFormData,
+          unitName,
           brandIds: selectedBrands.map(b => b._id),
           brandNames: selectedBrands.map(b => b.name),
           changedBy: localStorage.getItem("username") || "admin",
