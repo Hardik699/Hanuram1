@@ -60,7 +60,7 @@ export default function CreateVendor() {
       return;
     }
     fetchVendors();
-  }, [navigate]);
+  }, []);
 
   const fetchVendors = async () => {
     try {

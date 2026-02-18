@@ -88,7 +88,7 @@ export default function QuotationDetail() {
       return;
     }
     fetchAllData();
-  }, [quotationId, navigate]);
+  }, [quotationId]);
 
   const fetchAllData = async () => {
     try {

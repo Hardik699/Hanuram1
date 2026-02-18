@@ -33,7 +33,7 @@ export default function Dashboard() {
 
     setUser({ username });
     setLoading(false);
-  }, [navigate]);
+  }, []);
 
   if (loading) {
     return (

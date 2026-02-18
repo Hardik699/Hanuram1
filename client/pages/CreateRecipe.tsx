@@ -162,7 +162,7 @@ export default function CreateRecipe() {
         setPageLoading(false);
       }
     });
-  }, [navigate, id]);
+  }, [id]);
 
   const fetchUnits = async () => {
     try {

@@ -149,7 +149,7 @@ export default function RMManagement() {
     fetchUnits();
     fetchVendors();
     fetchRawMaterials();
-  }, [navigate]);
+  }, []);
 
   const fetchCategories = async () => {
     try {

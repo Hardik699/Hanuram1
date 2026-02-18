@@ -59,7 +59,7 @@ export default function VendorDetail() {
     if (id) {
       fetchVendor();
     }
-  }, [id, navigate]);
+  }, [id]);
 
   const fetchVendor = async () => {
     try {

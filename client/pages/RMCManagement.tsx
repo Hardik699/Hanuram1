@@ -223,7 +223,7 @@ export default function RMCManagement() {
       return;
     }
     fetchAllData();
-  }, [navigate]);
+  }, []);
 
   const fetchAllData = async () => {
     try {

@@ -189,14 +189,14 @@ export default function RMDetail() {
       return;
     }
     loadStaticData();
-  }, [navigate]);
+  }, []);
 
   // Fetch specific raw material data when id changes
   useEffect(() => {
     if (id) {
       fetchAllData();
     }
-  }, [id, navigate]);
+  }, [id]);
 
   const fetchAllData = async () => {
     if (!id) return;
