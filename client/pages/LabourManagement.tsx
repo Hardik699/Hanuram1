@@ -42,13 +42,9 @@ export default function LabourManagement() {
         setLoading(true);
       }
 
-      const token = localStorage.getItem("auth_token");
       const response = await fetch("/api/labour", {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
+        credentials: "include",
       });
 
       if (!response.ok) {
