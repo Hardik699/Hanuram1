@@ -42,13 +42,9 @@ export default function LabourManagement() {
         setLoading(true);
       }
 
-      const token = localStorage.getItem("auth_token");
       const response = await fetch("/api/labour", {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
+        credentials: "include",
       });
 
       if (!response.ok) {
@@ -163,69 +159,75 @@ export default function LabourManagement() {
       <div className="space-y-4 sm:space-y-6">
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-fade-in-up">
-          {/* Total Labour Card - Blue */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+          {/* Total Labour Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-7 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-blue-100 dark:border-blue-800/30 group">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
-                  Total Labour
-                </p>
-                <h3 className="text-5xl font-bold text-blue-600 dark:text-blue-400">
+                <div className="inline-block bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-lg mb-4">
+                  <p className="text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest">
+                    Total Labour
+                  </p>
+                </div>
+                <h3 className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                   {totalLabour}
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Workers on Staff</p>
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">Workers on Staff</p>
               </div>
-              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
-                <Users className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-4 rounded-xl group-hover:scale-110 transition-transform">
+                <Users className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
+            <div className="h-1 w-full bg-blue-100 dark:bg-blue-900/20 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          {/* Total Daily Cost Card - Blue */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+          {/* Total Daily Cost Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-7 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-blue-100 dark:border-blue-800/30 group">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
-                  Total Daily Cost
-                </p>
-                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
+                <div className="inline-block bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-lg mb-4">
+                  <p className="text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest">
+                    Total Daily Cost
+                  </p>
+                </div>
+                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                   ₹{totalDailyCost.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Daily expenses</p>
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">Daily expenses</p>
               </div>
-              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
-                <DollarSign className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-4 rounded-xl group-hover:scale-110 transition-transform">
+                <DollarSign className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
+            <div className="h-1 w-full bg-blue-100 dark:bg-blue-900/20 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          {/* Avg Salary Card - Blue */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
+          {/* Avg Salary Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-7 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-blue-100 dark:border-blue-800/30 group">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
-                  Avg Salary/Day
-                </p>
-                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
+                <div className="inline-block bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-lg mb-4">
+                  <p className="text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest">
+                    Avg Salary/Day
+                  </p>
+                </div>
+                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                   ₹{avgSalaryPerDay.toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Per worker</p>
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">Per worker</p>
               </div>
-              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
-                <TrendingUp className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-4 rounded-xl group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
+            <div className="h-1 w-full bg-blue-100 dark:bg-blue-900/20 rounded-full overflow-hidden">
+              <div className="h-full w-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
             </div>
           </div>
         </div>
