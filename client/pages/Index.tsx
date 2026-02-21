@@ -26,11 +26,11 @@ export default function Index() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
       <div className="text-center">
         {/* DUDHI HALWA Heading */}
-        <h1 className="mb-8">
+        <h1 className="mb-8 inline-block bg-blue-600 rounded-2xl px-8 py-6 drop-shadow-xl">
           <img
             src="https://cdn.builder.io/api/v1/image/assets%2F11df88887a504a0e84b722c1bfa40315%2F734e4f7a6db646eea0a6fb364420da6c?format=webp&width=800&height=1200"
             alt="DUDHI HALWA"
-            className="mx-auto h-20 w-auto drop-shadow-lg"
+            className="h-20 w-auto"
           />
         </h1>
         <p className="mt-4 text-slate-600 max-w-md">
