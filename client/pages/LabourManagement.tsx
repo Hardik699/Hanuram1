@@ -163,69 +163,87 @@ export default function LabourManagement() {
       <div className="space-y-4 sm:space-y-6">
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-fade-in-up">
-          {/* Total Labour Card - Blue */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
-            <div className="flex items-start justify-between mb-6">
-              <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
-                  Total Labour
-                </p>
-                <h3 className="text-5xl font-bold text-blue-600 dark:text-blue-400">
-                  {totalLabour}
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Workers on Staff</p>
+          {/* Total Labour Card - Purple Gradient */}
+          <div className="relative overflow-hidden rounded-2xl shadow-elevation-3 hover:shadow-elevation-5 transition-all duration-300 hover:-translate-y-2 group">
+            <div className="absolute inset-0 bg-gradient-to-135 from-purple-500 via-purple-600 to-purple-700 opacity-95"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent"></div>
+            <div className="relative p-6 z-10">
+              <div className="flex items-start justify-between mb-8">
+                <div className="flex-1">
+                  <p className="text-purple-100 text-xs font-semibold uppercase tracking-widest opacity-90 mb-3">
+                    Total Labour
+                  </p>
+                  <h3 className="text-6xl font-black text-white drop-shadow-lg mb-2">
+                    {totalLabour}
+                  </h3>
+                  <p className="text-purple-100 text-sm font-medium">Workers on Staff</p>
+                </div>
+                <div className="bg-white/15 backdrop-blur-sm p-4 rounded-xl border border-white/20 group-hover:bg-white/25 transition-all">
+                  <Users className="w-8 h-8 text-white drop-shadow-lg" />
+                </div>
               </div>
-              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
-                <Users className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+                  <div className="h-full w-full bg-gradient-to-r from-yellow-300 via-purple-200 to-purple-100 rounded-full"></div>
+                </div>
               </div>
-            </div>
-            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          {/* Total Daily Cost Card - Blue */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
-            <div className="flex items-start justify-between mb-6">
-              <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
-                  Total Daily Cost
-                </p>
-                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
-                  ₹{totalDailyCost.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Daily expenses</p>
+          {/* Total Daily Cost Card - Emerald Gradient */}
+          <div className="relative overflow-hidden rounded-2xl shadow-elevation-3 hover:shadow-elevation-5 transition-all duration-300 hover:-translate-y-2 group">
+            <div className="absolute inset-0 bg-gradient-to-135 from-emerald-500 via-emerald-600 to-teal-700 opacity-95"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/20 to-transparent"></div>
+            <div className="relative p-6 z-10">
+              <div className="flex items-start justify-between mb-8">
+                <div className="flex-1">
+                  <p className="text-emerald-100 text-xs font-semibold uppercase tracking-widest opacity-90 mb-3">
+                    Total Daily Cost
+                  </p>
+                  <h3 className="text-5xl font-black text-white drop-shadow-lg mb-2">
+                    ₹{totalDailyCost.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+                  </h3>
+                  <p className="text-emerald-100 text-sm font-medium">Daily expenses</p>
+                </div>
+                <div className="bg-white/15 backdrop-blur-sm p-4 rounded-xl border border-white/20 group-hover:bg-white/25 transition-all">
+                  <DollarSign className="w-8 h-8 text-white drop-shadow-lg" />
+                </div>
               </div>
-              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
-                <DollarSign className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+                  <div className="h-full w-full bg-gradient-to-r from-cyan-300 via-emerald-200 to-emerald-100 rounded-full"></div>
+                </div>
               </div>
-            </div>
-            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
 
-          {/* Avg Salary Card - Blue */}
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 shadow-elevation-2 border border-blue-200/50 dark:border-blue-800/30 hover:shadow-elevation-4 transition-all duration-300 hover:-translate-y-2">
-            <div className="flex items-start justify-between mb-6">
-              <div className="flex-1">
-                <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">
-                  Avg Salary/Day
-                </p>
-                <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
-                  ₹{avgSalaryPerDay.toLocaleString("en-IN", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Per worker</p>
+          {/* Avg Salary Card - Orange Gradient */}
+          <div className="relative overflow-hidden rounded-2xl shadow-elevation-3 hover:shadow-elevation-5 transition-all duration-300 hover:-translate-y-2 group">
+            <div className="absolute inset-0 bg-gradient-to-135 from-orange-500 via-orange-600 to-red-700 opacity-95"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/20 to-transparent"></div>
+            <div className="relative p-6 z-10">
+              <div className="flex items-start justify-between mb-8">
+                <div className="flex-1">
+                  <p className="text-orange-100 text-xs font-semibold uppercase tracking-widest opacity-90 mb-3">
+                    Avg Salary/Day
+                  </p>
+                  <h3 className="text-5xl font-black text-white drop-shadow-lg mb-2">
+                    ₹{avgSalaryPerDay.toLocaleString("en-IN", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </h3>
+                  <p className="text-orange-100 text-sm font-medium">Per worker</p>
+                </div>
+                <div className="bg-white/15 backdrop-blur-sm p-4 rounded-xl border border-white/20 group-hover:bg-white/25 transition-all">
+                  <TrendingUp className="w-8 h-8 text-white drop-shadow-lg" />
+                </div>
               </div>
-              <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 p-4 rounded-2xl">
-                <TrendingUp className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+                  <div className="h-full w-full bg-gradient-to-r from-yellow-300 via-orange-200 to-orange-100 rounded-full"></div>
+                </div>
               </div>
-            </div>
-            <div className="h-1.5 w-full bg-blue-100 dark:bg-blue-900/30 rounded-full overflow-hidden">
-              <div className="h-full w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full"></div>
             </div>
           </div>
         </div>
