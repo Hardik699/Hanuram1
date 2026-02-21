@@ -160,6 +160,60 @@
     @apply text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-all;
   }
 
+  /* Professional Button Styles */
+  .prof-btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    background-color: #3b82f6;
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  }
+
+  .prof-btn-primary:hover:not(:disabled) {
+    background-color: #2563eb;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .prof-btn-primary:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .prof-btn-secondary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    background-color: white;
+    color: #4b5563;
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .prof-btn-secondary:hover:not(:disabled) {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .prof-btn-secondary:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .prof-btn-danger {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    background-color: #ef4444;
+    color: white;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  }
+
+  .prof-btn-danger:hover:not(:disabled) {
+    background-color: #dc2626;
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .prof-btn-danger:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
   /* Input Styling - Clean & Modern */
   input,
   textarea,
